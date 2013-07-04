@@ -16,6 +16,8 @@ LICENSE=	2-clause-bsd
 WRKSRC=			${WRKDIR}/tcl${TCL_VERSION}
 
 USE_GCC_RUNTIME=	yes
+USE_MULTIARCH=		lib
+MULTIARCH_DIRS.lib=	# manually set in PLIST
 
 GNU_CONFIGURE=		yes
 CONFIGURE_DIRS=		unix
@@ -41,7 +43,7 @@ CONFIGURE_ARGS.NetBSD+=	ac_cv_func_gethostbyname_r=no
 SUBST_CLASSES+=		tcl-config
 SUBST_STAGE.tcl-config=	post-build
 SUBST_FILES.tcl-config=	unix/tclConfig.sh
-SUBST_SED.tcl-config+=	-e "s|${WRKSRC}/unix|${PREFIX}/lib|"
+SUBST_SED.tcl-config+=	-e "s|${WRKSRC}/unix|${PREFIX}/lib${LIBARCHSUFFIX}|"
 SUBST_SED.tcl-config+=	-e "s|${WRKSRC}|${PREFIX}/include/tcl|"
 
 PLIST_SUBST+=		SONUM=${TCL_SONUM}
@@ -55,7 +57,7 @@ CONFIGURE_ARGS+=	--with-system-sqlite
 SUBST_CLASSES+=		sqllink
 SUBST_STAGE.sqllink=	pre-configure
 SUBST_FILES.sqllink=	pkgs/sqlite${SQLITE3_VERSION}/configure
-SUBST_SED.sqllink=	-e "/LIBS=/s|-lsqlite3|-L${BUILDLINK_PREFIX.sqlite3}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.sqlite3}/lib -lsqlite3|g"
+SUBST_SED.sqllink=	-e "/LIBS=/s|-lsqlite3|-L${BUILDLINK_PREFIX.sqlite3}/lib${LIBARCHSUFFIX} ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.sqlite3}/lib${LIBARCHSUFFIX} -lsqlite3|g"
 
 # install-sh requires $SHELL is an extremely close match to /bin/sh
 MAKE_ENV+=		SHELL=${SH:Q}
