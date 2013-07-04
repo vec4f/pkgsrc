@@ -14,6 +14,7 @@ LICENSE=	gnu-lgpl-v2
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+= --with-ca-certificates=/etc/openssl/certs/ca-certificates.crt
 USE_LIBTOOL=	yes
+USE_MULTIARCH=	lib
 USE_TOOLS+=	pkg-config gmake gettext
 
 # gcc>=4.2 specific -Werror=XXX flags will be added unconditionally.
