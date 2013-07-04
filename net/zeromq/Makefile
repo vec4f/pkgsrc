@@ -14,6 +14,7 @@ LICENSE=	gnu-lgpl-v3
 USE_LANGUAGES=		c c99 gnu++11
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-libsodium=${BUILDLINK_PREFIX.libsodium}
