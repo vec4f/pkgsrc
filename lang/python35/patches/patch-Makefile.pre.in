@@ -14,6 +14,15 @@ Swap targets libinstall and libainstall, to byte-compile python-config.py.
  NO_AS_NEEDED=	@NO_AS_NEEDED@
  LDLAST=		@LDLAST@
  SGI_ABI=	@SGI_ABI@
+@@ -143,7 +143,7 @@ EXT_SUFFIX=	@EXT_SUFFIX@
+ LDSHARED=	@LDSHARED@ $(PY_LDFLAGS)
+ BLDSHARED=	@BLDSHARED@ $(PY_LDFLAGS)
+ LDCXXSHARED=	@LDCXXSHARED@
+-DESTSHARED=	$(BINLIBDEST)/lib-dynload
++DESTSHARED=	$(BINLIBDEST)/lib-dynload@LIBARCHSUFFIX@
+ 
+ # Executable suffix (.exe on Windows and Mac OS X)
+ EXE=		@EXEEXT@
 @@ -202,7 +202,7 @@ DIST=		$(DISTFILES) $(DISTDIRS)
  LIBRARY=	@LIBRARY@
  LDLIBRARY=      @LDLIBRARY@
@@ -40,13 +49,33 @@ Swap targets libinstall and libainstall, to byte-compile python-config.py.
  		sharedinstall oldsharedinstall altmaninstall \
  		@FRAMEWORKALTINSTALLLAST@
  
-@@ -1110,7 +1109,8 @@ altbininstall: $(BUILDPYTHON) @FRAMEWORK
+@@ -1079,7 +1079,7 @@ $(DESTSHARED):
+ # Install the interpreter with $(VERSION) affixed
+ # This goes into $(exec_prefix)
+ altbininstall: $(BUILDPYTHON) @FRAMEWORKPYTHONW@
+-	@for i in $(BINDIR) $(LIBDIR); \
++	@for i in $(BINDIR) $(LIBDIR)@LIBARCHSUFFIX@; \
+ 	do \
+ 		if test ! -d $(DESTDIR)$$i; then \
+ 			echo "Creating directory $$i"; \
+@@ -1102,15 +1102,16 @@ altbininstall: $(BUILDPYTHON) @FRAMEWORK
+ 		if test -n "$(DLLLIBRARY)" ; then \
+ 			$(INSTALL_SHARED) $(DLLLIBRARY) $(DESTDIR)$(BINDIR); \
+ 		else \
+-			$(INSTALL_SHARED) $(LDLIBRARY) $(DESTDIR)$(LIBDIR)/$(INSTSONAME); \
++			$(INSTALL_SHARED) $(LDLIBRARY) $(DESTDIR)$(LIBDIR)@LIBARCHSUFFIX@/$(INSTSONAME); \
+ 			if test $(LDLIBRARY) != $(INSTSONAME); then \
+-				(cd $(DESTDIR)$(LIBDIR); $(LN) -sf $(INSTSONAME) $(LDLIBRARY)) \
++				(cd $(DESTDIR)$(LIBDIR)@LIBARCHSUFFIX@; $(LN) -sf $(INSTSONAME) $(LDLIBRARY)) \
+ 			fi \
+ 		fi; \
  		if test -n "$(PY3LIBRARY)"; then \
- 			$(INSTALL_SHARED) $(PY3LIBRARY) $(DESTDIR)$(LIBDIR)/$(PY3LIBRARY); \
+-			$(INSTALL_SHARED) $(PY3LIBRARY) $(DESTDIR)$(LIBDIR)/$(PY3LIBRARY); \
++			$(INSTALL_SHARED) $(PY3LIBRARY) $(DESTDIR)$(LIBDIR)@LIBARCHSUFFIX@/$(PY3LIBRARY); \
  		fi; \
 -	else	true; \
 +	elif test -f $(INSTSONAME); then \
-+		$(INSTALL_SHARED) $(INSTSONAME) $(DESTDIR)$(LIBDIR); \
++		$(INSTALL_SHARED) $(INSTSONAME) $(DESTDIR)$(LIBDIR)@LIBARCHSUFFIX@; \
  	fi
  	if test "x$(LIPO_32BIT_FLAGS)" != "x" ; then \
  		rm -f $(DESTDIR)$(BINDIR)python$(VERSION)-32$(EXE); \
@@ -73,3 +102,12 @@ Swap targets libinstall and libainstall, to byte-compile python-config.py.
  		$(PYTHON_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/Grammar.txt
  	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
  		$(PYTHON_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/PatternGrammar.txt
+@@ -1376,7 +1368,7 @@ inclinstall:
+ LIBPL=		@LIBPL@
+ 
+ # pkgconfig directory
+-LIBPC=		$(LIBDIR)/pkgconfig
++LIBPC=		$(LIBDIR)@LIBARCHSUFFIX@/pkgconfig
+ 
+ libainstall:	@DEF_MAKE_RULE@ python-config
+ 	@for i in $(LIBDIR) $(LIBPL) $(LIBPC); \
