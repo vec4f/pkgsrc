@@ -12,6 +12,7 @@ LICENSE=	mpl-1.1 OR gnu-lgpl-v2.1 OR gnu-gpl-v2
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config perl:run autoreconf autoconf automake
 USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++03

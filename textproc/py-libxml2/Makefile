@@ -8,6 +8,7 @@ COMMENT=	Python wrapper for libxml2
 LICENSE=	modified-bsd
 
 USE_GCC_RUNTIME=	yes
+USE_MULTIARCH=		lib
 
 PYSETUPSUBDIR=	python
 NO_CONFIGURE=	YES
