@@ -15,6 +15,7 @@ DEPENDS+=	glib-networking-[0-9]*:../../net/glib-networking
 
 USE_TOOLS+=		pkg-config gmake intltool msgfmt
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 
 # XXX work around botched gettext check (ignores libintl)
