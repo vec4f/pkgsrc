@@ -11,6 +11,7 @@ COMMENT=	YAML 1.1 parser and emitter written in C
 LICENSE=	mit
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	yaml-0.1.pc.in
 TEST_TARGET=		check

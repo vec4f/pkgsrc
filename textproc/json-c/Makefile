@@ -10,6 +10,7 @@ COMMENT=	JSON library in C
 LICENSE=	mit
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	json-c.pc.in
