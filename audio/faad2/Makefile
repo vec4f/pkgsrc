@@ -12,6 +12,7 @@ LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		autoconf automake autoreconf gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--includedir=${PREFIX}/include/faad2
