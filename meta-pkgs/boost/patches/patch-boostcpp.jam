@@ -9,7 +9,7 @@ Allow exclusion of all libraries.
          : <location>$(stage-locate)/lib
            <install-dependencies>on <install-type>LIB
            <install-no-version-symlinks>on
-+          <dll-path>@PREFIX@/lib
++          <dll-path>@PREFIX@/lib@LIBARCHSUFFIX@
          ;
      $(p).mark-target-as-explicit stage-proper ;
  
