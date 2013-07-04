@@ -17,6 +17,7 @@ BUILD_DEPENDS+=	libxslt-[0-9]*:../../textproc/libxslt
 
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
+USE_MULTIARCH=		lib
 PKGCONFIG_OVERRIDE=	tidy.pc.cmake.in
 
 GCC_REQD+=	4.4

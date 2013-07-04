@@ -13,6 +13,7 @@ COMMENT=	The W3C Reference Library
 LICENSE=	w3c
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake gzcat perl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-expat=${BUILDLINK_PREFIX.expat}

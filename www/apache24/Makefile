@@ -22,6 +22,7 @@ BUILD_DEFS+=	IPV6_READY
 BUILD_DEFS+=	VARBASE
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		bin lib
 USE_TOOLS+=		pax perl pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-layout=NetBSD
@@ -32,6 +33,13 @@ CONFIGURE_ARGS+=	--with-apr-util=${BUILDLINK_PREFIX.apr-util}
 CONFIGURE_ARGS+=	--with-port=80
 CONFIGURE_ENV+=		perlbin=${PERL5:Q}
 CONFIGURE_ENV+=		ac_cv_path_RSYNC=/nonexistent
+
+MULTIARCH_DIRS.lib=	lib share/httpd/build
+
+CHECK_INTERPRETER_SKIP+=	lib${LIBARCHSUFFIX}/httpd/httpd.exp
+CHECK_PORTABILITY_SKIP+=	srclib/pcre/* \
+				srclib/apr-util/* \
+				srclib/apr/*
 
 .include "../../mk/compiler.mk"
 
@@ -83,7 +91,7 @@ PKG_USERS_VARS=		APACHE_USER
 PKG_SYSCONFVAR=		apache
 PKG_SYSCONFSUBDIR?=	httpd
 EGDIR=			${PREFIX}/share/examples/httpd
-SBINDIR=		${PREFIX}/sbin
+SBINDIR=		${PREFIX}/sbin${BINARCHSUFFIX}
 CONF_FILES+=		${EGDIR}/httpd.conf ${PKG_SYSCONFDIR}/httpd.conf
 .for f in autoindex dav default info languages manual mpm \
 	multilang-errordoc ssl userdir vhosts
@@ -125,6 +133,8 @@ SUBST_SED.paths+=	-e "s|@VARBASE@|${VARBASE}|g"
 SUBST_SED.paths+=	-e "s|@SYSCONFDIR@|${PKG_SYSCONFDIR}|g"
 SUBST_SED.paths+=	-e "s|@PAX@|${PAX}|g"
 SUBST_SED.paths+=	-e "s|@LOCALBASE@|${PREFIX}|g"
+SUBST_SED.paths+=	-e "s|@BINARCHSUFFIX@|${BINARCHSUFFIX}|g"
+SUBST_SED.paths+=	-e "s|@LIBARCHSUFFIX@|${LIBARCHSUFFIX}|g"
 
 SUBST_CLASSES+=		apr-lt
 SUBST_STAGE.apr-lt=	post-configure
@@ -150,7 +160,7 @@ SUBST_SED.confs+=	-e 's|^Listen \(.*\)|Listen 0.0.0.0:\1|g'
 SUBST_CLASSES+=			abs_srcdir
 SUBST_STAGE.abs_srcdir=		post-install
 SUBST_MESSAGE.abs_srcdir=	Fixing abs_srcdir
-SUBST_FILES.abs_srcdir=		${DESTDIR}${PREFIX}/share/httpd/build/config_vars.mk
+SUBST_FILES.abs_srcdir=		${DESTDIR}${PREFIX}/share/httpd/build${LIBARCHSUFFIX}/config_vars.mk
 SUBST_SED.abs_srcdir=		-e 's|^\(abs_srcdir =\) .*|\1 ${PREFIX}/share/httpd|'
 
 REPLACE_PERL=		docs/cgi-examples/printenv
@@ -171,24 +181,24 @@ INSTALL_TARGET=		install-conf install
 INSTALL_MAKE_FLAGS+=	sysconfdir="${EGDIR}"
 
 post-install:
-	${LN} -sf ${LOCALBASE}/libexec/apr/libtool ${DESTDIR}${PREFIX}/share/httpd/build
+	${LN} -sf ${LOCALBASE}/libexec${LIBARCHSUFFIX}/apr/libtool ${DESTDIR}${PREFIX}/share/httpd/build${LIBARCHSUFFIX}
 	${LN} -sf ${SBINDIR}/envvars-std ${DESTDIR}${SBINDIR}/envvars
 
-	${INSTALL_SCRIPT} ${WRKDIR}/mkcert ${DESTDIR}${PREFIX}/bin
+	${INSTALL_SCRIPT} ${WRKDIR}/mkcert ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}
 
 .for file in ${FIX_PERMS_SBIN}
-	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/sbin/${file}
-	${CHMOD} ${BINMODE} ${DESTDIR}${PREFIX}/sbin/${file}
+	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/sbin${BINARCHSUFFIX}/${file}
+	${CHMOD} ${BINMODE} ${DESTDIR}${PREFIX}/sbin${BINARCHSUFFIX}/${file}
 .endfor
 
 .for file in ${FIX_PERMS_BIN}
-	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/bin/${file}
-	${CHMOD} ${BINMODE} ${DESTDIR}${PREFIX}/bin/${file}
+	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}/${file}
+	${CHMOD} ${BINMODE} ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}/${file}
 .endfor
 
 	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/share/httpd
 	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/include/httpd
-	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/httpd
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/test-cgi
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/printenv
 
@@ -196,9 +206,9 @@ post-install:
 	${CHOWN} ${MANOWN}:${MANGRP} ${DESTDIR}${PREFIX}/${PKGMANDIR}/${file}
 .endfor
 
-	${CHMOD} -x ${DESTDIR}${PREFIX}/sbin/envvars-std
-.if exists(${DESTDIR}${PREFIX}/sbin/suexec)
-	${CHMOD} -w ${DESTDIR}${PREFIX}/sbin/suexec
+	${CHMOD} -x ${DESTDIR}${PREFIX}/sbin${BINARCHSUFFIX}/envvars-std
+.if exists(${DESTDIR}${PREFIX}/sbin${BINARCHSUFFIX}/suexec)
+	${CHMOD} -w ${DESTDIR}${PREFIX}/sbin${BINARCHSUFFIX}/suexec
 .endif
 
 .include "../../mk/pthread.buildlink3.mk"
