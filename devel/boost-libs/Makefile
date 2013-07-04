@@ -8,7 +8,7 @@ BOOST_INSTALL_LIBS=	yes
 .include "../../meta-pkgs/boost/Makefile.common"
 PKGREVISION=		1
 
-INSTALLATION_DIRS+=	lib
+INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}
 
 BJAM_ARGS+=		--without-python
 PLIST_VARS+=		backtrace context fiber log longdbl

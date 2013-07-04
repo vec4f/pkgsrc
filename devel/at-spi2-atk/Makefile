@@ -12,6 +12,7 @@ COMMENT=	Assistive Technology Service Provider Interface A11y Toolkit
 LICENSE=	gnu-lgpl-v2
 
 USE_LIBTOOL=	yes
+USE_MULTIARCH=	lib
 USE_TOOLS+=	gmake intltool msgfmt pkg-config
 GNU_CONFIGURE=	yes
 
