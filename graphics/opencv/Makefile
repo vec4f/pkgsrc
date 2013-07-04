@@ -13,6 +13,7 @@ LICENSE=	modified-bsd
 
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++11
+USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config
 
@@ -27,7 +28,7 @@ PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	samples/python/*.py
 
 # includes configure output and paths to gmake etc.
-CHECK_WRKREF_SKIP=	${PREFIX}/lib/libopencv_core.*
+CHECK_WRKREF_SKIP=	${PREFIX}/lib*/libopencv_core.*
 
 .include "options.mk"
 
@@ -36,6 +37,7 @@ CMAKE_ARGS+=		-DZLIB_ROOT=${BUILDLINK_PREFIX.zlib}
 CMAKE_ARGS.SunOS+=	-DENABLE_PRECOMPILED_HEADERS=NO
 CMAKE_ARGS.SunOS+=	-DOPENCV_PYTHON_SKIP_LINKER_EXCLUDE_LIBS=YES
 CMAKE_ARGS+=		-DWITH_EIGEN=NO
+CMAKE_ARGS+=		-DOPENCV_CONFIG_INSTALL_PATH=lib${LIBARCHSUFFIX}/cmake/opencv
 
 CONFIGURE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
 
