@@ -14,6 +14,7 @@ COMMENT=	WWW indexing and searching system
 
 USE_LANGUAGES=		c c++03
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-cgi-bin-dir=${PREFIX}/libexec/cgi-bin
 CONFIGURE_ARGS+=	--with-common-dir=${PREFIX}/share/htdig/common
