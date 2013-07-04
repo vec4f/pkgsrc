@@ -6,7 +6,7 @@ $NetBSD: patch-boostcpp.jam,v 1.1 2017/08/24 19:31:32 adam Exp $
          : <location>$(stage-locate)/lib
            <install-dependencies>on <install-type>LIB
            <install-no-version-symlinks>on
-+          <dll-path>@PREFIX@/lib
++          <dll-path>@PREFIX@/lib@LIBARCHSUFFIX@
          ;
      $(p).mark-target-as-explicit stage-proper ;
  
