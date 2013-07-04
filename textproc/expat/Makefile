@@ -12,6 +12,7 @@ LICENSE=	mit
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 
 # C++ is needed for tests only
 #USE_LANGUAGES=		c c++
