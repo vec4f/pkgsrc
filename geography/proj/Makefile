@@ -20,6 +20,7 @@ PREV_PKGPATH=		misc/proj
 
 USE_LANGUAGES=		c99
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 
