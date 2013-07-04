@@ -21,6 +21,7 @@ GITHUB_RELEASE=	gd-${PKGVERSION_NOREV}
 .include "options.mk"
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		bin lib
 USE_TOOLS+=		perl:run pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-werror

@@ -21,10 +21,12 @@ LICENSE=	gnu-gpl-v2
 
 USE_TOOLS+=	gmake flex pax perl
 USE_FEATURES=	snprintf
+USE_MULTIARCH=	lib
 
 INSTALL_TARGET=	install-dev install-run
 MAKE_ENV+=	INSTALL=${INSTALL:Q} STRIPFLAG=${_STRIPFLAG_INSTALL:Q} \
-		pkgdir=${STAGEDIR} MACHINE=${MACHINE:Q}
+		pkgdir=${STAGEDIR} MACHINE=${MACHINE:Q} \
+		LIBARCHSUFFIX=${LIBARCHSUFFIX:Q}
 MAKE_FLAGS+=	PKGMANDIR=${PKGMANDIR}
 MAKE_FLAGS+=	CFLAGS_FOR_BUILD=${CFLAGS:Q}
 MAKE_FLAGS+=	LDFLAGS_FOR_BUILD=${LDFLAGS:Q}
@@ -38,7 +40,7 @@ REPLACE_PERL+=	editor/ppmshadow
 REPLACE_PERL+=	generator/ppmrainbow
 REPLACE_PERL+=	manweb
 REPLACE_SH+=	buildtools/stamp-date
-STAGEDIR=	${WRKDIR}/staging
+STAGEDIR=	${WRKDIR}/staging-${ABI}
 WRKSRC=		${WRKDIR}/netpbm
 
 WRAPPER_REORDER_CMDS+=	reorder:l:rle:netpbm
