@@ -12,6 +12,7 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
+USE_MULTIARCH=		lib
 CMAKE_ARGS+=		-DBUILD_SHARED_LIBS=YES
 PKGCONFIG_OVERRIDE=	libmatroska.pc.in
 
