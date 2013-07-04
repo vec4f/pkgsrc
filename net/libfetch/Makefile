@@ -11,6 +11,7 @@ COMMENT=	Library to access HTTP/FTP server
 LICENSE=	modified-bsd
 
 USE_FEATURES=		nbcompat
+USE_MULTIARCH=		lib
 
 USE_BSD_MAKEFILE=	yes
 
@@ -19,7 +20,7 @@ USE_BSD_MAKEFILE=	yes
 CHECK_PERMS=		no
 .endif
 
-INSTALLATION_DIRS=	include lib ${PKGMANDIR}/cat3 ${PKGMANDIR}/man3
+INSTALLATION_DIRS=	include lib${LIBARCHSUFFIX} ${PKGMANDIR}/cat3 ${PKGMANDIR}/man3
 
 BUILD_TARGET=	depend all
 INSTALL_TARGET=	install includes
