@@ -12,6 +12,7 @@ COMMENT=	Library for the Ogg Vorbis audio encoding format
 LICENSE=	modified-bsd
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 TEST_TARGET=		check
 

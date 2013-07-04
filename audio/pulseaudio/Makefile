@@ -18,6 +18,7 @@ GCC_REQD+=	4.8
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		aclocal autoheader autoconf automake gmake gm4 intltool msgfmt pkg-config
 GNU_CONFIGURE=		yes
