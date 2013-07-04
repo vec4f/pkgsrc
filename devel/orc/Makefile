@@ -11,6 +11,7 @@ COMMENT=	Compiler for vector operations
 LICENSE=	modified-bsd
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	orc.pc.in

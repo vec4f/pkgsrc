@@ -12,6 +12,7 @@ COMMENT=	Library for array-oriented data access
 USE_TOOLS+=		m4
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-doxygen
 CONFIGURE_ARGS+=	--disable-examples

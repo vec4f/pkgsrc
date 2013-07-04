@@ -13,8 +13,8 @@ CONFIGURE_ARGS+=	--enable-widec
 CONFIGURE_ARGS+=	--includedir=${PREFIX}/include/ncursesw
 
 INSTALLATION_DIRS+=	include/ncursesw
-INSTALLATION_DIRS+=	bin
-INSTALLATION_DIRS+=	lib/pkgconfig
+INSTALLATION_DIRS+=	bin${BINARCHSUFFIX}
+INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/pkgconfig
 
 BUILD_TARGET=	libs
 
@@ -31,10 +31,10 @@ post-build:
 do-install:
 	cd ${WRKSRC}/include &&	\
 	${MAKE_ENV} ${MAKE_PROGRAM} ${INSTALL_MAKE_FLAGS} install
-	${INSTALL_SCRIPT} ${WRKSRC}/misc/ncurses-config ${DESTDIR}${PREFIX}/bin/ncursesw${NC_VERS:R}-config
+	${INSTALL_SCRIPT} ${WRKSRC}/misc/ncurses-config ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}/ncursesw${NC_VERS:R}-config
 	for LIB in gnuform gnumenu ncurses++ ncurses gnupanel; do	\
 		${LIBTOOL} --mode=install ${INSTALL_PROGRAM}	\
-		    ${WRKSRC}/lib/lib$${LIB}w.la ${DESTDIR}${PREFIX}/lib;	\
+		    ${WRKSRC}/lib/lib$${LIB}w.la ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX};	\
 	done
 	${INSTALL_DATA} ${WRKSRC}/misc/*.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
 

@@ -7,7 +7,7 @@ PKGREVISION=	2
 
 NO_BUILD=		yes
 PYTHON_FOR_BUILD_ONLY=	yes
-INSTALLATION_DIRS=	include/pygtk-2.0 lib/pkgconfig
+INSTALLATION_DIRS=	include/pygtk-2.0 lib${LIBARCHSUFFIX}/pkgconfig
 # we do not really need py-cairo's pkg-config flags
 # just some non-empty valid arguments so py-cairo is detected
 # as found
@@ -22,7 +22,7 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/gobject/pygobject.h \
 		${DESTDIR}${PREFIX}/include/pygtk-2.0
 	${INSTALL_DATA} ${WRKSRC}/pygobject-2.0.pc \
-		${DESTDIR}${PREFIX}/lib/pkgconfig
+		${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
 
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gobject-introspection=	gobject-introspection>=0.9.5
