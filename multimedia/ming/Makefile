@@ -16,6 +16,7 @@ USE_TOOLS+=	pkg-config bison flex
 USE_TOOLS+=	aclocal autoconf automake autoheader
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
+USE_MULTIARCH=	bin lib
 
 CONFIGURE_ARGS+=	--disable-python
 CONFIGURE_ARGS+=	--disable-perl
