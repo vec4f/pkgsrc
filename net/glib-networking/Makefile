@@ -12,7 +12,9 @@ LICENSE=	gnu-lgpl-v2
 
 DEPENDS=	mozilla-rootcerts>=1.0.20150804nb1:../../security/mozilla-rootcerts
 
+
 MESON_ARGS+=	-Dca_certificates_path=${PREFIX}/share/mozilla-rootcerts/cacert.pem
+USE_MULTIARCH=	lib
 USE_TOOLS+=	pkg-config gmake gettext
 
 REPLACE_PYTHON+=	find-ca-certificates
