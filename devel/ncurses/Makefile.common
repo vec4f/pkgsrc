@@ -16,6 +16,7 @@ LICENSE=	mit
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake pkg-config tbl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-libtool
@@ -23,7 +24,7 @@ CONFIGURE_ARGS+=	--enable-bsdpad
 CONFIGURE_ARGS+=	--enable-overwrite
 CONFIGURE_ARGS+=	--with-cxx-binding
 CONFIGURE_ARGS+=	--enable-pc-files
-CONFIGURE_ARGS+=	--with-pkg-config-libdir=${PREFIX}/lib/pkgconfig
+CONFIGURE_ARGS+=	--with-pkg-config-libdir=${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
 CONFIGURE_ARGS+=	--without-ada
 CONFIGURE_ARGS+=	--without-gpm
 CONFIGURE_ARGS+=	--with-manpage-format=normal
