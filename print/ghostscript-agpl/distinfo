@@ -7,6 +7,6 @@ Size (ghostscript-9.25.tar.xz) = 33027708 bytes
 SHA1 (patch-base_gserrors_h) = ce75cfb7528871842a3bd35e18a6d91c89823909
 SHA1 (patch-base_lib.mak) = 723926f167b49568376ef0c0da6aa4ec01fe1516
 SHA1 (patch-base_mkromfs.c) = 96006928e0b5381e7101027372b6e6408f1c4a0b
-SHA1 (patch-base_unix-dll.mak) = 73b5ee7fcbc7940ce72f44b35417d624f7ae5bca
+SHA1 (patch-base_unix-dll.mak) = 6b7f81afd418ec7c343c9db52f3b7ab535d4b1f1
 SHA1 (patch-configure) = 08ed9451fc3cf1aade8992e4297c7df736416c8b
 SHA1 (patch-devices_devs.mak) = 9857c177e7a6a28ee326dbc878bbe52ccbcfedce

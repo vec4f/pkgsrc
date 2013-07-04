@@ -25,12 +25,12 @@ Add some rpaths.
  $(GSSOC_XE): gs-so-links-subtarget $(PSSRC)dxmainc.c $(UNIX_DLL_MAK) $(MAKEDIRS)
  	$(GLCC) $(GLO_)dxmainc.$(OBJ) $(C_) $(PSSRC)dxmainc.c
 -	$(GLCC) -L$(BINDIR) $(LDFLAGS) $(O_) $(GSSOC_XE) $(GLOBJ)dxmainc.$(OBJ) -l$(GS_SO_BASE)
-+	$(GLCC) -L$(BINDIR) -L$(PREFIX)/lib -Wl,-R$(PREFIX)/lib $(LDFLAGS) $(O_) $(GSSOC_XE) $(GLOBJ)dxmainc.$(OBJ) -l$(GS_SO_BASE)
++	$(GLCC) -L$(BINDIR) -L$(PREFIX)/lib$(LIBARCHSUFFIX) -Wl,-R$(PREFIX)/lib$(LIBARCHSUFFIX) $(LDFLAGS) $(O_) $(GSSOC_XE) $(GLOBJ)dxmainc.$(OBJ) -l$(GS_SO_BASE)
  
  $(GSSOX_XE): gs-so-links-subtarget $(PSSRC)$(SOC_LOADER).c $(UNIX_DLL_MAK) $(MAKEDIRS)
  	$(GLCC) $(SOC_CFLAGS) $(GLO_)$(SOC_LOADER).$(OBJ) $(C_) $(PSSRC)$(SOC_LOADER).c
 -	$(GLCC) -L$(BINDIR) $(LDFLAGS) $(O_) $(GSSOX_XE) $(GLOBJ)$(SOC_LOADER).$(OBJ) -l$(GS_SO_BASE) $(SOC_LIBS)
-+	$(GLCC) -L$(BINDIR) -L$(PREFIX)/lib -Wl,-R$(PREFIX)/lib $(LDFLAGS) $(O_) $(GSSOX_XE) $(GLOBJ)$(SOC_LOADER).$(OBJ) -l$(GS_SO_BASE) $(SOC_LIBS)
++	$(GLCC) -L$(BINDIR) -L$(PREFIX)/lib$(LIBARCHSUFFIX) -Wl,-R$(PREFIX)/lib$(LIBARCHSUFFIX) $(LDFLAGS) $(O_) $(GSSOX_XE) $(GLOBJ)$(SOC_LOADER).$(OBJ) -l$(GS_SO_BASE) $(SOC_LIBS)
  
  $(PCLSOC_XE): gpcl6-so-links-subtarget $(UNIX_DLL_MAK) $(PLOBJ)$(REALMAIN_SRC).$(OBJ) $(MAKEDIRS)
  	$(GLCC) -L$(BINDIR) $(LDFLAGS) $(O_) $(PCLSOC_XE) $(PLOBJ)$(REALMAIN_SRC).$(OBJ) -l$(PCL_SO_BASE)
