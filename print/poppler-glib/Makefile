@@ -45,11 +45,11 @@ BUILDLINK_API_DEPENDS.poppler+=     poppler-${POPPLER_VERS}{,nb*}
 
 INSTALL_DIRS=		glib
 
-INSTALLATION_DIRS+=	lib/pkgconfig
+INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/pkgconfig
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/poppler-cairo.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
-	${INSTALL_DATA} ${WRKSRC}/poppler-glib.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${WRKSRC}/poppler-cairo.pc ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
+	${INSTALL_DATA} ${WRKSRC}/poppler-glib.pc ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
 
 .include "../../lang/python/tool.mk"
 BUILDLINK_ABI_DEPENDS.glib2+=	glib2>=2.41.0

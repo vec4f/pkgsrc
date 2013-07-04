@@ -23,6 +23,7 @@ PATCHDIR=		${.CURDIR}/../../print/poppler/patches
 USE_TOOLS+=		pkg-config
 USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
+USE_MULTIARCH=		lib
 
 USE_CMAKE=		yes
 
