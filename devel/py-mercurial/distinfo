@@ -4,3 +4,4 @@ SHA1 (mercurial-4.5.2.tar.gz) = 164384be4408cef8552fc661b794e20945643700
 RMD160 (mercurial-4.5.2.tar.gz) = e97c63250647d26e509e4b396a220c4901e9d280
 SHA512 (mercurial-4.5.2.tar.gz) = f70e40cba72b7955f0ecec9c1f53ffffac26f206188617cb182e22ce4f43dc8b970ce46d12c516ef88480c3fa076a59afcddd736dffb642d8e23befaf45b4941
 Size (mercurial-4.5.2.tar.gz) = 5779915 bytes
+SHA1 (patch-hg) = e3e6087414733cfeb4fa8e2003f56e130c4b14e2

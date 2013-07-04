@@ -4,3 +4,4 @@ SHA1 (virtualenv-15.2.0.tar.gz) = ee6299809c993bf0ebfaf6b66608e785536fa50a
 RMD160 (virtualenv-15.2.0.tar.gz) = 3e7a957baac74dc27dcfbe6c56669517935e72fe
 SHA512 (virtualenv-15.2.0.tar.gz) = 178c983af81ea0214c57e832ad61eb842904be7b7edd3bb2ec8b65c5ad503132480192675e3db89cb3d1404baf57e4dac8ac6b06df39af611fe0391e3674121e
 Size (virtualenv-15.2.0.tar.gz) = 2638173 bytes
+SHA1 (patch-virtualenv.py) = e9a524a2b5f7ea645e86a625da63e91e44619793
