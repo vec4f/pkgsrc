@@ -16,6 +16,7 @@ CONFLICTS+=	gtk2+<2.22
 .include "../../graphics/gdk-pixbuf2/Makefile.version"
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes

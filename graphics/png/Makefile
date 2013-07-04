@@ -14,6 +14,7 @@ COMMENT=	Library for manipulating PNG images
 LICENSE=	zlib
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 # do not create libpng.la
 CONFIGURE_ARGS+=	--disable-unversioned-links
