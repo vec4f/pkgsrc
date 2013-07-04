@@ -13,6 +13,7 @@ COMMENT=	Open source multimedia framework
 LICENSE=	gnu-lgpl-v2
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		bin lib
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		bison flex gmake perl pkg-config
 GNU_CONFIGURE=		yes
