@@ -11,6 +11,8 @@ HOMEPAGE=	http://www.videolan.org/developers/x264.html
 COMMENT=	GPL licensed H.264 encoder
 LICENSE=	gnu-gpl-v2
 
+USE_MULTIARCH=	lib
+
 .include "../../mk/bsd.prefs.mk"
 
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
@@ -25,6 +27,7 @@ CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--enable-static
 CONFIGURE_ARGS+=	--enable-pic
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
+CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib${LIBARCHSUFFIX}
 .if ${OPSYS} == "Darwin"
 USE_TOOLS+=		perl
 .else
