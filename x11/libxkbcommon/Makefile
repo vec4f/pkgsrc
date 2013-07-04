@@ -13,6 +13,7 @@ LICENSE=	mit
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	bison gmake pkg-config
 USE_LIBTOOL=	yes
+USE_MULTIARCH=	lib
 
 PKGCONFIG_OVERRIDE+=	xkbcommon.pc.in
 

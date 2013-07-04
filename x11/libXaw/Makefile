@@ -11,6 +11,7 @@ HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		X Athena Widgets Library from modular Xorg X11
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 PKGCONFIG_OVERRIDE+=	xaw6.pc.in
 PKGCONFIG_OVERRIDE+=	xaw7.pc.in
