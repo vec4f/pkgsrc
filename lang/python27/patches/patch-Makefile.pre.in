@@ -4,6 +4,15 @@ Fix for unpriviliged build.
 
 --- Makefile.pre.in.orig	2017-09-16 17:38:35.000000000 +0000
 +++ Makefile.pre.in
+@@ -124,7 +124,7 @@ SO=		@SO@
+ LDSHARED=	@LDSHARED@ $(LDFLAGS)
+ BLDSHARED=	@BLDSHARED@ $(LDFLAGS)
+ LDCXXSHARED=	@LDCXXSHARED@
+-DESTSHARED=	$(BINLIBDEST)/lib-dynload
++DESTSHARED=	$(BINLIBDEST)/lib-dynload@LIBARCHSUFFIX@
+ 
+ # Executable suffix (.exe on Windows and Mac OS X)
+ EXE=		@EXEEXT@
 @@ -554,7 +554,7 @@ gdbhooks: $(BUILDPYTHON)-gdb.py
  
  SRC_GDB_HOOKS=$(srcdir)/Tools/gdb/libpython.py
@@ -13,13 +22,42 @@ Fix for unpriviliged build.
  
  # This rule is here for OPENSTEP/Rhapsody/MacOSX. It builds a temporary
  # minimal framework (not including the Lib directory and such) in the current
-@@ -993,7 +993,8 @@ altbininstall:	$(BUILDPYTHON)
- 				(cd $(DESTDIR)$(LIBDIR); $(LN) -sf $(INSTSONAME) $(LDLIBRARY)) \
+@@ -975,7 +975,7 @@ bininstall:	altbininstall
+ # Install the interpreter with $(VERSION) affixed
+ # This goes into $(exec_prefix)
+ altbininstall:	$(BUILDPYTHON)
+-	@for i in $(BINDIR) $(LIBDIR); \
++	@for i in $(BINDIR) $(LIBDIR)@LIBARCHSUFFIX@; \
+ 	do \
+ 		if test ! -d $(DESTDIR)$$i; then \
+ 			echo "Creating directory $$i"; \
+@@ -988,12 +988,13 @@ altbininstall:	$(BUILDPYTHON)
+ 		if test -n "$(DLLLIBRARY)" ; then \
+ 			$(INSTALL_SHARED) $(DLLLIBRARY) $(DESTDIR)$(BINDIR); \
+ 		else \
+-			$(INSTALL_SHARED) $(LDLIBRARY) $(DESTDIR)$(LIBDIR)/$(INSTSONAME); \
++			$(INSTALL_SHARED) $(LDLIBRARY) $(DESTDIR)$(LIBDIR)@LIBARCHSUFFIX@/$(INSTSONAME); \
+ 			if test $(LDLIBRARY) != $(INSTSONAME); then \
+-				(cd $(DESTDIR)$(LIBDIR); $(LN) -sf $(INSTSONAME) $(LDLIBRARY)) \
++				(cd $(DESTDIR)$(LIBDIR)@LIBARCHSUFFIX@; $(LN) -sf $(INSTSONAME) $(LDLIBRARY)) \
  			fi \
  		fi; \
 -	else	true; \
 +	elif test -f $(INSTSONAME); then \
-+		$(INSTALL_SHARED) $(INSTSONAME) $(DESTDIR)$(LIBDIR); \
++		$(INSTALL_SHARED) $(INSTSONAME) $(DESTDIR)$(LIBDIR)@LIBARCHSUFFIX@; \
  	fi
  
  # Install the versioned manual page
+@@ -1179,10 +1180,10 @@ inclinstall:
+ 
+ # Install the library and miscellaneous stuff needed for extending/embedding
+ # This goes into $(exec_prefix)
+-LIBPL=		$(LIBP)/config
++LIBPL=		$(LIBP)/config@LIBARCHSUFFIX@
+ 
+ # pkgconfig directory
+-LIBPC=		$(LIBDIR)/pkgconfig
++LIBPC=		$(LIBDIR)@LIBARCHSUFFIX@/pkgconfig
+ 
+ libainstall:	@DEF_MAKE_RULE@ python-config
+ 	@for i in $(LIBDIR) $(LIBP) $(LIBPL) $(LIBPC); \
