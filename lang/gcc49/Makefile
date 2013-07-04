@@ -47,9 +47,23 @@ UNLIMIT_RESOURCES+=	stacksize
 SUBST_CLASSES+=		vars
 SUBST_STAGE.vars=	pre-configure
 SUBST_FILES.vars=	gcc/Makefile.in
+SUBST_FILES.vars+=	gcc/config/sol2-bi.h gcc/config/sol2.h
 SUBST_VARS.vars=	GCC_TARGET_MACHINE
+SUBST_VARS.vars+=	PREFIX
 
 .include "../../mk/bsd.prefs.mk"
+
+.if !empty(MULTIARCH:M[Yy][Ee][Ss])
+SUBST_SED.vars+=	-e 's,@MARCH64_SUBDIR@,ARCH64_SUBDIR,g'
+.else
+SUBST_SED.vars+=	-e 's,@MARCH64_SUBDIR@,,g'
+.endif
+
+# For the tools build (i.e. when not using USE_GCC_LOCALBASE_PREFIX) we
+# do not want the PREFIX rpaths added above to leak into final binaries.
+.if ${USE_GCC_LOCALBASE_PREFIX:Uno:tl} == "no"
+SUBST_SED.vars+=	-e '/-R/d'
+.endif
 
 LANGS=			c
 

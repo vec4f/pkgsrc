@@ -95,6 +95,15 @@ Detect netcan/can.h on NetBSD
      *)
  	EXT_SUFFIX=${SHLIB_SUFFIX};;
  esac
+@@ -14770,7 +14771,7 @@ LDVERSION='$(VERSION)$(ABIFLAGS)'
+ $as_echo "$LDVERSION" >&6; }
+ 
+ 
+-LIBPL='$(prefix)'"/lib/python${VERSION}/config-${LDVERSION}"
++LIBPL='$(prefix)'"/lib/python${VERSION}/config-${LDVERSION}${LIBARCHSUFFIX}"
+ 
+ 
+ # Check whether right shifting a negative integer extends the sign bit
 @@ -15694,6 +15695,36 @@ $as_echo "#define WINDOW_HAS_FLAGS 1" >>
  
  fi
