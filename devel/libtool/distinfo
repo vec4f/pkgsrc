@@ -7,5 +7,5 @@ Size (libtool-2.4.6.tar.gz) = 1806697 bytes
 SHA1 (patch-Makefile.in) = 0adb634335acd5fb280c99b5d43ae568018ca0af
 SHA1 (patch-build-aux_depcomp) = ae6f93ad4fac1df648cfcb62601c72f9ebb30233
 SHA1 (patch-build-aux_ltmain.sh) = eebdc102cacb1970240abeb4a7310d09d505be02
-SHA1 (patch-configure) = 2cbf275a4de712bc151c5065b62b2bdb37c83188
+SHA1 (patch-configure) = f15707ac2781a298bb629628e800f507bb7db208
 SHA1 (patch-libltdl_configure) = 87535836200547ceb8463a98e86561c2adf1f0ed
