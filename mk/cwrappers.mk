@@ -69,13 +69,18 @@ generate-cwrappers:
 	${RUN}echo wrksrc=${WRKSRC:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
 	${RUN}case ${wrappee} in *libtool) ;; *) echo path=${_PATH_COMPONENTS:N${WRAPPER_BINDIR}:ts::Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}};; esac
 	${RUN}echo exec_path=${WRAPPER_BINDIR}/${CWRAPPERS_ALIASES.${wrappee}:[1]} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
-	${RUN}echo exec=${CWRAPPERS_WRAPPEE.${wrappee}:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
+	${RUN}echo exec=${CWRAPPERS_WRAPPEE.${wrappee}:[1]:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
 .  for cmd in ${WRAPPER_REORDER_CMDS}
 	${RUN}echo reorder=${cmd:S/^reorder://:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
 .  endfor
 .  for cmd in ${CWRAPPERS_TRANSFORM.${wrappee}} ${_CWRAPPERS_TRANSFORM}
 	${RUN}echo transform=${cmd:u:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
 .  endfor
+.  if ${CWRAPPERS_WRAPPEE.${wrappee}:[#]} != 1
+.    for arg in ${CWRAPPERS_WRAPPEE.${wrappee}:[2..-1]}
+	${RUN}echo append=${arg:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
+.    endfor
+.  endif
 .  for cmd in ${CWRAPPERS_APPEND.${wrappee}:U}
 	${RUN}echo append=${cmd:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
 .  endfor
