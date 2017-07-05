@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.30 2016/12/20 10:22:29 bouyer Exp $
+$NetBSD: distinfo,v 1.32 2017/07/01 00:40:30 kamil Exp $
 
 SHA1 (ipxe-git-v1.0.0.tar.gz) = da052c8de5f3485fe0253c19cf52ed6d72528485
 RMD160 (ipxe-git-v1.0.0.tar.gz) = dcd9b6eaafa1ce05c1ebf2a15f2f73ad7a8c5547
@@ -44,6 +44,7 @@ SHA1 (patch-XSA-197-2) = 1734d4313b66f958a312676da489b94773524128
 SHA1 (patch-XSA-198) = 38d120b4be3e04f87e75e6838a64d44e180d708b
 SHA1 (patch-XSA-199) = e34c7557a1df7131000f5e408e89d3aaa4b10189
 SHA1 (patch-blktap_drivers_Makefile) = c6be57154a403a64e3d6bc22d6bd833fe33fc9af
+SHA1 (patch-blktap_lib_blktaplib.h) = 571e35081df24785ae67133b04d2b0ff016a0ded
 SHA1 (patch-configure) = 11df58a8e1cd6bcc319db0aff508367e59592cba
 SHA1 (patch-examples_Makefile) = ee02f973416ca4ffda5381cd7a4ddb3b43579621
 SHA1 (patch-examples_xend-config.sxp) = 1c3423b6eead47f09768d571a65891caed12aa99
@@ -94,6 +95,7 @@ SHA1 (patch-qemu-xen_ioport.c) = b88f7b3f8ea9ea64aefe6048ffd950c6a452c9cf
 SHA1 (patch-qemu-xen_memory.c) = 8c5440055111a5c2b350346b8db06ec15912bc4c
 SHA1 (patch-qemu-xen_pc-bios_optionrom_Makefile) = c3f35cb5f9ab46834351efe683562ddf8f28b9cf
 SHA1 (patch-qemu-xen_qemu-doc.texi) = 843adbe6a37fe5d600b0cf61d6bd78bf527aa4a6
+SHA1 (patch-qemu-xen_scripts_texi2pod.pl) = 0f497f74acedd4a40b4babafca61956d69b2ffc0
 SHA1 (patch-qemu-xen_target-i386_op__helper.c) = a3fd45a03dc739234712bc9f2dba4fb414cced96
 SHA1 (patch-qemu-xen_xen-all.c) = 4c8c8ae1cffc88db7cfa5a56dfef9e0ee35047db
 SHA1 (patch-xentrace_Makefile) = 751b59769254509c5da199c5498d428f9788b7e5

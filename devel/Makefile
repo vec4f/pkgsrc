@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2448 2017/06/21 14:49:56 taca Exp $
+# $NetBSD: Makefile,v 1.2451 2017/07/04 10:07:43 jperkin Exp $
 #
 
 COMMENT=	Development utilities
@@ -2053,6 +2053,7 @@ SUBDIR+=	py-unittest2py3k
 SUBDIR+=	py-urwid
 SUBDIR+=	py-usb
 SUBDIR+=	py-uuid
+SUBDIR+=	py-uvloop
 SUBDIR+=	py-vcversioner
 SUBDIR+=	py-vine
 SUBDIR+=	py-virtualenv
@@ -2290,6 +2291,7 @@ SUBDIR+=	sgb
 SUBDIR+=	sgi-stl
 SUBDIR+=	sgi-stl-docs
 SUBDIR+=	shtk
+SUBDIR+=	shunit2
 SUBDIR+=	silc-toolkit
 SUBDIR+=	slib
 SUBDIR+=	slibtool
@@ -2334,6 +2336,8 @@ SUBDIR+=	tex-l3kernel
 SUBDIR+=	tex-l3kernel-doc
 SUBDIR+=	tex-l3packages
 SUBDIR+=	tex-l3packages-doc
+SUBDIR+=	tex-latexbug
+SUBDIR+=	tex-latexbug-doc
 SUBDIR+=	tex-lualibs
 SUBDIR+=	tex-lualibs-doc
 SUBDIR+=	tex-luatexbase

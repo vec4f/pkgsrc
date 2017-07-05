@@ -1,9 +1,9 @@
-$NetBSD: distinfo,v 1.282 2017/06/14 11:28:44 ryoon Exp $
+$NetBSD: distinfo,v 1.286 2017/07/03 12:27:49 ryoon Exp $
 
-SHA1 (firefox-54.0.source.tar.xz) = 44e40c77f58e3b203dc60f51c5a02993f6c38ee5
-RMD160 (firefox-54.0.source.tar.xz) = 310f21498bc69939049d3ca881674a40fba8da21
-SHA512 (firefox-54.0.source.tar.xz) = 0ff6960804e7f6d3e15faeb14b237fee45acae31b4652a6cc5cafa1a1b1eab3537616c3e8ea6d8f3109c87dcc8f86f0df3da2627903b80061c8a62fb11598ed9
-Size (firefox-54.0.source.tar.xz) = 229178564 bytes
+SHA1 (firefox-54.0.1.source.tar.xz) = 1378f3e4f481fb3d6fcc67e20390d932bdff67ae
+RMD160 (firefox-54.0.1.source.tar.xz) = 51b16822922c8368ab26e9f2597e6ed81f98790c
+SHA512 (firefox-54.0.1.source.tar.xz) = 43607c2c0af995a21dc7f0f68b24b7e5bdb3faa5ee06025901c826bfe4d169256ea1c9eb5fcc604c4d6426ced53e80787c12fc07cda014eca09199ef3df783a2
+Size (firefox-54.0.1.source.tar.xz) = 229935420 bytes
 SHA1 (patch-aa) = 3ba9735f6b2da91f9699e54e9390ec90d3cc5577
 SHA1 (patch-browser_app_nsBrowserApp.cpp) = 915f03770ac4a73d7554f213ce3c7f76d7a34cf0
 SHA1 (patch-browser_confvars.sh) = d4f70fd4672416ce5c98181b974f8d8df9a6069f
@@ -40,6 +40,7 @@ SHA1 (patch-image_decoders_nsJPEGDecoder.cpp) = ed86c3fbb3aef753eec6f6a97940594a
 SHA1 (patch-intl_hyphenation_glue_hnjalloc.h) = abe01bea5872a57f3d00bbbf89f958621f08a655
 SHA1 (patch-intl_unicharutil_util_moz.build) = fffed7139faa3f15d6ab3be9b673cb0b14a30ce9
 SHA1 (patch-ipc_chromium_src_base_atomicops.h) = 24b63a6e51d9ab27f2788ee02f2ffa7e1c36f29a
+SHA1 (patch-ipc_chromium_src_base_lock__impl__posix.cc) = 16e37fe54ba1d8d233f6b04dbd06e248305d7f6e
 SHA1 (patch-ipc_chromium_src_base_message__pump__libevent.cc) = 99b9f3f9dd88f1c8008d2fb6058450695394f5cf
 SHA1 (patch-ipc_chromium_src_base_platform__thread.h) = c81930280bd76a00fbad37aad02fb8451d80b1ee
 SHA1 (patch-ipc_chromium_src_base_platform__thread__posix.cc) = 45409f2152d5ffc376c18c0c9bc696e08e3910ce
@@ -49,6 +50,8 @@ SHA1 (patch-ipc_chromium_src_base_sys__info__posix.cc) = 5313c4097c278640573c7e1
 SHA1 (patch-ipc_chromium_src_base_time__posix.cc) = ba4e0872490f870e7d2f468e1fe87c33cf9a3500
 SHA1 (patch-ipc_chromium_src_build_build__config.h) = 9e4f15226c494f5015dbea3a0df6af851449ae15
 SHA1 (patch-ipc_chromium_src_chrome_common_transport__dib.h) = 33ea11a8c23f2fefcb318342ac9e94d3885cb3b1
+SHA1 (patch-ipc_glue_CrossProcessSemaphore.h) = 778a569887d8ad082abc2fa2fe89a0a943e84d64
+SHA1 (patch-ipc_glue_CrossProcessSemaphore__posix.cpp) = fc07bb12aa304c184e523072ad496a3863cb7f07
 SHA1 (patch-ipc_glue_GeckoChildProcessHost.cpp) = 37fca99dc5359a7c1403b7674080bd27b0a5eafe
 SHA1 (patch-js_src_jit_arm_Architecture-arm.cpp) = f0b554c169643b8447b4f29168d61ea257b18782
 SHA1 (patch-js_src_jit_none_AtomicOperations-sparc.h) = b44992a869d6d08809a9edc28f1ad6f40632d392
@@ -57,7 +60,7 @@ SHA1 (patch-js_xpconnect_src_XPCConvert.cpp) = 915777e9bb5366be41866cdb6ea0ad2b1
 SHA1 (patch-js_xpconnect_src_xpcprivate.h) = e09e37819961bae40a9f276ae1ee510d2956c23e
 SHA1 (patch-media_libcubeb_gtest_moz.build) = ebb4be6e6bca4a0ed6858516ec9fdb7828bbe2e1
 SHA1 (patch-media_libcubeb_src_cubeb.c) = c689537aa7c3c40758d4b74e471e4dad1adeef5d
-SHA1 (patch-media_libcubeb_src_cubeb__alsa.c) = bbd8796faaee52d9721bc406fb0a413b66ad9bc9
+SHA1 (patch-media_libcubeb_src_cubeb__alsa.c) = 8c99af543c49c23fea102c4ad9ffd617cc90631e
 SHA1 (patch-media_libcubeb_src_cubeb__oss.c) = 88cdfb9b9aa8c2607ca79bfa7fce4353e65638f7
 SHA1 (patch-media_libcubeb_src_moz.build) = 59a2f95300b26c8047532c80445b958e7b8e738c
 SHA1 (patch-media_libcubeb_update.sh) = 7bd5145466c2af086a501be4e77432c0857236ce

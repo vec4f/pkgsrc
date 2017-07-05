@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.81 2017/05/02 10:26:06 wiz Exp $
+# $NetBSD: Makefile,v 1.83 2017/07/03 13:19:49 joerg Exp $
 
 DISTNAME=	harfbuzz-1.4.6
 CATEGORIES=	fonts

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2017/06/21 21:16:36 maya Exp $
+# $NetBSD: Makefile,v 1.8 2017/07/04 12:46:52 adam Exp $
 
 GCC_PKGNAME=		gcc7
 .include		"version.mk"
@@ -23,8 +23,9 @@ EXTRACT_ONLY=		${DEFAULT_DISTFILES}
 
 NOT_FOR_PLATFORM=	Interix-*-*
 
-USE_LANGUAGES=	c c++
-USE_TOOLS+=		gmake makeinfo gsed tar:build
+USE_LANGUAGES=		c c++
+USE_TOOLS+=		gmake makeinfo sed:run tar:build
+USE_TOOLS.NetBSD+=	gsed
 
 GNU_CONFIGURE=		yes
 ## Build outside ${WRKSRC}
@@ -91,6 +92,11 @@ CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
 CONFIGURE_ARGS+=	--enable-threads=posix
 CONFIGURE_ARGS+=	--with-boot-ldflags=${BOOT_LDFLAGS:Q}
+# multilib on Darwin requires fat-binaries
+CONFIGURE_ARGS.Darwin+=	--disable-multilib
+.if !empty(OSX_SDK_PATH)
+CONFIGURE_ARGS.Darwin+=	--with-sysroot=${OSX_SDK_PATH}
+.endif
 CONFIGURE_ARGS.NetBSD+=	--with-gnu-ld --with-ld=/usr/bin/ld
 CONFIGURE_ARGS.NetBSD+=	--with-gnu-as --with-as=/usr/bin/as
 MAKE_ENV.NetBSD+=	ac_cv_func_clock_gettime=yes

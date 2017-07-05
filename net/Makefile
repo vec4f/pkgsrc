@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1160 2017/06/15 18:39:20 nils Exp $
+# $NetBSD: Makefile,v 1.1165 2017/07/04 13:11:59 wiz Exp $
 #
 
 COMMENT=	Networking tools
@@ -13,6 +13,7 @@ SUBDIR+=	LaBrea
 SUBDIR+=	ORBit
 SUBDIR+=	ORBit2
 SUBDIR+=	Radicale
+SUBDIR+=	Radicale2
 SUBDIR+=	SDL2_net
 SUBDIR+=	SDL_net
 SUBDIR+=	adns
@@ -614,9 +615,12 @@ SUBDIR+=	py-Socks
 SUBDIR+=	py-adns
 SUBDIR+=	py-amqp
 SUBDIR+=	py-apache-libcloud
+SUBDIR+=	py-awscli
 SUBDIR+=	py-beanstalkc
 SUBDIR+=	py-bitmessage
 SUBDIR+=	py-boto
+SUBDIR+=	py-boto3
+SUBDIR+=	py-botocore
 SUBDIR+=	py-caldav
 SUBDIR+=	py-celery
 SUBDIR+=	py-cymruwhois
@@ -653,6 +657,7 @@ SUBDIR+=	py-ptt
 SUBDIR+=	py-py3dns
 SUBDIR+=	py-pydns
 SUBDIR+=	py-s3cmd
+SUBDIR+=	py-s3transfer
 SUBDIR+=	py-scp
 SUBDIR+=	py-simplesoap
 SUBDIR+=	py-smb
@@ -669,6 +674,7 @@ SUBDIR+=	py-twisted
 SUBDIR+=	py-twisted-docs
 SUBDIR+=	py-twython
 SUBDIR+=	py-txamqp
+SUBDIR+=	py-xandikos
 SUBDIR+=	py-zeep
 SUBDIR+=	py-zmq
 SUBDIR+=	py-zsi
@@ -821,6 +827,7 @@ SUBDIR+=	udptunnel
 SUBDIR+=	uftp
 SUBDIR+=	unbound
 SUBDIR+=	unfs3
+SUBDIR+=	unifi
 SUBDIR+=	unison
 SUBDIR+=	unison2.32
 SUBDIR+=	unison2.40

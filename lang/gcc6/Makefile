@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2017/06/21 21:16:36 maya Exp $
+# $NetBSD: Makefile,v 1.7 2017/07/04 21:56:40 maya Exp $
 
 GCC_PKGNAME=		gcc6
 .include		"version.mk"
@@ -8,10 +8,9 @@ PKGNAME=	${GCC_PKGNAME}-${GCC6_DIST_VERSION}
 ## When bumping the PKGREVISION of this package the PKGREVISION of
 ## lang/gcc6-libs needs to be bump to be at least 1 more than the
 ## PKGREVISION of this package!
-PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC6_DIST_VERSION}/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	maya@NetBSD.org
 HOMEPAGE=	http://gcc.gnu.org/
@@ -23,8 +22,9 @@ EXTRACT_ONLY=		${DEFAULT_DISTFILES}
 
 NOT_FOR_PLATFORM=	Interix-*-*
 
-USE_LANGUAGES=	c c++
-USE_TOOLS+=		gmake makeinfo gsed tar:build
+USE_LANGUAGES=		c c++
+USE_TOOLS+=		gmake makeinfo sed:run tar:build
+USE_TOOLS.NetBSD+=	gsed
 
 GNU_CONFIGURE=		yes
 ## Build outside ${WRKSRC}

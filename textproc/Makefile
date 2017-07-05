@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.935 2017/06/21 22:18:55 taca Exp $
+# $NetBSD: Makefile,v 1.938 2017/07/03 21:06:47 adam Exp $
 #
 
 COMMENT=	Text processing utilities (does not include desktop publishing)
@@ -736,6 +736,7 @@ SUBDIR+=	py-humanize
 SUBDIR+=	py-iniparse
 SUBDIR+=	py-jellyfish
 SUBDIR+=	py-jinja2
+SUBDIR+=	py-jmespath
 SUBDIR+=	py-jsbeautifier
 SUBDIR+=	py-jsonlib
 SUBDIR+=	py-jsonlib3
@@ -782,6 +783,7 @@ SUBDIR+=	py-sphinxcontrib-websupport
 SUBDIR+=	py-tabulate
 SUBDIR+=	py-textile
 SUBDIR+=	py-tinycss
+SUBDIR+=	py-ujson
 SUBDIR+=	py-uritemplate
 SUBDIR+=	py-validators
 SUBDIR+=	py-vobject
@@ -907,6 +909,8 @@ SUBDIR+=	tei-p5-schema
 SUBDIR+=	tei-xsl
 SUBDIR+=	tex-latexdiff
 SUBDIR+=	tex-latexdiff-doc
+SUBDIR+=	tex-lwarp
+SUBDIR+=	tex-lwarp-doc
 SUBDIR+=	tex-makeindex
 SUBDIR+=	tex-makeindex-doc
 SUBDIR+=	tex-xmltex
