@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2017/06/22 21:44:49 maya Exp $
+# $NetBSD: Makefile,v 1.21 2017/07/09 05:30:41 maya Exp $
 
 GCC_PKGNAME=		gcc5
-PKGREVISION=		3
+PKGREVISION=		4
 .include		"version.mk"
 
 DISTNAME=	gcc-${GCC5_DIST_VERSION}
@@ -84,8 +84,14 @@ CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-*)
-# on NetBSD, use the native SSP code in libc
+# native SSP conflicts with gcc's libssp
 CONFIGURE_ARGS+=	--disable-libssp
+# Match base libstdc++ major
+SUBST_CLASSES+=		libstdc
+SUBST_STAGE.libstdc=	pre-configure
+SUBST_FILES.libstdc=	libstdc++-v3/configure
+SUBST_MESSAGE.libstdc=	Bumping libstdc++ major to 7
+SUBST_SED.libstdc=	-e 's,libtool_VERSION=6:,libtool_VERSION=7:,g'
 .else
 CONFIGURE_ARGS+=	--enable-libssp
 .endif
@@ -104,6 +110,7 @@ MAKE_ENV.NetBSD+=	ac_cv_func_gethostbyname_r=no
 MAKE_ENV.NetBSD+=	ac_cv_func_freelocale=no
 MAKE_ENV.NetBSD+=	ac_cv_func_newlocale=no
 MAKE_ENV.NetBSD+=	ac_cv_func_uselocale=no
+MAKE_ENV.SunOS+=	ac_cv_func_mkostemp=no
 
 CONFIGURE_ARGS.DragonFly+=	--disable-bootstrap
 

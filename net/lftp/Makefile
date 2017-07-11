@@ -1,11 +1,8 @@
-# $NetBSD: Makefile,v 1.119 2017/01/19 18:52:20 agc Exp $
+# $NetBSD: Makefile,v 1.121 2017/07/09 11:21:26 wiz Exp $
 
-DISTNAME=	lftp-4.7.2
-PKGREVISION=	2
+DISTNAME=	lftp-4.7.7
 CATEGORIES=	net
 MASTER_SITES=	http://lftp.yar.ru/ftp/
-MASTER_SITES+=	ftp://ftp.tuwien.ac.at/infosys/browsers/ftp/lftp/
-MASTER_SITES+=	ftp://ftp.cs.tu-berlin.de/pub/net/ftp/lftp/
 MASTER_SITES+=	ftp://ftp.st.ryukoku.ac.jp/pub/network/ftp/lftp/
 MASTER_SITES+=	http://lftp.cybermirror.org/
 EXTRACT_SUFX=	.tar.xz
