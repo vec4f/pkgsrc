@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2017,v 1.2855 2017/07/11 12:43:35 jaapb Exp $
+$NetBSD: CHANGES-2017,v 1.2869 2017/07/12 08:59:07 adam Exp $
 
 Changes to the packages collection and infrastructure in 2017:
 
@@ -3928,3 +3928,25 @@ Changes to the packages collection and infrastructure in 2017:
 	Updated security/ocaml-cryptokit to 1.11 [jaapb 2017-07-11]
 	Updated textproc/ocaml-csv to 1.7 [jaapb 2017-07-11]
 	Updated textproc/ocaml-expat to 1.0.0 [jaapb 2017-07-11]
+	Updated net/lft to 3.79 [adam 2017-07-11]
+	Updated devel/ocaml-js-build-tools to 113.33.06 [jaapb 2017-07-11]
+	Updated devel/ocamlmod to 0.0.8 [jaapb 2017-07-11]
+	Updated print/poppler to 0.56.0 [adam 2017-07-11]
+	Updated lang/ocaml to 4.04.2nb1 [he 2017-07-11]
+	Updated devel/py-greenlet to 0.4.12nb1 [he 2017-07-11]
+	Updated lang/nodejs to 8.1.4 [fhajny 2017-07-11]
+	Updated lang/nodejs6 to 6.11.1 [fhajny 2017-07-11]
+	Updated lang/nodejs4 to 4.8.4 [fhajny 2017-07-11]
+	Updated lang/py-jsparser to 2.5.2 [adam 2017-07-11]
+	Updated lang/py-js2py to 0.44 [adam 2017-07-11]
+	Updated lang/llvm to 4.0.1 [adam 2017-07-11]
+	Updated lang/clang to 4.0.1 [adam 2017-07-11]
+	Updated lang/clang-static-analyzer to 4.0.1 [adam 2017-07-11]
+	Updated lang/libunwind to 4.0.1 [adam 2017-07-11]
+	Updated devel/polly to 4.0.1 [adam 2017-07-11]
+	Updated devel/lldb to 4.0.1 [adam 2017-07-11]
+	Added www/caddy version 0.10.4 [bsiegert 2017-07-11]
+	Added devel/verifast version 17.06 [ryoon 2017-07-12]
+	Updated www/apache22 to 2.2.34 [adam 2017-07-12]
+	Updated www/apache24 to 2.4.27 [adam 2017-07-12]
+	Updated net/lftp to 4.8.0 [adam 2017-07-12]
