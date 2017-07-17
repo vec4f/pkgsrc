@@ -1,3 +1,52 @@
-$NetBSD: CHANGES-pkgsrc-2017Q2,v 1.1.2.1 2017/07/03 09:37:23 jperkin Exp $
+$NetBSD: CHANGES-pkgsrc-2017Q2,v 1.1.2.4 2017/07/16 08:36:39 bsiegert Exp $
 
 Changes to packages and infrastructure on the pkgsrc-2017Q2 branch:
+
+Pullup ticket #5499 - requested by joerg
+graphics/graphviz: build fix
+
+Pullup ticket #5501 - requested by joerg
+security/hitch: build fix
+
+Pullup ticket #5500 - requested by joerg
+net/powerdns-recursor: build fix
+
+Pullup ticket #5502 - requested by joerg
+sysutils/zabbix-frontend: build fix
+
+Pullup ticket #5504 - requested by maya
+math/octave: build fix
+
+Pullup ticket #5505 - requested by joerg
+devel/libbson: build fix
+
+Pullup ticket #5506 - requested by he
+net/exabgp: NetBSD build fix
+
+Pullup ticket #5507 - requested by taca
+lang/php70: security fix
+
+Pullup ticket #5508 - requested by taca
+lang/php71: security fix
+
+Pullup ticket #5509 - requested by taca
+lang/php56: security fix
+
+Pullup ticket #5511 - requested by taca
+net/bind910: security fix
+
+Pullup ticket #5512 - requested by taca
+net/bind99: security fix
+
+Pullup ticket #5513 - requested by taca
+www/contao35: security fix
+
+Pullup ticket #5514 - requested by taca
+www/contao44: security fix
+
+Pullup ticket #5510 - requested by maya
+chat/irssi: security fix
+
+Pullup ticket #5515 - requested by maya
+print/evince3: security fix
+
