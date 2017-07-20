@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.527 2017/05/24 19:51:12 adam Exp $
+# $NetBSD: Makefile,v 1.531 2017/07/20 04:11:58 jnemeth Exp $
 
 COMMENT=	Databases
 
@@ -345,6 +345,7 @@ SUBDIR+=	py-ldap3
 SUBDIR+=	py-metakit
 SUBDIR+=	py-mongo
 SUBDIR+=	py-mssql
+SUBDIR+=	py-multidict
 SUBDIR+=	py-mysql-connector
 SUBDIR+=	py-mysqldb
 SUBDIR+=	py-orderedmultidict
@@ -356,7 +357,7 @@ SUBDIR+=	py-psycopg2
 SUBDIR+=	py-pymysql
 SUBDIR+=	py-python-rrdtool
 SUBDIR+=	py-python-sql
-SUBDIR+=	py-redis-py
+SUBDIR+=	py-redis
 SUBDIR+=	py-sqlalchemy
 SUBDIR+=	py-sqlalchemy-i18n
 SUBDIR+=	py-sqlalchemy-migrate
@@ -392,6 +393,7 @@ SUBDIR+=	ruby-activerecord32
 SUBDIR+=	ruby-activerecord42
 SUBDIR+=	ruby-arel
 SUBDIR+=	ruby-arel30
+SUBDIR+=	ruby-arel60
 SUBDIR+=	ruby-awesome_nested_set
 SUBDIR+=	ruby-cassandra
 SUBDIR+=	ruby-data_objects

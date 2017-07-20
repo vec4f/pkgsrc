@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1255 2017/07/11 20:26:41 bsiegert Exp $
+# $NetBSD: Makefile,v 1.1259 2017/07/18 14:29:51 hauke Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -136,6 +136,7 @@ SUBDIR+=	ganglia-webfrontend
 SUBDIR+=	geeklog
 SUBDIR+=	gitweb
 SUBDIR+=	goaccess
+SUBDIR+=	grafana
 SUBDIR+=	gtkasp2php
 SUBDIR+=	gtkhtml314
 SUBDIR+=	gwt
@@ -570,6 +571,7 @@ SUBDIR+=	php-basercms
 SUBDIR+=	php-concrete5
 SUBDIR+=	php-curl
 SUBDIR+=	php-fpm
+SUBDIR+=	php-glpi
 SUBDIR+=	php-http
 SUBDIR+=	php-http3
 SUBDIR+=	php-ja-wordpress
@@ -601,6 +603,7 @@ SUBDIR+=	py-URLObject
 SUBDIR+=	py-WSGIProxy2
 SUBDIR+=	py-WebOb
 SUBDIR+=	py-WebTest
+SUBDIR+=	py-aiohttp
 SUBDIR+=	py-asgiref
 SUBDIR+=	py-autobahn
 SUBDIR+=	py-beautifulsoup
@@ -754,6 +757,7 @@ SUBDIR+=	py-wtforms-alchemy
 SUBDIR+=	py-wtforms-components
 SUBDIR+=	py-wtforms-recaptcha
 SUBDIR+=	py-wtforms-test
+SUBDIR+=	py-yarl
 SUBDIR+=	qDecoder
 SUBDIR+=	raggle
 SUBDIR+=	ramaze
