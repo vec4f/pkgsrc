@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.618 2017/07/03 21:03:29 adam Exp $
+# $NetBSD: Makefile,v 1.620 2017/08/01 16:54:40 wiz Exp $
 #
 
 COMMENT=	Security tools
@@ -32,7 +32,6 @@ SUBDIR+=	bitstir
 SUBDIR+=	boringssl
 SUBDIR+=	botan
 SUBDIR+=	botan-devel
-SUBDIR+=	bunny
 SUBDIR+=	caff
 SUBDIR+=	ccid
 SUBDIR+=	cfs
@@ -381,6 +380,7 @@ SUBDIR+=	py-SSLCrypto
 SUBDIR+=	py-acme
 SUBDIR+=	py-acme-tiny
 SUBDIR+=	py-aes
+SUBDIR+=	py-argon2_cffi
 SUBDIR+=	py-asn1
 SUBDIR+=	py-asn1-modules
 SUBDIR+=	py-asn1crypto

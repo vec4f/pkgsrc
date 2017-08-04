@@ -1,4 +1,4 @@
-# $NetBSD: ocaml.mk,v 1.12 2017/07/11 09:54:21 jaapb Exp $
+# $NetBSD: ocaml.mk,v 1.14 2017/07/26 09:41:31 jaapb Exp $
 #
 # This Makefile fragment handles the common variables used by OCaml packages.
 #
@@ -26,6 +26,8 @@
 # package uses OPAM
 # OCAML_USE_TOPKG
 # package uses topkg [implies OCAML_USE_FINDLIB]
+# OCAML_USE_JBUILDER
+# package uses jbuilder [implies OCAML_USE_OPAM]
 # OCAML_TOPKG_DOCDIR
 # different targets for topkg (bytecode, optional bytecode, native)
 # OASIS_BUILD_ARGS
@@ -47,9 +49,18 @@ _PKG_VARS.ocaml=	\
 	OCAML_FINDLIB_REGISTER \
 	OCAML_USE_OASIS \
 	OCAML_USE_OASIS_DYNRUN \
+	OASIS_BUILD_ARGS \
 	OCAML_USE_OPAM \
 	OCAML_USE_TOPKG \
-	OCAML_BUILD_ARGS
+	OCAML_TOPKG_NAME \
+	OCAML_TOPKG_DOCDIR \
+	OCAML_TOPKG_TARGETS \
+	OCAML_TOPKG_OPTIONAL_TARGETS \
+	OCAML_USE_JBUILDER \
+	JBUILDER_BUILD_FLAGS \
+	JBUILDER_BUILD_TARGETS \
+	OCAML_BUILD_ARGS \
+	OPAM_INSTALL_FILES
 _DEF_VARS.ocaml=	\
 	OCAML_USE_OPT_COMPILER
 _SYS_VARS.ocaml=	\
@@ -70,6 +81,9 @@ OCAML_USE_OPAM?= no
 # Default value of OCAML_USE_TOPKG
 OCAML_USE_TOPKG?=	no
 
+# Default value of OCAML_USE_JBUILDER
+OCAML_USE_JBUILDER?=	no
+
 OCAML_TOPKG_NAME?=	${PKGBASE:S/^ocaml-//}
 OCAML_TOPKG_DOCDIR?=	${PREFIX}/share/doc
 
@@ -78,6 +92,10 @@ OCAML_TOPKG_NAME?=	${PKGBASE:S/^ocaml-//}
 OCAML_TOPKG_TARGETS?=	# empty
 OCAML_TOPKG_OPTIONAL_TARGETS?=	# empty
 OCAML_TOPKG_NATIVE_TARGETS?=	# empty
+
+OPAM_INSTALL_FILES?=	${OCAML_TOPKG_NAME}
+JBUILDER_BUILD_FLAGS?=	# empty
+JBUILDER_BUILD_TARGETS?=	@install
 
 # Default value of OASIS_BUILD_ARGS
 OASIS_BUILD_ARGS?=	# empty
@@ -125,6 +143,12 @@ CONFIGURE_ARGS+=	--override is_native false
 .include "../../misc/ocaml-topkg/buildlink3.mk"
 OCAML_USE_FINDLIB=	yes
 INSTALLATION_DIRS+=	${OCAML_SITELIBDIR}/${OCAML_TOPKG_NAME}
+.endif
+
+# Configure stuff for JBUILDER
+.if ${OCAML_USE_JBUILDER} == "yes"
+.include "../../devel/ocaml-jbuilder/buildlink3.mk"
+OCAML_USE_OPAM=	yes
 .endif
 
 # Value for OCAML_SITELIBDIR
@@ -204,12 +228,25 @@ do-build:
 .if ${OCAML_USE_OPAM} == "yes" 
 
 do-install:
-	${RUN} cd ${WRKSRC} && opam-installer -i --prefix ${DESTDIR}${PREFIX} \
+	${RUN} for i in ${OPAM_INSTALL_FILES}; do \
+		cd ${WRKSRC} && opam-installer -i --prefix ${DESTDIR}${PREFIX} \
 		--libdir ${OCAML_SITELIBDIR} \
 		--docdir ${DESTDIR}/${OCAML_TOPKG_DOCDIR} \
-		${OCAML_TOPKG_NAME}.install
+		$$i.install; \
+	done
 
 .endif # topkg-opam
+
+#
+# jbuilder targets
+#
+.if ${OCAML_USE_JBUILDER} == "yes"
+
+do-build:
+	${RUN} cd ${WRKSRC} && jbuilder build -j ${MAKE_JOBS} \
+		${JBUILDER_BUILD_FLAGS} ${JBUILDER_BUILD_TARGETS}
+
+.endif # topkg-jbuilder
 
 # Add dependency on ocaml.
 .include "../../lang/ocaml/buildlink3.mk"

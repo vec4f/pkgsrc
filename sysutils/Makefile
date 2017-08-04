@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.704 2017/07/03 16:29:43 bsiegert Exp $
+# $NetBSD: Makefile,v 1.706 2017/07/27 04:05:50 schmonz Exp $
 #
 
 COMMENT=	System utilities
@@ -74,6 +74,7 @@ SUBDIR+=	collectd-amqp
 SUBDIR+=	collectd-curl
 SUBDIR+=	collectd-dbi
 SUBDIR+=	collectd-dns
+SUBDIR+=	collectd-lua
 SUBDIR+=	collectd-memcached
 SUBDIR+=	collectd-mysql
 SUBDIR+=	collectd-network
@@ -95,6 +96,7 @@ SUBDIR+=	cuisine
 SUBDIR+=	cvsreport
 SUBDIR+=	daemond
 SUBDIR+=	daemontools
+SUBDIR+=	daemontools-run
 SUBDIR+=	dbus
 SUBDIR+=	dbus-glib
 SUBDIR+=	dbus-python-common

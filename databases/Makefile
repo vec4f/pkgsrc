@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.531 2017/07/20 04:11:58 jnemeth Exp $
+# $NetBSD: Makefile,v 1.535 2017/07/31 14:24:22 maya Exp $
 
 COMMENT=	Databases
 
@@ -79,6 +79,7 @@ SUBDIR+=	libmongo-client
 SUBDIR+=	libpqxx
 SUBDIR+=	libpqxx-doc
 SUBDIR+=	libzdb
+SUBDIR+=	liquibase
 SUBDIR+=	lmdb
 SUBDIR+=	lua-sql-mysql
 SUBDIR+=	lua-sql-postgres
@@ -325,6 +326,7 @@ SUBDIR+=	postgresql96-server
 SUBDIR+=	pxtools
 SUBDIR+=	py-PgSQL
 SUBDIR+=	py-apsw
+SUBDIR+=	py-asyncpg
 SUBDIR+=	py-barman
 SUBDIR+=	py-bdb-xml
 SUBDIR+=	py-bsddb3
@@ -355,9 +357,9 @@ SUBDIR+=	py-pickleshare
 SUBDIR+=	py-postgresql
 SUBDIR+=	py-psycopg2
 SUBDIR+=	py-pymysql
-SUBDIR+=	py-python-rrdtool
 SUBDIR+=	py-python-sql
 SUBDIR+=	py-redis
+SUBDIR+=	py-rrdtool
 SUBDIR+=	py-sqlalchemy
 SUBDIR+=	py-sqlalchemy-i18n
 SUBDIR+=	py-sqlalchemy-migrate

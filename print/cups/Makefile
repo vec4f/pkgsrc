@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.245 2017/04/26 14:10:04 prlw1 Exp $
+# $NetBSD: Makefile,v 1.248 2017/08/01 14:59:04 wiz Exp $
 
 DISTNAME=	cups-2.2.3-source
 PKGNAME=	${DISTNAME:S/-source//}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_GITHUB:=apple/}
 
 MAINTAINER=	sbd@NetBSD.org
-HOMEPAGE=	http://www.cups.org/
+HOMEPAGE=	https://www.cups.org/
 COMMENT=	Common UNIX Printing System
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 

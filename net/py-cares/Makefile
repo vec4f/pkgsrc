@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.1 2017/07/09 06:53:06 adam Exp $
+# $NetBSD: Makefile,v 1.3 2017/07/30 22:32:20 wiz Exp $
 
-DISTNAME=	pycares-2.2.0
+DISTNAME=	pycares-2.3.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/^py//}
 CATEGORIES=	net python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pycares/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/saghul/pycares
+HOMEPAGE=	https://github.com/saghul/pycares
 COMMENT=	Python interface for c-ares
 LICENSE=	mit
 
