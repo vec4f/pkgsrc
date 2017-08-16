@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.182 2017/06/14 07:11:41 adam Exp $
+# $NetBSD: Makefile,v 1.184 2017/08/15 05:35:57 adam Exp $
 
-DISTNAME=	curl-7.54.1
+DISTNAME=	curl-7.55.1
 CATEGORIES=	www
 MASTER_SITES=	https://curl.haxx.se/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -23,6 +23,11 @@ CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 PKGCONFIG_OVERRIDE=	libcurl.pc.in
 
 INSTALLATION_DIRS=	share/doc/curl
+
+# only needed for 7.55.0 due to a bug, see patches/patch-Makefile.am
+USE_TOOLS+=		automake
+pre-configure:
+	cd ${WRKSRC} && automake
 
 .include "../../mk/bsd.prefs.mk"
 
