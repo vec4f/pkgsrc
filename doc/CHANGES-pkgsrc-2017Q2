@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-pkgsrc-2017Q2,v 1.1.2.4 2017/07/16 08:36:39 bsiegert Exp $
+$NetBSD: CHANGES-pkgsrc-2017Q2,v 1.1.2.10 2017/08/15 19:07:44 bsiegert Exp $
 
 Changes to packages and infrastructure on the pkgsrc-2017Q2 branch:
 
@@ -49,4 +49,61 @@ chat/irssi: security fix
 
 Pullup ticket #5515 - requested by maya
 print/evince3: security fix
+
+Pullup ticket #5518 - requested by taca
+graphics/GraphicsMagick: security update
+
+Pullup ticket #5519 - requested by taca
+graphics/GraphicsMagick: security update
+
+Pullup ticket #5520 - requested by taca
+www/apache22: security update
+
+Pullup ticket #5521 - requested by taca
+www/apache24: security update
+
+Pullup ticket #5516 - requested by he
+lang/ocaml: build fix for powerpc
+
+Pullup ticket #5517 - requested by he
+devel/py-greenlet: build fix for powerpc
+
+Pullup ticket #5523 - requested by schmonz
+security/py-tlslite: security update
+
+Pullup ticket #5524 - requested by taca
+databases/mysql55-client: security update
+databases/mysql55-server: security update
+
+Pullup ticket #5525 - requested by taca
+databases/mysql56-client: security update
+databases/mysql56-server: security update
+
+Pullup ticket #5526 - requested by taca
+databases/mysql57-client: security update
+databases/mysql57-server: security update
+
+Pullup ticket #5527 - requested by joerg
+archivers/zstd: license handling fix
+
+Pullup ticket #5522 - requested by dholland
+editors/emacs20: functionality fix
+
+Pullup ticket #5528 - requested by sevan
+mk/pbulk/pbulk.sh: bugfix
+
+Pullup ticket #5529 - requested by jnemeth
+mail/cyrus-imapd24: build fix
+
+Pullup ticket #5530 - requested by taca
+www/contao44: build fix
+
+Pullup ticket #5531 - requested by taca
+lang/php70: security fix
+
+Pullup ticket #5532 - requested by taca
+lang/php71: security fix
+
+Pullup ticket #5533 - requested by maya
+devel/py-mercurial: security fix
 
