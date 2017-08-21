@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.17626 2017/08/16 07:33:49 wiz Exp $
+$NetBSD: TODO,v 1.17632 2017/08/19 11:37:10 leot Exp $
 
 Suggested new packages
 ======================
@@ -75,10 +75,6 @@ Suggested new packages
 	guipdftk
 	http://de.geocities.com/dpaehl2004/guipdftk/
 	GUI for Pdftk for PDF manipulation
-
-	grip
-	http://nostatic.org/grip/
-	cd-player and cd-ripper for the Gnome desktop
 
 	wired
 	http://bloodshed.net/wired/
@@ -310,10 +306,6 @@ Suggested new packages
 	https://diasporafoundation.org/
 	Distributed social networking
 
-	hugo
-	https://gohugo.io/
-	Fast and Modern Static Website Engine
-
 	kexi
 	http://www.kexi-project.org/
 	Visual database applications creator
@@ -453,7 +445,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o bbkeys-0.9.0
 	o bbsload-0.2.8
 	o bbweather-0.6.3
-	o beats-5.5.1
 	o benchfft-3.1
 	o bibclean-2.17
 	o bibparse-1.11
@@ -898,7 +889,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o ipw-firmware-1.3
 	o ircservices-5.1.21
 	o iroffer-1.4b01
-	o isc-dhcp-4.3.5
 	o ispell-ga-4.6
 	o ispell-ru-0.99g5
 	o ispell-ru-io-0.99g5
@@ -1442,7 +1432,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o stegavorto-2011.05.26
 	o stellarium-0.13.3
 	o stlport-4.6.2
-	o stow-2.2.2
 	o strace-4.18
 	o stratagus-2.2.5.5
 	o streamtuner-2.2.0
@@ -1533,7 +1522,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o vera-1.23
 	o veusz-1.26.1
 	o vfu-4.09
-	o vice-3.0
 	o vicq-0.4.2
 	o vile-9.8q
 	o vinagre-3.16.1

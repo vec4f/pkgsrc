@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.946 2017/08/01 15:32:08 kleink Exp $
+# $NetBSD: Makefile,v 1.948 2017/08/21 12:01:12 nils Exp $
 #
 
 COMMENT=	Text processing utilities (does not include desktop publishing)
@@ -193,7 +193,12 @@ SUBDIR+=	glimpse
 SUBDIR+=	gnome-doc-utils
 SUBDIR+=	gnome-spell
 SUBDIR+=	gnome-subtitles
+SUBDIR+=	go-inflect
+SUBDIR+=	go-md2man
+SUBDIR+=	go-mmark
+SUBDIR+=	go-prose
 SUBDIR+=	go-runewidth
+SUBDIR+=	go-sentences
 SUBDIR+=	go-text
 SUBDIR+=	grep
 SUBDIR+=	grepcidr
@@ -865,6 +870,7 @@ SUBDIR+=	ruby-plist
 SUBDIR+=	ruby-pure-hyperestraier
 SUBDIR+=	ruby-rails-dom-testing
 SUBDIR+=	ruby-rdtool
+SUBDIR+=	ruby-rdiscount
 SUBDIR+=	ruby-redcarpet
 SUBDIR+=	ruby-redcloth
 SUBDIR+=	ruby-rison
