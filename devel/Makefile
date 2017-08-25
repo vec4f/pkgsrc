@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2487 2017/08/21 13:27:22 nils Exp $
+# $NetBSD: Makefile,v 1.2492 2017/08/24 16:11:57 minskim Exp $
 #
 
 COMMENT=	Development utilities
@@ -328,8 +328,8 @@ SUBDIR+=	go-ini
 SUBDIR+=	go-jwalterweatherman
 SUBDIR+=	go-mapstructure
 SUBDIR+=	go-mow-cli
-SUBDIR+=	go-nitro
 SUBDIR+=	go-nbreader
+SUBDIR+=	go-nitro
 SUBDIR+=	go-osext
 SUBDIR+=	go-pflag
 SUBDIR+=	go-properties
@@ -1817,6 +1817,7 @@ SUBDIR+=	py-atomicwrites
 SUBDIR+=	py-atpublic
 SUBDIR+=	py-attrs
 SUBDIR+=	py-automat
+SUBDIR+=	py-autopep8
 SUBDIR+=	py-babel
 SUBDIR+=	py-backports.functools_lru_cache
 SUBDIR+=	py-backports.shutil_get_terminal_size
@@ -2081,8 +2082,11 @@ SUBDIR+=	py-subvertpy
 SUBDIR+=	py-sysctl
 SUBDIR+=	py-tabular
 SUBDIR+=	py-test
+SUBDIR+=	py-test-cache
 SUBDIR+=	py-test-cov
+SUBDIR+=	py-test-flake8
 SUBDIR+=	py-test-forked
+SUBDIR+=	py-test-isort
 SUBDIR+=	py-test-mock
 SUBDIR+=	py-test-runner
 SUBDIR+=	py-test-xdist
