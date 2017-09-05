@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1171 2017/08/17 02:06:24 gavan Exp $
+# $NetBSD: Makefile,v 1.1174 2017/09/04 09:36:02 leot Exp $
 #
 
 COMMENT=	Networking tools
@@ -146,10 +146,24 @@ SUBDIR+=	fping
 SUBDIR+=	freeDiameter
 SUBDIR+=	freenet-tools
 SUBDIR+=	freeradius
+SUBDIR+=	freeradius-freetds
+SUBDIR+=	freeradius-iodbc
+SUBDIR+=	freeradius-krb5
+SUBDIR+=	freeradius-ldap
+SUBDIR+=	freeradius-memcached
+SUBDIR+=	freeradius-mysql
+SUBDIR+=	freeradius-perl
+SUBDIR+=	freeradius-pgsql
+SUBDIR+=	freeradius-python
+SUBDIR+=	freeradius-rest
+SUBDIR+=	freeradius-sqlite3
+SUBDIR+=	freeradius-unixodbc
+SUBDIR+=	freeradius-yubikey
 SUBDIR+=	freeradius2
 SUBDIR+=	freerdp
 SUBDIR+=	ftplibpp
 SUBDIR+=	ftpproxy
+SUBDIR+=	gallery-dl
 SUBDIR+=	gated
 SUBDIR+=	gcloud-golang-metadata
 SUBDIR+=	get-flash-videos
@@ -501,6 +515,7 @@ SUBDIR+=	p5-Net-OAuth
 SUBDIR+=	p5-Net-OpenID-Common
 SUBDIR+=	p5-Net-OpenID-Consumer
 SUBDIR+=	p5-Net-Packet
+SUBDIR+=	p5-Net-Patricia
 SUBDIR+=	p5-Net-Pcap
 SUBDIR+=	p5-Net-RawIP
 SUBDIR+=	p5-Net-SMTP-TLS

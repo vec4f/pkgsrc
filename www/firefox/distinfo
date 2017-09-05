@@ -1,9 +1,9 @@
-$NetBSD: distinfo,v 1.291 2017/08/17 12:47:55 ryoon Exp $
+$NetBSD: distinfo,v 1.294 2017/09/02 03:47:46 ryoon Exp $
 
-SHA1 (firefox-55.0.2.source.tar.xz) = c7f216a1a13f180d76c2b29e6a28063583da2314
-RMD160 (firefox-55.0.2.source.tar.xz) = 449028936827eb222a6f07084691f76e70ea2760
-SHA512 (firefox-55.0.2.source.tar.xz) = a27722cb5840aac89752fea0880a7e093e84b50dc78a36dc8c4bd493ffda10fa61446007f680bfe65db7a0debe4c21e6f0bf9f0de9876bba067abdda6fed7be4
-Size (firefox-55.0.2.source.tar.xz) = 234450696 bytes
+SHA1 (firefox-55.0.3.source.tar.xz) = 8d9b0861ad71845d4b0e668f1981ec99e617ff36
+RMD160 (firefox-55.0.3.source.tar.xz) = aa14f156f2d346bdf787222977ad0642dff084de
+SHA512 (firefox-55.0.3.source.tar.xz) = 3cacc87b97871f3a8c5e97c17ef7025079cb5c81f32377d9402cdad45815ac6c4c4762c79187f1e477910161c2377c42d41de62a50b6741d5d7c1cd70e8c6416
+Size (firefox-55.0.3.source.tar.xz) = 236010652 bytes
 SHA1 (patch-aa) = 373af8f1df58d20e015b231625e60914554fb779
 SHA1 (patch-browser_base_content_baseMenuOverlay.xul) = 1d8959e2df0b546e381cf0e5af71808e8e7bebd7
 SHA1 (patch-browser_components_nsBrowserGlue.js) = c27a9a57056ed3227e60f5663d9275ef4204ab39
@@ -113,14 +113,16 @@ SHA1 (patch-xpcom_base_nsDebugImpl.cpp) = 80d251f2227ddc78f435ec2a5aa19c6512c1c1
 SHA1 (patch-xpcom_base_nscore.h) = d7c96eda884d7f370442749c43caba50da61bbe4
 SHA1 (patch-xpcom_build_XPCOMInit.cpp) = 1e7cc3a7fd9515b10307fafa2b01ed689320bd54
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_Makefile.in) = 950874fbc255c93a828bddd84ffe8478094214cc
+SHA1 (patch-xpcom_reflect_xptcall_md_unix_moz.build) = 528f7254966d883c18e33744e28780a93055d560
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__arm__netbsd.cpp) = 493d1433ae72bbd0c65ab3f51de43fb864a6f58d
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__asm__mips.S) = f310105510bb5fa6c6de122ebdebbfa18423d8d3
-SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__asm__ppc__netbsd.s) = 8e367d4d0baf24714ee80449fc8d6849ff08ca1c
+SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__asm__ppc__netbsd.s) = ab558da218e53319857d85cf1fb84f4737ac643a
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__netbsd__m68k.cpp) = b6dc5d54eeaa908d914116429e61f4b65a6a5f8e
-SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__ppc__netbsd.cpp) = 71a33723a557a6153405f6baec8404b25f841608
+SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__ppc__netbsd.cpp) = 360e2f713d90e06cde738f876e99cc21cf082b05
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcinvoke__sparc64__netbsd.cpp) = 0792c2c626d906e71c5183994cb32bf8cdb3e239
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcstubs__arm__netbsd.cpp) = 3a902eb9a23b3b5737f3c8cb5f96a5ad9a98a189
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcstubs__asm__mips.S) = 79a4686d368132aff804f217baa685b2e06bc396
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcstubs__asm__sparc64__netbsd.s) = 522bc237bc90d85c98b61a467a431fddd91d8c3c
 SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcstubs__netbsd__m68k.cpp) = 75db49c9cb6bf2993afba82b731d80389d866212
+SHA1 (patch-xpcom_reflect_xptcall_md_unix_xptcstubs__ppc__netbsd.cpp) = e4fe10d96f3183b79c5150ad9f1f7baa44081aa6
 SHA1 (patch-xpcom_rust_nsstring_gtest_moz.build) = 3ab2c533b57e9f55a20afffb521a4498418b33eb

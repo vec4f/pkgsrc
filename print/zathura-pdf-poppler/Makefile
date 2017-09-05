@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2017/08/15 11:40:25 nros Exp $
+# $NetBSD: Makefile,v 1.14 2017/09/04 20:20:56 ryoon Exp $
 #
 
 DISTNAME=	zathura-pdf-poppler-0.2.7
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	print
 MASTER_SITES=	http://pwmt.org/projects/zathura/plugins/download/
 

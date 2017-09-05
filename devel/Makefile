@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2493 2017/08/26 06:08:58 adam Exp $
+# $NetBSD: Makefile,v 1.2498 2017/09/04 13:40:38 leot Exp $
 #
 
 COMMENT=	Development utilities
@@ -1981,6 +1981,7 @@ SUBDIR+=	py-ode
 SUBDIR+=	py-olefile
 SUBDIR+=	py-open-vcdiff
 SUBDIR+=	py-packaging
+SUBDIR+=	py-pathlib
 SUBDIR+=	py-pathlib2
 SUBDIR+=	py-pathspec
 SUBDIR+=	py-pbr
@@ -2050,8 +2051,10 @@ SUBDIR+=	py-quixote
 SUBDIR+=	py-radare2
 SUBDIR+=	py-radon
 SUBDIR+=	py-rauth
+SUBDIR+=	py-readlike
 SUBDIR+=	py-readline
 SUBDIR+=	py-rednose
+SUBDIR+=	py-reparser
 SUBDIR+=	py-repoze.lru
 SUBDIR+=	py-requests
 SUBDIR+=	py-requests-file
@@ -2222,6 +2225,7 @@ SUBDIR+=	ruby-hashery
 SUBDIR+=	ruby-heckle
 SUBDIR+=	ruby-highline
 SUBDIR+=	ruby-hike
+SUBDIR+=	ruby-hike1
 SUBDIR+=	ruby-i18n
 SUBDIR+=	ruby-iniparse
 SUBDIR+=	ruby-inline
@@ -2358,6 +2362,7 @@ SUBDIR+=	shunit2
 SUBDIR+=	silc-toolkit
 SUBDIR+=	slib
 SUBDIR+=	slibtool
+SUBDIR+=	sloccount
 SUBDIR+=	sml-mode
 SUBDIR+=	snappy
 SUBDIR+=	snappy-java10

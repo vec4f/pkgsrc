@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.623 2017/08/23 13:46:44 he Exp $
+# $NetBSD: Makefile,v 1.626 2017/09/04 18:58:50 joerg Exp $
 #
 
 COMMENT=	Security tools
@@ -66,7 +66,6 @@ SUBDIR+=	dehydrated
 SUBDIR+=	destroy
 SUBDIR+=	dhbitty
 SUBDIR+=	dirb
-SUBDIR+=	dirmngr
 SUBDIR+=	dnssec-tools
 SUBDIR+=	dropbear
 SUBDIR+=	dsniff
@@ -96,7 +95,6 @@ SUBDIR+=	gnu-pw-mgr
 SUBDIR+=	gnupg
 SUBDIR+=	gnupg-pkcs11-scd
 SUBDIR+=	gnupg2
-SUBDIR+=	gnupg21
 SUBDIR+=	gnutls
 SUBDIR+=	go-crypt
 SUBDIR+=	go-crypto
@@ -415,6 +413,7 @@ SUBDIR+=	py-m2crypto
 SUBDIR+=	py-mcrypt
 SUBDIR+=	py-mohawk
 SUBDIR+=	py-ndg_httpsclient
+SUBDIR+=	py-ntlm-auth
 SUBDIR+=	py-oath
 SUBDIR+=	py-oauth
 SUBDIR+=	py-oauth2
@@ -428,6 +427,7 @@ SUBDIR+=	py-prewikka
 SUBDIR+=	py-py-bcrypt
 SUBDIR+=	py-pydeep
 SUBDIR+=	py-requests-kerberos
+SUBDIR+=	py-requests-ntlm
 SUBDIR+=	py-requests-oauthlib
 SUBDIR+=	py-rsa
 SUBDIR+=	py-service_identity

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.69 2017/04/22 17:35:15 taca Exp $
+# $NetBSD: Makefile,v 1.71 2017/09/05 06:00:47 wiz Exp $
 #
 
 COMMENT=	Input method tools and libraries
@@ -81,12 +81,10 @@ SUBDIR+=	scim-hangul
 SUBDIR+=	scim-input-pad
 SUBDIR+=	scim-m17n
 SUBDIR+=	scim-pinyin
-SUBDIR+=	scim-python
 SUBDIR+=	scim-sinhala
 SUBDIR+=	scim-skk
 SUBDIR+=	scim-tables
 SUBDIR+=	scim-tables-vietnamese-ext
-SUBDIR+=	scim-tegaki
 SUBDIR+=	scim-thai
 SUBDIR+=	scim-tomoe
 SUBDIR+=	scim-uim

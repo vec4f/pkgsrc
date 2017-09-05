@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.949 2017/08/24 03:53:00 jnemeth Exp $
+# $NetBSD: Makefile,v 1.953 2017/09/04 19:50:16 adam Exp $
 #
 
 COMMENT=	Text processing utilities (does not include desktop publishing)
@@ -728,6 +728,7 @@ SUBDIR+=	py-color
 SUBDIR+=	py-colour
 SUBDIR+=	py-creole
 SUBDIR+=	py-cssselect
+SUBDIR+=	py-cssselect2
 SUBDIR+=	py-cssutils
 SUBDIR+=	py-deepdiff
 SUBDIR+=	py-defusedxml
@@ -773,6 +774,7 @@ SUBDIR+=	py-mkdocs-bootstrap
 SUBDIR+=	py-mkdocs-bootswatch
 SUBDIR+=	py-natsort
 SUBDIR+=	py-numpydoc
+SUBDIR+=	py-odfpy
 SUBDIR+=	py-openpyxl
 SUBDIR+=	py-pandocfilters
 SUBDIR+=	py-pdf-parser
@@ -794,6 +796,7 @@ SUBDIR+=	py-sphinx-rtd-theme
 SUBDIR+=	py-sphinx-theme-cloud
 SUBDIR+=	py-sphinxcontrib-newsfeed
 SUBDIR+=	py-sphinxcontrib-websupport
+SUBDIR+=	py-tablib
 SUBDIR+=	py-tabulate
 SUBDIR+=	py-textile
 SUBDIR+=	py-tinycss
@@ -945,6 +948,7 @@ SUBDIR+=	tinyxml
 SUBDIR+=	tinyxml2
 SUBDIR+=	tokyodystopia
 SUBDIR+=	trang
+SUBDIR+=	translate-shell
 SUBDIR+=	troffcvt
 SUBDIR+=	unac
 SUBDIR+=	uncrustify

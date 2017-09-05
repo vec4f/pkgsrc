@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.120 2017/08/24 20:03:32 adam Exp $
+# $NetBSD: Makefile,v 1.124 2017/09/04 20:20:54 ryoon Exp $
 
-VERREL=		5.4.0
-VERRC=		3
+VERREL=		5.4.1
+VERRC=		2
 VER=		${VERREL}.${VERRC}
 DISTNAME=	libreoffice-${VER}
-PKGREVISION=	3
+PKGREVISION=	2
 CATEGORIES=	misc
 MASTER_SITES=	http://download.documentfoundation.org/libreoffice/src/${VERREL}/
 EXTRACT_SUFX=	.tar.xz
@@ -40,7 +40,7 @@ CHECK_PORTABILITY_SKIP=configure
 
 NOT_PAX_MPROTECT_SAFE+=	${PKGNAME_NOREV}/lib/libreoffice/program/soffice.bin
 
-DIST_SUBDIR=	libreoffice/libreoffice-5.4.0.3nb1
+DIST_SUBDIR=	libreoffice
 
 LO_BOOTSTRAP=	${DISTNAME}
 LO_COMPONENTS=	dictionaries help translations

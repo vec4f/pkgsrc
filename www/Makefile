@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1262 2017/08/21 15:49:09 adam Exp $
+# $NetBSD: Makefile,v 1.1264 2017/09/05 06:03:22 wiz Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -820,7 +820,6 @@ SUBDIR+=	ruby-mechanize
 SUBDIR+=	ruby-multipart-post
 SUBDIR+=	ruby-mustermann
 SUBDIR+=	ruby-mustermann19
-SUBDIR+=	ruby-net-flickr
 SUBDIR+=	ruby-net-http-digest_auth
 SUBDIR+=	ruby-net-http-persistent
 SUBDIR+=	ruby-ntlm-http
@@ -898,7 +897,6 @@ SUBDIR+=	termtter
 SUBDIR+=	thin
 SUBDIR+=	thoth
 SUBDIR+=	thoth-delicious
-SUBDIR+=	thoth-flickr
 SUBDIR+=	thttpd
 SUBDIR+=	tidy
 SUBDIR+=	tinyproxy

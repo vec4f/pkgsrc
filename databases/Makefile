@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.538 2017/08/21 15:40:17 adam Exp $
+# $NetBSD: Makefile,v 1.540 2017/09/03 08:58:29 wiz Exp $
 
 COMMENT=	Databases
 
@@ -90,7 +90,6 @@ SUBDIR+=	lua-sqlite
 SUBDIR+=	lua-sqlite3
 SUBDIR+=	lua-tokyocabinet
 SUBDIR+=	luma
-SUBDIR+=	maatkit
 SUBDIR+=	mariadb55-client
 SUBDIR+=	mariadb55-server
 SUBDIR+=	metakit-lib
@@ -284,6 +283,7 @@ SUBDIR+=	poco-data-mysql
 SUBDIR+=	poco-data-odbc
 SUBDIR+=	poco-data-sqlite
 SUBDIR+=	postgresql-pgbench
+SUBDIR+=	postgresql-pgroonga
 SUBDIR+=	postgresql-postgis2
 SUBDIR+=	postgresql92
 SUBDIR+=	postgresql92-client
