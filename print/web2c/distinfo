@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.21 2017/06/20 20:50:50 markd Exp $
+$NetBSD: distinfo,v 1.23 2017/09/09 17:06:51 tnn Exp $
 
 SHA1 (texlive-20170524-source.tar.xz) = 1c1383ddb1b871c6b8ce49a4ae3c1a33d454a7b6
 RMD160 (texlive-20170524-source.tar.xz) = a8430c19fe1727cf308fe03e5838105260c0d71e

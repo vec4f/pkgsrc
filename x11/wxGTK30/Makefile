@@ -1,20 +1,20 @@
-# $NetBSD: Makefile,v 1.21 2017/07/15 19:10:31 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2017/09/13 08:23:47 adam Exp $
 
-VERSION=	3.0.2
-PKGREVISION=	10
-DISTNAME=	wxWidgets-${VERSION}
-PKGNAME=	wxGTK30-${VERSION}
+DISTNAME=	wxWidgets-3.0.3
+PKGNAME=	${DISTNAME:S/wxWidgets/wxGTK30/}
 CATEGORIES=	x11
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=wxwindows/}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=wxWidgets/}
+GITHUB_PROJECT=	wxWidgets
+GITHUB_RELEASE=	v${PKGVERSION_NOREV}
 EXTRACT_SUFX=	.tar.bz2
 
-PATCHFILES=		${DISTNAME}-libtool.3.diff.bz2
+PATCHFILES=		${DISTNAME}-libtool.1.diff.bz2
 PATCH_SITES=		${MASTER_SITE_LOCAL}
-PATCH_DIST_STRIP.${DISTNAME}-libtool.3.diff.bz2= -p1
+PATCH_DIST_STRIP.${DISTNAME}-libtool.1.diff.bz2= -p1
 
 MAINTAINER=	dbj@NetBSD.org
 HOMEPAGE=	http://www.wxwidgets.org/
-COMMENT=	wxWidgets GUI library
+COMMENT=	Cross-platform wxWidgets GUI library
 # LGPLv2 with additional permission; http://opensource.org/licenses/wxwindows
 LICENSE=	gnu-lgpl-v2
 
@@ -58,14 +58,11 @@ SUBST_SED.fix-paths+=		-e 's,@PREFIX@,${PREFIX},g'
 PLIST_SRC+=             ${PLIST_SRC_DFLT}
 PLIST_VARS+=		notdarwin
 .if ${OPSYS} == "Darwin"
-# Without this, it will choose -macox-version-min=10.5 and
-# hard code constants in the header files to match.
-# Then any other packages that use it
-# will fail unless they also set -macosx-version-min=10.5
-CONFIGURE_ARGS+=	--with-macosx-version-min=no
-
-PLIST_SRC+=		PLIST.cocoa
 CONFIGURE_ARGS+=	--with-osx_cocoa
+CONFIGURE_ARGS+=	--without-macosx-sdk
+CONFIGURE_ARGS+=	--without-macosx-version-min
+CPPFLAGS+=		-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=1
+PLIST_SRC+=		PLIST.cocoa
 .else
 PLIST.notdarwin=	yes
 
@@ -106,8 +103,8 @@ post-install:
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
-.include "../../multimedia/gstreamer0.10/buildlink3.mk"
-.include "../../multimedia/gst-plugins0.10-base/buildlink3.mk"
+.include "../../multimedia/gstreamer1/buildlink3.mk"
+.include "../../multimedia/gst-plugins1-base/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .if ${OPSYS} != "Darwin"
 .include "../../graphics/MesaLib/buildlink3.mk"

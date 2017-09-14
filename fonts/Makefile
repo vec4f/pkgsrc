@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.306 2017/08/27 19:25:27 wiz Exp $
+# $NetBSD: Makefile,v 1.309 2017/09/07 10:36:32 wiz Exp $
 #
 
 COMMENT=	Fonts
@@ -170,6 +170,7 @@ SUBDIR+=	mkfontscale
 SUBDIR+=	mminstance
 SUBDIR+=	monafonts
 SUBDIR+=	monafonts-ttf
+SUBDIR+=	monoid
 SUBDIR+=	mothanna-ttf
 SUBDIR+=	motoya-fonts
 SUBDIR+=	mozilla-fonts
@@ -462,10 +463,6 @@ SUBDIR+=	tex-eulervm
 SUBDIR+=	tex-eulervm-doc
 SUBDIR+=	tex-euro-ce
 SUBDIR+=	tex-euro-ce-doc
-SUBDIR+=	tex-eurofont
-SUBDIR+=	tex-eurofont-doc
-SUBDIR+=	tex-eurosans
-SUBDIR+=	tex-eurosans-doc
 SUBDIR+=	tex-eurosym
 SUBDIR+=	tex-eurosym-doc
 SUBDIR+=	tex-euxm
@@ -575,8 +572,6 @@ SUBDIR+=	tex-kixfont-doc
 SUBDIR+=	tex-knuth-lib
 SUBDIR+=	tex-knuth-local
 SUBDIR+=	tex-knuthotherfonts
-SUBDIR+=	tex-kotex-base
-SUBDIR+=	tex-kotex-base-doc
 SUBDIR+=	tex-kpfonts
 SUBDIR+=	tex-kpfonts-doc
 SUBDIR+=	tex-kurier

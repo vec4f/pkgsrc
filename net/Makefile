@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1174 2017/09/04 09:36:02 leot Exp $
+# $NetBSD: Makefile,v 1.1178 2017/09/11 07:50:37 wiz Exp $
 #
 
 COMMENT=	Networking tools
@@ -88,7 +88,6 @@ SUBDIR+=	dante
 SUBDIR+=	daq
 SUBDIR+=	darkstat
 SUBDIR+=	dc_gui2
-SUBDIR+=	dcsharp
 SUBDIR+=	dctc
 SUBDIR+=	ddclient
 SUBDIR+=	deforaos-vncviewer
@@ -555,7 +554,6 @@ SUBDIR+=	p5-Socket6
 SUBDIR+=	p5-Test-DNS
 SUBDIR+=	p5-Test-RequiresInternet
 SUBDIR+=	p5-Test-TCP
-SUBDIR+=	p5-Umph-Prompt
 SUBDIR+=	p5-WebService-Google-Reader
 SUBDIR+=	p5-WebService-MusicBrainz
 SUBDIR+=	p5-WebService-MusicBrainz0
@@ -563,9 +561,6 @@ SUBDIR+=	p5-X500-DN
 SUBDIR+=	p5-XML-RPC
 SUBDIR+=	p5-XMLRPC-Lite
 SUBDIR+=	p5-Zabbix-Sender
-SUBDIR+=	p5-gcap
-SUBDIR+=	p5-grake
-SUBDIR+=	p5-umph
 SUBDIR+=	packit
 SUBDIR+=	paris-traceroute
 SUBDIR+=	parpd
@@ -738,6 +733,7 @@ SUBDIR+=	ruby-net-ping
 SUBDIR+=	ruby-net-telnet
 SUBDIR+=	ruby-netaddr
 SUBDIR+=	ruby-netrc
+SUBDIR+=	ruby-pcaprub
 SUBDIR+=	ruby-pluggaloid
 SUBDIR+=	ruby-proxifier
 SUBDIR+=	ruby-public_suffix

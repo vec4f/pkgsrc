@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.26 2017/07/30 22:32:21 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2017/09/08 13:34:04 jaapb Exp $
 #
 
 DISTNAME=	ocaml-ssl-0.5.3
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=savonet/}
-PKGREVISION=	1
+PKGREVISION=	2
 
 MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	https://github.com/savonet/ocaml-ssl
@@ -13,6 +13,7 @@ LICENSE=	gnu-lgpl-v2.1
 
 HAS_CONFIGURE=	yes
 USE_TOOLS+=	autoconf gmake
+MAKE_JOBS_SAFE=	no
 
 OCAML_USE_FINDLIB=	yes
 OCAML_FINDLIB_REGISTER=	yes

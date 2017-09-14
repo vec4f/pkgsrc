@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.496 2017/09/03 16:43:36 wiz Exp $
+# $NetBSD: Makefile,v 1.498 2017/09/10 14:23:27 taca Exp $
 #
 
 COMMENT=	Electronic mail utilities
@@ -116,7 +116,6 @@ SUBDIR+=	grepmail
 SUBDIR+=	heirloom-mailx
 SUBDIR+=	hypermail
 SUBDIR+=	ifile
-SUBDIR+=	ifile-procmail
 SUBDIR+=	im
 SUBDIR+=	imap-uw
 SUBDIR+=	imap-uw-utils
@@ -329,6 +328,7 @@ SUBDIR+=	ruby-mime-types
 SUBDIR+=	ruby-mime-types-data
 SUBDIR+=	ruby-mime-types1
 SUBDIR+=	ruby-mime-types2
+SUBDIR+=	ruby-mini_mime
 SUBDIR+=	ruby-tmail
 SUBDIR+=	safecat
 SUBDIR+=	seamonkey-enigmail

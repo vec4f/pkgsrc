@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2017/07/11 19:41:20 joerg Exp $
+# $NetBSD: Makefile,v 1.24 2017/09/12 13:52:03 wiz Exp $
 
 DISTNAME=	fet-5.25.0
-PKGREVISION=	15
+PKGREVISION=	17
 CATEGORIES=	time
 MASTER_SITES=	http://lalescu.ro/liviu/fet/download/
 EXTRACT_SUFX=	.tar.bz2

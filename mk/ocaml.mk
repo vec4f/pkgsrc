@@ -1,4 +1,4 @@
-# $NetBSD: ocaml.mk,v 1.14 2017/07/26 09:41:31 jaapb Exp $
+# $NetBSD: ocaml.mk,v 1.17 2017/09/08 22:18:46 jaapb Exp $
 #
 # This Makefile fragment handles the common variables used by OCaml packages.
 #
@@ -58,6 +58,7 @@ _PKG_VARS.ocaml=	\
 	OCAML_TOPKG_OPTIONAL_TARGETS \
 	OCAML_USE_JBUILDER \
 	JBUILDER_BUILD_FLAGS \
+	JBUILDER_BUILD_PACKAGES \
 	JBUILDER_BUILD_TARGETS \
 	OCAML_BUILD_ARGS \
 	OPAM_INSTALL_FILES
@@ -74,9 +75,6 @@ OCAML_USE_OASIS?=	no
 
 # Default value of OCAML_USE_OASIS_DYNRUN
 OCAML_USE_OASIS_DYNRUN?=	no
-
-# Default value of OCAML_USE_OPAM
-OCAML_USE_OPAM?= no
 
 # Default value of OCAML_USE_TOPKG
 OCAML_USE_TOPKG?=	no
@@ -96,6 +94,7 @@ OCAML_TOPKG_NATIVE_TARGETS?=	# empty
 OPAM_INSTALL_FILES?=	${OCAML_TOPKG_NAME}
 JBUILDER_BUILD_FLAGS?=	# empty
 JBUILDER_BUILD_TARGETS?=	@install
+JBUILDER_BUILD_PACKAGES?=	# empty
 
 # Default value of OASIS_BUILD_ARGS
 OASIS_BUILD_ARGS?=	# empty
@@ -133,6 +132,14 @@ CONFIGURE_ARGS+=	--override is_native false
 .endif
 .endif
 
+# Configure stuff for JBUILDER
+.if ${OCAML_USE_JBUILDER} == "yes"
+.include "../../devel/ocaml-jbuilder/buildlink3.mk"
+OCAML_USE_OPAM?=	yes
+.else
+OCAML_USE_OPAM?=	no
+.endif
+
 # Configure stuff for OPAM
 .if ${OCAML_USE_OPAM} == "yes"
 .include "../../misc/ocaml-opam/buildlink3.mk"
@@ -143,12 +150,6 @@ CONFIGURE_ARGS+=	--override is_native false
 .include "../../misc/ocaml-topkg/buildlink3.mk"
 OCAML_USE_FINDLIB=	yes
 INSTALLATION_DIRS+=	${OCAML_SITELIBDIR}/${OCAML_TOPKG_NAME}
-.endif
-
-# Configure stuff for JBUILDER
-.if ${OCAML_USE_JBUILDER} == "yes"
-.include "../../devel/ocaml-jbuilder/buildlink3.mk"
-OCAML_USE_OPAM=	yes
 .endif
 
 # Value for OCAML_SITELIBDIR
@@ -243,8 +244,14 @@ do-install:
 .if ${OCAML_USE_JBUILDER} == "yes"
 
 do-build:
+.if !empty(JBUILDER_BUILD_PACKAGES)
+	${RUN} cd ${WRKSRC} && jbuilder build -j ${MAKE_JOBS} \
+		${JBUILDER_BUILD_FLAGS} -p ${JBUILDER_BUILD_PACKAGES:ts,} \
+		${JBUILDER_BUILD_TARGETS}
+.else
 	${RUN} cd ${WRKSRC} && jbuilder build -j ${MAKE_JOBS} \
 		${JBUILDER_BUILD_FLAGS} ${JBUILDER_BUILD_TARGETS}
+.endif
 
 .endif # topkg-jbuilder
 
