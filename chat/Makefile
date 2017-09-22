@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.191 2017/09/08 16:18:42 jperkin Exp $
+# $NetBSD: Makefile,v 1.193 2017/09/18 16:20:31 gdt Exp $
 #
 
 COMMENT=	Communication programs
@@ -8,7 +8,6 @@ SUBDIR+=	atheme
 SUBDIR+=	bitchbot
 SUBDIR+=	bitchx
 SUBDIR+=	bitlbee
-SUBDIR+=	blackened
 SUBDIR+=	bnc
 SUBDIR+=	bsflite
 SUBDIR+=	centerim
@@ -87,7 +86,6 @@ SUBDIR+=	loudmouth
 SUBDIR+=	matterircd
 SUBDIR+=	mcabber
 SUBDIR+=	meanwhile
-SUBDIR+=	mu-conference
 SUBDIR+=	naim
 SUBDIR+=	ninja
 SUBDIR+=	p5-IRC-Utils

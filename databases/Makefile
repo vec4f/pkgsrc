@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.541 2017/09/14 19:55:38 minskim Exp $
+# $NetBSD: Makefile,v 1.546 2017/09/18 02:46:00 taca Exp $
 
 COMMENT=	Databases
 
@@ -327,6 +327,7 @@ SUBDIR+=	postgresql96-pltcl
 SUBDIR+=	postgresql96-server
 SUBDIR+=	pxtools
 SUBDIR+=	py-PgSQL
+SUBDIR+=	py-alembic
 SUBDIR+=	py-apsw
 SUBDIR+=	py-asyncpg
 SUBDIR+=	py-barman
@@ -450,8 +451,10 @@ SUBDIR+=	ruby-ldap
 SUBDIR+=	ruby-moneta
 SUBDIR+=	ruby-mysql
 SUBDIR+=	ruby-mysql2
+SUBDIR+=	ruby-mysql28
 SUBDIR+=	ruby-odbc
 SUBDIR+=	ruby-pg
+SUBDIR+=	ruby-pg_array_parser
 SUBDIR+=	ruby-postgres-pr
 SUBDIR+=	ruby-qdbm
 SUBDIR+=	ruby-rrdtool

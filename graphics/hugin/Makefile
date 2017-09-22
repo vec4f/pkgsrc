@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.69 2017/08/24 20:03:21 adam Exp $
+# $NetBSD: Makefile,v 1.71 2017/09/21 18:41:50 adam Exp $
 
 DISTNAME=	hugin-2017.0.0
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hugin/}
 EXTRACT_SUFX=	.tar.bz2
@@ -36,6 +36,8 @@ SUBST_FILES.apple+=	src/hugin1/ptbatcher/CMakeLists.txt
 SUBST_FILES.apple+=	src/hugin1/stitch_project/CMakeLists.txt
 SUBST_SED.apple=	-e 's,(APPLE),(ELPPA),g'
 
+.include "../../mk/bsd.prefs.mk"
+
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
@@ -43,7 +45,9 @@ SUBST_SED.apple=	-e 's,(APPLE),(ELPPA),g'
 .include "../../devel/tclap/buildlink3.mk"
 .include "../../graphics/exiv2/buildlink3.mk"
 .include "../../graphics/glew/buildlink3.mk"
+.if ${OPSYS} != "Darwin"
 .include "../../graphics/glut/buildlink3.mk"
+.endif
 .include "../../graphics/gnome-icon-theme/buildlink3.mk"
 .include "../../graphics/lensfun/buildlink3.mk"
 .include "../../graphics/lcms2/buildlink3.mk"

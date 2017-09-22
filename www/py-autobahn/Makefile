@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.7 2017/09/08 11:09:35 adam Exp $
+# $NetBSD: Makefile,v 1.9 2017/09/16 08:50:30 wiz Exp $
 
-DISTNAME=	autobahn-17.9.1
+DISTNAME=	autobahn-17.9.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
 MASTER_SITES=	${MASTER_SITE_PYPI:=a/autobahn/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://crossbar.io/autobahn/
+HOMEPAGE=	https://crossbar.io/autobahn/
 COMMENT=	WebSocket client and server library, WAMP real-time framework
 LICENSE=	mit
 

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.14 2017/07/14 07:52:39 adam Exp $
+# $NetBSD: Makefile,v 1.16 2017/09/16 19:27:05 wiz Exp $
 
-DISTNAME=	amqp-2.2.1
+DISTNAME=	amqp-2.2.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	net python
 MASTER_SITES=	${MASTER_SITE_PYPI:=a/amqp/}
 
-MAINTAINER=	rodent@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://amqp.readthedocs.io/
 COMMENT=	Low-level AMQP client for Python
 LICENSE=	gnu-lgpl-v2.1
