@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.21 2016/03/10 19:20:15 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.22 2017/10/04 16:40:05 jperkin Exp $
 # used by lang/sun-jre6/Makefile
 # used by lang/sun-jdk6/Makefile
 
