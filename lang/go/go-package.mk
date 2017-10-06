@@ -52,6 +52,9 @@ USE_TOOLS+=		pax
 GO_PLATFORM=		${LOWER_OPSYS}_${GOARCH}
 GOTOOLDIR=		${PREFIX}/go/pkg/tool/${GO_PLATFORM}
 
+# Go programs do not use the normal linking process.
+CHECK_SSP_SUPPORTED=	no
+
 PRINT_PLIST_AWK+=	{ gsub(/${GO_PLATFORM}/, \
 			"$${GO_PLATFORM}"); \
 			print; next; }
