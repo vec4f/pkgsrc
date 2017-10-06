@@ -23,5 +23,7 @@ INSTALLATION_DIRS+=	bin include lib
 REAL_LDFLAGS=	${LDFLAGS:S/-Wl,-z,/-z /g}
 MAKEFLAGS+=	REAL_LDFLAGS=${REAL_LDFLAGS:Q}
 
+CHECK_SSP_SKIP+=	lib/ladspa/*.so
+
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
