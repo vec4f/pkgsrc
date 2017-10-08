@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.240 2017/07/07 05:54:24 wiz Exp $
+# $NetBSD: Makefile,v 1.242 2017/10/04 12:54:17 he Exp $
 
 .include "license.mk"
 .include "Makefile.common"
 
 COMMENT=	Practical Extraction and Report Language
-PKGREVISION=	2
 
 CONFLICTS+=	perl-base-[0-9]* perl-thread-[0-9]*
 

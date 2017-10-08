@@ -1,9 +1,9 @@
-$NetBSD: distinfo,v 1.144 2017/07/07 05:54:24 wiz Exp $
+$NetBSD: distinfo,v 1.146 2017/10/04 12:54:17 he Exp $
 
-SHA1 (perl-5.26.0.tar.bz2) = 2ca1b28f2c3ed4cc3b74be89d150ed0377f0336a
-RMD160 (perl-5.26.0.tar.bz2) = a853a1ec299d7c6ba8239e8ed444ee6d922b8938
-SHA512 (perl-5.26.0.tar.bz2) = 1e3849c0fbf3a1903f83f86470d44f55f0f22136a1bdeb829af9c47351b6c817d7d8961a2db4c9172285f5abc087ea105ccfd4c93025acbd73569e628669aab3
-Size (perl-5.26.0.tar.bz2) = 14708010 bytes
+SHA1 (perl-5.26.1.tar.bz2) = fadec45b7b48a06b3d2adab91c13f568dce717cd
+RMD160 (perl-5.26.1.tar.bz2) = fff5bf2e6ad6488b8866bf300c32707972b8ffc6
+SHA512 (perl-5.26.1.tar.bz2) = 821a4b78a22d24d6f79b56f68ed4a36db24bddc4dbe36c9d2622cd15d7abf6548186c037dea3d3745c1781af83339d0b54297f8094aa538046c0e57a953b5547
+Size (perl-5.26.1.tar.bz2) = 14492844 bytes
 SHA1 (patch-Configure) = d65082b236c81c310eb683a07c8ab60fc2a3e2f0
 SHA1 (patch-MANIFEST) = b27b0e1754fe2c4484931219fa17c562db88d41a
 SHA1 (patch-Makefile.SH) = e9353181a286f52303d09cb4ce0b2c04ec104217

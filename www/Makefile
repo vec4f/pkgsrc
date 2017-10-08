@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1266 2017/09/12 05:51:29 wiz Exp $
+# $NetBSD: Makefile,v 1.1273 2017/10/07 17:24:32 maya Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -168,7 +168,6 @@ SUBDIR+=	jetty7
 SUBDIR+=	jetty9
 SUBDIR+=	kahua
 SUBDIR+=	kannel
-SUBDIR+=	kdewebdev3
 SUBDIR+=	kdewebdev4
 SUBDIR+=	kdewebkit
 SUBDIR+=	khtml
@@ -526,6 +525,7 @@ SUBDIR+=	p5-Template-Timer
 SUBDIR+=	p5-Template-Toolkit
 SUBDIR+=	p5-Template-Toolkit-Simple
 SUBDIR+=	p5-Test-HTTP-Server-Simple
+SUBDIR+=	p5-Test-LWP-UserAgent
 SUBDIR+=	p5-Test-WWW-Declare
 SUBDIR+=	p5-Test-WWW-Mechanize
 SUBDIR+=	p5-Test-WWW-Mechanize-Catalyst
@@ -621,6 +621,7 @@ SUBDIR+=	py-channels
 SUBDIR+=	py-cheroot
 SUBDIR+=	py-cherrypy
 SUBDIR+=	py-clearsilver
+SUBDIR+=	py-cookies
 SUBDIR+=	py-curl
 SUBDIR+=	py-daphne
 SUBDIR+=	py-django
@@ -672,6 +673,7 @@ SUBDIR+=	py-flask-babel
 SUBDIR+=	py-flask-babelex
 SUBDIR+=	py-flask-bootstrap
 SUBDIR+=	py-flask-cache
+SUBDIR+=	py-flask-common
 SUBDIR+=	py-flask-debugtoolbar
 SUBDIR+=	py-flask-flatpages
 SUBDIR+=	py-flask-frozen
@@ -710,6 +712,7 @@ SUBDIR+=	py-jonpy
 SUBDIR+=	py-landslide
 SUBDIR+=	py-livereload
 SUBDIR+=	py-mechanize
+SUBDIR+=	py-meinheld
 SUBDIR+=	py-meld3
 SUBDIR+=	py-mezzanine
 SUBDIR+=	py-mod_wsgi
@@ -754,9 +757,11 @@ SUBDIR+=	py-waitress
 SUBDIR+=	py-webassets
 SUBDIR+=	py-webcolors
 SUBDIR+=	py-webpy
+SUBDIR+=	py-websocket-client
 SUBDIR+=	py-websockets
 SUBDIR+=	py-werkzeug
 SUBDIR+=	py-werkzeug-docs
+SUBDIR+=	py-whitenoise
 SUBDIR+=	py-wtforms
 SUBDIR+=	py-wtforms-alchemy
 SUBDIR+=	py-wtforms-components

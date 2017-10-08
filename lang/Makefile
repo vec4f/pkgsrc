@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.464 2017/08/24 03:40:26 jnemeth Exp $
+# $NetBSD: Makefile,v 1.466 2017/10/05 04:06:02 jnemeth Exp $
 #
 
 COMMENT=	Programming languages
@@ -147,7 +147,6 @@ SUBDIR+=	nqp
 SUBDIR+=	nuitka
 SUBDIR+=	objc
 SUBDIR+=	ocaml
-SUBDIR+=	onyx
 SUBDIR+=	oo2c
 SUBDIR+=	open-cobol-ce
 SUBDIR+=	opencobol
@@ -196,6 +195,7 @@ SUBDIR+=	python36
 SUBDIR+=	qore
 SUBDIR+=	racket
 SUBDIR+=	racket-textual
+SUBDIR+=	rakudo
 SUBDIR+=	rakudo-star
 SUBDIR+=	rcfunge
 SUBDIR+=	rexx-imc

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2017/09/17 10:18:41 adam Exp $
+# $NetBSD: Makefile,v 1.17 2017/10/06 06:34:36 adam Exp $
 
-DISTNAME=	pyasn1-0.3.5
+DISTNAME=	pyasn1-0.3.7
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/^py//}
-CATEGORIES=	security
+CATEGORIES=	security python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pyasn1/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
