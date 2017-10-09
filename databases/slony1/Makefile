@@ -23,6 +23,8 @@ CONFIGURE_ARGS+=	--with-pgpkglibdir=${PGSQL_PREFIX}/lib/postgresql
 CONFIGURE_ARGS+=	--with-pgsharedir=${PGSQL_PREFIX}/share/postgresql
 MAKE_FILE=		GNUmakefile
 
+CHECK_SSP_SUPPORTED=	no
+
 post-extract:
 	cp ${WRKSRC}/makefiles/Makefile.freebsd ${WRKSRC}/makefiles/Makefile.dragonfly
 

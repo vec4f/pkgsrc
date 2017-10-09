@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2017/09/18 09:53:21 maya Exp $
+# $NetBSD: Makefile,v 1.20.4.2 2017/09/28 12:17:17 gdt Exp $
 #
 
 DISTNAME=	gama-1.18

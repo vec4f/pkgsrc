@@ -20,6 +20,8 @@ BUILD_DEPENDS+=		go-${GO_VERSION}*:../../lang/go
 MAKE_ENV+=		GOPATH=${WRKDIR}:${PREFIX}/gopkg
 INSTALLATION_DIRS+=	bin share/doc/pup
 
+CHECK_SSP_SUPPORTED=	no
+
 post-extract:
 	${MKDIR} ${WRKSRC}
 	${MV} ${WRKDIR}/${DISTNAME}/* ${WRKSRC}

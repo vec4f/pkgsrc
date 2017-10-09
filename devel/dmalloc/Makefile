@@ -23,5 +23,7 @@ INSTALL_MAKE_FLAGS+=	prefix=${DESTDIR}${PREFIX}
 INSTALL_TARGET=	install installcxx
 TEST_TARGET=	heavy
 
+CHECK_SSP_SUPPORTED=	no
+
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

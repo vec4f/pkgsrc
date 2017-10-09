@@ -31,5 +31,7 @@ REPLACE.Rscript.old=	.*Rscript
 REPLACE.Rscript.new=	${PREFIX}/bin/Rscript
 REPLACE_FILES.Rscript=	${REPLACE_RSCRIPT}
 
+CHECK_SSP_SUPPORTED=	no
+
 .include "../../math/R/Makefile.extension"
 .include "../../mk/bsd.pkg.mk"

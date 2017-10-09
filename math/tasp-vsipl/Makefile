@@ -19,6 +19,8 @@ INSTALLATION_DIRS+=	include
 INSTALLATION_DIRS+=	lib
 INSTALLATION_DIRS+=	share/doc/tasp-vsipl
 
+CHECK_SSP_SUPPORTED=	no
+
 post-extract:
 	${MKDIR} ${WRKSRC}
 

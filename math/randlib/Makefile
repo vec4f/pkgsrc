@@ -18,6 +18,8 @@ USE_BSD_MAKEFILE=	yes
 INSTALLATION_DIRS=	include lib share/doc/randlib share/examples/randlib
 MAKE_FLAGS+=		MKPROFILE=yes
 
+CHECK_SSP_SUPPORTED=	no
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/../README ${WRKSRC}/../doc/* \
 		${DESTDIR}${PREFIX}/share/doc/randlib

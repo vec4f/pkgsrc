@@ -22,6 +22,7 @@ VISUALVMDIR=	lib/visualvm
 
 # Contains shlibs for many different arches
 CHECK_SHLIBS_SUPPORTED= no
+CHECK_SSP_SUPPORTED=	no
 
 INSTALLATION_DIRS= bin ${VISUALVMDIR}
 

@@ -20,6 +20,8 @@ USE_BSD_MAKEFILE=	yes
 INSTALLATION_DIRS=	include lib share/doc/dcdflib.c
 MAKE_FLAGS+=		MKPROFILE=yes
 
+CHECK_SSP_SUPPORTED=	no
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/dcdflib.h ${DESTDIR}${PREFIX}/include
 	cd ${WRKSRC} && ${INSTALL_DATA} README doc/dcdflib.chs		\

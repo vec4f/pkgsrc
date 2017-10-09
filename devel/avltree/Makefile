@@ -17,6 +17,8 @@ MAKE_FLAGS+=	MKPROFILE=yes
 
 INSTALLATION_DIRS=	include lib ${PKGMANDIR}/cat3 ${PKGMANDIR}/man3
 
+CHECK_SSP_SUPPORTED=	no
+
 post-extract:
 	cp -f ${FILESDIR}/Makefile ${WRKSRC}/
 

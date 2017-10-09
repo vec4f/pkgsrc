@@ -25,6 +25,7 @@ INSTALLATION_DIRS+=	bin ${PREFIX}/share/jalbum
 USE_TOOLS+=		pax
 
 CHECK_SHLIBS_SKIP+=	share/jalbum/lib/*
+CHECK_SSP_SKIP+=	${CHECK_SHLIBS_SKIP}
 
 post-extract:
 	${ECHO} "===> Removing invalid skins"

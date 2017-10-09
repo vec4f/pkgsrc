@@ -37,6 +37,8 @@ SUBST_FILES.fix-paths2+=	${MOZILLA_DIR}xulrunner/app/nsRegisterGREUnix.cpp
 SUBST_FILES.fix-paths2+=	${MOZILLA_DIR}xulrunner/installer/Makefile.in
 SUBST_SED.fix-paths2=           -e 's,/etc/gre.d,${PREFIX}/lib/xulrunner192/gre.d,g'
 
+CHECK_SSP_SUPPORTED=	no
+
 .include "../../devel/xulrunner192/mozilla-common.mk"
 CONFIGURE_ARGS+=	--enable-chrome-format=jar
 .include "options.mk"

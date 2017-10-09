@@ -16,6 +16,8 @@ USE_LANGUAGES=	c c++
 
 INSTALL_MAKE_FLAGS+=	INSTALL_ROOT=${DESTDIR}
 
+CHECK_SSP_SUPPORTED=	no
+
 do-configure:
 	${RUN} cd ${WRKSRC} && ${PKGSRC_ENV} ${CONFIGURE_ENV} ${QTDIR}/bin/qmake PREFIX=${PREFIX} -o Makefile
 

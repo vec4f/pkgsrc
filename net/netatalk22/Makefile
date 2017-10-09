@@ -78,6 +78,8 @@ PLIST.ea=		yes
 
 INSTALLATION_DIRS=	libexec/psffilters
 
+CHECK_SSP_SUPPORTED=	no
+
 post-install:
 .if !empty(PKG_OPTIONS:Mldap)
 	${INSTALL_DATA} ${WRKSRC}/config/afp_ldap.conf ${DESTDIR}${EGDIR}

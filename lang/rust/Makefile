@@ -45,6 +45,8 @@ TEST_TARGET=	check
 # Required for LLVM (-std=c++11)
 GCC_REQD+=	4.8
 
+CHECK_SSP_SUPPORTED=	no
+
 .include "../../mk/bsd.prefs.mk"
 
 #
