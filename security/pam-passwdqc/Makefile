@@ -15,6 +15,8 @@ BUILD_TARGET=	pam
 INSTALLATION_DIRS= lib/security ${PKGMANDIR}/man8 ${PKGMANDIR}/man5
 CFLAGS+=	-DNO_STATIC_MODULES
 
+CHECK_SSP_SUPPORTED=	no
+
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/libpasswdqc.so ${DESTDIR}${PREFIX}/lib
 	${INSTALL_DATA} ${WRKSRC}/pam_passwdqc.so \

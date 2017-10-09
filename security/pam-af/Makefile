@@ -24,6 +24,8 @@ MAKE_DIRS+=	${VARBASE}/db
 
 BUILDLINK_TRANSFORM+=	rm:-Wcast-qual
 
+CHECK_SSP_SUPPORTED=	no
+
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "Linux"

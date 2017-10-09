@@ -16,6 +16,8 @@ CONFIGURE_ENV+=		ac_aux_dir=$(PREFIX)/lib/clisp/build-aux/
 
 INSTALLATION_DIRS=	lib/clisp
 
+CHECK_SSP_SUPPORTED=	no
+
 .if !target(do-install)
 do-install:
 	$(INSTALL_DATA_DIR) $(DESTDIR)$(PREFIX)/lib/clisp/dynmod

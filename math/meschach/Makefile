@@ -20,6 +20,8 @@ INSTALLATION_DIRS=	include/meschach lib share/meschach/tests
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
 
+CHECK_SSP_SUPPORTED=	no
+
 pre-patch:
 	${CP} ${FILESDIR}/makefile.in ${WRKSRC}
 

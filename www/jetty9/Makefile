@@ -56,6 +56,7 @@ CONF_FILES+=		${JETTY_HOME}/start-example.ini ${JETTY_BASE}/start.ini
 REPLACE_BASH+=		bin/jetty.sh
 
 CHECK_SHLIBS_SKIP+=	share/jetty/lib/setuid/libsetuid-*.so
+CHECK_SSP_SKIP+=	${CHECK_SHLIBS_SKIP}
 
 do-install:
 	cd ${WRKSRC} && ${PAX} -rw -pm . ${DESTDIR}${JETTY_HOME}

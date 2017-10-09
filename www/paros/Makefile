@@ -42,6 +42,7 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/paros.sh ${DESTDIR}${PREFIX}/bin/paros
 
 CHECK_SHLIBS_SKIP+=	lib/paros/libjdic.so lib/paros/libtray.so
+CHECK_SSP_SKIP+=	${CHECK_SHLIBS_SKIP}
 
 .include "../../mk/java-vm.mk"
 .include "../../mk/bsd.pkg.mk"

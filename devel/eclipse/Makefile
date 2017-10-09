@@ -41,6 +41,7 @@ do-build:
 .else
 NO_BUILD=		yes
 CHECK_SHLIBS_SUPPORTED=	no
+CHECK_SSP_SUPPORTED=	no
 
 do-extract:
 	${MKDIR} ${WRKDIR}/result

@@ -78,6 +78,8 @@ CONFIGURE_ARGS.NetBSD+=	--without-dtrace
 
 INSTALLATION_DIRS=	libexec/psffilters etc/netatalk
 
+CHECK_SSP_SUPPORTED=	no
+
 post-configure:
 	${CP} ${FILESDIR}/netatalk_smf.sh ${SMF_SRCDIR}
 

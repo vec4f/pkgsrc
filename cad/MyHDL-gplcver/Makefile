@@ -14,6 +14,8 @@ MAKE_FLAGS+=	CC=${CC:Q}
 
 INSTALLATION_DIRS+=	lib/gplcver
 
+CHECK_SSP_SUPPORTED=	no
+
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/cosimulation/cver/myhdl_vpi.so \
 		${DESTDIR}${PREFIX}/lib/gplcver

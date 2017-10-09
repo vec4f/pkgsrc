@@ -39,6 +39,8 @@ CONFIGURE_ARGS+=	--with-rudiments-prefix=${BUILDLINK_PREFIX.rudiments}
 PKG_SYSCONFSUBDIR=	sqlrelay
 EGDIR=			${PREFIX}/share/examples/sqlrelay
 
+CHECK_SSP_SUPPORTED=	no
+
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CXX+=	-Wno-error=overloaded-virtual
