@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.79 2017/09/07 11:24:29 prlw1 Exp $
+# $NetBSD: Makefile,v 1.81 2017/10/15 22:31:02 prlw1 Exp $
 
 DISTNAME=	cups-filters-1.17.2
 PKGREVISION=	3
@@ -16,7 +16,7 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	bash:run pkg-config gmake
 USE_LANGUAGES=	c c++11
 
-BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 
 PKGCONFIG_OVERRIDE+=	libcupsfilters.pc.in

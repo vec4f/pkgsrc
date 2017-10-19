@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2017/10/02 15:38:05 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2017/10/15 22:31:02 prlw1 Exp $
 
 DISTNAME=	libsecret-0.18.5
 CATEGORIES=	security gnome
@@ -12,7 +12,7 @@ LICENSE=	gnu-lgpl-v2.1
 
 BUILD_DEPENDS+=	libxslt-[0-9]*:../../textproc/libxslt
 BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
-BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes

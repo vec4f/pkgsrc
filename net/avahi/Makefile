@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.71 2017/09/27 06:30:37 wiz Exp $
+# $NetBSD: Makefile,v 1.73 2017/10/15 23:19:12 prlw1 Exp $
 
 DISTNAME=		avahi-0.6.32
 PKGREVISION=		7

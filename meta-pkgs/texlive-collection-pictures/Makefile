@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.16 2017/08/24 02:40:56 markd Exp $
+# $NetBSD: Makefile,v 1.18 2017/10/15 20:48:28 markd Exp $
 
 DISTNAME=	collection-pictures
-PKGNAME=	texlive-${DISTNAME}-2017pre3
+PKGNAME=	texlive-${DISTNAME}-2017pre4
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	44943
+TEXLIVE_REV=	45417
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -45,9 +45,11 @@ DEPENDS+=	tex-curves-[0-9]*:../../print/tex-curves
 # depend dratex
 # depend drs
 # depend duotenzor
+# depend dynkin-diagrams
 # depend ecgdraw
 DEPENDS+=	tex-eepic-[0-9]*:../../graphics/tex-eepic
 DEPENDS+=	tex-ellipse-[0-9]*:../../graphics/tex-ellipse
+# depend endofproofwd
 # depend epspdf
 # depend epspdfconversion
 # depend esk
@@ -69,6 +71,7 @@ DEPENDS+=	tex-here-[0-9]*:../../print/tex-here
 # depend hf-tikz
 # depend hobby
 # depend hvfloat
+# depend istgame
 # depend knitting
 # depend knittingpattern
 # depend ladder
@@ -155,11 +158,11 @@ DEPENDS+=	tex-tikzscale-[0-9]*:../../graphics/tex-tikzscale
 DEPENDS+=	tex-tikzsymbols-[0-9]*:../../graphics/tex-tikzsymbols
 # depend timing-diagrams
 # depend tqft
-# depend tkz-base
+DEPENDS+=	tex-tkz-base-[0-9]*:../../graphics/tex-tkz-base
 # depend tkz-berge
 # depend tkz-doc
 # depend tkz-euclide
-# depend tkz-fct
+DEPENDS+=	tex-tkz-fct-[0-9]*:../../graphics/tex-tkz-fct
 # depend tkz-graph
 # depend tkz-kiviat
 # depend tkz-linknodes

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.42 2017/10/02 14:05:11 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2017/10/15 23:19:13 prlw1 Exp $
 
 DISTNAME=	libnotify-0.7.7
 CATEGORIES=	sysutils gnome

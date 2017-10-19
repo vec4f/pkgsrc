@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.772 2017/09/26 10:27:01 wiz Exp $
+# $NetBSD: Makefile,v 1.774 2017/10/17 15:10:19 fhajny Exp $
 #
 
 COMMENT=	Graphics tools and libraries
@@ -90,6 +90,7 @@ SUBDIR+=	eog-plugins-map
 SUBDIR+=	eog3
 SUBDIR+=	eom
 SUBDIR+=	epeg
+SUBDIR+=	erlang-eimp
 SUBDIR+=	evas
 SUBDIR+=	evas-buffer
 SUBDIR+=	evas-edb
@@ -698,6 +699,10 @@ SUBDIR+=	tex-tikzscale
 SUBDIR+=	tex-tikzscale-doc
 SUBDIR+=	tex-tikzsymbols
 SUBDIR+=	tex-tikzsymbols-doc
+SUBDIR+=	tex-tkz-base
+SUBDIR+=	tex-tkz-base-doc
+SUBDIR+=	tex-tkz-fct
+SUBDIR+=	tex-tkz-fct-doc
 SUBDIR+=	tex-venndiagram
 SUBDIR+=	tex-venndiagram-doc
 SUBDIR+=	tex-xypic

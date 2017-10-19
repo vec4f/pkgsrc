@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.94 2017/10/02 15:35:35 wiz Exp $
+# $NetBSD: Makefile,v 1.96 2017/10/15 23:19:11 prlw1 Exp $
 
 DISTNAME=	librsvg-2.40.18
 CATEGORIES=	graphics gnome

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.235 2017/07/11 11:52:42 jperkin Exp $
+# $NetBSD: Makefile,v 1.237 2017/10/16 00:40:08 prlw1 Exp $
 
 .include "Makefile.common"
 
-PKGREVISION=		1
 CATEGORIES=		devel gnome
 
 COMMENT=		Some useful routines for C programming (glib2)
@@ -54,6 +53,11 @@ CONFIGURE_ENV+=		LIBELF_LIBS='-lelf'
 .  include "../../devel/libelf/buildlink3.mk"
 .  endif
 .endif
+
+# to run gdbus-codegen to generate gdbus-daemon-generated.{h,c}
+TOOL_DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
+PYTHON_FOR_BUILD_ONLY?=	yes
+.include "../../lang/python/pyversion.mk"
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

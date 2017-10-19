@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.288 2017/08/16 20:21:16 wiz Exp $
+# $NetBSD: Makefile,v 1.290 2017/10/15 23:19:13 prlw1 Exp $
 
 DISTNAME=	gtk+-2.24.31
 PKGNAME=	${DISTNAME:S/gtk/gtk2/}

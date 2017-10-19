@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.96 2017/08/01 14:58:54 wiz Exp $
+# $NetBSD: Makefile,v 1.98 2017/10/15 23:19:11 prlw1 Exp $
 
 DISTNAME=		atk-2.24.0
 CATEGORIES=		devel gnome
@@ -16,9 +16,6 @@ USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c99
 USE_LIBTOOL=		yes
 PKGCONFIG_OVERRIDE=	atk.pc.in
-
-# glib-mkenums overflows a 2048kb stack on atkobject.h
-UNLIMIT_RESOURCES=	stacksize
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.31.2

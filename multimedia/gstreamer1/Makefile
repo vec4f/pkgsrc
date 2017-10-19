@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.32 2017/09/12 09:32:44 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2017/10/15 23:19:12 prlw1 Exp $
 
 DISTNAME=	gstreamer-1.12.2
 PKGNAME=	${DISTNAME:S/gstreamer/gstreamer1/}

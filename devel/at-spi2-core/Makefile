@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.23 2017/08/25 12:17:00 prlw1 Exp $
+# $NetBSD: Makefile,v 1.25 2017/10/15 23:19:11 prlw1 Exp $
 
 DISTNAME=	at-spi2-core-2.25.91
 CATEGORIES=	devel gnome

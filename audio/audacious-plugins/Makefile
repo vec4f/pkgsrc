@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.76 2017/10/04 11:29:37 wiz Exp $
+# $NetBSD: Makefile,v 1.78 2017/10/15 22:31:02 prlw1 Exp $
 
 DISTNAME=	audacious-plugins-3.5.2
 PKGREVISION=	16
@@ -11,7 +11,7 @@ HOMEPAGE=	http://audacious-media-player.org/
 COMMENT=	Plugins for Audacious media player
 LICENSE=	2-clause-bsd
 
-BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake intltool pkg-config msgfmt

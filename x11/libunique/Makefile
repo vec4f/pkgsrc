@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.37 2017/10/03 12:12:34 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2017/10/15 23:19:13 prlw1 Exp $
 
 DISTNAME=	libunique-1.1.6
 PKGREVISION=	24

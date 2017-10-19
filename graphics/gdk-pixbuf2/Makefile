@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.33 2017/08/08 16:52:10 adam Exp $
+# $NetBSD: Makefile,v 1.35 2017/10/15 23:19:11 prlw1 Exp $
 
 DISTNAME=	gdk-pixbuf-${PIXBUF2_VERSION}
 PKGNAME=	${DISTNAME:S/pixbuf/pixbuf2/}

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.34 2017/08/27 15:26:03 prlw1 Exp $
+# $NetBSD: Makefile,v 1.36 2017/10/15 23:19:13 prlw1 Exp $
 
 DISTNAME=	gtksourceview-3.24.3
 PKGNAME=	${DISTNAME:S/gtksourceview/gtksourceview3/}

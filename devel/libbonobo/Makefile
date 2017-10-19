@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.79 2017/08/16 20:21:07 wiz Exp $
+# $NetBSD: Makefile,v 1.81 2017/10/15 23:19:11 prlw1 Exp $
 
 DISTNAME=		libbonobo-2.32.0
 PKGREVISION=		11

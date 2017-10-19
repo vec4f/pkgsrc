@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.23 2017/09/12 09:32:43 wiz Exp $
+# $NetBSD: Makefile.common,v 1.25 2017/10/15 23:19:12 prlw1 Exp $
 #
 # used by audio/gst-plugins1-alsa/Makefile
 # used by audio/gst-plugins1-cdparanoia/Makefile

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.49 2017/10/03 12:36:52 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2017/10/15 23:19:10 prlw1 Exp $
 
 DISTNAME=	telepathy-glib-0.24.1
 PKGREVISION=	6

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2017/07/30 22:47:59 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2017/10/15 23:19:13 prlw1 Exp $
 #
 
 DISTNAME=	vte-0.38.4

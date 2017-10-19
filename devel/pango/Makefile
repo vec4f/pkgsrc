@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.206 2017/10/02 15:42:01 wiz Exp $
+# $NetBSD: Makefile,v 1.208 2017/10/15 23:19:11 prlw1 Exp $
 
 DISTNAME=	pango-1.40.12
 CATEGORIES=	devel fonts
