@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2556 2017/10/19 06:51:11 adam Exp $
+# $NetBSD: Makefile,v 1.2560 2017/10/25 22:17:13 minskim Exp $
 #
 
 COMMENT=	Development utilities
@@ -326,6 +326,7 @@ SUBDIR+=	go-homedir
 SUBDIR+=	go-i18n
 SUBDIR+=	go-immutable-radix
 SUBDIR+=	go-ini
+SUBDIR+=	go-isatty
 SUBDIR+=	go-jwalterweatherman
 SUBDIR+=	go-mapstructure
 SUBDIR+=	go-mow-cli
@@ -338,7 +339,9 @@ SUBDIR+=	go-protobuf
 SUBDIR+=	go-purell
 SUBDIR+=	go-ratelimit
 SUBDIR+=	go-review
+SUBDIR+=	go-runewidth
 SUBDIR+=	go-sanitized_anchor_name
+SUBDIR+=	go-shellwords
 SUBDIR+=	go-shuffle
 SUBDIR+=	go-siphash
 SUBDIR+=	go-sys
@@ -1930,7 +1933,6 @@ SUBDIR+=	py-game
 SUBDIR+=	py-generate
 SUBDIR+=	py-gflags
 SUBDIR+=	py-gitinspector
-SUBDIR+=	py-glib2-tools
 SUBDIR+=	py-gobject
 SUBDIR+=	py-gobject-shared
 SUBDIR+=	py-gobject3
@@ -1979,6 +1981,7 @@ SUBDIR+=	py-line_profiler
 SUBDIR+=	py-linecache2
 SUBDIR+=	py-lockfile
 SUBDIR+=	py-logan
+SUBDIR+=	py-logbook
 SUBDIR+=	py-logilab-astng
 SUBDIR+=	py-logilab-common
 SUBDIR+=	py-lupa
@@ -2152,6 +2155,7 @@ SUBDIR+=	py-uvloop
 SUBDIR+=	py-vcversioner
 SUBDIR+=	py-vine
 SUBDIR+=	py-virtualenv
+SUBDIR+=	py-visitor
 SUBDIR+=	py-wcwidth
 SUBDIR+=	py-wheel
 SUBDIR+=	py-whichcraft
