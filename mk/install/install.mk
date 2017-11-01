@@ -179,6 +179,7 @@ _INSTALL_ALL_TARGETS+=		plist
 .if !empty(STRIP_DEBUG:M[Yy][Ee][Ss])
 _INSTALL_ALL_TARGETS+=		install-strip-debug
 .endif
+_INSTALL_ALL_TARGETS+=		install-ctf
 _INSTALL_ALL_TARGETS+=		install-doc-handling
 .if ${_USE_NEW_PKGINSTALL:Uno} == "no"
 _INSTALL_ALL_TARGETS+=		install-script-data
@@ -347,6 +348,22 @@ install-strip-debug: plist
 			    ${MV} "$${tmp_f}" "$${f}"; \
 		else \
 			${RM} -f "$${tmp_f}"; \
+		fi \
+	done
+
+_CTF_EXE_PATHS=	(bin/|sbin/|libexec/|\.(dylib|sl|so)$$|lib/lib.*\.(dylib|sl|so))
+
+.PHONY: install-ctf
+install-ctf: plist
+	@${STEP_MSG} "Generating CTF data"
+	${RUN}${CAT} ${_PLIST_NOKEYWORDS} \
+	| ${SED} -e 's|^|${DESTDIR}${PREFIX}/|' \
+	| ${EGREP} -h ${_CTF_EXE_PATHS:Q} \
+	| while read f; do \
+		if [ -x $${f} ]; then \
+			/usr/bin/file -b $${f} | ${GREP} ELF >/dev/null || continue; \
+			/shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
+			/usr/bin/strip -x $${f}; \
 		fi \
 	done
 
