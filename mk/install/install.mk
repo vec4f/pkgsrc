@@ -363,7 +363,15 @@ install-ctf: plist
 		if [ -x $${f} -a ! -L $${f} ]; then \
 			/usr/bin/file -b $${f} | ${GREP} ELF >/dev/null || continue; \
 			LIBCTF_DEBUG=1 /shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
+			chwr=false; \
+			if [ ! -w $${f} ]; then \
+				chwr=true; \
+				chmod +w $${f}; \
+			fi; \
 			/usr/bin/strip -x $${f}; \
+			if $${chwr}; then \
+				chmod -w $${f}; \
+			fi; \
 		fi \
 	done
 
