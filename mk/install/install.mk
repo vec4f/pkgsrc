@@ -362,7 +362,7 @@ install-ctf: plist
 	| while read f; do \
 		if [ -x $${f} ]; then \
 			/usr/bin/file -b $${f} | ${GREP} ELF >/dev/null || continue; \
-			/shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
+			LIBCTF_DEBUG=1 /shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
 			/usr/bin/strip -x $${f}; \
 		fi \
 	done
