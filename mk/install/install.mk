@@ -360,7 +360,7 @@ install-ctf: plist
 	| ${SED} -e 's|^|${DESTDIR}${PREFIX}/|' \
 	| ${EGREP} -h ${_CTF_EXE_PATHS:Q} \
 	| while read f; do \
-		if [ -x $${f} ]; then \
+		if [ -x $${f} -a ! -L $${f} ]; then \
 			/usr/bin/file -b $${f} | ${GREP} ELF >/dev/null || continue; \
 			LIBCTF_DEBUG=1 /shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
 			/usr/bin/strip -x $${f}; \
