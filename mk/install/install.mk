@@ -179,7 +179,9 @@ _INSTALL_ALL_TARGETS+=		plist
 .if !empty(STRIP_DEBUG:M[Yy][Ee][Ss])
 _INSTALL_ALL_TARGETS+=		install-strip-debug
 .endif
+.if !empty(CTF_SUPPORTED:M[Yy][Ee][Ss])
 _INSTALL_ALL_TARGETS+=		install-ctf
+.endif
 _INSTALL_ALL_TARGETS+=		install-doc-handling
 .if ${_USE_NEW_PKGINSTALL:Uno} == "no"
 _INSTALL_ALL_TARGETS+=		install-script-data
@@ -351,16 +353,23 @@ install-strip-debug: plist
 		fi \
 	done
 
-_CTF_EXE_PATHS=	(bin/|sbin/|libexec/|\.(dylib|sl|so)$$|lib/lib.*\.(dylib|sl|so))
+_CTF_EXE_PATHS=		(bin/|sbin/|libexec/|\.(dylib|sl|so)$$|lib/lib.*\.(dylib|sl|so))
+.if !empty(CTF_FILES_SKIP)
+_CTF_FILES_SKIP_FILTER=	${GREP} -vx ${CTF_FILES_SKIP:@f@-e ${f:Q}@}
+.else
+_CTF_FILES_SKIP_FILTER=	${CAT}
+.endif
 
 .PHONY: install-ctf
 install-ctf: plist
 	@${STEP_MSG} "Generating CTF data"
 	${RUN}${CAT} ${_PLIST_NOKEYWORDS} \
 	| ${SED} -e 's|^|${DESTDIR}${PREFIX}/|' \
+	| ${_CTF_FILES_SKIP_FILTER} \
 	| ${EGREP} -h ${_CTF_EXE_PATHS:Q} \
 	| while read f; do \
 		if [ -x $${f} -a ! -L $${f} ]; then \
+			echo $${f}; \
 			/usr/bin/file -b $${f} | ${GREP} ELF >/dev/null || continue; \
 			LIBCTF_DEBUG=1 /shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
 			chwr=false; \
@@ -372,6 +381,7 @@ install-ctf: plist
 			if $${chwr}; then \
 				chmod -w $${f}; \
 			fi; \
+			echo $${f}; \
 		fi \
 	done
 

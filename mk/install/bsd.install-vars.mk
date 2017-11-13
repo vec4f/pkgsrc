@@ -46,6 +46,9 @@ _MANCOMPRESSED!=							\
 _MANZ=		${MANZ:Dyes:Uno}
 MAKEVARS+=	_MANCOMPRESSED _MANZ
 
+CTF_SUPPORTED?=	yes
+USE_TOOLS+=	grep
+
 STRIP_DEBUG?=	no
 
 .if !empty(_MANCOMPRESSED:M[yY][eE][sS]) && empty(_MANZ:M[yY][eE][sS])

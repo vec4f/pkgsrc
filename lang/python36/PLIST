@@ -107,7 +107,6 @@ include/python${PY_VER_SUFFIX}/warnings.h
 include/python${PY_VER_SUFFIX}/weakrefobject.h
 lib/libpython${PY_VER_SUFFIX}.so
 lib/libpython${PY_VER_SUFFIX}.so.1.0
-lib/libpython3.so
 lib/pkgconfig/python-${PY_VER_SUFFIX}.pc
 lib/python${PY_VER_SUFFIX}/LICENSE.txt
 lib/python${PY_VER_SUFFIX}/__future__.py
