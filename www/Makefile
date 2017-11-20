@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1283 2017/11/04 14:43:40 wen Exp $
+# $NetBSD: Makefile,v 1.1286 2017/11/11 21:32:29 tnn Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -125,6 +125,7 @@ SUBDIR+=	firefox52-l10n
 SUBDIR+=	gallery
 SUBDIR+=	gallery2
 SUBDIR+=	ganglia-webfrontend
+SUBDIR+=	geckodriver
 SUBDIR+=	geeklog
 SUBDIR+=	gitweb
 SUBDIR+=	go-ace
@@ -733,6 +734,7 @@ SUBDIR+=	py-rss2gen
 SUBDIR+=	py-sanic
 SUBDIR+=	py-scgi
 SUBDIR+=	py-scrapy
+SUBDIR+=	py-selenium
 SUBDIR+=	py-simpletal
 SUBDIR+=	py-sparqlwrapper
 SUBDIR+=	py-static
