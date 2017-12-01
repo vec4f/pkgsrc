@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.47 2017/09/26 09:12:24 wiz Exp $
+# $NetBSD: buildlink3.mk,v 1.49 2017/11/30 16:45:09 adam Exp $
 
 BUILDLINK_TREE+=	compiz
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	compiz
 COMPIZ_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.compiz+=	compiz>=0.6.2
-BUILDLINK_ABI_DEPENDS.compiz+=	compiz>=0.8.8nb31
+BUILDLINK_ABI_DEPENDS.compiz+=	compiz>=0.8.8nb33
 BUILDLINK_PKGSRCDIR.compiz?=	../../wm/compiz
 
 pkgbase := compiz

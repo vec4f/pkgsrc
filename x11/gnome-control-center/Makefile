@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.90 2017/09/18 09:53:06 maya Exp $
+# $NetBSD: Makefile,v 1.92 2017/11/30 16:45:10 adam Exp $
 #
 
 DISTNAME=	gnome-control-center-2.32.1
-PKGREVISION=	49
+PKGREVISION=	51
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-control-center/2.32/}
 EXTRACT_SUFX=	.tar.bz2

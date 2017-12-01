@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2017/11/16 19:48:24 jperkin Exp $
+# $NetBSD: Makefile,v 1.21 2017/11/29 12:25:45 wiz Exp $
 
-DISTNAME=	rustc-1.21.0-src
+DISTNAME=	rustc-1.22.1-src
 PKGNAME=	${DISTNAME:S/rustc/rust/:S/-src//}
 CATEGORIES=	lang
 MASTER_SITES=	http://static.rust-lang.org/dist/
@@ -21,7 +21,7 @@ CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--python=${PYTHONBIN}
 CONFIGURE_ARGS+=	--release-channel=stable
-CONFIGURE_ARGS+=	--enable-local-rust
+#CONFIGURE_ARGS+=	--enable-local-rust
 CONFIGURE_ARGS+=	--local-rust-root=${RUST_BOOTSTRAP_PATH}
 CONFIGURE_ARGS+=	--enable-extended	# Build and install cargo too.
 CONFIGURE_ARGS+=	--enable-rpath
@@ -35,6 +35,8 @@ CONFIGURE_ARGS+=	--disable-ninja
 CONFIGURE_ARGS+=	--enable-vendor
 
 UNLIMIT_RESOURCES+=	cputime
+
+PYTHON_VERSIONS_ACCEPTED=	27
 
 TEST_TARGET=	check
 
@@ -70,7 +72,7 @@ BUILDLINK_API_DEPENDS.llvm+=  llvm>=4.0.1nb1
 # own bootstrap.  See the stage0-bootstrap below for more details.
 #
 DISTFILES:=		${DEFAULT_DISTFILES}
-RUST_STAGE0_VER=	1.20.0
+RUST_STAGE0_VER=	1.21.0
 #
 .if !empty(MACHINE_PLATFORM:MDarwin-*-i386) || make(distinfo) || make (makesum) || make(mdi)
 RUST_ARCH:=		i686-apple-darwin
@@ -96,13 +98,13 @@ RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
 RUST_STD_STAGE0:=	rust-std-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
 DISTFILES:=		${DISTFILES} ${RUST_STAGE0} ${RUST_STD_STAGE0}
 .endif
-.if !empty(MACHINE_PLATFORM:MSunOS-*-x86_64) || make(distinfo) || make (makesum) || make(mdi)
-RUST_ARCH:=		x86_64-sun-solaris
-RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
-SITES.${RUST_STAGE0}=	https://us-east.manta.joyent.com/pkgsrc/public/pkg-bootstraps/
-DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
-RUST_BOOTSTRAP_PATH?=	${WRKDIR}/rust-${RUST_STAGE0_VER}-${RUST_ARCH}
-.endif
+#.if !empty(MACHINE_PLATFORM:MSunOS-*-x86_64) || make(distinfo) || make (makesum) || make(mdi)
+#RUST_ARCH:=		x86_64-sun-solaris
+#RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
+#SITES.${RUST_STAGE0}=	https://us-east.manta.joyent.com/pkgsrc/public/pkg-bootstraps/
+#DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
+#RUST_BOOTSTRAP_PATH?=	${WRKDIR}/rust-${RUST_STAGE0_VER}-${RUST_ARCH}
+#.endif
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-i386) || make(distinfo) || make (makesum) || make(mdi)
 RUST_ARCH=		i686-unknown-netbsd
 RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
@@ -168,6 +170,7 @@ do-install:
 
 post-install:
 	${RM} -f ${DESTDIR}${PREFIX}/lib/rustlib/install.log
+	${RM} -f ${DESTDIR}${PREFIX}/lib/rustlib/uninstall.sh
 	${RM} -rf ${DESTDIR}${PREFIX}/lib/rustlib/src
 
 GENERATE_PLIST+= find ${DESTDIR}${PREFIX} \( -type f -o -type l \) -print | \

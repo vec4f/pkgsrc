@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.808 2017/09/26 10:27:14 wiz Exp $
+# $NetBSD: Makefile,v 1.810 2017/11/30 15:53:48 wiz Exp $
 #
 
 COMMENT=	Packages to support the X window system
@@ -313,6 +313,7 @@ SUBDIR+=	modular-xorg-xquartz
 SUBDIR+=	motif
 SUBDIR+=	mowitz
 SUBDIR+=	mozo
+SUBDIR+=	mrxvt
 SUBDIR+=	mxterm
 SUBDIR+=	neXtaw
 SUBDIR+=	numlockx
@@ -570,6 +571,7 @@ SUBDIR+=	xf86-video-tdfx
 SUBDIR+=	xf86-video-tga
 SUBDIR+=	xf86-video-trident
 SUBDIR+=	xf86-video-tseng
+SUBDIR+=	xf86-video-vboxvideo
 SUBDIR+=	xf86-video-vesa
 SUBDIR+=	xf86-video-vmware
 SUBDIR+=	xf86-video-voodoo
