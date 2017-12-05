@@ -371,7 +371,7 @@ install-ctf: plist
 		if [ -x $${f} -a ! -L $${f} ]; then \
 			echo $${f}; \
 			/usr/bin/file -b $${f} | ${GREP} ELF >/dev/null || continue; \
-			LIBCTF_DEBUG=1 /shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
+			/shared/tmp/onbld/bin/i386/ctfconvert-altexec -i $${f}; \
 			chwr=false; \
 			if [ ! -w $${f} ]; then \
 				chwr=true; \
