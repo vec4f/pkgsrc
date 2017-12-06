@@ -382,7 +382,8 @@ install-ctf: plist
 			if $${chwr}; then \
 				chmod -w $${f}; \
 			fi; \
-			if [ -d ${PACKAGES}/ctfdata ]; then \
+			sunwctf=`/usr/bin/elfdump $${f} | ${GREP} SUNW_ctf` || ${TRUE}; \
+			if [ -d ${PACKAGES}/ctfdata -a -n "$${sunwctf}" ]; then \
 				echo $${f} | ${SED} -e 's|^${DESTDIR}||' \
 				    >>${PACKAGES}/ctfdata/${PKGNAME}; \
 			fi; \
