@@ -363,7 +363,6 @@ _CTF_FILES_SKIP_FILTER=	${CAT}
 .PHONY: install-ctf
 install-ctf: plist
 	@${STEP_MSG} "Generating CTF data"
-	${MKDIR} ${PACKAGES}/ctfdata || ${TRUE}
 	${RUN}${CAT} ${_PLIST_NOKEYWORDS} \
 	| ${SED} -e 's|^|${DESTDIR}${PREFIX}/|' \
 	| ${_CTF_FILES_SKIP_FILTER} \
@@ -383,9 +382,9 @@ install-ctf: plist
 				chmod -w $${f}; \
 			fi; \
 			sunwctf=`/usr/bin/elfdump $${f} | ${GREP} SUNW_ctf` || ${TRUE}; \
-			if [ -d ${PACKAGES}/ctfdata -a -n "$${sunwctf}" ]; then \
+			if [ -n "$${sunwctf}" ]; then \
 				echo $${f} | ${SED} -e 's|^${DESTDIR}||' \
-				    >>${PACKAGES}/ctfdata/${PKGNAME}; \
+				    >>${WRKDIR}/.ctfdata; \
 			fi; \
 		fi \
 	done
