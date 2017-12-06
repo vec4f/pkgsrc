@@ -60,6 +60,12 @@ ${STAGE_PKGFILE}: ${_CONTENTS_TARGETS}
 	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
 	${MV} -f "$$tmpname" ${.TARGET}
 .endif
+	@${STEP_MSG} "Copying CTF data"
+	${RUN} ${MKDIR} ${PACKAGES}/ctfdata;				\
+	if [ -f ${WRKDIR}/.ctfdata ]; then				\
+		${MV} ${WRKDIR}/.ctfdata				\
+		    ${PACKAGES}/ctfdata/${PKGNAME};			\
+	fi
 
 .if ${PKGFILE} != ${STAGE_PKGFILE}
 ${PKGFILE}: ${STAGE_PKGFILE}
@@ -68,12 +74,6 @@ ${PKGFILE}: ${STAGE_PKGFILE}
 	${LN} -f ${STAGE_PKGFILE} ${PKGFILE} 2>/dev/null ||		\
 		${CP} -pf ${STAGE_PKGFILE} ${PKGFILE}
 .endif
-	@${STEP_MSG} "Copying CTF data"
-	${RUN} ${MKDIR} ${PACKAGES}/ctfdata;				\
-	if [ -f ${WRKDIR}/.ctfdata ]; then				\
-		${MV} ${WRKDIR}/.ctfdata				\
-		    ${PACKAGES}/ctfdata/${PKGNAME};			\
-	fi
 
 ######################################################################
 ### package-remove (PRIVATE)
