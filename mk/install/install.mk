@@ -381,7 +381,7 @@ install-ctf: plist
 			if $${chwr}; then \
 				chmod -w $${f}; \
 			fi; \
-			echo $${f}; \
+			echo $${f} | ${SED} -e 's|^${DESTDIR}||' >>${PACKAGES}/ctfdata/${PKGNAME}; \
 		fi \
 	done
 
