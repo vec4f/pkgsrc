@@ -18,6 +18,7 @@ DISTINFO_FILE=	${.CURDIR}/../../sysutils/syslog-ng/distinfo
 
 USE_LANGUAGES=	c c99
 USE_TOOLS+=	flex pkg-config gmake awk:run
+USE_FEATURES+=	strnlen
 USE_LIBTOOL=	yes
 GNU_CONFIGURE=	yes
 

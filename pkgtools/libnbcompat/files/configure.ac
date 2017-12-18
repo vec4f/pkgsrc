@@ -308,8 +308,8 @@ AC_CHECK_DECLS([isblank(int)], [], [AC_LIBOBJ(isblank)], [#include <ctype.h>])
 AC_REPLACE_FUNCS([err fgetln fnmatch fparseln getdelim getenv \
 	getline lchflags lchmod lchown lutimes mkdtemp mkstemp setenv \
 	setgroupent setpassent setprogname shquote statvfs \
-	strerror strlcat strlcpy strmode strsep strtoll unsetenv usleep \
-	utimes warn
+	strerror strlcat strlcpy strmode strnlen strsep strtoll unsetenv \
+	usleep utimes warn
 ])
 
 AC_SEARCH_LIBS(socket, [socket network])

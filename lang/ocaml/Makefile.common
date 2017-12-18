@@ -13,6 +13,7 @@ COMMENT=	The latest implementation of the Caml dialect of ML
 LICENSE=	gnu-gpl-v2
 
 USE_TOOLS+=		gmake
+USE_FEATURES+=		strnlen
 HAS_CONFIGURE=		yes
 CONFIGURE_ENV+=		BDB_LIBS=${BDB_LINK:Q}
 CONFIGURE_ENV+=		BDB_BUILTIN=${USE_BUILTIN.${BDB_TYPE}:Q}

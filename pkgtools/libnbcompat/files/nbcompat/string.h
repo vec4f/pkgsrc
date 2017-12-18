@@ -56,6 +56,10 @@ size_t	strlcat(char *, const char *, size_t);
 size_t	strlcpy(char *, const char *, size_t);
 #endif
 
+#if !HAVE_STRNLEN
+size_t	strnlen(const char *, size_t);
+#endif
+
 #if !HAVE_STRSEP
 char	*strsep(char **stringp, const char *delim);
 #endif

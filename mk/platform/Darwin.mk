@@ -127,6 +127,13 @@ _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?=	-V simple -b -z	# switch to patch(1) for backup suffix
 _USE_RPATH=		no	# don't add rpath to LDFLAGS
 
+#
+# Unsupported features for libnbcompat.
+#
+.if ${OS_VERSION:R} < 11
+_OPSYS_HAS_FEATURE.strnlen=	no	# >= __MAC_10_7
+.endif
+
 # Comes with a native mit-krb5 implementation
 KRB5_DEFAULT?=		mit-krb5
 

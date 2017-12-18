@@ -7,6 +7,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=VirusTotal/}
 COMMENT=        Pattern matching swiss knife for malware researchers
 
 USE_TOOLS+=	pkg-config automake autoreconf
+USE_FEATURES+=	strnlen
 USE_LIBTOOL=	yes
 GNU_CONFIGURE=          yes
 

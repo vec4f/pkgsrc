@@ -6964,6 +6964,19 @@ esac
 
 fi
 
+ac_fn_c_check_func "$LINENO" "strnlen" "ac_cv_func_strnlen"
+if test "x$ac_cv_func_strnlen" = xyes; then :
+  $as_echo "#define HAVE_STRNLEN 1" >>confdefs.h
+
+else
+  case " $LIBOBJS " in
+  *" strnlen.$ac_objext "* ) ;;
+  *) LIBOBJS="$LIBOBJS strnlen.$ac_objext"
+ ;;
+esac
+
+fi
+
 ac_fn_c_check_func "$LINENO" "strsep" "ac_cv_func_strsep"
 if test "x$ac_cv_func_strsep" = xyes; then :
   $as_echo "#define HAVE_STRSEP 1" >>confdefs.h

@@ -46,6 +46,7 @@
 #	* glob
 #	* regcomp
 #	* snprintf, vsnprintf
+#	* strnlen
 #	* utimes
 #	* nbcompat: All of the above.
 #
@@ -61,7 +62,7 @@
 # Keywords: feature features asprintf vasprintf cdefs err errx warn warnx
 # Keywords: fts fts_open fts_read fts_set fts_close getopt_long
 # Keywords: getprogname setprogname glob regcomp setenv snprintf vsnprintf
-# Keywords: utimes libnbcompat nbcompat
+# Keywords: strnlen utimes libnbcompat nbcompat
 
 _VARGROUPS+=		features
 _USER_VARS.features=	# none
@@ -177,6 +178,18 @@ MISSING_FEATURES+=	${_feature_}
 .  if !empty(USE_FEATURES:M${_feature_})
 .    if ${OPSYS} == "IRIX" || !empty(MACHINE_PLATFORM:MHPUX-11.11-hppa) \
 	|| ${OS_VARIANT} == "SCOOSR5"
+MISSING_FEATURES+=	${_feature_}
+.    endif
+.  endif
+.endfor
+
+#
+# Features that are configured via mk/platform files.  Features are assumed
+# to exist unless explicitly set to "no".
+#
+.for _feature_ in strnlen
+.  if !empty(USE_FEATURES:M${_feature_})
+.    if ${_OPSYS_HAS_FEATURE.${_feature_}:Uyes:tl} == "no"
 MISSING_FEATURES+=	${_feature_}
 .    endif
 .  endif

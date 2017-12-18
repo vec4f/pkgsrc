@@ -36,7 +36,7 @@ LIBS+=			${FEATURE_LIBS}
 # libnbcompat provides many of the current features.
 #
 _FEATURE_USE_NBCOMPAT?=	no
-.  for f in asprintf cdefs err fts_close fts_open fts_read fts_set getopt_long glob nbcompat regcomp setenv snprintf utimes vsnprintf warn
+.  for f in asprintf cdefs err fts_close fts_open fts_read fts_set getopt_long glob nbcompat regcomp setenv snprintf strnlen utimes vsnprintf warn
 .    if !empty(MISSING_FEATURES:M${f})
 _FEATURE_USE_NBCOMPAT=	yes
 .    endif
