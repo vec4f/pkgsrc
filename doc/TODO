@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.17954 2017/12/18 07:58:25 leot Exp $
+$NetBSD: TODO,v 1.17956 2017/12/18 15:06:47 leot Exp $
 
 Suggested new packages
 ======================
@@ -1070,7 +1070,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o munin-doc-1.4.6
 	o munin-node-1.4.6
 	o munin-server-1.4.6
-	o mupdf-1.12.0 [wip, leot]
 	o muse-0.9.2
 	o mutt-1.9.2
 	o myodbc-5.3.4
@@ -1238,7 +1237,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o py-keybinder-0.3.1
 	o py-mercurial-4.4.2
 	o py-mezzanine-4.2.2
-	o py-mistune-0.8.3
 	o py-musicbrainz-0.7.4
 	o py-ncclient-0.5.3
 	o py-newt-0.52.20
