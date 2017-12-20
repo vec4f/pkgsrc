@@ -31,6 +31,7 @@ TOOLS_PLATFORM.find?=		/usr/bin/find
 TOOLS_PLATFORM.flex?=		/usr/bin/flex
 TOOLS_PLATFORM.ftp?=		/usr/bin/ftp
 TOOLS_PLATFORM.grep?=		/usr/bin/grep
+TOOLS_PLATFORM.gstrip?=		/usr/bin/strip
 TOOLS_PLATFORM.gunzip?=		/usr/bin/gunzip -f
 TOOLS_PLATFORM.gzcat?=		/usr/bin/gzcat
 TOOLS_PLATFORM.gzip?=		/usr/bin/gzip -nf ${GZIP}

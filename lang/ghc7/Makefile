@@ -176,6 +176,9 @@ CHECK_SHLIBS_SKIP+=		*/libHS*-ghc${PKGVERSION_NOREV}.*
 # ghc57207_0.s: failed to add inputs for merge: Resource temporarily unavailable
 CTF_FILES_SKIP+=		*/libHSghc-7.6.3-ghc7.6.3.so
 
+# ld: fatal: relocation error ... relocation requires reference symbol
+STRIP_FILES_SKIP+=		lib/${PKGNAME_NOREV}/libHSrts.a
+
 # -----------------------------------------------------------------------------
 # Dependencies
 #

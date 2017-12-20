@@ -74,6 +74,9 @@ REPLACE_PERL+=	test/errchk
 CHECK_RELRO_SKIP=	go14/bin/go
 CHECK_RELRO_SKIP+=	go14/bin/gofmt
 
+# Stripping go binaries breaks them in interesting ways
+STRIP_DEBUG_SUPPORTED=	no
+
 # uses /bin/rc (for Plan 9)
 CHECK_INTERPRETER_SKIP+=	go14/include/plan9/mklibc.rc
 CHECK_INTERPRETER_SKIP+=	go14/src/all.rc
