@@ -60,6 +60,14 @@ ${STAGE_PKGFILE}: ${_CONTENTS_TARGETS}
 	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
 	${MV} -f "$$tmpname" ${.TARGET}
 .endif
+	@${RUN} ${MKDIR} ${PACKAGES}/ctfdata 2>/dev/null || ${TRUE};	\
+	${RM} -f ${PACKAGES}/ctfdata/${PKGNAME};			\
+	if [ -f ${WRKDIR}/.ctfdata -a -d ${PACKAGES}/ctfdata ]; then	\
+		${STEP_MSG} "Copying CTF data";				\
+		${MKDIR} ${PACKAGES}/ctfdata;				\
+		${MV} ${WRKDIR}/.ctfdata				\
+		    ${PACKAGES}/ctfdata/${PKGNAME};			\
+	fi
 
 .if ${PKGFILE} != ${STAGE_PKGFILE}
 ${PKGFILE}: ${STAGE_PKGFILE}
