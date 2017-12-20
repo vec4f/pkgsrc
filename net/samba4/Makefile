@@ -162,6 +162,8 @@ SUBST_SED.logpath+=	-e 's,/usr/local/samba/var/log.%m,${SMB_LOGFILEBASE}/log.%m,
 MESSAGE_SRC=		${PKGDIR}/MESSAGE.rcd
 .endif
 
+CTF_FILES_SKIP+=	lib/libdcerpc-samr.so.*	# empty
+
 post-extract:
 	${CP} ${FILESDIR}/adduser.sh ${FILESDIR}/deluser.sh ${WRKDIR}
 

@@ -1,5 +1,8 @@
 # $NetBSD: Makefile,v 1.16 2018/01/30 17:05:22 jperkin Exp $
 
+# set first because version.mk includes bsd.prefs.mk :/
+CTF_SUPPORTED=	no
+
 .include "../../lang/go/version.mk"
 
 DISTNAME=	go${GO14_VERSION}.src

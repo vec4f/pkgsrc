@@ -173,6 +173,8 @@ CHECK_PORTABILITY_SKIP+=	distrib/prep-bin-dist-mingw
 CHECK_SHLIBS_SKIP+=		*/libHS*-ghc${PKGVERSION_NOREV}.*
 .endif
 
+# ghc57207_0.s: failed to add inputs for merge: Resource temporarily unavailable
+CTF_FILES_SKIP+=		*/libHSghc-7.6.3-ghc7.6.3.so
 
 # -----------------------------------------------------------------------------
 # Dependencies
