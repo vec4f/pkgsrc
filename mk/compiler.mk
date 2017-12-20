@@ -205,6 +205,13 @@ CWRAPPERS_APPEND.cxx+=	${_SSP_CFLAGS}
 CWRAPPERS_APPEND.f77+=	${_SSP_CFLAGS}
 .endif
 
+# Add debug flags if the user has requested CTF and the compiler supports it.
+#
+.if ${_PKGSRC_USE_CTF} == "yes" && defined(_CTF_CFLAGS)
+_WRAP_EXTRA_ARGS.CC+=	${_CTF_CFLAGS}
+CWRAPPERS_APPEND.cc+=	${_CTF_CFLAGS}
+.endif
+
 # If the languages are not requested, force them not to be available
 # in the generated wrappers.
 #

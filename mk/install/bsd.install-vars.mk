@@ -6,6 +6,15 @@
 #
 # Package-settable variables:
 #
+# CTF_SUPPORTED
+#	If set to "no", CTF conversion will not be attempted and any
+#	necessary debug CFLAGS will not be added.
+#
+# CTF_FILES_SKIP
+#	A list of shell patterns (like lib/*) relative to ${PREFIX} that
+#	should be excluded from CTF conversion.  Note that a * in a pattern
+#	also matches a slash in a pathname.
+#
 # INSTALLATION_DIRS_FROM_PLIST
 #	If set to "yes", the static PLIST files of the package will
 #	be used to determine which directories need to be created before
@@ -45,6 +54,17 @@ _MANCOMPRESSED!=							\
 .endif
 _MANZ=		${MANZ:Dyes:Uno}
 MAKEVARS+=	_MANCOMPRESSED _MANZ
+
+# The logic for setting _PKGSRC_USE_CTF is in bsd.prefs.mk, at this point we
+# are only concerned if we should set up the tools and variables or not.
+#
+.if ${_PKGSRC_USE_CTF} == "yes"
+TOOLS_CREATE+=		ctfconvert
+TOOLS_PATH.ctfconvert=	${TOOLS_PLATFORM.ctfconvert}
+TOOLS_ARGS.ctfconvert?=	-i
+CTFCONVERT?=		ctfconvert
+CTF_FILES_SKIP?=	# none
+.endif
 
 STRIP_DEBUG?=	no
 

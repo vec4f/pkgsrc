@@ -765,6 +765,20 @@ _PKGSRC_USE_STACK_CHECK=no
 _PKGSRC_USE_STACK_CHECK=yes
 .endif
 
+# Enable CTF conversion if the user requested it, the OPSYS supports it, there
+# is a tool for it, and the package supports it.  We also need to explicitly
+# turn on _INSTALL_UNSTRIPPED as conversion is impossible on stripped files.
+#
+.if ${PKGSRC_USE_CTF:Uno:tl} == "yes" && \
+    ${_OPSYS_SUPPORTS_CTF:Uno:tl} == "yes" && \
+    defined(TOOLS_PLATFORM.ctfconvert) && \
+    ${CTF_SUPPORTED:Uyes:tl} == "yes"
+_PKGSRC_USE_CTF=	yes
+_INSTALL_UNSTRIPPED=	# defined
+.else
+_PKGSRC_USE_CTF=	no
+.endif
+
 # Enable cwrappers if not building the wrappers themselves, and if the user has
 # explicitly requested them, or if they haven't but the compiler/platform is
 # known to support them.

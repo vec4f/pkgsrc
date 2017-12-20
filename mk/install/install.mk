@@ -176,6 +176,9 @@ _INSTALL_ALL_TARGETS+=		pre-install
 _INSTALL_ALL_TARGETS+=		do-install
 _INSTALL_ALL_TARGETS+=		post-install
 _INSTALL_ALL_TARGETS+=		plist
+.if ${_PKGSRC_USE_CTF} == "yes"
+_INSTALL_ALL_TARGETS+=		install-ctf
+.endif
 .if !empty(STRIP_DEBUG:M[Yy][Ee][Ss])
 _INSTALL_ALL_TARGETS+=		install-strip-debug
 .endif
@@ -328,6 +331,30 @@ pre-install:
 post-install:
 	@${DO_NADA}
 .endif
+
+######################################################################
+### install-ctf (PRIVATE)
+######################################################################
+### install-ctf creates CTF information from debug binaries.
+###
+.PHONY: install-ctf
+install-ctf: plist
+	@${STEP_MSG} "Generating CTF data"
+	${RUN}cd ${DESTDIR:Q}${PREFIX:Q};				\
+	${CAT} ${_PLIST_NOKEYWORDS} | while read f; do			\
+		[ ! -h "$${f}" ] || continue;				\
+		case "$${f}" in						\
+		${CTF_FILES_SKIP:@p@${p}) continue ;;@}			\
+		*) ;;							\
+		esac;							\
+		tmp_f="$${f}.XXX";					\
+		if ${CTFCONVERT} -o "$${tmp_f}" "$${f}" 2>/dev/null; then \
+			if [ -f "$${tmp_f}" -a -f "$${f}" ]; then	\
+				${MV} "$${tmp_f}" "$${f}";		\
+			fi;						\
+		fi;							\
+		${RM} -f "$${tmp_f}";					\
+	done
 
 ######################################################################
 ### install-strip-debug (PRIVATE)
