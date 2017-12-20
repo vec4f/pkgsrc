@@ -165,6 +165,8 @@ MESSAGE_SRC=		${PKGDIR}/MESSAGE.rcd
 
 SMF_INSTANCES=	smbd nmbd
 
+CTF_FILES_SKIP+=	lib/libdcerpc-samr.so.*	# empty
+
 post-extract:
 	${CP} ${FILESDIR}/adduser.sh ${FILESDIR}/deluser.sh ${WRKDIR}
 

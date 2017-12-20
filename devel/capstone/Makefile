@@ -15,4 +15,7 @@ TEST_TARGET=			check
 # Don't use FreeBSD/DragonFly specific paths
 ALL_ENV+=	USE_GENERIC_LIBDATADIR=yes
 
+# Limit on number of dynamic type members reached
+CTF_SUPPORTED=	no
+
 .include "../../mk/bsd.pkg.mk"
