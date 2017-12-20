@@ -132,6 +132,7 @@ _OPSYS_SUPPORTS_FORTIFY=yes
 
 # support stack protection (with GCC)
 _OPSYS_SUPPORTS_SSP=	yes
+_OPSYS_SUPPORTS_CTF=	yes	# Compact Type Format conversion.
 
 _OPSYS_CAN_CHECK_SHLIBS=	yes # requires readelf
 

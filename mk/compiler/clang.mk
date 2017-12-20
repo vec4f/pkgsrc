@@ -53,6 +53,8 @@ _COMPILER_LD_FLAG=	-Wl,
 _LINKER_RPATH_FLAG=	-R
 _COMPILER_RPATH_FLAG=	${_COMPILER_LD_FLAG}${_LINKER_RPATH_FLAG}
 
+_CTF_CFLAGS=		-gdwarf-2
+
 # The user can choose the level of stack smashing protection.
 .if ${PKGSRC_USE_SSP} == "all"
 _SSP_CFLAGS=		-fstack-protector-all
