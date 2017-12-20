@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2580 2017/12/18 08:48:26 adam Exp $
+# $NetBSD: Makefile,v 1.2583 2017/12/19 08:50:27 jperkin Exp $
 #
 
 COMMENT=	Development utilities
@@ -1833,6 +1833,7 @@ SUBDIR+=	py-appdirs
 SUBDIR+=	py-argcomplete
 SUBDIR+=	py-argh
 SUBDIR+=	py-argparse
+SUBDIR+=	py-args
 SUBDIR+=	py-astor
 SUBDIR+=	py-astroid
 SUBDIR+=	py-async-timeout
