@@ -26,6 +26,8 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q} --with-icu=yes
 CONFIGURE_ARGS+=	--with-preview=yes --with-libgdiplus=installed
 CONFIGURE_ARGS+=	--disable-dtrace --with-gc=none
 
+CTF_SUPPORTED=	no	# OS-6510
+
 .include "options.mk"
 
 MAKE_FLAGS+=		PERL=${PERL5:Q} mandir=${PREFIX}/${PKGMANDIR}

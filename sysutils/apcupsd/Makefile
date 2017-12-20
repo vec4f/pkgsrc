@@ -19,6 +19,8 @@ GNU_CONFIGURE=		yes
 PKG_SYSCONFSUBDIR=	apcupsd
 WRKSRC=			${WRKDIR}/apcupsd
 
+CTF_SUPPORTED=		no # OS-6533
+
 .include "options.mk"
 
 # Thread support is needed to compile powerflute, which has a curses
