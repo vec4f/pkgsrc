@@ -38,6 +38,7 @@ TOOLS_PLATFORM.gmake?=		/usr/bin/make
 TOOLS_PLATFORM.grep?=		/bin/grep
 TOOLS_PLATFORM.gsed?=		/bin/sed
 TOOLS_PLATFORM.gsoelim?=	/usr/bin/soelim
+TOOLS_PLATFORM.gstrip?=		/usr/bin/strip
 TOOLS_PLATFORM.gtar?=		/bin/tar
 TOOLS_PLATFORM.gunzip?=		/bin/gunzip -f
 TOOLS_PLATFORM.gzcat?=		/bin/zcat
