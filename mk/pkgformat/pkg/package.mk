@@ -75,6 +75,14 @@ ${STAGE_PKGFILE}: ${_CONTENTS_TARGETS}
 		${MKDIR} ${PACKAGES}/ctffail;				\
 		${MV} ${WRKDIR}/.ctffail				\
 		    ${PACKAGES}/ctffail/${PKGNAME};			\
+	fi;								\
+	${MKDIR} ${PACKAGES}/ctfnox 2>/dev/null || ${TRUE};		\
+	${RM} -f ${PACKAGES}/ctfnox/${PKGNAME};				\
+	if [ -f ${WRKDIR}/.ctfnox -a -d ${PACKAGES}/ctfnox ]; then	\
+		${STEP_MSG} "Copying CTF non-executables";		\
+		${MKDIR} ${PACKAGES}/ctfnox;				\
+		${MV} ${WRKDIR}/.ctfnox					\
+		    ${PACKAGES}/ctfnox/${PKGNAME};			\
 	fi
 
 .if ${PKGFILE} != ${STAGE_PKGFILE}
