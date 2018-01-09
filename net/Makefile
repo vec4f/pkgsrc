@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1194 2017/12/21 10:24:12 adam Exp $
+# $NetBSD: Makefile,v 1.1197 2018/01/08 19:01:20 bsiegert Exp $
 #
 
 COMMENT=	Networking tools
@@ -648,6 +648,7 @@ SUBDIR+=	py-gevent
 SUBDIR+=	py-geventhttpclient
 SUBDIR+=	py-google
 SUBDIR+=	py-google-cloud-sdk
+SUBDIR+=	py-gsutil
 SUBDIR+=	py-hatop
 SUBDIR+=	py-hpack
 SUBDIR+=	py-ipaddress
@@ -683,7 +684,6 @@ SUBDIR+=	py-soappy
 SUBDIR+=	py-socketpool
 SUBDIR+=	py-softlayer
 SUBDIR+=	py-softlayer_messaging
-SUBDIR+=	py-suds
 SUBDIR+=	py-tldextract
 SUBDIR+=	py-tweepy
 SUBDIR+=	py-twisted
@@ -772,7 +772,6 @@ SUBDIR+=	sniffit
 SUBDIR+=	sniproxy
 SUBDIR+=	snmptt
 SUBDIR+=	snort
-SUBDIR+=	snort-rules
 SUBDIR+=	socat
 SUBDIR+=	socket++
 SUBDIR+=	socks4

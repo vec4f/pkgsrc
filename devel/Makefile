@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2584 2017/12/21 10:15:48 adam Exp $
+# $NetBSD: Makefile,v 1.2589 2018/01/05 11:59:06 adam Exp $
 #
 
 COMMENT=	Development utilities
@@ -1442,6 +1442,7 @@ SUBDIR+=	p5-Path-Dispatcher
 SUBDIR+=	p5-Path-Dispatcher-Declarative
 SUBDIR+=	p5-Path-FindDev
 SUBDIR+=	p5-Path-IsDev
+SUBDIR+=	p5-Path-Iter
 SUBDIR+=	p5-PathTools
 SUBDIR+=	p5-Pegex
 SUBDIR+=	p5-Perl-APIReference
@@ -1867,6 +1868,7 @@ SUBDIR+=	py-cachetools
 SUBDIR+=	py-capstone
 SUBDIR+=	py-case
 SUBDIR+=	py-cffi
+SUBDIR+=	py-chai
 SUBDIR+=	py-characteristic
 SUBDIR+=	py-checker
 SUBDIR+=	py-cheetah
@@ -1900,6 +1902,7 @@ SUBDIR+=	py-daemonize
 SUBDIR+=	py-darcsver
 SUBDIR+=	py-ddt
 SUBDIR+=	py-decorator
+SUBDIR+=	py-deprecation
 SUBDIR+=	py-dialog
 SUBDIR+=	py-dialog2
 SUBDIR+=	py-distorm3
@@ -2254,6 +2257,7 @@ SUBDIR+=	ruby-delayer-deferred
 SUBDIR+=	ruby-dep
 SUBDIR+=	ruby-deprecated
 SUBDIR+=	ruby-dhaka
+SUBDIR+=	ruby-diva
 SUBDIR+=	ruby-docile
 SUBDIR+=	ruby-eet
 SUBDIR+=	ruby-eventmachine
@@ -2285,6 +2289,7 @@ SUBDIR+=	ruby-highline
 SUBDIR+=	ruby-hike
 SUBDIR+=	ruby-hike1
 SUBDIR+=	ruby-i18n
+SUBDIR+=	ruby-idn
 SUBDIR+=	ruby-iniparse
 SUBDIR+=	ruby-inline
 SUBDIR+=	ruby-instance_storage

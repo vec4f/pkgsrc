@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2017/12/21 03:47:25 manu Exp $
+# $NetBSD: Makefile,v 1.3 2018/01/08 09:04:50 manu Exp $
 
-DISTNAME=	mod_upload-0.7
+DISTNAME=	mod_upload-0.8
 PKGNAME=	${APACHE_PKG_PREFIX}-${DISTNAME:S/mod_//}
 CATEGORIES=	www
 MASTER_SITES=	https://ftp.espci.fr/pub/mod_upload/
@@ -9,8 +9,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://ftp.espci.fr/pub/mod_upload/
 COMMENT=	High performance file upload helper for PHP
 LICENSE=	gnu-gpl-v2
-
-PKG_APACHE_ACCEPTED=    apache22 apache24
 
 APACHE_MODULE_NAME=     ${DISTNAME:C/-.*//}.la
 

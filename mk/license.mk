@@ -1,4 +1,4 @@
-# $NetBSD: license.mk,v 1.80 2017/05/11 12:56:21 jperkin Exp $
+# $NetBSD: license.mk,v 1.84 2018/01/07 19:44:31 rillig Exp $
 #
 # This file handles everything about the LICENSE variable. It is
 # included automatically by bsd.pkg.mk.
@@ -97,10 +97,10 @@
 
 # This list is not complete.  Free and Open Source licenses should be
 # added to the list as they are added to pkgsrc.
-
+#
 # The convention is that Free or Open Source licenses do not have a
 # -license suffix, and nonfree licenses end in -license.
-
+#
 DEFAULT_ACCEPTABLE_LICENSES= \
 	apache-1.1 apache-2.0 \
 	arphic-public \
@@ -236,3 +236,58 @@ PKG_FAIL_REASON+= \
 .endif
 
 .endif
+
+# guess-license:
+#	Extracts the current package and tries to guess its license.
+#	This is useful for package developers.
+#
+# Keywords: license
+guess-license: .PHONY
+	${RUN} [ -d ${WRKSRC} ] || ALLOW_VULNERABLE_PACKAGES=yes ${MAKE} makedirs fetch pre-extract do-extract
+	${RUN} \
+	${PHASE_MSG} "Guessing package license"; \
+	\
+	if type ninka > /dev/null 2>&1; then \
+	  (cd ${WRKDIR} && ${FIND} ./* -type f -print \
+	  | ${XARGS} ninka \
+	  | ${AWK} -F ';' '{ print $$2 }' \
+	  | LC_ALL=C ${SORT} | uniq -c | LC_ALL=C ${SORT} -nr \
+	  | ${AWK} 'BEGIN { printf("%5s   %s\n", "Files", "License") } { printf("%5d   %s\n", $$1, $$2); }'); \
+	  exit 0; \
+	fi; \
+	\
+	type wdiff > /dev/null 2>&1 || ${FAIL_MSG} "To guess the license, textproc/wdiff must be installed."; \
+	\
+	pkgfiles=`find ${WRKSRC} -type f -print | ${EGREP} '/COPYING|/LICEN[CS]E|/COPYRIGHT' | LC_ALL=C ${SORT}`; \
+	case $$pkgfiles in *'${.newline}'*) printf "The package has more than one license file:\n\n%s\n" "$$pkgfiles"; exit; esac; \
+	\
+	{ \
+	bestsize=1000000; \
+	bestlicense=; \
+	pkglicense="$$pkgfiles"; \
+	${PRINTF} "%8s   %s\n" "Wdiff" "License"; \
+	for license in ${PKGSRCDIR}/licenses/*; do \
+	  if [ -f "$$pkglicense" ] && [ -f "$$license" ]; then \
+	    size=`{ wdiff -3 "$$pkglicense" "$$license" || true; } | wc -c`; \
+	    if [ "$$size" -lt "$$bestsize" ]; then \
+	      ${PRINTF} "%8d   %s\n" "$$size" "$${license##*/}"; \
+	      bestsize="$$size"; \
+	      bestlicense="$$license"; \
+	    fi \
+	  fi \
+	done; \
+	\
+	if [ "$$bestlicense" ]; then \
+	  echo ""; \
+	  echo "Line differences in license texts:"; \
+	  echo ""; \
+	  diff -wu "$$bestlicense" "$$pkglicense" || true; \
+	  echo ""; \
+	  echo "Word differences in license texts:"; \
+	  echo ""; \
+	  wdiff -3 "$$bestlicense" "$$pkglicense" || true; \
+	else \
+	  echo "No license file found in ${WRKSRC}:"; \
+	  ls -l ${WRKSRC}; \
+	fi \
+	} | $${PAGER:-less}

@@ -28,20 +28,20 @@ func (s *Suite) Test_VaralignBlock_Check_autofix(c *check.C) {
 	}
 	varalign.Finish()
 
-	c.Check(lines[0].IsChanged(), equals, true)
-	c.Check(lines[0].(*LineImpl).raw[0].String(), equals, "1:VAR=\tvalue\n")
-	c.Check(lines[2].IsChanged(), equals, true)
-	c.Check(lines[2].(*LineImpl).raw[0].String(), equals, "3:VAR=\tvalue\n")
-	c.Check(lines[4].IsChanged(), equals, true)
-	c.Check(lines[4].(*LineImpl).raw[0].String(), equals, "5:VAR=\tvalue\n")
-	c.Check(lines[6].IsChanged(), equals, true)
-	c.Check(lines[6].(*LineImpl).raw[0].String(), equals, "7:VAR=\tvalue\n")
-	c.Check(lines[8].IsChanged(), equals, true)
-	c.Check(lines[8].(*LineImpl).raw[0].String(), equals, "9:VAR=\tvalue\n")
-	c.Check(lines[10].IsChanged(), equals, true)
-	c.Check(lines[10].(*LineImpl).raw[0].String(), equals, "11:VAR=\tvalue\n")
-	c.Check(lines[12].IsChanged(), equals, false)
-	c.Check(lines[12].(*LineImpl).raw[0].String(), equals, "13:VAR=\tvalue\n")
+	c.Check(lines[0].Changed, equals, true)
+	c.Check(lines[0].raw[0].String(), equals, "1:VAR=\tvalue\n")
+	c.Check(lines[2].Changed, equals, true)
+	c.Check(lines[2].raw[0].String(), equals, "3:VAR=\tvalue\n")
+	c.Check(lines[4].Changed, equals, true)
+	c.Check(lines[4].raw[0].String(), equals, "5:VAR=\tvalue\n")
+	c.Check(lines[6].Changed, equals, true)
+	c.Check(lines[6].raw[0].String(), equals, "7:VAR=\tvalue\n")
+	c.Check(lines[8].Changed, equals, true)
+	c.Check(lines[8].raw[0].String(), equals, "9:VAR=\tvalue\n")
+	c.Check(lines[10].Changed, equals, true)
+	c.Check(lines[10].raw[0].String(), equals, "11:VAR=\tvalue\n")
+	c.Check(lines[12].Changed, equals, false)
+	c.Check(lines[12].raw[0].String(), equals, "13:VAR=\tvalue\n")
 	c.Check(s.Output(), equals, ""+
 		"NOTE: file.mk:1: This variable value should be aligned with tabs, not spaces, to column 9.\n"+
 		"AUTOFIX: file.mk:1: Replacing \"VAR=   \" with \"VAR=\\t\".\n"+
@@ -133,7 +133,7 @@ func (s *Suite) Test_NewMkLine(c *check.C) {
 		"\tshell command # shell comment",
 		"# whole line comment",
 		"",
-		".  if !empty(PKGNAME:M*-*) # cond comment",
+		".  if !empty(PKGNAME:M*-*) && ${RUBY_RAILS_SUPPORTED:[\\#]} == 1 # cond comment",
 		".    include \"../../mk/bsd.prefs.mk\" # include comment",
 		".    include <subdir.mk> # sysinclude comment",
 		"target1 target2: source1 source2",
@@ -159,7 +159,7 @@ func (s *Suite) Test_NewMkLine(c *check.C) {
 	c.Check(ln[4].IsCond(), equals, true)
 	c.Check(ln[4].Indent(), equals, "  ")
 	c.Check(ln[4].Directive(), equals, "if")
-	c.Check(ln[4].Args(), equals, "!empty(PKGNAME:M*-*)")
+	c.Check(ln[4].Args(), equals, "!empty(PKGNAME:M*-*) && ${RUBY_RAILS_SUPPORTED:[#]} == 1")
 
 	c.Check(ln[5].IsInclude(), equals, true)
 	c.Check(ln[5].Indent(), equals, "    ")
@@ -383,7 +383,7 @@ func (s *Suite) Test_MkLine_variableNeedsQuoting__command_in_command(c *check.C)
 	MkLineChecker{G.Mk.mklines[1]}.Check()
 
 	s.CheckOutputLines(
-		"WARN: Makefile:2: The exitcode of the left-hand-side command of the pipe operator is ignored.")
+		"WARN: Makefile:2: The exitcode of \"${FIND}\" at the left of the | operator is ignored.")
 }
 
 func (s *Suite) Test_MkLine_variableNeedsQuoting__word_as_part_of_word(c *check.C) {
@@ -420,8 +420,8 @@ func (s *Suite) Test_MkLine_variableNeedsQuoting__command_as_command_argument(c 
 	MkLineChecker{G.Mk.mklines[2]}.Check()
 
 	s.CheckOutputLines(
-		"WARN: Makefile:2: The exitcode of the left-hand-side command of the pipe operator is ignored.",
-		"WARN: Makefile:3: The exitcode of the left-hand-side command of the pipe operator is ignored.")
+		"WARN: Makefile:2: The exitcode of the command at the left of the | operator is ignored.",
+		"WARN: Makefile:3: The exitcode of the command at the left of the | operator is ignored.")
 }
 
 // Based on mail/mailfront/Makefile.
@@ -478,6 +478,25 @@ func (s *Suite) Test_MkLine_variableNeedsQuoting__LDFLAGS_in_single_quotes(c *ch
 
 	s.CheckOutputLines(
 		"WARN: x11/mlterm/Makefile:2: Please move ${LDFLAGS:M*:Q} outside of any quoting characters.")
+}
+
+// No quoting is necessary here.
+// PKG_OPTIONS are declared as "lkShell" although they are processed
+// using make's .for loop, which splits them at whitespace and usually
+// requires the variable to be declared as "lkSpace".
+// In this case it doesn't matter though since each option is an identifier,
+// and these do not pose any quoting problems.
+func (s *Suite) Test_MkLine_variableNeedsQuoting__package_options(c *check.C) {
+	s.Init(c)
+	s.UseCommandLine("-Wall")
+	G.globalData.InitVartypes()
+	G.Mk = s.NewMkLines("Makefile",
+		mkrcsid,
+		"PKG_SUGGESTED_OPTIONS+=\t${PKG_DEFAULT_OPTIONS:Mcdecimal} ${PKG_OPTIONS.py-trytond:Mcdecimal}")
+
+	MkLineChecker{G.Mk.mklines[1]}.Check()
+
+	s.CheckOutputEmpty()
 }
 
 func (s *Suite) Test_MkLines_Check__MASTER_SITE_in_HOMEPAGE(c *check.C) {

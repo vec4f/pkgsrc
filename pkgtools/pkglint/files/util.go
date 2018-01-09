@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"netbsd.org/pkglint/line"
 	"netbsd.org/pkglint/regex"
 	"netbsd.org/pkglint/trace"
 	"os"
@@ -69,7 +68,7 @@ func isEmptyDir(fname string) bool {
 	}
 	for _, dirent := range dirents {
 		name := dirent.Name()
-		if name == "." || name == ".." || name == "CVS" {
+		if isIgnoredFilename(name) {
 			continue
 		}
 		if dirent.IsDir() && isEmptyDir(fname+"/"+name) {
@@ -89,11 +88,19 @@ func getSubdirs(fname string) []string {
 	var subdirs []string
 	for _, dirent := range dirents {
 		name := dirent.Name()
-		if name != "." && name != ".." && name != "CVS" && dirent.IsDir() && !isEmptyDir(fname+"/"+name) {
+		if dirent.IsDir() && !isIgnoredFilename(name) && !isEmptyDir(fname+"/"+name) {
 			subdirs = append(subdirs, name)
 		}
 	}
 	return subdirs
+}
+
+func isIgnoredFilename(fileName string) bool {
+	switch fileName {
+	case ".", "..", "CVS", ".svn", ".git", ".hg":
+		return true
+	}
+	return false
 }
 
 // Checks whether a file is already committed to the CVS repository.
@@ -101,7 +108,7 @@ func isCommitted(fname string) bool {
 	lines := loadCvsEntries(fname)
 	needle := "/" + path.Base(fname) + "/"
 	for _, line := range lines {
-		if hasPrefix(line.Text(), needle) {
+		if hasPrefix(line.Text, needle) {
 			return true
 		}
 	}
@@ -112,8 +119,8 @@ func isLocallyModified(fname string) bool {
 	lines := loadCvsEntries(fname)
 	needle := "/" + path.Base(fname) + "/"
 	for _, line := range lines {
-		if hasPrefix(line.Text(), needle) {
-			cvsModTime, err := time.Parse(time.ANSIC, strings.Split(line.Text(), "/")[3])
+		if hasPrefix(line.Text, needle) {
+			cvsModTime, err := time.Parse(time.ANSIC, strings.Split(line.Text, "/")[3])
 			if err != nil {
 				return false
 			}
@@ -134,7 +141,7 @@ func isLocallyModified(fname string) bool {
 	return false
 }
 
-func loadCvsEntries(fname string) []line.Line {
+func loadCvsEntries(fname string) []Line {
 	dir := path.Dir(fname)
 	if dir == G.CvsEntriesDir {
 		return G.CvsEntriesLines
@@ -333,4 +340,21 @@ func hasAlnumPrefix(s string) bool {
 	}
 	b := s[0]
 	return '0' <= b && b <= '9' || 'A' <= b && b <= 'Z' || b == '_' || 'a' <= b && b <= 'z'
+}
+
+// Once remembers with which arguments its FirstTime method has been called
+// and only returns true on each first call.
+type Once struct {
+	seen map[string]bool
+}
+
+func (o *Once) FirstTime(what string) bool {
+	if o.seen == nil {
+		o.seen = make(map[string]bool)
+	}
+	if _, ok := o.seen[what]; ok {
+		return false
+	}
+	o.seen[what] = true
+	return true
 }

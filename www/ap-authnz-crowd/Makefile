@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2017/11/30 16:45:40 adam Exp $
-#
+# $NetBSD: Makefile,v 1.14 2018/01/01 21:18:54 adam Exp $
 
 DISTNAME=	mod_authnz_crowd-2.2.2
 PKGNAME=	${APACHE_PKG_PREFIX}-${DISTNAME:S/mod_//:S/_/-/}
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	www
 MASTER_SITES=	http://downloads.atlassian.com/software/crowd/downloads/cwdapache/
 
@@ -13,7 +12,6 @@ COMMENT=	Apache module for Crowd authentication
 LICENSE=	apache-2.0
 
 APACHE_MODULE=		yes
-PKG_APACHE_ACCEPTED=	apache22 apache24
 
 DEPENDS+=	${APACHE_PKG_PREFIX}-subversion>0:../../www/ap2-subversion
 

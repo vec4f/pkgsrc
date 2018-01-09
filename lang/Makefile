@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.470 2017/11/15 08:56:12 jdolecek Exp $
+# $NetBSD: Makefile,v 1.472 2018/01/08 14:20:48 taca Exp $
 #
 
 COMMENT=	Programming languages
@@ -40,6 +40,7 @@ SUBDIR+=	eag
 SUBDIR+=	ecl
 SUBDIR+=	eieio
 SUBDIR+=	elisp-manual
+SUBDIR+=	elixir
 SUBDIR+=	elk
 SUBDIR+=	embryo
 SUBDIR+=	erlang
@@ -217,6 +218,8 @@ SUBDIR+=	ruby23
 SUBDIR+=	ruby23-base
 SUBDIR+=	ruby24
 SUBDIR+=	ruby24-base
+SUBDIR+=	ruby25
+SUBDIR+=	ruby25-base
 SUBDIR+=	runawk
 SUBDIR+=	rust
 SUBDIR+=	sablevm

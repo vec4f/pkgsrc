@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"netbsd.org/pkglint/linechecks"
 	"netbsd.org/pkglint/regex"
 	"netbsd.org/pkglint/trace"
 	"os"
@@ -18,8 +17,8 @@ type MkLineChecker struct {
 func (ck MkLineChecker) Check() {
 	mkline := ck.MkLine
 
-	linechecks.CheckTrailingWhitespace(mkline)
-	linechecks.CheckValidCharacters(mkline, `[\t -~]`)
+	CheckLineTrailingWhitespace(mkline.Line)
+	CheckLineValidCharacters(mkline.Line, `[\t -~]`)
 
 	switch {
 	case mkline.IsVarassign():
@@ -31,7 +30,7 @@ func (ck MkLineChecker) Check() {
 		NewShellLine(mkline).CheckShellCommandLine(shellcmd)
 
 	case mkline.IsComment():
-		if hasPrefix(mkline.Text(), "# url2pkg-marker") {
+		if hasPrefix(mkline.Text, "# url2pkg-marker") {
 			mkline.Errorf("This comment indicates unfinished work (url2pkg).")
 		}
 
@@ -53,7 +52,7 @@ func (ck MkLineChecker) checkInclude() {
 	includefile := mkline.Includefile()
 	mustExist := mkline.MustExist()
 	if trace.Tracing {
-		trace.Step2("includingFile=%s includefile=%s", mkline.Filename(), includefile)
+		trace.Step2("includingFile=%s includefile=%s", mkline.Filename, includefile)
 	}
 	ck.CheckRelativePath(includefile, mustExist)
 
@@ -67,7 +66,7 @@ func (ck MkLineChecker) checkInclude() {
 			"Makefile.common.")
 
 	case includefile == "../../mk/bsd.prefs.mk":
-		if path.Base(mkline.Filename()) == "buildlink3.mk" {
+		if path.Base(mkline.Filename) == "buildlink3.mk" {
 			mkline.Notef("For efficiency reasons, please include bsd.fast.prefs.mk instead of bsd.prefs.mk.")
 		}
 		if G.Pkg != nil {
@@ -93,12 +92,11 @@ func (ck MkLineChecker) checkInclude() {
 	}
 }
 
-func (ck MkLineChecker) checkCond(forVars map[string]bool) {
+func (ck MkLineChecker) checkCond(forVars map[string]bool, indentation *Indentation) {
 	mkline := ck.MkLine
 
 	directive := mkline.Directive()
 	args := mkline.Args()
-	indentation := &G.Mk.indentation
 
 	switch directive {
 	case "endif", "endfor":
@@ -219,12 +217,20 @@ func (ck MkLineChecker) checkDependencyRule(allowedTargets map[string]bool) {
 		} else if target == ".ORDER" {
 			// TODO: Check for spelling mistakes.
 
+		} else if hasPrefix(target, "${.CURDIR}/") {
+			// OK, this is intentional
+
 		} else if !allowedTargets[target] {
 			mkline.Warnf("Unusual target %q.", target)
 			Explain(
-				"If you want to define your own targets, you can \"declare\"",
-				"them by inserting a \".PHONY: my-target\" line before this line.  This",
-				"will tell make(1) to not interpret this target's name as a filename.")
+				"If you want to define your own target, declare it like this:",
+				"",
+				"\t.PHONY: my-target",
+				"",
+				"In the rare case that you actually want a file-based make(1)",
+				"target, write it like this:",
+				"",
+				"\t${.CURDIR}/my-filename:")
 		}
 	}
 }
@@ -248,7 +254,7 @@ func (ck MkLineChecker) checkVarassignDefPermissions() {
 		return
 	}
 
-	perms := vartype.EffectivePermissions(mkline.Filename())
+	perms := vartype.EffectivePermissions(mkline.Filename)
 	var needed AclPermissions
 	switch op {
 	case opAssign, opAssignShell, opAssignEval:
@@ -358,7 +364,7 @@ func (ck MkLineChecker) CheckVarusePermissions(varname string, vartype *Vartype,
 	}
 
 	mkline := ck.MkLine
-	perms := vartype.EffectivePermissions(mkline.Filename())
+	perms := vartype.EffectivePermissions(mkline.Filename)
 
 	isLoadTime := false // Will the variable be used at load time?
 
@@ -726,7 +732,7 @@ func (ck MkLineChecker) checkVarassignVaruseMk(vartype *Vartype, time vucTime) {
 		defer trace.Call(vartype, time)()
 	}
 	mkline := ck.MkLine
-	tokens := NewMkParser(mkline, mkline.Value(), false).MkTokens()
+	tokens := NewMkParser(mkline.Line, mkline.Value(), false).MkTokens()
 	for i, token := range tokens {
 		if token.Varuse != nil {
 			spaceLeft := i-1 < 0 || matches(tokens[i-1].Text, `\s$`)
@@ -754,7 +760,7 @@ func (ck MkLineChecker) checkVarassignVaruseShell(vartype *Vartype, time vucTime
 	}
 
 	mkline := ck.MkLine
-	atoms := NewShTokenizer(mkline, mkline.Value(), false).ShAtoms()
+	atoms := NewShTokenizer(mkline.Line, mkline.Value(), false).ShAtoms()
 	for i, atom := range atoms {
 		if atom.Type == shtVaruse {
 			isWordPart := isWordPart(atoms, i)
@@ -908,7 +914,7 @@ func (ck MkLineChecker) CheckVartype(varname string, op MkOperator, value, comme
 		}
 
 	case vartype.kindOfList == lkShell:
-		words, _ := splitIntoMkWords(mkline, value)
+		words, _ := splitIntoMkWords(mkline.Line, value)
 		for _, word := range words {
 			ck.CheckVartypePrimitive(varname, vartype.basicType, op, word, comment, vartype.guessed)
 		}
@@ -924,7 +930,7 @@ func (ck MkLineChecker) CheckVartypePrimitive(varname string, checker *BasicType
 
 	mkline := ck.MkLine
 	valueNoVar := mkline.WithoutMakeVariables(value)
-	ctx := &VartypeCheck{mkline, mkline, varname, op, value, valueNoVar, comment, guessed}
+	ctx := &VartypeCheck{mkline, mkline.Line, varname, op, value, valueNoVar, comment, guessed}
 	checker.checker(ctx)
 }
 
@@ -982,7 +988,7 @@ func (ck MkLineChecker) CheckCond() {
 		defer trace.Call1(mkline.Args())()
 	}
 
-	p := NewMkParser(mkline, mkline.Args(), false)
+	p := NewMkParser(mkline.Line, mkline.Args(), false)
 	cond := p.MkCond()
 	if !p.EOF() {
 		mkline.Warnf("Invalid conditional %q.", mkline.Args())

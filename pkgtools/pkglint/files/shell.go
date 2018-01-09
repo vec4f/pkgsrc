@@ -3,8 +3,6 @@ package main
 // Parsing and checking shell commands embedded in Makefiles
 
 import (
-	"netbsd.org/pkglint/line"
-	"netbsd.org/pkglint/linechecks"
 	"netbsd.org/pkglint/textproc"
 	"netbsd.org/pkglint/trace"
 	"path"
@@ -38,7 +36,7 @@ func (shline *ShellLine) CheckWord(token string, checkQuoting bool) {
 		return
 	}
 
-	var line line.Line = shline.mkline
+	var line = shline.mkline.Line
 
 	p := NewMkParser(line, token, false)
 	if varuse := p.VarUse(); varuse != nil && p.EOF() {
@@ -225,7 +223,7 @@ func (shline *ShellLine) unescapeBackticks(shellword string, repl *textproc.Pref
 		defer trace.Call(shellword, quoting, "=>", trace.Ref(&unescaped))()
 	}
 
-	var line line.Line = shline.mkline
+	line := shline.mkline.Line
 	for !repl.EOF() {
 		switch {
 		case repl.AdvanceStr("`"):
@@ -277,7 +275,7 @@ func (shline *ShellLine) CheckShellCommandLine(shelltext string) {
 		defer trace.Call1(shelltext)()
 	}
 
-	var line line.Line = shline.mkline
+	line := shline.mkline.Line
 
 	if contains(shelltext, "${SED}") && contains(shelltext, "${MV}") {
 		line.Notef("Please use the SUBST framework instead of ${SED} and ${MV}.")
@@ -326,7 +324,7 @@ func (shline *ShellLine) CheckShellCommand(shellcmd string, pSetE *bool) {
 		defer trace.Call()()
 	}
 
-	var line line.Line = shline.mkline
+	line := shline.mkline.Line
 	program, err := parseShellProgram(line, shellcmd)
 	if err != nil && contains(shellcmd, "$$(") { // Hack until the shell parser can handle subshells.
 		line.Warnf("Invoking subshells via $(...) is not portable enough.")
@@ -387,7 +385,7 @@ func (shline *ShellLine) checkHiddenAndSuppress(hiddenAndSuppress, rest string) 
 		// Shell comments may be hidden, since they cannot have side effects.
 
 	default:
-		tokens, _ := splitIntoShellTokens(shline.mkline, rest)
+		tokens, _ := splitIntoShellTokens(shline.mkline.Line, rest)
 		if len(tokens) > 0 {
 			cmd := tokens[0]
 			switch cmd {
@@ -597,7 +595,7 @@ func (scc *SimpleCommandChecker) checkAbsolutePathnames() {
 	isSubst := false
 	for _, arg := range scc.strcmd.Args {
 		if !isSubst {
-			linechecks.CheckAbsolutePathname(scc.shline.mkline, arg)
+			CheckLineAbsolutePathname(scc.shline.mkline.Line, arg)
 		}
 		if false && isSubst && !matches(arg, `"^[\"\'].*[\"\']$`) {
 			scc.shline.mkline.Warnf("Substitution commands like %q should always be quoted.", arg)
@@ -764,19 +762,58 @@ func (spc *ShellProgramChecker) checkWord(word *ShToken, checkQuoting bool) {
 	spc.shline.CheckWord(word.MkText, checkQuoting)
 }
 
-func (scc *ShellProgramChecker) checkPipeExitcode(line line.Line, pipeline *MkShPipeline) {
+func (scc *ShellProgramChecker) checkPipeExitcode(line Line, pipeline *MkShPipeline) {
 	if trace.Tracing {
 		defer trace.Call()()
 	}
 
+	oneOf := func(s string, others ...string) bool {
+		for _, other := range others {
+			if s == other {
+				return true
+			}
+		}
+		return false
+	}
+
+	canFail := func() (bool, string) {
+		for _, cmd := range pipeline.Cmds[:len(pipeline.Cmds)-1] {
+			simple := cmd.Simple
+			if simple == nil {
+				return true, ""
+			}
+			if len(simple.Redirections) != 0 {
+				return true, simple.Name.MkText
+			}
+			tool := G.globalData.Tools.FindByCommand(simple.Name)
+			switch {
+			case tool == nil:
+				return true, simple.Name.MkText
+			case oneOf(tool.Name, "echo", "printf"):
+			case oneOf(tool.Name, "sed", "gsed", "grep", "ggrep") && len(simple.Args) == 1:
+				break
+			default:
+				return true, simple.Name.MkText
+			}
+		}
+		return false, ""
+	}
+
 	if G.opts.WarnExtra && len(pipeline.Cmds) > 1 {
-		line.Warnf("The exitcode of the left-hand-side command of the pipe operator is ignored.")
-		Explain(
-			"In a shell command like \"cat *.txt | grep keyword\", if the command",
-			"on the left side of the \"|\" fails, this failure is ignored.",
-			"",
-			"If you need to detect the failure of the left-hand-side command, use",
-			"temporary files to save the output of the command.")
+		if canFail, cmd := canFail(); canFail {
+			if cmd != "" {
+				line.Warnf("The exitcode of %q at the left of the | operator is ignored.", cmd)
+			} else {
+				line.Warnf("The exitcode of the command at the left of the | operator is ignored.")
+			}
+			Explain(
+				"In a shell command like \"cat *.txt | grep keyword\", if the command",
+				"on the left side of the \"|\" fails, this failure is ignored.",
+				"",
+				"If you need to detect the failure of the left-hand-side command, use",
+				"temporary files to save the output of the command.  A good place to",
+				"create those files is in ${WRKDIR}.")
+		}
 	}
 }
 
@@ -815,7 +852,7 @@ func (shline *ShellLine) checkCommandUse(shellcmd string) {
 		return
 	}
 
-	var line line.Line = shline.mkline
+	line := shline.mkline.Line
 	switch shellcmd {
 	case "${INSTALL}",
 		"${INSTALL_DATA}", "${INSTALL_DATA_DIR}",
@@ -850,7 +887,7 @@ func (shline *ShellLine) checkCommandUse(shellcmd string) {
 }
 
 // Example: "word1 word2;;;" => "word1", "word2", ";;", ";"
-func splitIntoShellTokens(line line.Line, text string) (tokens []string, rest string) {
+func splitIntoShellTokens(line Line, text string) (tokens []string, rest string) {
 	if trace.Tracing {
 		defer trace.Call(line, text)()
 	}
@@ -882,7 +919,7 @@ func splitIntoShellTokens(line line.Line, text string) (tokens []string, rest st
 
 // Example: "word1 word2;;;" => "word1", "word2;;;"
 // Compare devel/bmake/files/str.c, function brk_string.
-func splitIntoMkWords(line line.Line, text string) (words []string, rest string) {
+func splitIntoMkWords(line Line, text string) (words []string, rest string) {
 	if trace.Tracing {
 		defer trace.Call(line, text)()
 	}
