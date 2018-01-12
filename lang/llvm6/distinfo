@@ -1,0 +1,12 @@
+$NetBSD: distinfo,v 1.13 2018/01/08 10:48:34 jperkin Exp $
+
+SHA1 (llvm-cd2a37bac37847ffba082865447ed35162d87b85.tar.gz) = ee8cc16e744cb6ae367409326c649867555f648c
+RMD160 (llvm-cd2a37bac37847ffba082865447ed35162d87b85.tar.gz) = d27a417283f8f6cf23cadbdba4594216d7c489f4
+SHA512 (llvm-cd2a37bac37847ffba082865447ed35162d87b85.tar.gz) = 379a68a9aa289793bfdffdb003d6a79ab11504608e203cdde90a6cddbc9ba7d8883f7f927ea6dd00b7f651ed91168d92cc3eed82bc9f7c6d3572e6c4623cb110
+Size (llvm-cd2a37bac37847ffba082865447ed35162d87b85.tar.gz) = 37783808 bytes
+SHA1 (patch-CMakeLists.txt) = 78e2dab2bf73f7e466ca2788fe6444e39b4ebd80
+SHA1 (patch-cmake_config-ix.cmake) = c93f796e3980fc5689964c85df7eb4a27b56b104
+SHA1 (patch-cmake_modules_AddLLVM.cmake) = 4bfb98c5d99797155d0fb13a43352d31f6cfe783
+SHA1 (patch-cmake_modules_HandleLLVMOptions.cmake) = 271e6f5a8cebf8162c4e3b758e96f451b434269b
+SHA1 (patch-include_llvm_Support_DataTypes.h.cmake) = 18ebb1fcd2499d1216d5c3afe0bbb55fe63fe3ef
+SHA1 (patch-tools_llvm-shlib_CMakeLists.txt) = de97820146322c638293002bc7425386f0d695f3
