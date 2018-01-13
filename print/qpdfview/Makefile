@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.50 2017/12/08 08:52:59 maya Exp $
+# $NetBSD: Makefile,v 1.52 2018/01/13 08:39:03 wiz Exp $
 
 VER=		0.4.16
 DISTNAME=	qpdfview-${VER}
-PKGREVISION=	17
+PKGREVISION=	18
 CATEGORIES=	print
 MASTER_SITES=	https://launchpad.net/qpdfview/trunk/${VER}/+download/
 
@@ -12,7 +12,6 @@ COMMENT=	Tabbed PDF viewer
 LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	poppler-data-[0-9]*:../../print/poppler-data
-DEPENDS+=	qt4-sqlite3-[0-9]*:../../x11/qt4-sqlite3
 
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config
@@ -29,10 +28,9 @@ do-configure:
 .include "../../graphics/librsvg/buildlink3.mk"
 .include "../../print/cups-base/buildlink3.mk"
 .include "../../print/libspectre/buildlink3.mk"
-.include "../../print/poppler-qt4/buildlink3.mk"
-.include "../../x11/qt4-libs/buildlink3.mk"
-.include "../../x11/qt4-qdbus/buildlink3.mk"
-.include "../../x11/qt4-tools/buildlink3.mk"
+.include "../../print/poppler-qt5/buildlink3.mk"
+.include "../../x11/qt5-qtbase/buildlink3.mk"
+.include "../../x11/qt5-qtsvg/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/file/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
