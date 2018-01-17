@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2017/08/19 14:54:25 adam Exp $
+# $NetBSD: Makefile,v 1.12 2018/01/16 08:13:01 adam Exp $
 
-DISTNAME=	lz4-1.8.0
+DISTNAME=	lz4-1.8.1.2
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_GITHUB:=lz4/}
 
