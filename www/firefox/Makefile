@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.317 2018/01/08 09:37:56 ryoon Exp $
+# $NetBSD: Makefile,v 1.319 2018/01/28 20:11:07 wiz Exp $
 
 FIREFOX_VER=		${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
-MOZ_BRANCH=		57.0
-MOZ_BRANCH_MINOR=	.4
+MOZ_BRANCH=		58.0
+MOZ_BRANCH_MINOR=	
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
 PKGNAME=	firefox-${MOZ_BRANCH}${MOZ_BRANCH_MINOR:S/b/beta/:S/esr//}
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES+=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
 MASTER_SITES+=	${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${FIREFOX_VER}/source/}
@@ -92,6 +93,10 @@ post-build:
 
 INSTALLATION_DIRS+=	share/applications share/pixmaps
 post-install:
+	${ECHO} '#! /bin/sh' > ${DESTDIR}${PREFIX}/bin/${MOZILLA}
+	${ECHO} '${PREFIX}/lib/firefox/firefox "$$@"' >> \
+		${DESTDIR}${PREFIX}/bin/${MOZILLA}
+	${CHMOD} 755 ${DESTDIR}${PREFIX}/bin/${MOZILLA}
 	${INSTALL_DATA} ${WRKDIR}/desktop				\
 	  ${DESTDIR}${PREFIX}/share/applications/${MOZILLA}.desktop
 	${INSTALL_DATA} ${MOZILLA_ICON}					\

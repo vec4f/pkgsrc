@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2593 2018/01/21 03:40:39 wen Exp $
+# $NetBSD: Makefile,v 1.2595 2018/01/25 19:03:04 bsiegert Exp $
 #
 
 COMMENT=	Development utilities
@@ -2112,6 +2112,7 @@ SUBDIR+=	py-requests-ftp
 SUBDIR+=	py-requests-futures
 SUBDIR+=	py-requests-mock
 SUBDIR+=	py-requests-toolbelt
+SUBDIR+=	py-retry_decorator
 SUBDIR+=	py-rope
 SUBDIR+=	py-rply
 SUBDIR+=	py-ruamel-base
@@ -2535,6 +2536,7 @@ SUBDIR+=	xulrunner192
 SUBDIR+=	xulrunner45
 SUBDIR+=	xxgdb
 SUBDIR+=	yajl
+SUBDIR+=	yarn
 SUBDIR+=	yasm
 SUBDIR+=	z80-asm
 SUBDIR+=	zlib

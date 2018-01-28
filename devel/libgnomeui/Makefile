@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.138 2017/11/23 17:19:41 wiz Exp $
+# $NetBSD: Makefile,v 1.140 2018/01/28 20:10:36 wiz Exp $
 #
 
 DISTNAME=	libgnomeui-2.24.5
-PKGREVISION=	36
+PKGREVISION=	37
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libgnomeui/2.24/}
 EXTRACT_SUFX=	.tar.bz2
@@ -24,8 +24,8 @@ PKGCONFIG_OVERRIDE=	${PKGCONFIG_BASE}.in
 
 .include "../../mk/compiler.mk"
 
-.if ${OPSYS} == "SunOS" && !empty(CC_VERSION:Mgcc-[6-9]*)
-SUBST_CLASSES+=		xopen
+.if !empty(CC_VERSION:Mgcc-[6-9]*) || !empty(PKGSRC_COMPILER:Mclang)
+SUBST_CLASSES.SunOS+=	xopen
 SUBST_STAGE.xopen=	pre-configure
 SUBST_FILES.xopen=	libgnomeui/gnome-file-entry.c libgnomeui/gnome-client.c
 SUBST_FILES.xopen+=	libgnomeui/gnome-dateedit.c

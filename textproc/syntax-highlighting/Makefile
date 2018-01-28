@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2018/01/17 20:11:06 markd Exp $
+# $NetBSD: Makefile,v 1.4 2018/01/28 20:11:05 wiz Exp $
 
 DISTNAME=	syntax-highlighting-${KF5VER}
+PKGREVISION=	3
 CATEGORIES=	textproc
 
 HOMEPAGE=	https://community.kde.org/Frameworks
@@ -10,6 +11,10 @@ LICENSE=	gnu-lgpl-v2.1
 .include "../../meta-pkgs/kf5/Makefile.common"
 
 USE_TOOLS+=	perl
+
+MAKE_DIRS+=	${PKG_SYSCONFDIR}/xdg
+CONF_FILES+=	${PREFIX}/share/examples/kde-xdg/org_kde_ksyntaxhighlighting.categories \
+		${PKG_SYSCONFDIR}/xdg/org_kde_ksyntaxhighlighting.categories
 
 .include "../../x11/qt5-qtbase/buildlink3.mk"
 BUILDLINK_DEPMETHOD.qt5-qttools= build

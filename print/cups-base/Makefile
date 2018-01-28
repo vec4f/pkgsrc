@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2017/12/02 20:02:35 leot Exp $
+# $NetBSD: Makefile,v 1.5 2018/01/28 20:10:37 wiz Exp $
 
+PKGREVISION= 1
 .include "../../print/cups/Makefile.common"
 
 DISTNAME=	cups-${CUPS_VERS}-source
@@ -53,12 +54,9 @@ CONFIGURE_ENV+=		DSOFLAGS=${LDFLAGS:M*:Q}
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
-.if ${OPSYS} == "SunOS"
-LIBS_SSP=		-lssp_nonshared -lssp
-CONFIGURE_ENV+=		LIBS_SSP=${LIBS_SSP:M*:Q}
 # Explicitly disable epoll on illumos, it is provided for Linux compat only.
-CONFIGURE_ENV+=		ac_cv_func_epoll_create=no
-.endif
+CONFIGURE_ENV.SunOS+=	ac_cv_func_epoll_create=no
+
 LIBS+=			${BUILDLINK_LDADD.iconv}
 
 # Avoid the following error when compiling with clang.
