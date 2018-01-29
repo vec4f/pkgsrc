@@ -3,6 +3,7 @@ $NetBSD$
 Use compiler-rt instead of libgcc.
 Pull in libcxx correctly.
 Specify paths to system objects explicitly.
+Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
 
 --- lib/Driver/ToolChains/Solaris.cpp.orig	2018-01-04 07:43:41.000000000 +0000
 +++ lib/Driver/ToolChains/Solaris.cpp
@@ -31,16 +32,18 @@ Specify paths to system objects explicitly.
    // Demangle C++ names in errors
    CmdArgs.push_back("-C");
  
-@@ -69,7 +85,7 @@ void solaris::Linker::ConstructJob(Compi
-     } else {
-       CmdArgs.push_back("--dynamic-linker");
-       CmdArgs.push_back(
+@@ -66,10 +82,6 @@ void solaris::Linker::ConstructJob(Compi
+     CmdArgs.push_back("-Bdynamic");
+     if (Args.hasArg(options::OPT_shared)) {
+       CmdArgs.push_back("-shared");
+-    } else {
+-      CmdArgs.push_back("--dynamic-linker");
+-      CmdArgs.push_back(
 -          Args.MakeArgString(getToolChain().GetFilePath("ld.so.1")));
-+          Args.MakeArgString(LibPath + "ld.so.1"));
      }
    }
  
-@@ -83,13 +99,11 @@ void solaris::Linker::ConstructJob(Compi
+@@ -83,15 +95,20 @@ void solaris::Linker::ConstructJob(Compi
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nostartfiles)) {
      if (!Args.hasArg(options::OPT_shared))
        CmdArgs.push_back(
@@ -48,16 +51,25 @@ Specify paths to system objects explicitly.
 +          Args.MakeArgString(LibPath + "crt1.o"));
  
 -    CmdArgs.push_back(Args.MakeArgString(getToolChain().GetFilePath("crti.o")));
--    CmdArgs.push_back(
--        Args.MakeArgString(getToolChain().GetFilePath("values-Xa.o")));
 +    CmdArgs.push_back(Args.MakeArgString(LibPath + "crti.o"));
      CmdArgs.push_back(
+-        Args.MakeArgString(getToolChain().GetFilePath("values-Xa.o")));
+-    CmdArgs.push_back(
 -        Args.MakeArgString(getToolChain().GetFilePath("crtbegin.o")));
 +        Args.MakeArgString(LibPath + "values-Xa.o"));
    }
  
++  /*
++   * Runtime libraries need to come before user options in case they do
++   * something like request -z allextract which won't work with builtins.
++   */
++  if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs))
++    AddRunTimeLibs(getToolChain(), D, CmdArgs, Args);
++
    getToolChain().AddFilePathLibArgs(Args, CmdArgs);
-@@ -100,21 +114,16 @@ void solaris::Linker::ConstructJob(Compi
+ 
+   Args.AddAllArgs(CmdArgs, {options::OPT_L, options::OPT_T_Group,
+@@ -100,21 +117,15 @@ void solaris::Linker::ConstructJob(Compi
    AddLinkerInputs(getToolChain(), Inputs, Args, CmdArgs, JA);
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
@@ -73,7 +85,6 @@ Specify paths to system objects explicitly.
        CmdArgs.push_back("-lm");
      }
 +    CmdArgs.push_back("-lc");
-+    AddRunTimeLibs(getToolChain(), D, CmdArgs, Args);
    }
  
 -  if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nostartfiles)) {
@@ -85,7 +96,7 @@ Specify paths to system objects explicitly.
  
    getToolChain().addProfileRTLibs(Args, CmdArgs);
  
-@@ -127,35 +136,9 @@ void solaris::Linker::ConstructJob(Compi
+@@ -127,35 +138,9 @@ void solaris::Linker::ConstructJob(Compi
  Solaris::Solaris(const Driver &D, const llvm::Triple &Triple,
                   const ArgList &Args)
      : Generic_ELF(D, Triple, Args) {
@@ -124,7 +135,7 @@ Specify paths to system objects explicitly.
  }
  
  Tool *Solaris::buildAssembler() const {
-@@ -164,30 +147,41 @@ Tool *Solaris::buildAssembler() const {
+@@ -164,30 +149,41 @@ Tool *Solaris::buildAssembler() const {
  
  Tool *Solaris::buildLinker() const { return new tools::solaris::Linker(*this); }
  
