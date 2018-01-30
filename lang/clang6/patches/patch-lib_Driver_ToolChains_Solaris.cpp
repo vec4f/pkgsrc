@@ -4,6 +4,7 @@ Use compiler-rt instead of libgcc.
 Pull in libcxx correctly.
 Specify paths to system objects explicitly.
 Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
+Ensure we reset to -zdefaultextract prior to adding compiler-rt.
 
 --- lib/Driver/ToolChains/Solaris.cpp.orig	2018-01-04 07:43:41.000000000 +0000
 +++ lib/Driver/ToolChains/Solaris.cpp
@@ -43,7 +44,7 @@ Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
      }
    }
  
-@@ -83,15 +95,20 @@ void solaris::Linker::ConstructJob(Compi
+@@ -83,13 +95,11 @@ void solaris::Linker::ConstructJob(Compi
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nostartfiles)) {
      if (!Args.hasArg(options::OPT_shared))
        CmdArgs.push_back(
@@ -59,17 +60,8 @@ Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
 +        Args.MakeArgString(LibPath + "values-Xa.o"));
    }
  
-+  /*
-+   * Runtime libraries need to come before user options in case they do
-+   * something like request -z allextract which won't work with builtins.
-+   */
-+  if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs))
-+    AddRunTimeLibs(getToolChain(), D, CmdArgs, Args);
-+
    getToolChain().AddFilePathLibArgs(Args, CmdArgs);
- 
-   Args.AddAllArgs(CmdArgs, {options::OPT_L, options::OPT_T_Group,
-@@ -100,21 +117,15 @@ void solaris::Linker::ConstructJob(Compi
+@@ -100,21 +110,18 @@ void solaris::Linker::ConstructJob(Compi
    AddLinkerInputs(getToolChain(), Inputs, Args, CmdArgs, JA);
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
@@ -79,6 +71,9 @@ Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
 -    CmdArgs.push_back("-lc");
 -    if (!Args.hasArg(options::OPT_shared)) {
 -      CmdArgs.push_back("-lgcc");
++    CmdArgs.push_back("-z");
++    CmdArgs.push_back("defaultextract");
++    AddRunTimeLibs(getToolChain(), D, CmdArgs, Args);
 +    if (D.CCCIsCXX()) {
 +      if (getToolChain().ShouldLinkCXXStdlib(Args))
 +        getToolChain().AddCXXStdlibLibArgs(Args, CmdArgs);
@@ -96,7 +91,7 @@ Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
  
    getToolChain().addProfileRTLibs(Args, CmdArgs);
  
-@@ -127,35 +138,9 @@ void solaris::Linker::ConstructJob(Compi
+@@ -127,35 +134,9 @@ void solaris::Linker::ConstructJob(Compi
  Solaris::Solaris(const Driver &D, const llvm::Triple &Triple,
                   const ArgList &Args)
      : Generic_ELF(D, Triple, Args) {
@@ -135,7 +130,7 @@ Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
  }
  
  Tool *Solaris::buildAssembler() const {
-@@ -164,30 +149,41 @@ Tool *Solaris::buildAssembler() const {
+@@ -164,30 +145,41 @@ Tool *Solaris::buildAssembler() const {
  
  Tool *Solaris::buildLinker() const { return new tools::solaris::Linker(*this); }
  
