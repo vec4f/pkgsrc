@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2018/01/24 19:06:07 markd Exp $
+# $NetBSD: Makefile,v 1.19 2018/01/30 08:47:11 markd Exp $
 
 DISTNAME=	kio-${KF5VER}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 
 HOMEPAGE=	https://community.kde.org/Frameworks
@@ -11,6 +11,13 @@ LICENSE=	gnu-lgpl-v2.1
 .include "../../meta-pkgs/kf5/Makefile.common"
 
 USE_TOOLS+=	msgmerge
+
+SUBST_CLASSES+=		xdg
+SUBST_STAGE.xdg=	post-patch
+SUBST_MESSAGE.xdg=	Install via examples dir.
+SUBST_FILES.xdg=	src/core/CMakeLists.txt
+SUBST_FILES.xdg+=	src/urifilters/shorturi/CMakeLists.txt
+SUBST_SED.xdg=		-e 's:{KDE_INSTALL_CONFDIR}:{KDE_INSTALL_DATAROOTDIR}/examples/kio:'
 
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/xdg
 CONF_FILES+=	${PREFIX}/share/examples/kio/accept-languages.codes \
@@ -29,8 +36,6 @@ SUBST_FILES.fix-moc+=	_KDE_build/autotests/CMakeFiles/jobremotetest_autogen.dir/
 SUBST_FILES.fix-moc+=	_KDE_build/src/kcms/kio/CMakeFiles/kcm_kio_autogen.dir/AutogenInfo.cmake
 SUBST_SED.fix-moc=	-e 's,;${PREFIX}/include;,;,g'
 
-#.include "../../lang/python/tool.mk"
-#.include "../../wip/gpgmepp/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/krb5.buildlink3.mk"
 .include "../../archivers/karchive/buildlink3.mk"

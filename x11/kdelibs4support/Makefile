@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2018/01/24 19:06:11 markd Exp $
+# $NetBSD: Makefile,v 1.19 2018/01/30 09:10:59 markd Exp $
 
 DISTNAME=	kdelibs4support-${KF5VER}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 
 HOMEPAGE=	https://community.kde.org/Frameworks
@@ -19,6 +19,13 @@ DEPENDS+=	kdesignerplugin>=${KF5VER}:../../x11/kdesignerplugin
 USE_TOOLS+=	perl:run pkg-config msgfmt
 
 REPLACE_PERL+= src/kio/fileshareset
+
+SUBST_CLASSES+=		xdg
+SUBST_STAGE.xdg=	post-patch
+SUBST_MESSAGE.xdg=	Install via examples dir.
+SUBST_FILES.xdg=	src/CMakeLists.txt
+SUBST_FILES.xdg+=	src/kssl/kssl/CMakeLists.txt
+SUBST_SED.xdg=		-e 's:{KDE_INSTALL_CONFDIR}:{KDE_INSTALL_DATAROOTDIR}/examples/kdelibs4support:'
 
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/xdg/colors
 CONF_FILES+=	${PREFIX}/share/examples/kdelibs4support/kdebug.areas \

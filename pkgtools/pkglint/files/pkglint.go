@@ -18,7 +18,9 @@ const confMake = "@BMAKE@"
 const confVersion = "@VERSION@"
 
 func main() {
-	G.logOut, G.logErr, trace.Out = NewSeparatorWriter(os.Stdout), NewSeparatorWriter(os.Stderr), os.Stdout
+	G.logOut = NewSeparatorWriter(os.Stdout)
+	G.logErr = NewSeparatorWriter(os.Stderr)
+	trace.Out = os.Stdout
 	os.Exit(new(Pkglint).Main(os.Args...))
 }
 
@@ -157,7 +159,7 @@ func (pkglint *Pkglint) ParseCommandLine(args []string) *int {
 }
 
 func (pkglint *Pkglint) PrintSummary() {
-	if !G.opts.Quiet {
+	if !G.opts.Quiet && !G.opts.Autofix {
 		if G.errors != 0 || G.warnings != 0 {
 			G.logOut.Printf("%d %s and %d %s found.\n",
 				G.errors, ifelseStr(G.errors == 1, "error", "errors"),
@@ -168,7 +170,7 @@ func (pkglint *Pkglint) PrintSummary() {
 		if G.explanationsAvailable && !G.opts.Explain {
 			G.logOut.WriteLine("(Run \"pkglint -e\" to show explanations.)")
 		}
-		if G.autofixAvailable && !G.opts.PrintAutofix && !G.opts.Autofix {
+		if G.autofixAvailable && !G.opts.PrintAutofix {
 			G.logOut.WriteLine("(Run \"pkglint -fs\" to show what can be fixed automatically.)")
 		}
 		if G.autofixAvailable && !G.opts.Autofix {
@@ -306,37 +308,45 @@ func ChecklinesMessage(lines []Line) {
 		defer trace.Call1(lines[0].Filename)()
 	}
 
-	explainMessage := func() {
-		Explain(
-			"A MESSAGE file should consist of a header line, having 75 \"=\"",
-			"characters, followed by a line containing only the RCS Id, then an",
-			"empty line, your text and finally the footer line, which is the",
-			"same as the header line.")
-	}
+	explanation := []string{
+		"A MESSAGE file should consist of a header line, having 75 \"=\"",
+		"characters, followed by a line containing only the RCS Id, then an",
+		"empty line, your text and finally the footer line, which is the",
+		"same as the header line."}
 
 	if len(lines) < 3 {
 		lastLine := lines[len(lines)-1]
 		lastLine.Warnf("File too short.")
-		explainMessage()
+		Explain(explanation...)
 		return
 	}
 
 	hline := strings.Repeat("=", 75)
 	if line := lines[0]; line.Text != hline {
-		line.Warnf("Expected a line of exactly 75 \"=\" characters.")
-		explainMessage()
+		fix := line.Autofix()
+		fix.Warnf("Expected a line of exactly 75 \"=\" characters.")
+		fix.Explain(explanation...)
+		fix.InsertBefore(hline)
+		fix.Apply()
+		CheckLineRcsid(lines[0], ``, "")
+	} else if 1 < len(lines) {
+		CheckLineRcsid(lines[1], ``, "")
 	}
-	CheckLineRcsid(lines[1], ``, "")
 	for _, line := range lines {
 		CheckLineLength(line, 80)
 		CheckLineTrailingWhitespace(line)
 		CheckLineValidCharacters(line, `[\t -~]`)
 	}
 	if lastLine := lines[len(lines)-1]; lastLine.Text != hline {
-		lastLine.Warnf("Expected a line of exactly 75 \"=\" characters.")
-		explainMessage()
+		fix := lastLine.Autofix()
+		fix.Warnf("Expected a line of exactly 75 \"=\" characters.")
+		fix.Explain(explanation...)
+		fix.InsertAfter(hline)
+		fix.Apply()
 	}
 	ChecklinesTrailingEmptyLines(lines)
+
+	SaveAutofixChanges(lines)
 }
 
 func CheckfileMk(fname string) {

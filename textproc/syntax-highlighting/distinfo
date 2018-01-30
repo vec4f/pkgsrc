@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.1 2018/01/17 20:11:06 markd Exp $
+$NetBSD: distinfo,v 1.3 2018/01/30 07:58:50 markd Exp $
 
 SHA1 (syntax-highlighting-5.41.0.tar.xz) = ad61d8625a5bcc7d20dabe73509b3db53536d5f1
 RMD160 (syntax-highlighting-5.41.0.tar.xz) = 49913b2f58f39d9d61ffe7b1080e2f4622103076

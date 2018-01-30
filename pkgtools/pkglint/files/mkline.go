@@ -16,12 +16,13 @@ type MkLineImpl struct {
 	data interface{} // One of the following mkLine* types
 }
 type mkLineAssign struct {
-	varname    string
-	varcanon   string
-	varparam   string
-	op         MkOperator
-	valueAlign string
-	value      string
+	commented  bool       // Whether the whole variable assignment is commented out
+	varname    string     // e.g. "HOMEPAGE", "SUBST_SED.perl"
+	varcanon   string     // e.g. "HOMEPAGE", "SUBST_SED.*"
+	varparam   string     // e.g. "", "perl"
+	op         MkOperator //
+	valueAlign string     // The text up to and including the assignment operator, e.g. VARNAME+=\t
+	value      string     // The trimmed value
 	comment    string
 }
 type mkLineShell struct {
@@ -59,7 +60,7 @@ func NewMkLine(line Line) (mkline *MkLineImpl) {
 			"white-space.")
 	}
 
-	if m, varname, spaceAfterVarname, op, valueAlign, value, spaceAfterValue, comment := MatchVarassign(text); m {
+	if m, commented, varname, spaceAfterVarname, op, valueAlign, value, spaceAfterValue, comment := MatchVarassign(text); m {
 		if G.opts.WarnSpace && spaceAfterVarname != "" {
 			switch {
 			case hasSuffix(varname, "+") && op == "=":
@@ -85,6 +86,7 @@ func NewMkLine(line Line) (mkline *MkLineImpl) {
 		varparam := varnameParam(varname)
 
 		mkline.data = mkLineAssign{
+			commented,
 			varname,
 			varnameCanon(varname),
 			varparam,
@@ -148,11 +150,46 @@ func NewMkLine(line Line) (mkline *MkLineImpl) {
 func (mkline *MkLineImpl) String() string {
 	return fmt.Sprintf("%s:%s", mkline.Filename, mkline.Linenos())
 }
-func (mkline *MkLineImpl) IsVarassign() bool { _, ok := mkline.data.(mkLineAssign); return ok }
-func (mkline *MkLineImpl) IsShellcmd() bool  { _, ok := mkline.data.(mkLineShell); return ok }
-func (mkline *MkLineImpl) IsComment() bool   { _, ok := mkline.data.(mkLineComment); return ok }
-func (mkline *MkLineImpl) IsEmpty() bool     { _, ok := mkline.data.(mkLineEmpty); return ok }
-func (mkline *MkLineImpl) IsCond() bool      { _, ok := mkline.data.(mkLineConditional); return ok }
+
+func (mkline *MkLineImpl) IsVarassign() bool {
+	data, ok := mkline.data.(mkLineAssign)
+	return ok && !data.commented
+}
+
+// IsCommentedVarassign returns true for commented-out variable assignments.
+// In most cases these are treated as ordinary comments, but in some others
+// they are treated like variable assignments, just inactive ones.
+func (mkline *MkLineImpl) IsCommentedVarassign() bool {
+	data, ok := mkline.data.(mkLineAssign)
+	return ok && data.commented
+}
+
+// IsShellcmd returns true for tab-indented lines that are assigned to a Make
+// target. Example:
+//
+//  pre-configure:    # IsDependency
+//          ${ECHO}   # IsShellcmd
+func (mkline *MkLineImpl) IsShellcmd() bool {
+	_, ok := mkline.data.(mkLineShell)
+	return ok
+}
+
+func (mkline *MkLineImpl) IsComment() bool {
+	_, ok := mkline.data.(mkLineComment)
+	return ok || mkline.IsCommentedVarassign()
+}
+
+func (mkline *MkLineImpl) IsEmpty() bool {
+	_, ok := mkline.data.(mkLineEmpty)
+	return ok
+}
+
+// IsCond checks whether the line is a conditional (.if/.ifelse/.else/.if) or a loop (.for/.endfor).
+func (mkline *MkLineImpl) IsCond() bool {
+	_, ok := mkline.data.(mkLineConditional)
+	return ok
+}
+
 func (mkline *MkLineImpl) IsInclude() bool {
 	incl, ok := mkline.data.(mkLineInclude)
 	return ok && !incl.sys
@@ -161,11 +198,17 @@ func (mkline *MkLineImpl) IsSysinclude() bool {
 	incl, ok := mkline.data.(mkLineInclude)
 	return ok && incl.sys
 }
-func (mkline *MkLineImpl) IsDependency() bool       { _, ok := mkline.data.(mkLineDependency); return ok }
-func (mkline *MkLineImpl) Varname() string          { return mkline.data.(mkLineAssign).varname }
-func (mkline *MkLineImpl) Varcanon() string         { return mkline.data.(mkLineAssign).varcanon }
-func (mkline *MkLineImpl) Varparam() string         { return mkline.data.(mkLineAssign).varparam }
-func (mkline *MkLineImpl) Op() MkOperator           { return mkline.data.(mkLineAssign).op }
+func (mkline *MkLineImpl) IsDependency() bool {
+	_, ok := mkline.data.(mkLineDependency)
+	return ok
+}
+
+func (mkline *MkLineImpl) Varname() string  { return mkline.data.(mkLineAssign).varname }
+func (mkline *MkLineImpl) Varcanon() string { return mkline.data.(mkLineAssign).varcanon }
+func (mkline *MkLineImpl) Varparam() string { return mkline.data.(mkLineAssign).varparam }
+func (mkline *MkLineImpl) Op() MkOperator   { return mkline.data.(mkLineAssign).op }
+
+// For a variable assignment, the text up to and including the assignment operator, e.g. VARNAME+=\t
 func (mkline *MkLineImpl) ValueAlign() string       { return mkline.data.(mkLineAssign).valueAlign }
 func (mkline *MkLineImpl) Value() string            { return mkline.data.(mkLineAssign).value }
 func (mkline *MkLineImpl) VarassignComment() string { return mkline.data.(mkLineAssign).comment }
@@ -352,6 +395,9 @@ func (mkline *MkLineImpl) VariableNeedsQuoting(varname string, vartype *Vartype,
 
 	if vartype.basicType.IsEnum() || vartype.IsBasicSafe() {
 		if vartype.kindOfList == lkNone {
+			if vartype.guessed {
+				return nqDontKnow
+			}
 			return nqDoesntMatter
 		}
 		if vartype.kindOfList == lkShell && !vuc.IsWordPart {
@@ -448,7 +494,7 @@ func (mkline *MkLineImpl) VariableNeedsQuoting(varname string, vartype *Vartype,
 	return nqDontKnow
 }
 
-// Returns the type of the variable (maybe guessed based on the variable name),
+// Returns the type of the variable (possibly guessed based on the variable name),
 // or nil if the type cannot even be guessed.
 func (mkline *MkLineImpl) VariableType(varname string) *Vartype {
 	if trace.Tracing {
@@ -596,14 +642,16 @@ func (mkline *MkLineImpl) DetermineUsedVariables() (varnames []string) {
 // or used. Whether that is allowed depends on:
 //
 // * The variable's data type, as defined in vardefs.go.
+//
 // * When used on the right-hand side of an assigment, the variable can
-//   represent a list of words, a single word or even only part of a
-//   word. This distinction decides upon the correct use of the :Q
-//   operator.
+// represent a list of words, a single word or even only part of a
+// word. This distinction decides upon the correct use of the :Q
+// operator.
+//
 // * When used in preprocessing statements like .if or .for, the other
-//   operands of that statement should fit to the variable and are
-//   checked against the variable type. For example, comparing OPSYS to
-//   x86_64 doesn't make sense.
+// operands of that statement should fit to the variable and are
+// checked against the variable type. For example, comparing OPSYS to
+// x86_64 doesn't make sense.
 type VarUseContext struct {
 	vartype    *Vartype
 	time       vucTime
@@ -734,11 +782,16 @@ func (ind *Indentation) Varnames() string {
 	return varnames
 }
 
-func MatchVarassign(text string) (m bool, varname, spaceAfterVarname, op, valueAlign, value, spaceAfterValue, comment string) {
+func MatchVarassign(text string) (m, commented bool, varname, spaceAfterVarname, op, valueAlign, value, spaceAfterValue, comment string) {
 	i, n := 0, len(text)
 
-	for i < n && text[i] == ' ' {
+	if i < n && text[i] == '#' {
+		commented = true
 		i++
+	} else {
+		for i < n && text[i] == ' ' {
+			i++
+		}
 	}
 
 	varnameStart := i
