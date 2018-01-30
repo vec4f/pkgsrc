@@ -61,7 +61,7 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
    }
  
    getToolChain().AddFilePathLibArgs(Args, CmdArgs);
-@@ -100,21 +110,18 @@ void solaris::Linker::ConstructJob(Compi
+@@ -100,21 +110,20 @@ void solaris::Linker::ConstructJob(Compi
    AddLinkerInputs(getToolChain(), Inputs, Args, CmdArgs, JA);
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
@@ -71,8 +71,10 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
 -    CmdArgs.push_back("-lc");
 -    if (!Args.hasArg(options::OPT_shared)) {
 -      CmdArgs.push_back("-lgcc");
-+    CmdArgs.push_back("-z");
-+    CmdArgs.push_back("defaultextract");
++    // This specifically uses -Wl to avoid CMake parsing it and trying to
++    // feed "-zdefaultextract" back into clang, which doesn't support the
++    // non-space version.
++    CmdArgs.push_back("-Wl,-zdefaultextract");
 +    AddRunTimeLibs(getToolChain(), D, CmdArgs, Args);
 +    if (D.CCCIsCXX()) {
 +      if (getToolChain().ShouldLinkCXXStdlib(Args))
@@ -91,7 +93,7 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
  
    getToolChain().addProfileRTLibs(Args, CmdArgs);
  
-@@ -127,35 +134,9 @@ void solaris::Linker::ConstructJob(Compi
+@@ -127,35 +136,9 @@ void solaris::Linker::ConstructJob(Compi
  Solaris::Solaris(const Driver &D, const llvm::Triple &Triple,
                   const ArgList &Args)
      : Generic_ELF(D, Triple, Args) {
@@ -130,7 +132,7 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
  }
  
  Tool *Solaris::buildAssembler() const {
-@@ -164,30 +145,41 @@ Tool *Solaris::buildAssembler() const {
+@@ -164,30 +147,41 @@ Tool *Solaris::buildAssembler() const {
  
  Tool *Solaris::buildLinker() const { return new tools::solaris::Linker(*this); }
  

@@ -5,6 +5,6 @@ RMD160 (clang-d20f95dfb11ea73212982a1d321eb81933d42d6a.tar.gz) = 61b733548782be9
 SHA512 (clang-d20f95dfb11ea73212982a1d321eb81933d42d6a.tar.gz) = 3e299fc9fc3f65ffee1d663dfc0bd5ff4f92199d976594c92972ad934ef29208981d8344d47d46a6fb8465a8e9b61b447f64cf1d32272addb2d033d905fac498
 Size (clang-d20f95dfb11ea73212982a1d321eb81933d42d6a.tar.gz) = 16760703 bytes
 SHA1 (patch-lib_Basic_Targets_OSTargets.h) = 73043149874a79bc7f048eb854832381939a1397
-SHA1 (patch-lib_Driver_ToolChains_Solaris.cpp) = 2956d04b9f5078b623b80f225f15283d6c245602
+SHA1 (patch-lib_Driver_ToolChains_Solaris.cpp) = bbe8dc45a2d7357c0d5d3819a627c532fc42ade0
 SHA1 (patch-lib_Driver_ToolChains_Solaris.h) = 13849df72a4b719bbb6109ab1d1abf2e7b97014f
 SHA1 (patch-lib_Frontend_InitHeaderSearch.cpp) = 924cb81bd8e2eb07c3577e25c1b1d4f405e9360f
