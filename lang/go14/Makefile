@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.14 2017/10/04 10:03:53 jperkin Exp $
+# $NetBSD: Makefile,v 1.16 2018/01/30 17:05:22 jperkin Exp $
 
 # set first because version.mk includes bsd.prefs.mk :/
 CTF_SUPPORTED=	no
@@ -73,8 +73,6 @@ REPLACE_PERL+=	test/errchk
 # uses its own linker which does not support relro in 1.4.x
 CHECK_RELRO_SKIP=	go14/bin/go
 CHECK_RELRO_SKIP+=	go14/bin/gofmt
-# also does not support SSP at this time
-CHECK_SSP_SKIP=		${CHECK_RELRO_SKIP}
 
 # Stripping go binaries breaks them in interesting ways
 STRIP_DEBUG_SUPPORTED=	no

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.58 2017/11/14 09:53:53 wiz Exp $
+# $NetBSD: Makefile,v 1.61 2018/01/30 17:05:21 jperkin Exp $
 
 # set first because version.mk includes bsd.prefs.mk :/
 CTF_SUPPORTED=	no
@@ -73,8 +73,6 @@ CHECK_RELRO_SKIP+=		go/bin/gofmt
 CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/asm
 CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/compile
 CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/link
-# also does not support SSP at this time
-CHECK_SSP_SKIP=			${CHECK_RELRO_SKIP}
 
 # Stripping go binaries breaks them in interesting ways
 STRIP_DEBUG_SUPPORTED=		no
