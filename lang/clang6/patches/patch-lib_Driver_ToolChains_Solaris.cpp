@@ -5,6 +5,7 @@ Pull in libcxx correctly.
 Specify paths to system objects explicitly.
 Don't specify --dynamic-linker, makes it impossible for the user to use -Wl,-r
 Ensure we reset to -zdefaultextract prior to adding compiler-rt.
+Test removing -Bdynamic for golang.
 
 --- lib/Driver/ToolChains/Solaris.cpp.orig	2018-01-04 07:43:41.000000000 +0000
 +++ lib/Driver/ToolChains/Solaris.cpp
@@ -33,18 +34,25 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
    // Demangle C++ names in errors
    CmdArgs.push_back("-C");
  
-@@ -66,10 +82,6 @@ void solaris::Linker::ConstructJob(Compi
-     CmdArgs.push_back("-Bdynamic");
-     if (Args.hasArg(options::OPT_shared)) {
-       CmdArgs.push_back("-shared");
+@@ -62,15 +78,8 @@ void solaris::Linker::ConstructJob(Compi
+   if (Args.hasArg(options::OPT_static)) {
+     CmdArgs.push_back("-Bstatic");
+     CmdArgs.push_back("-dn");
+-  } else {
+-    CmdArgs.push_back("-Bdynamic");
+-    if (Args.hasArg(options::OPT_shared)) {
+-      CmdArgs.push_back("-shared");
 -    } else {
 -      CmdArgs.push_back("--dynamic-linker");
 -      CmdArgs.push_back(
 -          Args.MakeArgString(getToolChain().GetFilePath("ld.so.1")));
-     }
+-    }
++  } else if (Args.hasArg(options::OPT_shared)) {
++    CmdArgs.push_back("-shared");
    }
  
-@@ -83,13 +95,11 @@ void solaris::Linker::ConstructJob(Compi
+   if (Output.isFilename()) {
+@@ -83,13 +92,11 @@ void solaris::Linker::ConstructJob(Compi
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nostartfiles)) {
      if (!Args.hasArg(options::OPT_shared))
        CmdArgs.push_back(
@@ -52,16 +60,16 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
 +          Args.MakeArgString(LibPath + "crt1.o"));
  
 -    CmdArgs.push_back(Args.MakeArgString(getToolChain().GetFilePath("crti.o")));
+-    CmdArgs.push_back(
+-        Args.MakeArgString(getToolChain().GetFilePath("values-Xa.o")));
 +    CmdArgs.push_back(Args.MakeArgString(LibPath + "crti.o"));
      CmdArgs.push_back(
--        Args.MakeArgString(getToolChain().GetFilePath("values-Xa.o")));
--    CmdArgs.push_back(
 -        Args.MakeArgString(getToolChain().GetFilePath("crtbegin.o")));
 +        Args.MakeArgString(LibPath + "values-Xa.o"));
    }
  
    getToolChain().AddFilePathLibArgs(Args, CmdArgs);
-@@ -100,21 +110,20 @@ void solaris::Linker::ConstructJob(Compi
+@@ -100,21 +107,20 @@ void solaris::Linker::ConstructJob(Compi
    AddLinkerInputs(getToolChain(), Inputs, Args, CmdArgs, JA);
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
@@ -93,7 +101,7 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
  
    getToolChain().addProfileRTLibs(Args, CmdArgs);
  
-@@ -127,35 +136,9 @@ void solaris::Linker::ConstructJob(Compi
+@@ -127,35 +133,9 @@ void solaris::Linker::ConstructJob(Compi
  Solaris::Solaris(const Driver &D, const llvm::Triple &Triple,
                   const ArgList &Args)
      : Generic_ELF(D, Triple, Args) {
@@ -132,7 +140,7 @@ Ensure we reset to -zdefaultextract prior to adding compiler-rt.
  }
  
  Tool *Solaris::buildAssembler() const {
-@@ -164,30 +147,41 @@ Tool *Solaris::buildAssembler() const {
+@@ -164,30 +144,41 @@ Tool *Solaris::buildAssembler() const {
  
  Tool *Solaris::buildLinker() const { return new tools::solaris::Linker(*this); }
  
