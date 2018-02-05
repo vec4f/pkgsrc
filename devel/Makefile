@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2595 2018/01/25 19:03:04 bsiegert Exp $
+# $NetBSD: Makefile,v 1.2597 2018/02/04 12:01:25 jdolecek Exp $
 #
 
 COMMENT=	Development utilities
@@ -1792,7 +1792,6 @@ SUBDIR+=	php-sysvsem
 SUBDIR+=	php-sysvshm
 SUBDIR+=	php-xcache
 SUBDIR+=	php-xdebug
-SUBDIR+=	php-xdebug-devel
 SUBDIR+=	physfs
 SUBDIR+=	picasm
 SUBDIR+=	picopb
@@ -2016,6 +2015,7 @@ SUBDIR+=	py-mixbox
 SUBDIR+=	py-mock
 SUBDIR+=	py-modulegraph
 SUBDIR+=	py-more-itertools
+SUBDIR+=	py-mox
 SUBDIR+=	py-msgpack
 SUBDIR+=	py-multipledispatch
 SUBDIR+=	py-newt

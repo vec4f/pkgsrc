@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2018,v 1.519 2018/02/03 01:49:37 minskim Exp $
+$NetBSD: CHANGES-2018,v 1.540 2018/02/05 09:01:41 adam Exp $
 
 Changes to the packages collection and infrastructure in 2018:
 
@@ -789,3 +789,26 @@ Changes to the packages collection and infrastructure in 2018:
 	Updated math/R-zoo to 1.8.1 [minskim 2018-02-03]
 	Updated math/R-xts to 0.10.1 [minskim 2018-02-03]
 	Added math/R-quadprog version 1.5.5 [minskim 2018-02-03]
+	Updated math/mpfr to 4.0.0nb1 [gson 2018-02-03]
+	Added devel/py-mox version 0.5.3 [bsiegert 2018-02-03]
+	Added net/py-gcs-oauth2-boto-plugin version 1.14 [bsiegert 2018-02-03]
+	Added lang/zenlisp version 0.0.20131122 [kamil 2018-02-03]
+	Updated lang/tcl to 8.6.8 [adam 2018-02-03]
+	Updated x11/tk to 8.6.8 [adam 2018-02-03]
+	Added lang/pc-lisp version 6.0 [kamil 2018-02-03]
+	Updated devel/p5-PPIx-Regexp to 0.054 [wen 2018-02-04]
+	Updated time/p5-DateTime-TimeZone to 2.17 [wen 2018-02-04]
+	Added www/py-django2 version 2.0.2 [wen 2018-02-04]
+	Updated mail/p5-MailTools to 2.20 [wen 2018-02-04]
+	Updated math/p5-Spreadsheet-Read to 0.78 [wen 2018-02-04]
+	Updated devel/py-gflags to 3.1.2 [bsiegert 2018-02-04]
+	Updated devel/php-xdebug to 2.6.0 [jdolecek 2018-02-04]
+	Removed devel/php-xdebug-devel [jdolecek 2018-02-04]
+	Added www/py-google-apitools version 0.5.21 [bsiegert 2018-02-04]
+	Updated textproc/yaml-cpp to 0.6.1 [fhajny 2018-02-04]
+	Updated databases/py-peewee to 3.0.10 [fhajny 2018-02-04]
+	Updated databases/redis to 4.0.8 [fhajny 2018-02-04]
+	Added finance/R-TTR version 0.23.3 [minskim 2018-02-04]
+	Added finance/R-quantmod version 0.4.12 [minskim 2018-02-04]
+	Updated archivers/py-lz4 to 0.21.6 [adam 2018-02-05]
+	Updated devel/py-msgpack to 0.5.4 [adam 2018-02-05]
