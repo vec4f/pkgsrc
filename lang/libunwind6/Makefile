@@ -31,4 +31,5 @@ CMAKE_ARGS+=	-DLLVM_CONFIG_PATH=${LLVM_CONFIG_PATH:Q}
 post-extract:
 	${RUN} mkdir -p ${WRKDIR}/build
 
+.include "../../lang/llvm6/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
