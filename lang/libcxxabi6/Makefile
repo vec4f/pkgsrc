@@ -37,9 +37,11 @@ CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
 CMAKE_ARGS+=	-DCMAKE_C_COMPILER=${CC:Q}
 CMAKE_ARGS+=	-DCMAKE_CXX_COMPILER=${CXX:Q}
 CMAKE_ARGS+=	-DLIBCXXABI_LIBCXX_INCLUDES=${WRKDIR}/libcxx-${LIBCXX_SHA}/include
+CMAKE_ARGS+=	-DLIBCXXABI_USE_LLVM_UNWINDER=YES
 
 post-extract:
 	${RUN} mkdir -p ${WRKDIR}/build
 
+.include "../../lang/libunwind6/buildlink3.mk"
 .include "../../lang/llvm6/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

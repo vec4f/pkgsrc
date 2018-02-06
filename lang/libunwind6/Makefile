@@ -1,0 +1,41 @@
+# $NetBSD$
+
+DISTNAME=	libunwind
+PKGNAME=	${DISTNAME}6-6.0.0alpha1
+CATEGORIES=	lang devel
+
+MASTER_SITES=	${MASTER_SITE_GITHUB:=llvm-mirror/}
+GITHUB_PROJECT=	${DISTNAME}
+GITHUB_TAG=	68c1bfc35687033aad28657404b80b1d558a4804
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://github.com/llvm-project/libunwind
+COMMENT=	C++ Standard Library
+LICENSE=	modified-bsd OR mit
+
+CONFIGURE_DIRS=		${WRKDIR}/build
+CMAKE_ARG_PATH=		${WRKSRC}
+
+USE_LANGUAGES=		c c++
+USE_CMAKE=		yes
+GCC_REQD+=		4.8
+
+CMAKE_INSTALL_PREFIX=	${PREFIX}/llvm6
+#BUILDLINK_PASSTHRU_RPATHDIRS+=	${CMAKE_INSTALL_PREFIX}/lib
+#LDFLAGS+=		-L${CMAKE_INSTALL_PREFIX}/lib
+#LDFLAGS+=		${COMPILER_RPATH_FLAG}${CMAKE_INSTALL_PREFIX}/lib
+
+CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
+CMAKE_ARGS+=	-DCMAKE_C_COMPILER=${CC:Q}
+CMAKE_ARGS+=	-DCMAKE_CXX_COMPILER=${CXX:Q}
+CMAKE_ARGS+=	-DCMAKE_CXX_LINK_FLAGS=${LDFLAGS:Q}
+#CMAKE_ARGS+=	-DLIBCXX_CXX_ABI=libcxxabi
+#CMAKE_ARGS+=	-DLIBCXX_CXX_ABI_INCLUDE_PATHS=${WRKDIR}/libcxxabi-${LIBCXXABI_SHA}/include
+#CMAKE_ARGS+=	-DLIBCXX_ENABLE_ABI_LINKER_SCRIPT:BOOL=OFF
+
+post-extract:
+	${RUN} mkdir -p ${WRKDIR}/build
+
+#.include "../../lang/libcxxabi6/buildlink3.mk"
+#.include "../../lang/llvm6/buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

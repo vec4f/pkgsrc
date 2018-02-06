@@ -123,6 +123,7 @@ SUBDIR+=	libduktape
 SUBDIR+=	librep
 SUBDIR+=	libtcl-nothread
 SUBDIR+=	libunwind
+SUBDIR+=	libunwind6
 SUBDIR+=	likepython
 SUBDIR+=	llvm
 SUBDIR+=	llvm6
