@@ -9,23 +9,28 @@ Test removing -Bdynamic for golang.
 
 --- lib/Driver/ToolChains/Solaris.cpp.orig	2018-01-04 07:43:41.000000000 +0000
 +++ lib/Driver/ToolChains/Solaris.cpp
-@@ -49,8 +49,24 @@ void solaris::Linker::ConstructJob(Compi
+@@ -49,8 +49,29 @@ void solaris::Linker::ConstructJob(Compi
                                     const InputInfoList &Inputs,
                                     const ArgList &Args,
                                     const char *LinkingOutput) const {
 +  const Driver &D = getToolChain().getDriver();
    ArgStringList CmdArgs;
  
-+  std::string LibPath = "/usr/lib/";
++  // XXX: assumes pkgsrc layout
++  std::string LibPath;
++  LibPath = llvm::sys::path::parent_path(getDriver().getInstalledDir());
++  LibPath += "/lib/";
++
++  std::string SysPath = "/usr/lib/";
 +  switch (getToolChain().getArch()) {
 +  case llvm::Triple::x86:
 +  case llvm::Triple::sparc:
 +    break;
 +  case llvm::Triple::x86_64:
-+    LibPath += "amd64/";
++    SysPath += "amd64/";
 +    break;
 +  case llvm::Triple::sparcv9:
-+    LibPath += "sparcv9/";
++    SysPath += "sparcv9/";
 +    break;
 +  default:
 +    llvm_unreachable("Unsupported architecture");
@@ -34,7 +39,7 @@ Test removing -Bdynamic for golang.
    // Demangle C++ names in errors
    CmdArgs.push_back("-C");
  
-@@ -62,15 +78,8 @@ void solaris::Linker::ConstructJob(Compi
+@@ -62,15 +83,8 @@ void solaris::Linker::ConstructJob(Compi
    if (Args.hasArg(options::OPT_static)) {
      CmdArgs.push_back("-Bstatic");
      CmdArgs.push_back("-dn");
@@ -52,24 +57,24 @@ Test removing -Bdynamic for golang.
    }
  
    if (Output.isFilename()) {
-@@ -83,13 +92,11 @@ void solaris::Linker::ConstructJob(Compi
+@@ -83,13 +97,11 @@ void solaris::Linker::ConstructJob(Compi
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nostartfiles)) {
      if (!Args.hasArg(options::OPT_shared))
        CmdArgs.push_back(
 -          Args.MakeArgString(getToolChain().GetFilePath("crt1.o")));
-+          Args.MakeArgString(LibPath + "crt1.o"));
++          Args.MakeArgString(SysPath + "crt1.o"));
  
 -    CmdArgs.push_back(Args.MakeArgString(getToolChain().GetFilePath("crti.o")));
 -    CmdArgs.push_back(
 -        Args.MakeArgString(getToolChain().GetFilePath("values-Xa.o")));
-+    CmdArgs.push_back(Args.MakeArgString(LibPath + "crti.o"));
++    CmdArgs.push_back(Args.MakeArgString(SysPath + "crti.o"));
      CmdArgs.push_back(
 -        Args.MakeArgString(getToolChain().GetFilePath("crtbegin.o")));
-+        Args.MakeArgString(LibPath + "values-Xa.o"));
++        Args.MakeArgString(SysPath + "values-Xa.o"));
    }
  
    getToolChain().AddFilePathLibArgs(Args, CmdArgs);
-@@ -100,21 +107,20 @@ void solaris::Linker::ConstructJob(Compi
+@@ -100,21 +112,21 @@ void solaris::Linker::ConstructJob(Compi
    AddLinkerInputs(getToolChain(), Inputs, Args, CmdArgs, JA);
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
@@ -84,6 +89,7 @@ Test removing -Bdynamic for golang.
 +    // non-space version.
 +    CmdArgs.push_back("-Wl,-zdefaultextract");
 +    AddRunTimeLibs(getToolChain(), D, CmdArgs, Args);
++    CmdArgs.push_back(LibPath + "libunwind.a");
 +    if (D.CCCIsCXX()) {
 +      if (getToolChain().ShouldLinkCXXStdlib(Args))
 +        getToolChain().AddCXXStdlibLibArgs(Args, CmdArgs);
@@ -97,11 +103,11 @@ Test removing -Bdynamic for golang.
 -        Args.MakeArgString(getToolChain().GetFilePath("crtend.o")));
 -  }
 -  CmdArgs.push_back(Args.MakeArgString(getToolChain().GetFilePath("crtn.o")));
-+  CmdArgs.push_back(Args.MakeArgString(LibPath + "crtn.o"));
++  CmdArgs.push_back(Args.MakeArgString(SysPath + "crtn.o"));
  
    getToolChain().addProfileRTLibs(Args, CmdArgs);
  
-@@ -127,35 +133,9 @@ void solaris::Linker::ConstructJob(Compi
+@@ -127,35 +139,9 @@ void solaris::Linker::ConstructJob(Compi
  Solaris::Solaris(const Driver &D, const llvm::Triple &Triple,
                   const ArgList &Args)
      : Generic_ELF(D, Triple, Args) {
@@ -140,7 +146,7 @@ Test removing -Bdynamic for golang.
  }
  
  Tool *Solaris::buildAssembler() const {
-@@ -164,30 +144,41 @@ Tool *Solaris::buildAssembler() const {
+@@ -164,30 +150,41 @@ Tool *Solaris::buildAssembler() const {
  
  Tool *Solaris::buildLinker() const { return new tools::solaris::Linker(*this); }
  
