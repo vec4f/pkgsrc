@@ -18,7 +18,7 @@ Test removing -Bdynamic for golang.
  
 +  // XXX: assumes pkgsrc layout
 +  std::string LibPath;
-+  LibPath = llvm::sys::path::parent_path(getDriver().getInstalledDir());
++  LibPath = llvm::sys::path::parent_path(D.getInstalledDir());
 +  LibPath += "/lib/";
 +
 +  std::string SysPath = "/usr/lib/";
