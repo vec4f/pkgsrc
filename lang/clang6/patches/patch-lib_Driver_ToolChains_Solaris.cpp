@@ -89,7 +89,7 @@ Test removing -Bdynamic for golang.
 +    // non-space version.
 +    CmdArgs.push_back("-Wl,-zdefaultextract");
 +    AddRunTimeLibs(getToolChain(), D, CmdArgs, Args);
-+    CmdArgs.push_back(LibPath + "libunwind.a");
++    CmdArgs.push_back(Args.MakeArgString(LibPath + "libunwind.a"));
 +    if (D.CCCIsCXX()) {
 +      if (getToolChain().ShouldLinkCXXStdlib(Args))
 +        getToolChain().AddCXXStdlibLibArgs(Args, CmdArgs);
