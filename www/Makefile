@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1304 2018/01/30 12:06:48 fhajny Exp $
+# $NetBSD: Makefile,v 1.1307 2018/02/05 16:38:56 adam Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -637,6 +637,7 @@ SUBDIR+=	py-django-tagging
 SUBDIR+=	py-django-tastypie
 SUBDIR+=	py-django-treebeard
 SUBDIR+=	py-django14
+SUBDIR+=	py-django2
 SUBDIR+=	py-djangocms-admin-style
 SUBDIR+=	py-djangocms-file
 SUBDIR+=	py-djangocms-flash
@@ -682,6 +683,7 @@ SUBDIR+=	py-furl
 SUBDIR+=	py-gdata
 SUBDIR+=	py-genshi
 SUBDIR+=	py-google-api-python-client
+SUBDIR+=	py-google-apitools
 SUBDIR+=	py-graphite-web
 SUBDIR+=	py-grappelli_safe
 SUBDIR+=	py-gunicorn
@@ -694,6 +696,7 @@ SUBDIR+=	py-httptools
 SUBDIR+=	py-hyperframe
 SUBDIR+=	py-hyperlink
 SUBDIR+=	py-idna
+SUBDIR+=	py-idna_ssl
 SUBDIR+=	py-jonpy
 SUBDIR+=	py-landslide
 SUBDIR+=	py-livereload

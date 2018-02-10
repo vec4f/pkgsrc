@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.473 2018/01/27 11:00:51 kamil Exp $
+# $NetBSD: Makefile,v 1.475 2018/02/03 20:28:28 kamil Exp $
 #
 
 COMMENT=	Programming languages
@@ -169,6 +169,7 @@ SUBDIR+=	owl-lisp
 SUBDIR+=	p2c
 SUBDIR+=	p5-Switch
 SUBDIR+=	parrot
+SUBDIR+=	pc-lisp
 SUBDIR+=	pcc
 SUBDIR+=	pcc-current
 SUBDIR+=	pear
@@ -275,5 +276,6 @@ SUBDIR+=	vslisp
 SUBDIR+=	wsbasic
 SUBDIR+=	yabasic
 SUBDIR+=	yap
+SUBDIR+=	zenlisp
 
 .include "../mk/misc/category.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.358 2018/01/30 02:14:09 minskim Exp $
+# $NetBSD: Makefile,v 1.362 2018/02/07 20:49:19 minskim Exp $
 
 COMMENT=	Mathematics
 
@@ -8,6 +8,7 @@ SUBDIR+=	R-DAAG
 SUBDIR+=	R-DBI
 SUBDIR+=	R-FNN
 SUBDIR+=	R-GRASS
+SUBDIR+=	R-ISLR
 SUBDIR+=	R-ISwR
 SUBDIR+=	R-MatrixModels
 SUBDIR+=	R-PHYLOGR
@@ -33,12 +34,14 @@ SUBDIR+=	R-clim.pact
 SUBDIR+=	R-combinat
 SUBDIR+=	R-date
 SUBDIR+=	R-e1071
+SUBDIR+=	R-fracdiff
 SUBDIR+=	R-gdata
 SUBDIR+=	R-genetics
 SUBDIR+=	R-geoR
 SUBDIR+=	R-geoRglm
 SUBDIR+=	R-gss
 SUBDIR+=	R-gstat
+SUBDIR+=	R-gtable
 SUBDIR+=	R-gtools
 SUBDIR+=	R-httpRequest
 SUBDIR+=	R-hwde
@@ -54,6 +57,7 @@ SUBDIR+=	R-nloptr
 SUBDIR+=	R-pbkrtest
 SUBDIR+=	R-pixmap
 SUBDIR+=	R-plyr
+SUBDIR+=	R-quadprog
 SUBDIR+=	R-quantreg
 SUBDIR+=	R-randomForest
 SUBDIR+=	R-sgeostat

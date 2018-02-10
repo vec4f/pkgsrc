@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.37 2017/12/07 11:54:55 fhajny Exp $
+# $NetBSD: Makefile,v 1.39 2018/02/08 19:12:50 jperkin Exp $
 
-DISTNAME=	haproxy-1.8.1
+DISTNAME=	haproxy-1.8.3
 CATEGORIES=	net www
 MASTER_SITES=	http://www.haproxy.org/download/${PKGVERSION_NOREV:R}/src/
 
@@ -9,6 +9,7 @@ HOMEPAGE=	http://haproxy.org/
 COMMENT=	Reliable, high performance TCP/HTTP load balancer
 LICENSE=	gnu-gpl-v2
 
+USE_LANGUAGES=		c99
 USE_TOOLS+=		gmake
 BUILD_MAKE_FLAGS+=	ADDLIB=${COMPILER_RPATH_FLAG}${PREFIX}/lib
 BUILD_MAKE_FLAGS+=	TARGET=${TARGET}
