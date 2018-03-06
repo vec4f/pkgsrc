@@ -2,6 +2,7 @@
 
 DISTNAME=	toml-0.2.0
 PKGNAME=	go-${DISTNAME:S/toml/toml-burntsushi/}
+PKGREVISION=	1
 MASTER_SITES=	${MASTER_SITE_GITHUB:=BurntSushi/}
 CATEGORIES=	www
 GITHUB_PROJECT=	toml
