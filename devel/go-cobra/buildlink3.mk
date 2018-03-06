@@ -9,6 +9,7 @@ BUILDLINK_CONTENTS_FILTER.go-cobra=	${EGREP} gopkg/
 BUILDLINK_DEPMETHOD.go-cobra?=		build
 
 BUILDLINK_API_DEPENDS.go-cobra+=	go-cobra>=0.0
+BUILDLINK_ABI_DEPENDS.go-cobra?=		go-cobra>=0.0.20170815nb1
 BUILDLINK_PKGSRCDIR.go-cobra?=		../../devel/go-cobra
 
 .include "../../devel/go-pflag/buildlink3.mk"

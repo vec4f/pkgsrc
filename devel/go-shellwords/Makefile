@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2017/10/24 06:53:26 maya Exp $
 
 DISTNAME=	go-shellwords-1.0.3
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mattn/}
 DIST_SUBDIR=	${GITHUB_PROJECT}

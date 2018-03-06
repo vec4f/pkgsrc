@@ -9,6 +9,7 @@ BUILDLINK_CONTENTS_FILTER.go-viper=	${EGREP} gopkg/
 BUILDLINK_DEPMETHOD.go-viper?=		build
 
 BUILDLINK_API_DEPENDS.go-viper+=	go-viper>=0.0
+BUILDLINK_ABI_DEPENDS.go-viper?=		go-viper>=0.0.20170723nb1
 BUILDLINK_PKGSRCDIR.go-viper?=		../../devel/go-viper
 
 .include "../../www/go-toml-pelletier/buildlink3.mk"

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2017/12/03 00:33:07 maya Exp $
 
 DISTNAME=	fzf-0.17.1
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=junegunn/}
 

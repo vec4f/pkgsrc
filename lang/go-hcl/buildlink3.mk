@@ -9,6 +9,7 @@ BUILDLINK_CONTENTS_FILTER.go-hcl=	${EGREP} gopkg/
 BUILDLINK_DEPMETHOD.go-hcl?=		build
 
 BUILDLINK_API_DEPENDS.go-hcl+=		go-hcl>=0.0
+BUILDLINK_ABI_DEPENDS.go-hcl?=		go-hcl>=0.0.20160616nb1
 BUILDLINK_PKGSRCDIR.go-hcl?=		../../lang/go-hcl
 
 .endif  # GO_HCL_BUILDLINK3_MK
