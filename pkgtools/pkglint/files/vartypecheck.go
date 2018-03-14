@@ -193,6 +193,23 @@ func (cv *VartypeCheck) Comment() {
 	if m, first := match1(value, `^(?i)(a|an)\s`); m {
 		line.Warnf("COMMENT should not begin with %q.", first)
 	}
+	if m, isA := match1(value, ` (is a|is an) `); m {
+		line.Warnf("COMMENT should not contain %q.", isA)
+		Explain(
+			"The words \"package is a\" are redundant.  Since every package comment",
+			"could start with them, it is better to remove this redundancy in all",
+			"cases.")
+	}
+	if G.Pkg != nil && G.Pkg.EffectivePkgbase != "" {
+		pkgbase := G.Pkg.EffectivePkgbase
+		if strings.HasPrefix(strings.ToLower(value), strings.ToLower(pkgbase+" ")) {
+			line.Warnf("COMMENT should not start with the package name.")
+			Explain(
+				"The COMMENT is usually displayed together with the package name.",
+				"Therefore it does not need to repeat the package name but should",
+				"provide additional information instead.")
+		}
+	}
 	if matches(value, `^[a-z]`) {
 		line.Warnf("COMMENT should start with a capital letter.")
 	}
@@ -674,7 +691,8 @@ func (cv *VartypeCheck) Pathmask() {
 	CheckLineAbsolutePathname(cv.Line, cv.Value)
 }
 
-// Like Filename, but including slashes
+// Like Filename, but including slashes.
+//
 // See http://www.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap03.html#tag_03_266
 func (cv *VartypeCheck) Pathname() {
 	if cv.Op == opUseMatch {

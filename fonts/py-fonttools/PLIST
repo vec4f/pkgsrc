@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.14 2018/02/08 08:28:56 adam Exp $
+@comment $NetBSD: PLIST,v 1.16 2018/03/02 11:37:05 adam Exp $
 bin/fonttools${PYVERSSUFFIX}
 bin/pyftinspect${PYVERSSUFFIX}
 bin/pyftmerge${PYVERSSUFFIX}
@@ -27,6 +27,9 @@ ${PYSITELIB}/fontTools/cffLib/__init__.pyo
 ${PYSITELIB}/fontTools/cffLib/specializer.py
 ${PYSITELIB}/fontTools/cffLib/specializer.pyc
 ${PYSITELIB}/fontTools/cffLib/specializer.pyo
+${PYSITELIB}/fontTools/cffLib/width.py
+${PYSITELIB}/fontTools/cffLib/width.pyc
+${PYSITELIB}/fontTools/cffLib/width.pyo
 ${PYSITELIB}/fontTools/designspaceLib/__init__.py
 ${PYSITELIB}/fontTools/designspaceLib/__init__.pyc
 ${PYSITELIB}/fontTools/designspaceLib/__init__.pyo
@@ -90,6 +93,9 @@ ${PYSITELIB}/fontTools/misc/eexec.pyo
 ${PYSITELIB}/fontTools/misc/encodingTools.py
 ${PYSITELIB}/fontTools/misc/encodingTools.pyc
 ${PYSITELIB}/fontTools/misc/encodingTools.pyo
+${PYSITELIB}/fontTools/misc/filenames.py
+${PYSITELIB}/fontTools/misc/filenames.pyc
+${PYSITELIB}/fontTools/misc/filenames.pyo
 ${PYSITELIB}/fontTools/misc/fixedTools.py
 ${PYSITELIB}/fontTools/misc/fixedTools.pyc
 ${PYSITELIB}/fontTools/misc/fixedTools.pyo

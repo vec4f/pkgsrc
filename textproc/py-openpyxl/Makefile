@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2018/01/27 08:35:58 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2018/03/12 16:29:14 adam Exp $
 
-DISTNAME=	openpyxl-2.4.9
+DISTNAME=	openpyxl-2.5.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	textproc python
 MASTER_SITES=	${MASTER_SITE_PYPI:=o/openpyxl/}
 
@@ -15,7 +14,7 @@ DEPENDS+=	${PYPKGPREFIX}-cElementTree-[0-9]*:../../textproc/py-cElementTree
 DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
 DEPENDS+=	${PYPKGPREFIX}-jdcal-[0-9]*:../../time/py-jdcal
 
-USE_LANGUAGES=		# none
+USE_LANGUAGES=	# none
 
 post-extract:
 	${RM} ${WRKSRC}/openpyxl.egg-info/.DS_Store

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2017/12/10 15:46:26 adam Exp $
+# $NetBSD: Makefile,v 1.11 2018/02/27 23:56:08 khorben Exp $
 
 DISTNAME=	libhid-0.2.16
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://sourceforge.net/projects/salix-sbo/files/13.37/libhid/
 MASTER_SITES+=	https://alioth.debian.org/frs/download.php/file/1958/
@@ -23,7 +23,7 @@ PY_PATCHPLIST=	yes
 PYTHON_VERSIONS_ACCEPTED=	27 # not yet ported as of 0.2.16
 
 .include "../../lang/python/extension.mk"
-.include "../../devel/libusb/buildlink3.mk"
+.include "../../mk/libusb.buildlink3.mk"
 .include "../../devel/swig/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

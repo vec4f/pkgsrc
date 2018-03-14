@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.65 2018/01/17 19:10:23 markd Exp $
+# $NetBSD: Makefile,v 1.68 2018/03/12 11:15:52 wiz Exp $
 
 DISTNAME=	kde-workspace-4.11.22
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	12
+PKGREVISION=	14
 CATEGORIES=	x11
 COMMENT=	Base workspace for the KDE 4 integrated X11 desktop
 MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.08.0/src/}
@@ -140,7 +140,7 @@ BUILDLINK_DEPMETHOD.qt4-tools=	full
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"
-.include "../../devel/libusb/buildlink3.mk"
+.include "../../mk/libusb.buildlink3.mk"
 .include "../../devel/qjson/buildlink3.mk"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .if ${X11_TYPE} == "modular" && !empty(MESALIB_SUPPORTS_EGL:M[yY][eE][sS])

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.748 2018/02/08 08:58:23 martin Exp $
+# $NetBSD: Makefile,v 1.752 2018/03/08 13:46:03 cheusov Exp $
 #
 
 COMMENT=	System utilities
@@ -289,6 +289,7 @@ SUBDIR+=	iat
 SUBDIR+=	idesk
 SUBDIR+=	install-sh
 SUBDIR+=	intel-microcode-netbsd
+SUBDIR+=	ioping
 SUBDIR+=	ipa
 SUBDIR+=	ipmitool
 SUBDIR+=	ipw-firmware
@@ -376,6 +377,7 @@ SUBDIR+=	munin-node
 SUBDIR+=	munin-server
 SUBDIR+=	nautilus
 SUBDIR+=	nautilus-sendto
+SUBDIR+=	nbase
 SUBDIR+=	ncdu
 SUBDIR+=	ndesk-dbus
 SUBDIR+=	ndesk-dbus-glib

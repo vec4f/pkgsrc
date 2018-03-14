@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.33 2018/01/28 20:10:40 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2018/03/12 11:15:56 wiz Exp $
 
 DISTNAME=	qtscript-everywhere-src-${QTVERSION}
 PKGNAME=	qt5-qtscript-${QTVERSION}

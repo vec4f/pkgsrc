@@ -1,10 +1,15 @@
-# $NetBSD: Makefile,v 1.56 2018/02/04 23:41:56 minskim Exp $
+# $NetBSD: Makefile,v 1.61 2018/03/07 19:23:25 minskim Exp $
 #
 
 COMMENT=	Monetary, financial and related applications
 
 SUBDIR+=	R-TTR
+SUBDIR+=	R-fAsianOptions
+SUBDIR+=	R-fBasics
+SUBDIR+=	R-fOptions
 SUBDIR+=	R-quantmod
+SUBDIR+=	R-timeSeries
+SUBDIR+=	R-tseries
 SUBDIR+=	cpuminer
 SUBDIR+=	gkrellm-stock
 SUBDIR+=	gnucash

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2016/03/05 11:28:36 jperkin Exp $
+# $NetBSD: Makefile,v 1.19 2018/03/12 11:16:37 wiz Exp $
 #
 
 DISTNAME=	gpsbabel-1.5.2
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	geography
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 # Download from official site apparently only via interactive form,
@@ -23,7 +23,7 @@ LIBS.Darwin+=	-lexpat
 
 GNU_CONFIGURE=	yes
 
-.include "../../devel/libusb/buildlink3.mk"
+.include "../../mk/libusb.buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../x11/qt4-libs/buildlink3.mk"
 .include "../../x11/qt4-tools/buildlink3.mk"

@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.4 2017/10/30 10:10:20 adam Exp $
+$NetBSD: distinfo,v 1.6 2018/03/12 16:29:14 adam Exp $
 
-SHA1 (openpyxl-2.4.9.tar.gz) = 81eea25e1675e142e2d918ab6621ad298e6ac5a4
-RMD160 (openpyxl-2.4.9.tar.gz) = aa80620bf63affa1c04da771a9bd76a8cf4c7cfc
-SHA512 (openpyxl-2.4.9.tar.gz) = 6b0bcba07c3938565d08a7fff7fa5b5ae48f0910f363a3843b512d79f0d41cc03e2c13be2b13e85522355f0381c059b723a3f120bc31343a3759e10084dd7d25
-Size (openpyxl-2.4.9.tar.gz) = 157694 bytes
+SHA1 (openpyxl-2.5.1.tar.gz) = 07dc3520bcfe41c37c1ba46f3d114e5b273eeaf3
+RMD160 (openpyxl-2.5.1.tar.gz) = c7d2cd6a314a01d4b8c379e91eaaaaf7d8d8f823
+SHA512 (openpyxl-2.5.1.tar.gz) = 523f76fc5db8e34b3c109fa18ae1ef896708472ea2a6ce30a928e62ddef247f7a3ecfc02618c8829ee74c4d9acef149b667a61fed2771dc5c28dd151f60991d4
+Size (openpyxl-2.5.1.tar.gz) = 169621 bytes

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.73 2018/01/01 21:18:32 adam Exp $
+# $NetBSD: Makefile,v 1.75 2018/03/12 11:16:45 wiz Exp $
 
-DISTNAME=	hugin-2017.0.0
-PKGREVISION=	4
+DISTNAME=	hugin-2018.0.0
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hugin/}
 EXTRACT_SUFX=	.tar.bz2
@@ -20,6 +20,8 @@ USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		msgfmt pkg-config
 CONFIGURE_ENV+=		MANDIR=${PKGMANDIR}
+
+CMAKE_ARGS+=		-DBUILD_HSI=ON
 
 PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	src/hugin_script_interface/*.py

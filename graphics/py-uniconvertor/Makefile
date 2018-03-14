@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2017/01/01 14:43:43 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2018/03/04 16:25:24 wiz Exp $
 
 DISTNAME=	uniconvertor-1.1.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -7,7 +7,7 @@ CATEGORIES=	graphics python
 MASTER_SITES=	http://uniconvertor.googlecode.com/files/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://sk1project.org/
+HOMEPAGE=	https://sk1project.net/
 COMMENT=	Universal vector graphics translator
 LICENSE=	gnu-lgpl-v2 AND gnu-gpl-v2
 

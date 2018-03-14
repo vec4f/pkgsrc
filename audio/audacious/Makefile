@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.49 2017/11/23 17:19:40 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2018/03/12 11:15:24 wiz Exp $
 
 DISTNAME=	audacious-3.5.2
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	audio
 MASTER_SITES=	http://distfiles.audacious-media-player.org/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://audacious-media-player.org/
+HOMEPAGE=	https://audacious-media-player.org/
 COMMENT=	Media player based on BMP and XMMS
 LICENSE=	2-clause-bsd
 

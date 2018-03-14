@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.174 2017/12/19 14:26:55 leot Exp $
+# $NetBSD: Makefile,v 1.176 2018/02/25 00:53:05 minskim Exp $
 #
 
 COMMENT=	Clocks, calendars, daily planners and other time related applications
 
+SUBDIR+=	R-timeDate
 SUBDIR+=	abclock
 SUBDIR+=	anacron
 SUBDIR+=	asclock
@@ -133,6 +134,7 @@ SUBDIR+=	py-icalendar
 SUBDIR+=	py-iso8601
 SUBDIR+=	py-isodate
 SUBDIR+=	py-jdcal
+SUBDIR+=	py-jinja2-time
 SUBDIR+=	py-jrnl
 SUBDIR+=	py-ligotimegps
 SUBDIR+=	py-maya

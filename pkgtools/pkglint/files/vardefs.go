@@ -362,6 +362,7 @@ func (gd *GlobalData) InitVartypes() {
 	sys("BSD_MAKE_ENV", lkShell, BtShellWord)
 	acl("BUILDLINK_ABI_DEPENDS.*", lkSpace, BtDependency, "builtin.mk: append, use-loadtime; *: append")
 	acl("BUILDLINK_API_DEPENDS.*", lkSpace, BtDependency, "builtin.mk: append, use-loadtime; *: append")
+	acl("BUILDLINK_AUTO_DIRS.*", lkNone, BtYesNo, "buildlink3.mk: append")
 	acl("BUILDLINK_CONTENTS_FILTER", lkNone, BtShellCommand, "")
 	sys("BUILDLINK_CFLAGS", lkShell, BtCFlag)
 	bl3list("BUILDLINK_CFLAGS.*", lkShell, BtCFlag)
@@ -579,12 +580,14 @@ func (gd *GlobalData) InitVartypes() {
 	pkg("GITHUB_TYPE", lkNone, enum("tag release"))
 	pkg("GMAKE_REQD", lkNone, BtVersion)
 	acl("GNU_ARCH", lkNone, enum("mips"), "")
+	acl("GNU_ARCH.*", lkNone, BtIdentifier, "buildlink3.mk:; *: set, use")
 	acl("GNU_CONFIGURE", lkNone, BtYes, "Makefile, Makefile.common: set")
 	acl("GNU_CONFIGURE_INFODIR", lkNone, BtPathname, "Makefile, Makefile.common: set")
 	acl("GNU_CONFIGURE_LIBDIR", lkNone, BtPathname, "Makefile, Makefile.common: set")
 	pkg("GNU_CONFIGURE_LIBSUBDIR", lkNone, BtPathname)
 	acl("GNU_CONFIGURE_MANDIR", lkNone, BtPathname, "Makefile, Makefile.common: set")
 	acl("GNU_CONFIGURE_PREFIX", lkNone, BtPathname, "Makefile: set")
+	pkg("GOPATH", lkNone, BtPathname)
 	acl("HAS_CONFIGURE", lkNone, BtYes, "Makefile, Makefile.common: set")
 	pkglist("HEADER_TEMPLATES", lkShell, BtPathname)
 	pkg("HOMEPAGE", lkNone, BtHomepage)
@@ -968,6 +971,7 @@ func (gd *GlobalData) InitVartypes() {
 	acl("USE_TOOLS", lkShell, BtTool, "*: append")
 	acl("USE_TOOLS.*", lkShell, BtTool, "*: append")
 	pkg("USE_X11", lkNone, BtYes)
+	sys("WARNINGS", lkShell, BtShellWord)
 	sys("WARNING_MSG", lkNone, BtShellCommand)
 	sys("WARNING_CAT", lkNone, BtShellCommand)
 	acl("WRAPPER_REORDER_CMDS", lkShell, BtWrapperReorder, "Makefile, Makefile.common, buildlink3.mk: append")
@@ -979,6 +983,14 @@ func (gd *GlobalData) InitVartypes() {
 	usr("XAW_TYPE", lkNone, enum("3d neXtaw standard xpm"))
 	acl("XMKMF_FLAGS", lkShell, BtShellWord, "")
 	pkglist("_WRAP_EXTRA_ARGS.*", lkShell, BtShellWord)
+
+	// Only for infrastructure files; see mk/misc/show.mk
+	acl("_VARGROUPS", lkSpace, BtIdentifier, "*: append")
+	acl("_USER_VARS.*", lkSpace, BtIdentifier, "*: append")
+	acl("_PKG_VARS.*", lkSpace, BtIdentifier, "*: append")
+	acl("_SYS_VARS.*", lkSpace, BtIdentifier, "*: append")
+	acl("_DEF_VARS.*", lkSpace, BtIdentifier, "*: append")
+	acl("_USE_VARS.*", lkSpace, BtIdentifier, "*: append")
 }
 
 func enum(values string) *BasicType {
@@ -1015,7 +1027,7 @@ func acl(varname string, kindOfList KindOfList, checker *BasicType, aclentries s
 	m := mustMatch(varname, `^([A-Z_.][A-Z0-9_]*)(|\*|\.\*)$`)
 	varbase, varparam := m[1], m[2]
 
-	vtype := &Vartype{kindOfList, checker, parseAclEntries(varname, aclentries), false}
+	vtype := &Vartype{kindOfList, checker, parseACLEntries(varname, aclentries), false}
 
 	if G.globalData.vartypes == nil {
 		G.globalData.vartypes = make(map[string]*Vartype)
@@ -1028,11 +1040,11 @@ func acl(varname string, kindOfList KindOfList, checker *BasicType, aclentries s
 	}
 }
 
-func parseAclEntries(varname string, aclentries string) []AclEntry {
+func parseACLEntries(varname string, aclentries string) []ACLEntry {
 	if aclentries == "" {
 		return nil
 	}
-	var result []AclEntry
+	var result []ACLEntry
 	prevperms := "(first)"
 	for _, arg := range strings.Split(aclentries, "; ") {
 		var globs, perms string
@@ -1045,7 +1057,7 @@ func parseAclEntries(varname string, aclentries string) []AclEntry {
 			fmt.Printf("Repeated permissions for %s: %s\n", varname, perms)
 		}
 		prevperms = perms
-		var permissions AclPermissions
+		var permissions ACLPermissions
 		for _, perm := range strings.Split(perms, ", ") {
 			switch perm {
 			case "append":
@@ -1079,7 +1091,7 @@ func parseAclEntries(varname string, aclentries string) []AclEntry {
 					print(fmt.Sprintf("Ineffective ACL glob %q for varname %q.\n", glob, varname))
 				}
 			}
-			result = append(result, AclEntry{glob, permissions})
+			result = append(result, ACLEntry{glob, permissions})
 		}
 	}
 	return result

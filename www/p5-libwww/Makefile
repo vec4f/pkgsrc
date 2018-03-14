@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.112 2017/12/30 15:17:39 wiz Exp $
+# $NetBSD: Makefile,v 1.114 2018/02/28 09:09:19 wiz Exp $
 
-DISTNAME=	libwww-perl-6.31
+DISTNAME=	libwww-perl-6.33
 PKGNAME=	p5-${DISTNAME:S/-perl-/-/}
 CATEGORIES=	www perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/E/ET/ETHER/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/O/OA/OALDERS/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/libwww-perl/

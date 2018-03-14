@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.96 2018/01/01 21:18:08 adam Exp $
+# $NetBSD: Makefile,v 1.98 2018/03/02 01:15:27 gdt Exp $
 
-DISTNAME=	gdal-2.0.3
+PKGREVISION= 1
+.include "../../geography/gdal-lib/Makefile.common"
 PKGNAME=	${DISTNAME:S/gdal/gdal-lib/}
-PKGREVISION=	8
-CATEGORIES=	geography
-MASTER_SITES=	http://download.osgeo.org/gdal/${PKGVERSION_NOREV}/
 
 MAINTAINER=	brook@nmsu.edu
 #MAINTAINER+=	gdt@NetBSD.org
@@ -16,20 +14,6 @@ LICENSE=	mit
 # as a bug and changes the C++ shlib version every release.  Therefore
 # this package needs revbumping on every geos update.
 
-USE_LANGUAGES=		c99 c++
-USE_LIBTOOL=		yes
-USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake
-GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--with-geos
-CONFIGURE_ARGS+=	--with-libjson-c=internal
-CONFIGURE_ARGS+=	--with-libtiff=${BUILDLINK_PREFIX.tiff}
-CONFIGURE_ARGS+=	--with-libz=${BUILDLINK_PREFIX.zlib}/include
-CONFIGURE_ARGS+=	--with-netcdf=${BUILDLINK_PREFIX.netcdf}
-CONFIGURE_ARGS+=	--with-webp=${BUILDLINK_PREFIX.libwebp}
-CONFIGURE_ARGS+=	--with-xerces
-CONFIGURE_ARGS+=	--with-xerces-inc=${BUILDLINK_PREFIX.xerces-c}/include
-CONFIGURE_ARGS+=	--with-xerces-lib=-L${BUILDLINK_PREFIX.xerces-c}/lib\ -lxerces-c
 CONFIGURE_ARGS+=	--without-python
 
 MAKE_FILE=		GNUmakefile

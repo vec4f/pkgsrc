@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2017/12/28 13:19:38 dholland Exp $
+# $NetBSD: Makefile,v 1.4 2018/03/13 17:00:05 bsiegert Exp $
 
 DISTNAME=	matterircd-0.14.0
 MASTER_SITES=	${MASTER_SITE_GITHUB:=42wim/}
+PKGREVISION=	2
 CATEGORIES=	chat
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 EXTRACT_USING=	bsdtar
@@ -17,6 +18,9 @@ GO_BUILD_PATTERN=	${GO_SRCPATH}
 
 pre-configure:
 	${RM} -rf ${WRKSRC}/vendor/github.com/mattermost/platform/vendor/github.com/alecthomas/log4go/examples
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKDIR}/bin/matterircd ${DESTDIR}${PREFIX}/bin
 
 .include "../../devel/go-golang-lru/buildlink3.mk"
 .include "../../lang/go/go-package.mk"

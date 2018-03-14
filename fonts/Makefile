@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.313 2018/01/14 03:37:32 ryoon Exp $
+# $NetBSD: Makefile,v 1.315 2018/03/13 21:19:52 bsiegert Exp $
 #
 
 COMMENT=	Fonts
@@ -11,7 +11,7 @@ SUBDIR+=	EB-Garamond
 SUBDIR+=	FiraCode
 SUBDIR+=	Hack-ttf
 SUBDIR+=	Hasklig
-SUBDIR+=	Interface
+SUBDIR+=	Inter-UI
 SUBDIR+=	Merriweather-ttf
 SUBDIR+=	Office-Code-Pro
 SUBDIR+=	SDL2_ttf
@@ -157,7 +157,6 @@ SUBDIR+=	koruri-ttf
 SUBDIR+=	lanna-io
 SUBDIR+=	lato-ttf
 SUBDIR+=	lcdftypetools
-SUBDIR+=	libXfontcache
 SUBDIR+=	liberation-ttf
 SUBDIR+=	libfontenc
 SUBDIR+=	linux-libertine-ttf

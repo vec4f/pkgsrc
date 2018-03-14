@@ -6,7 +6,7 @@ func (s *Suite) Test_Package_pkgnameFromDistname(c *check.C) {
 	t := s.Init(c)
 
 	pkg := NewPackage("dummy")
-	pkg.vardef["PKGNAME"] = t.NewMkLine("Makefile", 5, "PKGNAME=dummy")
+	pkg.vars.Define("PKGNAME", t.NewMkLine("Makefile", 5, "PKGNAME=dummy"))
 
 	c.Check(pkg.pkgnameFromDistname("pkgname-1.0", "whatever"), equals, "pkgname-1.0")
 	c.Check(pkg.pkgnameFromDistname("${DISTNAME}", "distname-1.0"), equals, "distname-1.0")
@@ -21,22 +21,25 @@ func (s *Suite) Test_Package_pkgnameFromDistname(c *check.C) {
 	t.CheckOutputEmpty()
 }
 
-func (s *Suite) Test_Package_ChecklinesPackageMakefileVarorder(c *check.C) {
+func (s *Suite) Test_Package_CheckVarorder(c *check.C) {
 	t := s.Init(c)
 
 	t.SetupCommandLine("-Worder")
 	pkg := NewPackage("x11/9term")
 
-	pkg.ChecklinesPackageMakefileVarorder(t.NewMkLines("Makefile",
-		MkRcsId,
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
 		"",
+		"GITHUB_PROJECT=project",
 		"DISTNAME=9term",
 		"CATEGORIES=x11"))
 
-	t.CheckOutputEmpty()
+	t.CheckOutputLines(
+		"WARN: Makefile:3: The canonical order of the variables is " +
+			"GITHUB_PROJECT, DISTNAME, CATEGORIES, GITHUB_PROJECT, empty line, COMMENT, LICENSE.")
 
-	pkg.ChecklinesPackageMakefileVarorder(t.NewMkLines("Makefile",
-		MkRcsId,
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
 		"",
 		"DISTNAME=9term",
 		"CATEGORIES=x11",
@@ -44,8 +47,96 @@ func (s *Suite) Test_Package_ChecklinesPackageMakefileVarorder(c *check.C) {
 		".include \"../../mk/bsd.pkg.mk\""))
 
 	t.CheckOutputLines(
-		"WARN: Makefile:6: The canonical position for the required variable COMMENT is here.",
-		"WARN: Makefile:6: The canonical position for the required variable LICENSE is here.")
+		"WARN: Makefile:3: The canonical order of the variables is " +
+			"DISTNAME, CATEGORIES, empty line, COMMENT, LICENSE.")
+}
+
+// Ensure that comments and empty lines do not lead to panics.
+func (s *Suite) Test_Package_CheckVarorder__comments_do_not_crash(c *check.C) {
+	t := s.Init(c)
+
+	t.SetupCommandLine("-Worder")
+	pkg := NewPackage("x11/9term")
+
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"GITHUB_PROJECT=project",
+		"",
+		"# comment",
+		"",
+		"DISTNAME=9term",
+		"# comment",
+		"CATEGORIES=x11"))
+
+	t.CheckOutputLines(
+		"WARN: Makefile:3: The canonical order of the variables is " +
+			"GITHUB_PROJECT, DISTNAME, CATEGORIES, GITHUB_PROJECT, empty line, COMMENT, LICENSE.")
+}
+
+func (s *Suite) Test_Package_CheckVarorder__comments_are_ignored(c *check.C) {
+	t := s.Init(c)
+
+	t.SetupCommandLine("-Worder")
+
+	pkg := NewPackage("x11/9term")
+
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"DISTNAME=\tdistname-1.0",
+		"CATEGORIES=\tsysutils",
+		"",
+		"MAINTAINER=\tpkgsrc-users@pkgsrc.org",
+		"# comment",
+		"COMMENT=\tComment",
+		"LICENSE=\tgnu-gpl-v2"))
+
+	t.CheckOutputEmpty()
+}
+
+func (s *Suite) Test_Package_CheckVarorder__conditionals_skip(c *check.C) {
+	t := s.Init(c)
+
+	t.SetupCommandLine("-Worder")
+
+	pkg := NewPackage("x11/9term")
+
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"DISTNAME=\tdistname-1.0",
+		"CATEGORIES=\tsysutils",
+		"",
+		".if ${DISTNAME:Mdistname-*}",
+		"MAINTAINER=\tpkgsrc-users@pkgsrc.org",
+		".endif",
+		"LICENSE=\tgnu-gpl-v2"))
+
+	// No warning about the missing COMMENT since the conditional
+	// skips the whole check.
+	t.CheckOutputEmpty()
+}
+
+func (s *Suite) Test_Package_CheckVarorder_GitHub(c *check.C) {
+	t := s.Init(c)
+
+	t.SetupCommandLine("-Worder")
+	pkg := NewPackage("x11/9term")
+
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"DISTNAME=\t\tautocutsel-0.10.0",
+		"CATEGORIES=\t\tx11",
+		"MASTER_SITES=\t\t${MASTER_SITE_GITHUB:=sigmike/}",
+		"GITHUB_PROJECT=\t\tautocutsel",
+		"GITHUB_TAG=\t\t${PKGVERSION_NOREV}",
+		"",
+		"COMMENT=\tComment",
+		"LICENSE=\tgnu-gpl-v2"))
+
+	t.CheckOutputEmpty()
 }
 
 func (s *Suite) Test_Package_varorder_license(c *check.C) {
@@ -54,11 +145,11 @@ func (s *Suite) Test_Package_varorder_license(c *check.C) {
 	t.SetupCommandLine("-Worder")
 
 	t.CreateFileLines("mk/bsd.pkg.mk", "# dummy")
-	t.CreateFileLines("x11/Makefile", MkRcsId)
-	t.CreateFileLines("x11/9term/PLIST", PlistRcsId, "bin/9term")
-	t.CreateFileLines("x11/9term/distinfo", RcsId)
+	t.CreateFileLines("x11/Makefile", MkRcsID)
+	t.CreateFileLines("x11/9term/PLIST", PlistRcsID, "bin/9term")
+	t.CreateFileLines("x11/9term/distinfo", RcsID)
 	t.CreateFileLines("x11/9term/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"DISTNAME=9term-1.0",
 		"CATEGORIES=x11",
@@ -71,7 +162,7 @@ func (s *Suite) Test_Package_varorder_license(c *check.C) {
 	G.globalData.Pkgsrcdir = t.TmpDir()
 	G.CurrentDir = t.TmpDir()
 
-	(&Pkglint{}).CheckDirent(t.TmpDir() + "/x11/9term")
+	G.CheckDirent(t.TmpDir() + "/x11/9term")
 
 	// Since the error is grave enough, the warning about the correct position is suppressed.
 	t.CheckOutputLines(
@@ -79,21 +170,78 @@ func (s *Suite) Test_Package_varorder_license(c *check.C) {
 }
 
 // https://mail-index.netbsd.org/tech-pkg/2017/01/18/msg017698.html
-func (s *Suite) Test_Package_ChecklinesPackageMakefileVarorder__MASTER_SITES(c *check.C) {
+func (s *Suite) Test_Package_CheckVarorder__MASTER_SITES(c *check.C) {
 	t := s.Init(c)
 
 	t.SetupCommandLine("-Worder")
 	pkg := NewPackage("category/package")
 
-	pkg.ChecklinesPackageMakefileVarorder(t.NewMkLines("Makefile",
-		MkRcsId,
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
 		"",
 		"PKGNAME=\tpackage-1.0",
 		"CATEGORIES=\tcategory",
 		"MASTER_SITES=\thttp://example.org/",
-		"MASTER_SITES+=\thttp://mirror.example.org/"))
+		"MASTER_SITES+=\thttp://mirror.example.org/",
+		"",
+		"COMMENT=\tComment",
+		"LICENSE=\tgnu-gpl-v2"))
 
 	// No warning that "MASTER_SITES appears too late"
+	t.CheckOutputEmpty()
+}
+
+// The diagnostics must be helpful.
+// In the case of wip/ioping, they were ambiguous and wrong.
+func (s *Suite) Test_Package_CheckVarorder__diagnostics(c *check.C) {
+	t := s.Init(c)
+
+	t.SetupCommandLine("-Worder")
+	G.globalData.InitVartypes()
+	pkg := NewPackage("category/package")
+
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"CATEGORIES=     net",
+		"",
+		"COMMENT=        Comment",
+		"LICENSE=        gnu-gpl-v3",
+		"",
+		"GITHUB_PROJECT= pkgbase",
+		"DISTNAME=       v1.0",
+		"PKGNAME=        ${GITHUB_PROJECT}-${DISTNAME}",
+		"MASTER_SITES=   ${MASTER_SITE_GITHUB:=project/}",
+		"DIST_SUBDIR=    ${GITHUB_PROJECT}",
+		"",
+		"MAINTAINER=     maintainer@example.org",
+		"HOMEPAGE=       https://github.com/project/pkgbase/",
+		"",
+		".include \"../../mk/bsd.pkg.mk\""))
+
+	t.CheckOutputLines(
+		"WARN: Makefile:3: The canonical order of the variables is " +
+			"GITHUB_PROJECT, DISTNAME, PKGNAME, CATEGORIES, MASTER_SITES, GITHUB_PROJECT, DIST_SUBDIR, empty line, " +
+			"MAINTAINER, HOMEPAGE, COMMENT, LICENSE.")
+
+	// After moving the variables according to the warning:
+	pkg.CheckVarorder(t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"GITHUB_PROJECT= pkgbase",
+		"DISTNAME=       v1.0",
+		"PKGNAME=        ${GITHUB_PROJECT}-${DISTNAME}",
+		"CATEGORIES=     net",
+		"MASTER_SITES=   ${MASTER_SITE_GITHUB:=project/}",
+		"DIST_SUBDIR=    ${GITHUB_PROJECT}",
+		"",
+		"MAINTAINER=     maintainer@example.org",
+		"HOMEPAGE=       https://github.com/project/pkgbase/",
+		"COMMENT=        Comment",
+		"LICENSE=        gnu-gpl-v3",
+		"",
+		".include \"../../mk/bsd.pkg.mk\""))
+
 	t.CheckOutputEmpty()
 }
 
@@ -101,11 +249,12 @@ func (s *Suite) Test_Package_getNbpart(c *check.C) {
 	t := s.Init(c)
 
 	pkg := NewPackage("category/pkgbase")
-	pkg.vardef["PKGREVISION"] = t.NewMkLine("Makefile", 1, "PKGREVISION=14")
+	pkg.vars.Define("PKGREVISION", t.NewMkLine("Makefile", 1, "PKGREVISION=14"))
 
 	c.Check(pkg.getNbpart(), equals, "nb14")
 
-	pkg.vardef["PKGREVISION"] = t.NewMkLine("Makefile", 1, "PKGREVISION=asdf")
+	pkg.vars = NewScope()
+	pkg.vars.Define("PKGREVISION", t.NewMkLine("Makefile", 1, "PKGREVISION=asdf"))
 
 	c.Check(pkg.getNbpart(), equals, "")
 }
@@ -118,9 +267,9 @@ func (s *Suite) Test_Package_determineEffectivePkgVars__precedence(c *check.C) {
 	distnameLine := t.NewMkLine("Makefile", 4, "DISTNAME=distname-1.0")
 	pkgrevisionLine := t.NewMkLine("Makefile", 5, "PKGREVISION=13")
 
-	pkg.defineVar(pkgnameLine, pkgnameLine.Varname())
-	pkg.defineVar(distnameLine, distnameLine.Varname())
-	pkg.defineVar(pkgrevisionLine, pkgrevisionLine.Varname())
+	pkg.vars.Define(pkgnameLine.Varname(), pkgnameLine)
+	pkg.vars.Define(distnameLine.Varname(), distnameLine)
+	pkg.vars.Define(pkgrevisionLine.Varname(), pkgrevisionLine)
 
 	pkg.determineEffectivePkgVars()
 
@@ -160,14 +309,14 @@ func (s *Suite) Test_checkdirPackage(c *check.C) {
 	t := s.Init(c)
 
 	t.SetupFileLines("Makefile",
-		MkRcsId)
+		MkRcsID)
 	G.CurrentDir = t.TmpDir()
 
-	checkdirPackage(t.TmpDir())
+	G.checkdirPackage(t.TmpDir())
 
 	t.CheckOutputLines(
 		"WARN: ~/Makefile: Neither PLIST nor PLIST.common exist, and PLIST_SRC is unset. Are you sure PLIST handling is ok?",
-		"WARN: ~/distinfo: File not found. Please run \"@BMAKE@ makesum\".",
+		"WARN: ~/distinfo: File not found. Please run \""+confMake+" makesum\".",
 		"ERROR: ~/Makefile: Each package must define its LICENSE.",
 		"WARN: ~/Makefile: No COMMENT given.")
 }
@@ -176,13 +325,13 @@ func (s *Suite) Test_checkdirPackage__meta_package_without_license(c *check.C) {
 	t := s.Init(c)
 
 	t.CreateFileLines("Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"META_PACKAGE=\tyes")
 	G.CurrentDir = t.TmpDir()
 	G.globalData.InitVartypes()
 
-	checkdirPackage(t.TmpDir())
+	G.checkdirPackage(t.TmpDir())
 
 	t.CheckOutputLines(
 		"WARN: ~/Makefile: No COMMENT given.") // No error about missing LICENSE.
@@ -216,7 +365,7 @@ func (s *Suite) Test_Package__varuse_at_load_time(c *check.C) {
 		"# dummy")
 
 	t.CreateFileLines("category/pkgbase/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"COMMENT= Unit test",
 		"LICENSE= bsd-2",
@@ -241,9 +390,9 @@ func (s *Suite) Test_Package__varuse_at_load_time(c *check.C) {
 		"",
 		".include \"../../mk/bsd.pkg.mk\"")
 	t.CreateFileLines("category/pkgbase/distinfo",
-		RcsId)
+		RcsID)
 
-	(&Pkglint{}).Main("pkglint", "-q", "-Wperm", t.TmpDir()+"/category/pkgbase")
+	G.Main("pkglint", "-q", "-Wperm", t.TmpDir()+"/category/pkgbase")
 
 	t.CheckOutputLines(
 		"WARN: ~/category/pkgbase/Makefile:8: To use the tool \"FALSE\" at load time, bsd.prefs.mk has to be included before.",
@@ -256,7 +405,7 @@ func (s *Suite) Test_Package_loadPackageMakefile(c *check.C) {
 	t := s.Init(c)
 
 	t.SetupFileLines("category/package/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"PKGNAME=pkgname-1.67",
 		"DISTNAME=distfile_1_67",
@@ -278,7 +427,7 @@ func (s *Suite) Test_Package_conditionalAndUnconditionalInclude(c *check.C) {
 
 	G.globalData.InitVartypes()
 	t.CreateFileLines("category/package/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"COMMENT\t=Description",
 		"LICENSE\t= gnu-gpl-v2",
@@ -288,17 +437,17 @@ func (s *Suite) Test_Package_conditionalAndUnconditionalInclude(c *check.C) {
 		".endif",
 		".include \"../../mk/bsd.pkg.mk\"")
 	t.CreateFileLines("category/package/options.mk",
-		MkRcsId,
+		MkRcsID,
 		"",
 		".if !empty(PKG_OPTIONS:Mzlib)",
 		".  include \"../../devel/zlib/buildlink3.mk\"",
 		".endif",
 		".include \"../../sysutils/coreutils/buildlink3.mk\"")
 	t.CreateFileLines("category/package/PLIST",
-		PlistRcsId,
+		PlistRcsID,
 		"bin/program")
 	t.CreateFileLines("category/package/distinfo",
-		RcsId)
+		RcsID)
 
 	t.CreateFileLines("devel/zlib/buildlink3.mk", "")
 	t.CreateFileLines("licenses/gnu-gpl-v2", "")
@@ -311,7 +460,7 @@ func (s *Suite) Test_Package_conditionalAndUnconditionalInclude(c *check.C) {
 	G.CurPkgsrcdir = "../.."
 	G.Pkg = pkg
 
-	checkdirPackage("category/package")
+	G.checkdirPackage("category/package")
 
 	t.CheckOutputLines(
 		"WARN: ~/category/package/options.mk:3: Unknown option \"zlib\".",

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.669 2018/01/31 11:37:16 markd Exp $
+# $NetBSD: Makefile,v 1.675 2018/03/11 20:49:04 bsiegert Exp $
 #
 
 COMMENT=	Security tools
@@ -70,6 +70,7 @@ SUBDIR+=	dnssec-tools
 SUBDIR+=	dropbear
 SUBDIR+=	dsniff
 SUBDIR+=	dsniff-nox11
+SUBDIR+=	duo-unix
 SUBDIR+=	easy-rsa
 SUBDIR+=	ecap_clamav_adapter
 SUBDIR+=	egd
@@ -100,7 +101,6 @@ SUBDIR+=	gnupg2
 SUBDIR+=	gnutls
 SUBDIR+=	go-crypt
 SUBDIR+=	go-crypto
-SUBDIR+=	go-crypto-acme
 SUBDIR+=	go-oauth2
 SUBDIR+=	go-sftp
 SUBDIR+=	google-authenticator
@@ -280,6 +280,7 @@ SUBDIR+=	p5-Crypt-Random-Seed
 SUBDIR+=	p5-Crypt-Random-TESHA2
 SUBDIR+=	p5-Crypt-Rijndael
 SUBDIR+=	p5-Crypt-SSLeay
+SUBDIR+=	p5-Crypt-SMIME
 SUBDIR+=	p5-Crypt-SmbHash
 SUBDIR+=	p5-Crypt-Twofish
 SUBDIR+=	p5-Crypt-URandom
@@ -287,6 +288,7 @@ SUBDIR+=	p5-Crypt-X509
 SUBDIR+=	p5-CryptX
 SUBDIR+=	p5-Dancer-Plugin-Auth-RBAC
 SUBDIR+=	p5-Data-SimplePassword
+SUBDIR+=	p5-Data-Password-passwdqc
 SUBDIR+=	p5-Digest
 SUBDIR+=	p5-Digest-BubbleBabble
 SUBDIR+=	p5-Digest-CRC
@@ -311,6 +313,7 @@ SUBDIR+=	p5-Mozilla-CA
 SUBDIR+=	p5-Net-DNS-SEC
 SUBDIR+=	p5-Net-DNS-SEC-Maint-Key
 SUBDIR+=	p5-Net-OpenSSH
+SUBDIR+=	p5-Net-SFTP
 SUBDIR+=	p5-Net-SSH
 SUBDIR+=	p5-Net-SSLeay
 SUBDIR+=	p5-Netpgp-Verify
@@ -415,6 +418,7 @@ SUBDIR+=	py-kerberos
 SUBDIR+=	py-keyring
 SUBDIR+=	py-keyrings.alt
 SUBDIR+=	py-lasso
+SUBDIR+=	py-libnacl
 SUBDIR+=	py-libtaxii
 SUBDIR+=	py-m2crypto
 SUBDIR+=	py-mcrypt

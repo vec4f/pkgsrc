@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.35 2018/02/03 10:49:48 gson Exp $
+# $NetBSD: Makefile,v 1.38 2018/02/25 15:03:45 maya Exp $
 
-DISTNAME=		mpfr-4.0.0
-PKGREVISION=		1
+DISTNAME=		mpfr-4.0.1
 CATEGORIES=		math
 MASTER_SITES=		http://www.mpfr.org/${DISTNAME}/
 EXTRACT_SUFX=		.tar.bz2
@@ -13,7 +12,7 @@ LICENSE=		gnu-lgpl-v3
 
 .include "../../mk/bsd.prefs.mk"
 GNU_CONFIGURE=		yes
-.if !empty(MACHINE_PLATFORM:MNetBSD-[0-7]*-x86_64)
+.if !empty(MACHINE_PLATFORM:MNetBSD-[0-8]*-*)
 CONFIGURE_ARGS+=        --disable-float128
 .endif
 USE_LIBTOOL=		yes

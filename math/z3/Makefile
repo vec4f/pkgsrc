@@ -1,30 +1,10 @@
-# $NetBSD: Makefile,v 1.6 2018/01/10 16:53:12 jaapb Exp $
+# $NetBSD: Makefile,v 1.9 2018/03/13 21:20:34 khorben Exp $
 
-DISTNAME=	z3-4.4.1
-GITHUB_TAG=	${DISTNAME}
-PKGREVISION=	5
-CATEGORIES=	math
-MASTER_SITES=	${MASTER_SITE_GITHUB:=Z3Prover/}
-PATCHFILES+=	z3-jumbo-patch-20151123.gz
-SITES.z3-jumbo-patch-20151123.gz=\
-			http://www.NetBSD.org/~dholland/patchkits/z3/
-PATCH_DIST_STRIP=	-p1
+.include "Makefile.common"
 
-MAINTAINER=	dholland@NetBSD.org
-HOMEPAGE=	https://github.com/Z3Prover/z3/
+PKGREVISION=	1
 COMMENT=	The Z3 theorem prover / SMT solver
-LICENSE=	mit
-
-WRKSRC=		${WRKDIR}/z3-${DISTNAME}
-HAS_CONFIGURE=	yes
-USE_LANGUAGES=	c c++
-BUILD_DIRS=	build
-PY_PATCHPLIST=	yes
-
-CONFIGURE_ENV+=		PYTHON=${PYTHONBIN}
-CONFIGURE_ARGS+=	--destdir=${DESTDIR} --prefix=${PREFIX}
 
 .include "options.mk"
 
-.include "../../lang/python/extension.mk"
 .include "../../mk/bsd.pkg.mk"

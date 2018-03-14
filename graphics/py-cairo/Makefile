@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.52 2017/11/25 09:16:13 wiz Exp $
+# $NetBSD: Makefile,v 1.55 2018/03/12 11:15:37 wiz Exp $
 
-DISTNAME=		pycairo-1.15.4
+DISTNAME=		pycairo-1.16.3
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/py//}
 PKGREVISION=		1
 CATEGORIES=		graphics

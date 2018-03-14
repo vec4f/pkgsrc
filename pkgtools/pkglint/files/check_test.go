@@ -18,16 +18,20 @@ import (
 var equals = check.Equals
 var deepEquals = check.DeepEquals
 
-const RcsId = "$" + "NetBSD$"
-const MkRcsId = "# $" + "NetBSD$"
-const PlistRcsId = "@comment $" + "NetBSD$"
+const RcsID = "$" + "NetBSD$"
+const MkRcsID = "# $" + "NetBSD$"
+const PlistRcsID = "@comment $" + "NetBSD$"
 
 type Suite struct {
 	Tester *Tester
 }
 
 // Init initializes the suite with the check.C instance for the actual
-// test run. See https://github.com/go-check/check/issues/22
+// test run.
+// The returned tester can be used to easily setup the test environment
+// and check the results using a high-level API.
+//
+// See https://github.com/go-check/check/issues/22
 func (s *Suite) Init(c *check.C) *Tester {
 	t := s.Tester // Has been initialized by SetUpTest
 	if t.checkC != nil {
@@ -41,7 +45,7 @@ func (s *Suite) SetUpTest(c *check.C) {
 	t := &Tester{checkC: c}
 	s.Tester = t
 
-	G = GlobalVars{Testing: true}
+	G = Pkglint{Testing: true}
 	textproc.Testing = true
 	G.logOut = NewSeparatorWriter(&t.stdout)
 	G.logErr = NewSeparatorWriter(&t.stderr)
@@ -58,7 +62,7 @@ func (s *Suite) TearDownTest(c *check.C) {
 	t := s.Tester
 	t.checkC = nil // No longer usable; see https://github.com/go-check/check/issues/22
 
-	G = GlobalVars{}
+	G = Pkglint{} // unusable because of missing logOut and logErr
 	textproc.Testing = false
 	if out := t.Output(); out != "" {
 		fmt.Fprintf(os.Stderr, "Unchecked output in %q; check with: t.CheckOutputLines(%v)",
@@ -92,7 +96,7 @@ func (t *Tester) c() *check.C {
 // SetupCommandLine simulates a command line for the remainder of the test.
 // See Pkglint.ParseCommandLine.
 func (t *Tester) SetupCommandLine(args ...string) {
-	exitcode := new(Pkglint).ParseCommandLine(append([]string{"pkglint"}, args...))
+	exitcode := G.ParseCommandLine(append([]string{"pkglint"}, args...))
 	if exitcode != nil && *exitcode != 0 {
 		t.CheckOutputEmpty()
 		t.c().Fatalf("Cannot parse command line: %#v", args)
@@ -276,18 +280,18 @@ func (t *Tester) CheckOutputLines(expectedLines ...string) {
 	t.c().Check(emptyToNil(actualLines), deepEquals, emptyToNil(expectedLines))
 }
 
-// BeginDebugToStdout redirects all logging output to stdout instead of
+// EnableTracing redirects all logging output to stdout instead of
 // the buffer. This is useful when stepping through the code, especially
 // in combination with SetupCommandLine("--debug").
-func (t *Tester) BeginDebugToStdout() {
+func (t *Tester) EnableTracing() {
 	G.logOut = NewSeparatorWriter(os.Stdout)
 	trace.Out = os.Stdout
 	trace.Tracing = true
 }
 
-// EndDebugToStdout logs the output to the buffers again, ready to be
+// DisableTracing logs the output to the buffers again, ready to be
 // checked with CheckOutputLines.
-func (t *Tester) EndDebugToStdout() {
+func (t *Tester) DisableTracing() {
 	G.logOut = NewSeparatorWriter(&t.stdout)
 	trace.Out = &t.stdout
 	trace.Tracing = false

@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.187 2017/06/05 14:24:09 ryoon Exp $
+# $NetBSD: Makefile,v 1.189 2018/03/12 11:17:02 wiz Exp $
 
 DISTNAME=		gnumeric-1.8.4
-PKGREVISION=		45
+PKGREVISION=		46
 CATEGORIES=		math gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnumeric/1.8/}
 EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		https://wiki.gnome.org/Apps/Gnumeric
+HOMEPAGE=		http://gnumeric.org/
 COMMENT=		Spreadsheet program from the GNOME project (development version)
 LICENSE=		gnu-gpl-v2
 

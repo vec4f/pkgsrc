@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.60 2018/01/01 21:18:30 adam Exp $
+# $NetBSD: Makefile,v 1.63 2018/03/12 11:16:38 wiz Exp $
 
-DISTNAME=	qgis-2.18.3
-PKGREVISION=	7
+DISTNAME=	qgis-2.18.16
+PKGREVISION=	2
 CATEGORIES=	geography
-MASTER_SITES=	http://qgis.org/downloads/
+MASTER_SITES=	https://qgis.org/downloads/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	brook@nmsu.edu
@@ -20,6 +20,8 @@ USE_TOOLS+=		cmake bison flex perl
 USE_TOOLS+=		gmake
 
 PLIST_SRC=		PLIST
+
+CMAKE_ARGS+=	-DENABLE_QT5=OFF
 
 .include "options.mk"
 
@@ -42,6 +44,7 @@ SUBST_FILES.xapple=		${xapple_FIND_CMD:sh}
 SUBST_SED.xapple+=		-e 's,APPLE,XAPPLE,'
 SUBST_SED.xapple+=		-e 's,MACOSX_BUNDLE ,,'
 
+CMAKE_ARGS+= 	-DWITH_QTWEBKIT=FALSE
 # Useful for package development:
 #CMAKE_ARGS+= 	-DCMAKE_VERBOSE_MAKEFILE=TRUE
 

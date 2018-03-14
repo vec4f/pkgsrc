@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.36 2018/01/28 20:10:40 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2018/03/12 11:15:57 wiz Exp $
 
 DISTNAME=	qttools-everywhere-src-${QTVERSION}
 PKGNAME=	qt5-qttools-${QTVERSION}
@@ -23,12 +23,10 @@ post-install:
 	ln -f -s ${QTPREFIX}/lib/pkgconfig/${i} ${i}
 .endfor
 
-.include "../../x11/qt5-qtxmlpatterns/buildlink3.mk"
-#.include "../../x11/qt5-qtwebkit/buildlink3.mk"
-#instead:
 .include "../../x11/qt5-qtdeclarative/buildlink3.mk"
 .include "../../x11/qt5-qtlocation/buildlink3.mk"
 .include "../../x11/qt5-qtmultimedia/buildlink3.mk"
 .include "../../x11/qt5-qtsensors/buildlink3.mk"
 .include "../../x11/qt5-qtwebchannel/buildlink3.mk"
+.include "../../x11/qt5-qtxmlpatterns/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

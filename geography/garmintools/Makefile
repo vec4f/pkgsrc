@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2017/08/01 17:03:25 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2018/02/27 23:56:09 khorben Exp $
 
 DISTNAME=		garmintools-0.10
+PKGREVISION=		1
 CATEGORIES=		geography
 MASTER_SITES=		http://garmintools.googlecode.com/files/
 
@@ -17,5 +18,5 @@ INSTALLATION_DIRS=	share/doc/garmintools
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/garmintools/
 
-.include "../../devel/libusb/buildlink3.mk"
+.include "../../mk/libusb.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

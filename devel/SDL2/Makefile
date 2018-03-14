@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.26 2018/01/28 20:10:45 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2018/03/02 07:49:58 adam Exp $
 
-DISTNAME=	SDL2-2.0.7
-PKGREVISION=	1
+DISTNAME=	SDL2-2.0.8
 CATEGORIES=	devel
 MASTER_SITES=	http://www.libsdl.org/release/
 
@@ -36,7 +35,7 @@ CFLAGS+=	-DPREFIX=\"${PREFIX}\"
 .include "options.mk"
 
 .include "../../converters/libiconv/buildlink3.mk"
-.include "../../devel/libusb/buildlink3.mk"
+.include "../../mk/libusb.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

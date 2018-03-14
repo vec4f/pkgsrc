@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.35 2018/01/28 20:10:45 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2018/03/12 11:16:14 wiz Exp $
 
-DISTNAME=	postgis-2.4.2
+DISTNAME=	postgis-2.4.3
 PKGNAME=	postgresql${PGSQL_VERSION}-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	databases geography
-MASTER_SITES=	http://download.osgeo.org/postgis/source/
+MASTER_SITES=	https://download.osgeo.org/postgis/source/
 
 MAINTAINER=	gdt@NetBSD.org
 HOMEPAGE=	http://postgis.net/
@@ -12,7 +12,7 @@ COMMENT=	Spatial database capabilities for PostgreSQL
 
 LICENSE=	gnu-gpl-v2
 
-DEPENDS+=		postgresql${PGSQL_VERSION}-server>=0:../../databases/postgresql${PGSQL_VERSION}-server
+DEPENDS+=		postgresql${PGSQL_VERSION}-server-[0-9]*:../../databases/postgresql${PGSQL_VERSION}-server
 BUILD_DEPENDS+=		docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 CONFLICTS=		postgis-[0-9]*

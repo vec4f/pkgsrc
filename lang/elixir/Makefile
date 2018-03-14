@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2018/01/30 16:27:10 fhajny Exp $
+# $NetBSD: Makefile,v 1.5 2018/03/13 09:18:19 fhajny Exp $
 
-DISTNAME=		elixir-1.6.1
+DISTNAME=		elixir-1.6.3
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GITHUB:=elixir-lang/}
 
@@ -23,3 +23,7 @@ REPLACE_FILES.elixir=	bin/mix
 BUILD_TARGET=		compile
 
 .include "../../mk/bsd.pkg.mk"
+
+MAKE_ENV+=LC_CTYPE="en_US.UTF-8"
+MAKE_ENV+=LC_LANG="en_US.UTF-8"
+MAKE_ENV+=LC_ALL=""

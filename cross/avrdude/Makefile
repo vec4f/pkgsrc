@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.42 2017/02/21 16:05:53 joerg Exp $
+# $NetBSD: Makefile,v 1.44 2018/02/27 23:56:08 khorben Exp $
 
 DISTNAME=		avrdude-6.3
+PKGREVISION=		1
 CATEGORIES=		cross
 MASTER_SITES=		http://download.savannah.gnu.org/releases/avrdude/
 
@@ -45,7 +46,7 @@ BUILD_DEPENDS+=		gtexinfo-[0-9]*:../../devel/gtexinfo
 .include "../../devel/libftdi/buildlink3.mk"
 .include "../../devel/libhid/buildlink3.mk"
 .include "../../devel/libftdi1/buildlink3.mk"
-.include "../../devel/libusb/buildlink3.mk"
+.include "../../mk/libusb.buildlink3.mk"
 .include "../../devel/libusb1/buildlink3.mk"
 # elf_getshdrstrndx
 .include "../../devel/libelf/buildlink3.mk"

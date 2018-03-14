@@ -26,13 +26,12 @@ type Package struct {
 	SeenBsdPrefsMk       bool            // Has bsd.prefs.mk already been included?
 	PlistDirs            map[string]bool // Directories mentioned in the PLIST files
 
-	vardef                map[string]MkLine // (varname, varcanon) => line
-	varuse                map[string]MkLine // (varname, varcanon) => line
-	bl3                   map[string]Line   // buildlink3.mk name => line; contains only buildlink3.mk files that are directly included.
-	plistSubstCond        map[string]bool   // varname => true; list of all variables that are used as conditionals (@comment or nothing) in PLISTs.
-	included              map[string]Line   // fname => line
-	seenMakefileCommon    bool              // Does the package have any .includes?
-	loadTimeTools         map[string]bool   // true=ok, false=not ok, absent=not mentioned in USE_TOOLS.
+	vars                  Scope
+	bl3                   map[string]Line // buildlink3.mk name => line; contains only buildlink3.mk files that are directly included.
+	plistSubstCond        map[string]bool // varname => true; list of all variables that are used as conditionals (@comment or nothing) in PLISTs.
+	included              map[string]Line // fname => line
+	seenMakefileCommon    bool            // Does the package have any .includes?
+	loadTimeTools         map[string]bool // true=ok, false=not ok, absent=not mentioned in USE_TOOLS.
 	conditionalIncludes   map[string]MkLine
 	unconditionalIncludes map[string]MkLine
 	once                  Once
@@ -42,8 +41,7 @@ func NewPackage(pkgpath string) *Package {
 	pkg := &Package{
 		Pkgpath:               pkgpath,
 		PlistDirs:             make(map[string]bool),
-		vardef:                make(map[string]MkLine),
-		varuse:                make(map[string]MkLine),
+		vars:                  NewScope(),
 		bl3:                   make(map[string]Line),
 		plistSubstCond:        make(map[string]bool),
 		included:              make(map[string]Line),
@@ -52,19 +50,9 @@ func NewPackage(pkgpath string) *Package {
 		unconditionalIncludes: make(map[string]MkLine),
 	}
 	for varname, line := range G.globalData.UserDefinedVars {
-		pkg.vardef[varname] = line
+		pkg.vars.Define(varname, line)
 	}
 	return pkg
-}
-
-func (pkg *Package) defineVar(mkline MkLine, varname string) {
-	if pkg.vardef[varname] == nil {
-		pkg.vardef[varname] = mkline
-	}
-	varcanon := varnameCanon(varname)
-	if pkg.vardef[varcanon] == nil {
-		pkg.vardef[varcanon] = mkline
-	}
 }
 
 func (pkg *Package) varValue(varname string) (string, bool) {
@@ -74,7 +62,7 @@ func (pkg *Package) varValue(varname string) (string, bool) {
 	case "PGSQL_VERSION":
 		return "95", true
 	}
-	if mkline := pkg.vardef[varname]; mkline != nil {
+	if mkline := pkg.vars.FirstDefinition(varname); mkline != nil {
 		return mkline.Value(), true
 	}
 	return "", false
@@ -150,7 +138,7 @@ func (pkg *Package) checklinesBuildlink3Inclusion(mklines *MkLines) {
 	}
 }
 
-func checkdirPackage(pkgpath string) {
+func (pkglint *Pkglint) checkdirPackage(pkgpath string) {
 	if trace.Tracing {
 		defer trace.Call1(pkgpath)()
 	}
@@ -203,7 +191,7 @@ func checkdirPackage(pkgpath string) {
 				pkg.checkfilePackageMakefile(fname, lines)
 			}
 		} else {
-			Checkfile(fname)
+			pkglint.Checkfile(fname)
 		}
 		if contains(fname, "/patches/patch-") {
 			havePatches = true
@@ -359,11 +347,11 @@ func (pkg *Package) readMakefile(fname string, mainLines *MkLines, allLines *MkL
 		if mkline.IsVarassign() {
 			varname, op, value := mkline.Varname(), mkline.Op(), mkline.Value()
 
-			if op != opAssignDefault || G.Pkg.vardef[varname] == nil {
+			if op != opAssignDefault || !G.Pkg.vars.Defined(varname) {
 				if trace.Tracing {
 					trace.Stepf("varassign(%q, %q, %q)", varname, op, value)
 				}
-				G.Pkg.vardef[varname] = mkline
+				G.Pkg.vars.Define(varname, mkline)
 			}
 		}
 	}
@@ -380,16 +368,16 @@ func (pkg *Package) checkfilePackageMakefile(fname string, mklines *MkLines) {
 		defer trace.Call1(fname)()
 	}
 
-	vardef := pkg.vardef
-	if vardef["PLIST_SRC"] == nil &&
-		vardef["GENERATE_PLIST"] == nil &&
-		vardef["META_PACKAGE"] == nil &&
+	vars := pkg.vars
+	if !vars.Defined("PLIST_SRC") &&
+		!vars.Defined("GENERATE_PLIST") &&
+		!vars.Defined("META_PACKAGE") &&
 		!fileExists(G.CurrentDir+"/"+pkg.Pkgdir+"/PLIST") &&
 		!fileExists(G.CurrentDir+"/"+pkg.Pkgdir+"/PLIST.common") {
 		NewLineWhole(fname).Warnf("Neither PLIST nor PLIST.common exist, and PLIST_SRC is unset. Are you sure PLIST handling is ok?")
 	}
 
-	if (vardef["NO_CHECKSUM"] != nil || vardef["META_PACKAGE"] != nil) && isEmptyDir(G.CurrentDir+"/"+pkg.Patchdir) {
+	if (vars.Defined("NO_CHECKSUM") || vars.Defined("META_PACKAGE")) && isEmptyDir(G.CurrentDir+"/"+pkg.Patchdir) {
 		if distinfoFile := G.CurrentDir + "/" + pkg.DistinfoFile; fileExists(distinfoFile) {
 			NewLineWhole(distinfoFile).Warnf("This file should not exist if NO_CHECKSUM or META_PACKAGE is set.")
 		}
@@ -399,15 +387,15 @@ func (pkg *Package) checkfilePackageMakefile(fname string, mklines *MkLines) {
 		}
 	}
 
-	if perlLine, noconfLine := vardef["REPLACE_PERL"], vardef["NO_CONFIGURE"]; perlLine != nil && noconfLine != nil {
+	if perlLine, noconfLine := vars.FirstDefinition("REPLACE_PERL"), vars.FirstDefinition("NO_CONFIGURE"); perlLine != nil && noconfLine != nil {
 		perlLine.Warnf("REPLACE_PERL is ignored when NO_CONFIGURE is set (in %s)", noconfLine.ReferenceFrom(perlLine.Line))
 	}
 
-	if vardef["LICENSE"] == nil && vardef["META_PACKAGE"] == nil && pkg.once.FirstTime("LICENSE") {
+	if !vars.Defined("LICENSE") && !vars.Defined("META_PACKAGE") && pkg.once.FirstTime("LICENSE") {
 		NewLineWhole(fname).Errorf("Each package must define its LICENSE.")
 	}
 
-	if gnuLine, useLine := vardef["GNU_CONFIGURE"], vardef["USE_LANGUAGES"]; gnuLine != nil && useLine != nil {
+	if gnuLine, useLine := vars.FirstDefinition("GNU_CONFIGURE"), vars.FirstDefinition("USE_LANGUAGES"); gnuLine != nil && useLine != nil {
 		if matches(useLine.VarassignComment(), `(?-i)\b(?:c|empty|none)\b`) {
 			// Don't emit a warning, since the comment
 			// probably contains a statement that C is
@@ -425,11 +413,11 @@ func (pkg *Package) checkfilePackageMakefile(fname string, mklines *MkLines) {
 	pkg.determineEffectivePkgVars()
 	pkg.checkPossibleDowngrade()
 
-	if vardef["COMMENT"] == nil {
+	if !vars.Defined("COMMENT") {
 		NewLineWhole(fname).Warnf("No COMMENT given.")
 	}
 
-	if imake, x11 := vardef["USE_IMAKE"], vardef["USE_X11"]; imake != nil && x11 != nil {
+	if imake, x11 := vars.FirstDefinition("USE_IMAKE"), vars.FirstDefinition("USE_X11"); imake != nil && x11 != nil {
 		if !hasSuffix(x11.Filename, "/mk/x11.buildlink3.mk") {
 			imake.Notef("USE_IMAKE makes USE_X11 in %s superfluous.", x11.ReferenceFrom(imake.Line))
 		}
@@ -437,12 +425,12 @@ func (pkg *Package) checkfilePackageMakefile(fname string, mklines *MkLines) {
 
 	pkg.checkUpdate()
 	mklines.Check()
-	pkg.ChecklinesPackageMakefileVarorder(mklines)
+	pkg.CheckVarorder(mklines)
 	SaveAutofixChanges(mklines.lines)
 }
 
 func (pkg *Package) getNbpart() string {
-	line := pkg.vardef["PKGREVISION"]
+	line := pkg.vars.FirstDefinition("PKGREVISION")
 	if line == nil {
 		return ""
 	}
@@ -454,8 +442,8 @@ func (pkg *Package) getNbpart() string {
 }
 
 func (pkg *Package) determineEffectivePkgVars() {
-	distnameLine := pkg.vardef["DISTNAME"]
-	pkgnameLine := pkg.vardef["PKGNAME"]
+	distnameLine := pkg.vars.FirstDefinition("DISTNAME")
+	pkgnameLine := pkg.vars.FirstDefinition("PKGNAME")
 
 	distname := ""
 	if distnameLine != nil {
@@ -543,7 +531,7 @@ func (pkg *Package) pkgnameFromDistname(pkgname, distname string) string {
 }
 
 func (pkg *Package) expandVariableWithDefault(varname, defaultValue string) string {
-	mkline := G.Pkg.vardef[varname]
+	mkline := G.Pkg.vars.FirstDefinition(varname)
 	if mkline == nil {
 		return defaultValue
 	}
@@ -588,7 +576,11 @@ func (pkg *Package) checkUpdate() {
 	}
 }
 
-func (pkg *Package) ChecklinesPackageMakefileVarorder(mklines *MkLines) {
+// CheckVarorder checks that in simple package Makefiles,
+// the most common variables appear in a fixed order.
+// The order itself is a little arbitrary but provides
+// at least a bit of consistency.
+func (pkg *Package) CheckVarorder(mklines *MkLines) {
 	if trace.Tracing {
 		defer trace.Call0()()
 	}
@@ -597,195 +589,197 @@ func (pkg *Package) ChecklinesPackageMakefileVarorder(mklines *MkLines) {
 		return
 	}
 
-	type OccCount uint8
+	type Repetition uint8
 	const (
-		once OccCount = iota
-		optional
+		optional Repetition = iota
+		once
 		many
 	)
-	type OccDef struct {
-		varname string
-		count   OccCount
+	type Variable struct {
+		varname    string
+		repetition Repetition
 	}
-	type OccGroup struct {
-		name  string
-		count OccCount
-		occ   []OccDef
+	type Section struct {
+		repetition Repetition
+		vars       []Variable
 	}
+	variable := func(name string, repetition Repetition) Variable { return Variable{name, repetition} }
+	section := func(repetition Repetition, vars ...Variable) Section { return Section{repetition, vars} }
 
-	var sections = []OccGroup{
-		{"Initial comments", once,
-			[]OccDef{},
-		},
-		{"Unsorted stuff, part 1", once,
-			[]OccDef{
-				{"DISTNAME", optional},
-				{"PKGNAME", optional},
-				{"PKGREVISION", optional},
-				{"CATEGORIES", once},
-				{"MASTER_SITES", many},
-				{"DIST_SUBDIR", optional},
-				{"EXTRACT_SUFX", optional},
-				{"DISTFILES", many},
-				{"SITES.*", many},
-			},
-		},
-		{"Distribution patches", optional,
-			[]OccDef{
-				{"PATCH_SITES", optional}, // or once?
-				{"PATCH_SITE_SUBDIR", optional},
-				{"PATCHFILES", optional}, // or once?
-				{"PATCH_DIST_ARGS", optional},
-				{"PATCH_DIST_STRIP", optional},
-				{"PATCH_DIST_CAT", optional},
-			},
-		},
-		{"Unsorted stuff, part 2", once,
-			[]OccDef{
-				{"MAINTAINER", optional},
-				{"OWNER", optional},
-				{"HOMEPAGE", optional},
-				{"COMMENT", once},
-				{"LICENSE", once},
-			},
-		},
-		{"Legal issues", optional,
-			[]OccDef{
-				{"LICENSE_FILE", optional},
-				{"RESTRICTED", optional},
-				{"NO_BIN_ON_CDROM", optional},
-				{"NO_BIN_ON_FTP", optional},
-				{"NO_SRC_ON_CDROM", optional},
-				{"NO_SRC_ON_FTP", optional},
-			},
-		},
-		{"Technical restrictions", optional,
-			[]OccDef{
-				{"BROKEN_EXCEPT_ON_PLATFORM", many},
-				{"BROKEN_ON_PLATFORM", many},
-				{"NOT_FOR_PLATFORM", many},
-				{"ONLY_FOR_PLATFORM", many},
-				{"NOT_FOR_COMPILER", many},
-				{"ONLY_FOR_COMPILER", many},
-				{"NOT_FOR_UNPRIVILEGED", optional},
-				{"ONLY_FOR_UNPRIVILEGED", optional},
-			},
-		},
-		{"Dependencies", optional,
-			[]OccDef{
-				{"BUILD_DEPENDS", many},
-				{"TOOL_DEPENDS", many},
-				{"DEPENDS", many},
-			},
-		},
+	var sections = []Section{
+		section(once,
+			variable("GITHUB_PROJECT", optional), // either here or below MASTER_SITES
+			variable("GITHUB_TAG", optional),
+			variable("DISTNAME", optional),
+			variable("PKGNAME", optional),
+			variable("PKGREVISION", optional),
+			variable("CATEGORIES", once),
+			variable("MASTER_SITES", many),
+			variable("GITHUB_PROJECT", optional), // either here or at the very top
+			variable("GITHUB_TAG", optional),
+			variable("DIST_SUBDIR", optional),
+			variable("EXTRACT_SUFX", optional),
+			variable("DISTFILES", many),
+			variable("SITES.*", many)),
+		section(optional,
+			variable("PATCH_SITES", optional), // or once?
+			variable("PATCH_SITE_SUBDIR", optional),
+			variable("PATCHFILES", optional), // or once?
+			variable("PATCH_DIST_ARGS", optional),
+			variable("PATCH_DIST_STRIP", optional),
+			variable("PATCH_DIST_CAT", optional)),
+		section(once,
+			variable("MAINTAINER", optional),
+			variable("OWNER", optional),
+			variable("HOMEPAGE", optional),
+			variable("COMMENT", once),
+			variable("LICENSE", once)),
+		section(optional,
+			variable("LICENSE_FILE", optional),
+			variable("RESTRICTED", optional),
+			variable("NO_BIN_ON_CDROM", optional),
+			variable("NO_BIN_ON_FTP", optional),
+			variable("NO_SRC_ON_CDROM", optional),
+			variable("NO_SRC_ON_FTP", optional)),
+		section(optional,
+			variable("BROKEN_EXCEPT_ON_PLATFORM", many),
+			variable("BROKEN_ON_PLATFORM", many),
+			variable("NOT_FOR_PLATFORM", many),
+			variable("ONLY_FOR_PLATFORM", many),
+			variable("NOT_FOR_COMPILER", many),
+			variable("ONLY_FOR_COMPILER", many),
+			variable("NOT_FOR_UNPRIVILEGED", optional),
+			variable("ONLY_FOR_UNPRIVILEGED", optional)),
+		section(optional,
+			variable("BUILD_DEPENDS", many),
+			variable("TOOL_DEPENDS", many),
+			variable("DEPENDS", many)),
 	}
 
-	lineno := 0
-	sectindex := -1
-	varindex := 0
-	nextSection := true
-	var vars []OccDef
-	below := make(map[string]string)
-	var belowWhat string
-
-	// If the current section is optional but contains non-optional
-	// fields, the complete section may be skipped as long as there
-	// has not been a non-optional variable.
-	maySkipSection := false
-
-	// In each iteration, one of the following becomes true:
-	// - new lineno > old lineno
-	// - new sectindex > old sectindex
-	// - new sectindex == old sectindex && new varindex > old varindex
-	// - new nextSection == true && old nextSection == false
-	for lineno < len(mklines.lines) {
-		mkline := mklines.mklines[lineno]
-		line := mklines.lines[lineno]
-		text := line.Text
-
-		if trace.Tracing {
-			trace.Stepf("[varorder] section %d variable %d vars %v", sectindex, varindex, vars)
+	firstRelevant := -1
+	lastRelevant := -1
+	skip := func() bool {
+		relevantVars := make(map[string]bool)
+		for _, section := range sections {
+			for _, variable := range section.vars {
+				relevantVars[variable.varname] = true
+			}
 		}
 
-		if nextSection {
-			nextSection = false
-			sectindex++
-			if !(sectindex < len(sections)) {
-				break
-			}
-			vars = sections[sectindex].occ
-			maySkipSection = sections[sectindex].count == optional
-			varindex = 0
-		}
-
-		switch {
-		case hasPrefix(text, "#"):
-			lineno++
-
-		case mkline.IsVarassign():
-			varcanon := mkline.Varcanon()
-
-			if belowText, exists := below[varcanon]; exists {
-				if belowText != "" {
-					line.Warnf("%s appears too late. Please put it below %s.", varcanon, belowText)
-				} else {
-					line.Warnf("%s appears too late. It should be the very first definition.", varcanon)
-				}
-				lineno++
-				continue
-			}
-
-			for varindex < len(vars) && varcanon != vars[varindex].varname && (vars[varindex].count != once || maySkipSection) {
-				if vars[varindex].count == once {
-					maySkipSection = false
-				}
-				below[vars[varindex].varname] = belowWhat
-				varindex++
-			}
+		firstIrrelevant := -1
+		for i, mkline := range mklines.mklines {
 			switch {
-			case !(varindex < len(vars)):
-				if sections[sectindex].count != optional {
-					line.Warnf("Empty line expected.")
-				}
-				nextSection = true
-
-			case varcanon != vars[varindex].varname:
-				line.Warnf("Expected %s, but found %s.", vars[varindex].varname, varcanon)
-				lineno++
-
-			default:
-				if vars[varindex].count != many {
-					below[vars[varindex].varname] = belowWhat
-					varindex++
-				}
-				lineno++
-			}
-			belowWhat = varcanon
-
-		default:
-			for varindex < len(vars) {
-				varname := vars[varindex].varname
-				if vars[varindex].count == once && !maySkipSection {
-					if varname != "LICENSE" || pkg.once.FirstTime("LICENSE") {
-						line.Warnf("The canonical position for the required variable %s is here.", varname)
-						Explain(
-							"In simple package Makefiles, some common variables should be",
-							"arranged in a specific order.",
-							"",
-							"See doc/Makefile-example or the pkgsrc guide, section",
-							"\"Package components\", subsection \"Makefile\" for more information.")
+			case mkline.IsVarassign(), mkline.IsCommentedVarassign():
+				varcanon := mkline.Varcanon()
+				if relevantVars[varcanon] {
+					if firstRelevant == -1 {
+						firstRelevant = i
+					}
+					if firstIrrelevant != -1 {
+						if trace.Tracing {
+							trace.Stepf("Skipping varorder because of line %s.",
+								mklines.mklines[firstIrrelevant].Linenos())
+						}
+						return true
+					}
+					lastRelevant = i
+				} else {
+					if firstIrrelevant == -1 {
+						firstIrrelevant = i
 					}
 				}
-				below[varname] = belowWhat
-				varindex++
-			}
-			nextSection = true
-			if text == "" {
-				belowWhat = "the previous empty line"
-				lineno++
+
+			case mkline.IsComment(), mkline.IsEmpty():
+				break
+
+			default:
+				if firstIrrelevant == -1 {
+					firstIrrelevant = i
+				}
 			}
 		}
+
+		interesting := mklines.mklines[firstRelevant : lastRelevant+1]
+
+		varcanon := func() string {
+			for len(interesting) != 0 && interesting[0].IsComment() {
+				interesting = interesting[1:]
+			}
+			if len(interesting) != 0 && (interesting[0].IsVarassign() || interesting[0].IsCommentedVarassign()) {
+				return interesting[0].Varcanon()
+			}
+			return ""
+		}
+
+		for _, section := range sections {
+			for _, variable := range section.vars {
+				switch variable.repetition {
+				case optional:
+					if varcanon() == variable.varname {
+						interesting = interesting[1:]
+					}
+				case once:
+					if varcanon() == variable.varname {
+						interesting = interesting[1:]
+					} else if section.repetition == once {
+						if variable.varname != "LICENSE" {
+							if trace.Tracing {
+								trace.Stepf("Wrong varorder because %s is missing.", variable.varname)
+							}
+							return false
+						}
+					}
+				case many:
+					for varcanon() == variable.varname {
+						interesting = interesting[1:]
+					}
+				}
+			}
+
+			for len(interesting) != 0 && (interesting[0].IsEmpty() || interesting[0].IsComment()) {
+				interesting = interesting[1:]
+			}
+		}
+
+		return len(interesting) == 0
 	}
+
+	if skip() {
+		return
+	}
+
+	var canonical []string
+	for _, section := range sections {
+		for _, variable := range section.vars {
+			found := false
+			for _, mkline := range mklines.mklines[firstRelevant : lastRelevant+1] {
+				if mkline.IsVarassign() || mkline.IsCommentedVarassign() {
+					if mkline.Varcanon() == variable.varname {
+						canonical = append(canonical, mkline.Varname())
+						found = true
+					}
+				}
+			}
+			if !found && section.repetition == once && variable.repetition == once {
+				canonical = append(canonical, variable.varname)
+			}
+		}
+		if len(canonical) != 0 && canonical[len(canonical)-1] != "empty line" {
+			canonical = append(canonical, "empty line")
+		}
+	}
+	if len(canonical) != 0 && canonical[len(canonical)-1] == "empty line" {
+		canonical = canonical[:len(canonical)-1]
+	}
+
+	mkline := mklines.mklines[firstRelevant]
+	mkline.Warnf("The canonical order of the variables is %s.", strings.Join(canonical, ", "))
+	Explain(
+		"In simple package Makefiles, some common variables should be",
+		"arranged in a specific order.",
+		"",
+		"See doc/Makefile-example or the pkgsrc guide, section",
+		"\"Package components\", subsection \"Makefile\" for more information.")
 }
 
 func (mklines *MkLines) checkForUsedComment(relativeName string) {
@@ -828,8 +822,8 @@ func (pkg *Package) checkLocallyModified(fname string) {
 		defer trace.Call(fname)()
 	}
 
-	ownerLine := pkg.vardef["OWNER"]
-	maintainerLine := pkg.vardef["MAINTAINER"]
+	ownerLine := pkg.vars.FirstDefinition("OWNER")
+	maintainerLine := pkg.vars.FirstDefinition("MAINTAINER")
 	owner := ""
 	maintainer := ""
 	if ownerLine != nil && !containsVarRef(ownerLine.Value()) {

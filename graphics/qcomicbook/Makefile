@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.35 2018/01/11 23:43:06 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2018/03/12 11:16:49 wiz Exp $
 
 DISTNAME=		qcomicbook-0.9.0
-PKGREVISION=		32
+PKGREVISION=		33
 CATEGORIES=		graphics
 MASTER_SITES=		http://qcomicbook.org/releases/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://qcomicbook.org/
+HOMEPAGE=		https://github.com/stolowski/QComicBook
 COMMENT=		Viewer for comic book archives
 LICENSE=		gnu-gpl-v2
 

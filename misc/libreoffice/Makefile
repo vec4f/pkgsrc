@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.141 2018/02/03 00:39:50 ryoon Exp $
+# $NetBSD: Makefile,v 1.145 2018/03/12 11:17:08 wiz Exp $
 
-VERREL=		6.0.0
-VERRC=		3
+VERREL=		6.0.2
+VERRC=		1
 VER=		${VERREL}.${VERRC}
 DISTNAME=	libreoffice-${VER}
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	http://download.documentfoundation.org/libreoffice/src/${VERREL}/
 EXTRACT_SUFX=	.tar.xz
@@ -243,6 +244,13 @@ post-extract:
 .endfor
 	mkdir ${WRKSRC}/tmp
 #	mkdir ${WRKSRC}/${OBJDIR}
+
+pre-configure: provide-python3
+
+.PHONY: provide-python3
+provide-python3:
+	# install phase uses python3 command
+	${LN} -s ${PYTHONBIN} "${BUILDLINK_DIR}/bin/python3"
 
 do-install:
 	cd ${WRKSRC} && make DESTDIR="${DESTDIR}" PREFIXDIR="${PREFIX}" distro-pack-install

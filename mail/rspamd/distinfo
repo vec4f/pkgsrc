@@ -1,10 +1,9 @@
-$NetBSD: distinfo,v 1.18 2018/02/01 13:42:31 fhajny Exp $
+$NetBSD: distinfo,v 1.20 2018/03/13 15:09:15 fhajny Exp $
 
-SHA1 (rspamd-1.6.5.tar.gz) = 4b94519f1be3948e9c2c37c707b81671e984ac06
-RMD160 (rspamd-1.6.5.tar.gz) = f0f890e5ceb589371a7d7b286d9a4769524b06fc
-SHA512 (rspamd-1.6.5.tar.gz) = 789abc994cf96a0d88662e14f0e77f95f5c7c7bd1f808ffd64af21cf73cef643b5aee4c1f066d81d04e79d6bb7f72f12095ff08d8515a40bcca23153715fc9f1
-Size (rspamd-1.6.5.tar.gz) = 2484271 bytes
+SHA1 (rspamd-1.7.0.tar.gz) = 56fa8ff2ee8ef3ca3218c627bbda539cfbf824f4
+RMD160 (rspamd-1.7.0.tar.gz) = 18226f2ba789e6ff05d1bd5d4ea6ca5ec925c8ab
+SHA512 (rspamd-1.7.0.tar.gz) = 84f23e8732b1f0481f7cceb31f517038125fe69145c61fe3f478422898a4c04beeaf9ef4628309d46ec38223c77c2c6b707bbbdc69c11be5563ea7b17bea5b6a
+Size (rspamd-1.7.0.tar.gz) = 4444320 bytes
 SHA1 (patch-CMakeLists.txt) = 1d3e66b52ef38638674baf4c10b68c97b2ca38ad
-SHA1 (patch-config.h.in) = 0fdf35e3a4cd27305c50741a2e6df3ceea5c2a34
 SHA1 (patch-src_CMakeLists.txt) = c80015bb275ba8b9ad31491311275bf353f8f30a
-SHA1 (patch-src_lua_lua__util.c) = a30fb4cc65e4d31caab1c4053192e017ccedd825
+SHA1 (patch-src_libutil_util.c) = 7709d5b0e9ee8d6cb2d2818b3982152f1f1acfd1

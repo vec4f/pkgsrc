@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"gopkg.in/check.v1"
+	"sort"
 )
 
 func (s *Suite) Test_MkLines_Check__autofix_conditional_indentation(c *check.C) {
@@ -9,7 +11,7 @@ func (s *Suite) Test_MkLines_Check__autofix_conditional_indentation(c *check.C) 
 
 	t.SetupCommandLine("--autofix", "-Wspace")
 	lines := t.SetupFileLines("fname.mk",
-		MkRcsId,
+		MkRcsID,
 		".if defined(A)",
 		".for a in ${A}",
 		".if defined(C)",
@@ -39,7 +41,7 @@ func (s *Suite) Test_MkLines_Check__unusual_target(c *check.C) {
 	t := s.Init(c)
 
 	mklines := t.NewMkLines("Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"echo: echo.c",
 		"\tcc -o ${.TARGET} ${.IMPSRC}")
@@ -69,7 +71,7 @@ func (s *Suite) Test_MkLines_quoting_LDFLAGS_for_GNU_configure(c *check.C) {
 	G.globalData.InitVartypes()
 	G.Pkg = NewPackage("category/pkgbase")
 	mklines := t.NewMkLines("Makefile",
-		MkRcsId,
+		MkRcsID,
 		"GNU_CONFIGURE=\tyes",
 		"CONFIGURE_ENV+=\tX_LIBS=${X11_LDFLAGS:Q}")
 
@@ -88,7 +90,7 @@ func (s *Suite) Test_MkLines__for_loop_multiple_variables(c *check.C) {
 	t.SetupTool(&Tool{Name: "find", Varname: "FIND", Predefined: true})
 	t.SetupTool(&Tool{Name: "pax", Varname: "PAX", Predefined: true})
 	mklines := t.NewMkLines("Makefile", // From audio/squeezeboxserver
-		MkRcsId,
+		MkRcsID,
 		"",
 		".for _list_ _dir_ in ${SBS_COPY}",
 		"\tcd ${WRKSRC} && ${FIND} ${${_list_}} -type f ! -name '*.orig' 2>/dev/null "+
@@ -109,7 +111,7 @@ func (s *Suite) Test_MkLines__comparing_YesNo_variable_to_string(c *check.C) {
 	t.SetupCommandLine("-Wall")
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("databases/gdbm_compat/builtin.mk",
-		MkRcsId,
+		MkRcsID,
 		".if ${USE_BUILTIN.gdbm} == \"no\"",
 		".endif",
 		".if ${USE_BUILTIN.gdbm:tu} == \"no\"", // Can never be true, since "no" is not uppercase.
@@ -128,7 +130,7 @@ func (s *Suite) Test_MkLines__varuse_sh_modifier(c *check.C) {
 	t.SetupCommandLine("-Wall")
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("lang/qore/module.mk",
-		MkRcsId,
+		MkRcsID,
 		"qore-version=\tqore --short-version | ${SED} -e s/-.*//",
 		"PLIST_SUBST+=\tQORE_VERSION=\"${qore-version:sh}\"")
 
@@ -152,7 +154,7 @@ func (s *Suite) Test_MkLines__varuse_parameterized(c *check.C) {
 	t.SetupCommandLine("-Wall")
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("converters/wv2/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"CONFIGURE_ARGS+=\t\t${CONFIGURE_ARGS.${ICONV_TYPE}-iconv}",
 		"CONFIGURE_ARGS.gnu-iconv=\t--with-libiconv=${BUILDLINK_PREFIX.iconv}")
 
@@ -162,13 +164,17 @@ func (s *Suite) Test_MkLines__varuse_parameterized(c *check.C) {
 	t.CheckOutputEmpty()
 }
 
+// Even very complicated shell commands are parsed correctly.
+// Since the variable is defined in this same Makefile, it is
+// assumed to be a known shell command and therefore does not need
+// USE_TOOLS or a similar declaration.
 func (s *Suite) Test_MkLines__loop_modifier(c *check.C) {
 	t := s.Init(c)
 
 	t.SetupCommandLine("-Wall")
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("chat/xchat/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"GCONF_SCHEMAS=\tapps_xchat_url_handler.schemas",
 		"post-install:",
 		"\t${GCONF_SCHEMAS:@.s.@"+
@@ -176,11 +182,8 @@ func (s *Suite) Test_MkLines__loop_modifier(c *check.C) {
 
 	mklines.Check()
 
-	t.CheckOutputLines(
-		// No warning about missing @ at the end
-		"WARN: chat/xchat/Makefile:4: " +
-			"Unknown shell command \"${GCONF_SCHEMAS:@.s.@" +
-			"${INSTALL_DATA} ${WRKSRC}/src/common/dbus/${.s.} ${DESTDIR}${GCONF_SCHEMAS_DIR}/@}\".")
+	// Earlier versions of pkglint warned about a missing @ at the end.
+	t.CheckOutputEmpty()
 }
 
 // PR 46570
@@ -189,7 +192,7 @@ func (s *Suite) Test_MkLines__PKG_SKIP_REASON_depending_on_OPSYS(c *check.C) {
 
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("Makefile",
-		MkRcsId,
+		MkRcsID,
 		"PKG_SKIP_REASON+=\t\"Fails everywhere\"",
 		".if ${OPSYS} == \"Cygwin\"",
 		"PKG_SKIP_REASON+=\t\"Fails on Cygwin\"",
@@ -207,7 +210,7 @@ func (s *Suite) Test_MkLines__indirect_variables(c *check.C) {
 
 	t.SetupCommandLine("-Wall")
 	mklines := t.NewMkLines("net/uucp/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"post-configure:",
 		".for var in MAIL_PROGRAM CMDPATH",
@@ -226,7 +229,7 @@ func (s *Suite) Test_MkLines_Check__list_variable_as_part_of_word(c *check.C) {
 
 	t.SetupCommandLine("-Wall")
 	mklines := t.NewMkLines("converters/chef/Makefile",
-		MkRcsId,
+		MkRcsID,
 		"\tcd ${WRKSRC} && tr '\\r' '\\n' < ${DISTDIR}/${DIST_SUBDIR}/${DISTFILES} > chef.l")
 
 	mklines.Check()
@@ -242,7 +245,7 @@ func (s *Suite) Test_MkLines_Check__absolute_pathname_depending_on_OPSYS(c *chec
 	t.SetupCommandLine("-Wall")
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("games/heretic2-demo/Makefile",
-		MkRcsId,
+		MkRcsID,
 		".if ${OPSYS} == \"DragonFly\"",
 		"TOOLS_PLATFORM.gtar=\t/usr/bin/bsdtar",
 		".endif",
@@ -263,7 +266,7 @@ func (s *Suite) Test_MkLines_checkForUsedComment(c *check.C) {
 
 	t.SetupCommandLine("--show-autofix")
 	t.NewMkLines("Makefile.common",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"# used by sysutils/mc",
 	).checkForUsedComment("sysutils/mc")
@@ -275,20 +278,20 @@ func (s *Suite) Test_MkLines_checkForUsedComment(c *check.C) {
 	t.CheckOutputEmpty()
 
 	t.NewMkLines("Makefile.common",
-		MkRcsId,
+		MkRcsID,
 	).checkForUsedComment("category/package")
 
 	t.CheckOutputEmpty()
 
 	t.NewMkLines("Makefile.common",
-		MkRcsId,
+		MkRcsID,
 		"",
 	).checkForUsedComment("category/package")
 
 	t.CheckOutputEmpty()
 
 	t.NewMkLines("Makefile.common",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"VARNAME=\tvalue",
 	).checkForUsedComment("category/package")
@@ -298,7 +301,7 @@ func (s *Suite) Test_MkLines_checkForUsedComment(c *check.C) {
 		"AUTOFIX: Makefile.common:2: Inserting a line \"# used by category/package\" before this line.")
 
 	t.NewMkLines("Makefile.common",
-		MkRcsId,
+		MkRcsID,
 		"#",
 		"#",
 	).checkForUsedComment("category/package")
@@ -320,8 +323,8 @@ func (s *Suite) Test_MkLines_DetermineUsedVariables__simple(c *check.C) {
 
 	mklines.DetermineUsedVariables()
 
-	c.Check(len(mklines.varuse), equals, 1)
-	c.Check(mklines.varuse["VAR"], equals, mkline)
+	c.Check(len(mklines.vars.used), equals, 1)
+	c.Check(mklines.vars.FirstUse("VAR"), equals, mkline)
 }
 
 func (s *Suite) Test_MkLines_DetermineUsedVariables__nested(c *check.C) {
@@ -334,10 +337,10 @@ func (s *Suite) Test_MkLines_DetermineUsedVariables__nested(c *check.C) {
 
 	mklines.DetermineUsedVariables()
 
-	c.Check(len(mklines.varuse), equals, 3)
-	c.Check(mklines.varuse["inner"], equals, mkline)
-	c.Check(mklines.varuse["outer."], equals, mkline)
-	c.Check(mklines.varuse["outer.*"], equals, mkline)
+	c.Check(len(mklines.vars.used), equals, 3)
+	c.Check(mklines.vars.FirstUse("inner"), equals, mkline)
+	c.Check(mklines.vars.FirstUse("outer."), equals, mkline) // XXX: why the . at the end?
+	c.Check(mklines.vars.FirstUse("outer.*"), equals, mkline)
 }
 
 func (s *Suite) Test_MkLines_PrivateTool_Undefined(c *check.C) {
@@ -346,7 +349,7 @@ func (s *Suite) Test_MkLines_PrivateTool_Undefined(c *check.C) {
 	t.SetupCommandLine("-Wall")
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("fname",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"\tmd5sum filename")
 
@@ -362,7 +365,7 @@ func (s *Suite) Test_MkLines_PrivateTool_Defined(c *check.C) {
 	t.SetupCommandLine("-Wall")
 	G.globalData.InitVartypes()
 	mklines := t.NewMkLines("fname",
-		MkRcsId,
+		MkRcsID,
 		"TOOLS_CREATE+=\tmd5sum",
 		"",
 		"\tmd5sum filename")
@@ -377,7 +380,7 @@ func (s *Suite) Test_MkLines_Check_indentation(c *check.C) {
 
 	t.SetupCommandLine("-Wall")
 	mklines := t.NewMkLines("options.mk",
-		MkRcsId,
+		MkRcsID,
 		". if !defined(GUARD_MK)",
 		". if ${OPSYS} == ${OPSYS}",
 		".   for i in ${FILES}",
@@ -423,7 +426,7 @@ func (s *Suite) Test_MkLines_wip_category_Makefile(c *check.C) {
 	G.globalData.InitVartypes()
 	t.SetupTool(&Tool{Name: "rm", Varname: "RM", Predefined: true})
 	mklines := t.NewMkLines("Makefile",
-		MkRcsId,
+		MkRcsID,
 		"",
 		"COMMENT=\tWIP pkgsrc packages",
 		"",
@@ -442,4 +445,51 @@ func (s *Suite) Test_MkLines_wip_category_Makefile(c *check.C) {
 
 	t.CheckOutputLines(
 		"ERROR: Makefile:14: \"/mk/misc/category.mk\" does not exist.")
+}
+
+func (s *Suite) Test_MkLines_ExtractDocumentedVariables(c *check.C) {
+	t := s.Init(c)
+
+	t.SetupCommandLine("-Wall")
+	G.globalData.InitVartypes()
+	t.SetupTool(&Tool{Name: "rm", Varname: "RM", Predefined: true})
+	mklines := t.NewMkLines("Makefile",
+		MkRcsID,
+		"#",
+		"# User-settable variables:",
+		"#",
+		"# PKG_DEBUG_LEVEL",
+		"#\tHow verbose should pkgsrc be when running shell commands?",
+		"#",
+		"#\t* 0:\tdon't show most shell ...",
+		"",
+		"# PKG_VERBOSE",
+		"#\tWhen this variable is defined, pkgsrc gets a bit more verbose",
+		"#\t(i.e. \"-v\" option is passed to some commands ...",
+		"",
+		"# VARIABLE",
+		"#\tA paragraph of a single line is not enough to be recognized as \"relevant\".",
+		"",
+		"# VARBASE1.<param1>",
+		"# VARBASE2.*",
+		"# VARBASE3.${id}")
+
+	// The variables that appear in the documentation are marked as
+	// used, to prevent the "defined but not used" warnings.
+	mklines.determineDocumentedVariables()
+
+	var varnames []string
+	for varname, mkline := range mklines.vars.used {
+		varnames = append(varnames, fmt.Sprintf("%s (line %s)", varname, mkline.Linenos()))
+	}
+	sort.Strings(varnames)
+
+	expected := []string{
+		"PKG_DEBUG_LEVEL (line 5)",
+		"PKG_VERBOSE (line 10)",
+		"VARBASE1.* (line 17)",
+		"VARBASE2.* (line 18)",
+		"VARBASE3.${id} (line 19)",
+		"VARBASE3.* (line 19)"}
+	c.Check(varnames, deepEquals, expected)
 }

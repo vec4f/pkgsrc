@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.54 2017/01/19 18:52:08 agc Exp $
+# $NetBSD: Makefile,v 1.56 2018/02/27 23:56:09 khorben Exp $
 
 SNESVER=		1.43
 DISTNAME=		snes9x-${SNESVER}-src
 PKGNAME=		snes9x-${SNESVER}
+PKGREVISION=		1
 CATEGORIES=		emulators
 MASTER_SITES=		http://www.lysator.liu.se/snes9x/${SNESVER}/
 MASTER_SITES+=		http://files.ipherswipsite.com/snes9x/
@@ -88,7 +89,7 @@ MAKE_ENV+=	USBHID_H=1
 
 BUILDLINK_DEPMETHOD.libXt?=	build
 
-.include "../../devel/libusb/buildlink3.mk"
+.include "../../mk/libusb.buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"

@@ -1,14 +1,12 @@
-# $NetBSD: Makefile,v 1.89 2018/01/10 22:16:26 wiz Exp $
+# $NetBSD: Makefile,v 1.91 2018/03/12 11:17:28 wiz Exp $
 
 DISTNAME=		poppler-${VERSION}
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-${DISTNAME}
-PKGREVISION=		2
+PKGREVISION=		3
 COMMENT=		Ruby binding of poppler-glib
 CATEGORIES=		print
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-
-CONFLICTS+=		ruby[0-9][0-9]-gnome2-poppler-[0-9]*
 
 DEPENDS+=		${RUBY_PKGPREFIX}-gnome2-gio>=${VERSION}:../../devel/ruby-gnome2-gio
 DEPENDS+=		${RUBY_PKGPREFIX}-gnome2-cairo-gobject>=${VERSION}:../../graphics/ruby-gnome2-cairo-gobject

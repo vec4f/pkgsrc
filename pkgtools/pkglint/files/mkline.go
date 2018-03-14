@@ -9,6 +9,10 @@ import (
 	"strings"
 )
 
+// MkLine is a line from a Makefile fragment.
+// There are several types of lines.
+// The most common types in pkgsrc are variable assignments,
+// shell commands and preprocessor instructions.
 type MkLine = *MkLineImpl
 
 type MkLineImpl struct {
@@ -47,13 +51,11 @@ type mkLineDependency struct {
 	sources string
 }
 
-func NewMkLine(line Line) (mkline *MkLineImpl) {
-	mkline = &MkLineImpl{Line: line}
-
+func NewMkLine(line Line) *MkLineImpl {
 	text := line.Text
 
 	if hasPrefix(text, " ") {
-		mkline.Warnf("Makefile lines should not start with space characters.")
+		line.Warnf("Makefile lines should not start with space characters.")
 		Explain(
 			"If you want this line to contain a shell program, use a tab",
 			"character for indentation.  Otherwise please remove the leading",
@@ -85,7 +87,7 @@ func NewMkLine(line Line) (mkline *MkLineImpl) {
 		value = strings.Replace(value, "\\#", "#", -1)
 		varparam := varnameParam(varname)
 
-		mkline.data = mkLineAssign{
+		return &MkLineImpl{line, mkLineAssign{
 			commented,
 			varname,
 			varnameCanon(varname),
@@ -93,58 +95,48 @@ func NewMkLine(line Line) (mkline *MkLineImpl) {
 			NewMkOperator(op),
 			valueAlign,
 			value,
-			comment}
-		mkline.Tokenize(value)
-		return
+			comment}}
 	}
 
 	if hasPrefix(text, "\t") {
 		shellcmd := text[1:]
-		mkline.data = mkLineShell{shellcmd}
-		mkline.Tokenize(shellcmd)
-		return
+		return &MkLineImpl{line, mkLineShell{shellcmd}}
 	}
 
 	trimmedText := strings.TrimSpace(text)
 	if strings.HasPrefix(trimmedText, "#") {
-		mkline.data = mkLineComment{}
-		return
+		return &MkLineImpl{line, mkLineComment{}}
 	}
 
 	if trimmedText == "" {
-		mkline.data = mkLineEmpty{}
-		return
+		return &MkLineImpl{line, mkLineEmpty{}}
 	}
 
 	if m, indent, directive, args := matchMkCond(text); m {
-		mkline.data = mkLineConditional{indent, directive, args}
-		return
+		return &MkLineImpl{line, mkLineConditional{indent, directive, args}}
 	}
 
 	if m, indent, directive, includefile := MatchMkInclude(text); m {
-		mkline.data = mkLineInclude{directive == "include", false, indent, includefile, ""}
-		return
+		return &MkLineImpl{line, mkLineInclude{directive == "include", false, indent, includefile, ""}}
 	}
 
 	if m, indent, directive, includefile := match3(text, `^\.(\s*)(s?include)\s+<([^>]+)>\s*(?:#.*)?$`); m {
-		mkline.data = mkLineInclude{directive == "include", true, indent, includefile, ""}
-		return
+		return &MkLineImpl{line, mkLineInclude{directive == "include", true, indent, includefile, ""}}
 	}
 
 	if m, targets, whitespace, sources := match3(text, `^([^\s:]+(?:\s*[^\s:]+)*)(\s*):\s*([^#]*?)(?:\s*#.*)?$`); m {
-		mkline.data = mkLineDependency{targets, sources}
 		if whitespace != "" {
 			line.Warnf("Space before colon in dependency line.")
 		}
-		return
+		return &MkLineImpl{line, mkLineDependency{targets, sources}}
 	}
 
 	if matches(text, `^(<<<<<<<|=======|>>>>>>>)`) {
-		return
+		return &MkLineImpl{line, nil}
 	}
 
 	line.Errorf("Unknown Makefile line format.")
-	return mkline
+	return &MkLineImpl{line, nil}
 }
 
 func (mkline *MkLineImpl) String() string {
@@ -203,14 +195,33 @@ func (mkline *MkLineImpl) IsDependency() bool {
 	return ok
 }
 
-func (mkline *MkLineImpl) Varname() string  { return mkline.data.(mkLineAssign).varname }
+// Varname applies to variable assignments and returns the variable name, exactly as given in the Makefile.
+func (mkline *MkLineImpl) Varname() string { return mkline.data.(mkLineAssign).varname }
+
+// Varcanon applies to variable assignments and returns the canonicalized variable name for parameterized variables.
+// Examples:
+//  HOMEPAGE           => HOMEPAGE
+//  SUBST_SED.anything => SUBST_SED.*
 func (mkline *MkLineImpl) Varcanon() string { return mkline.data.(mkLineAssign).varcanon }
+
+// Varparam applies to variable assignments and returns the parameter for parameterized variables.
+// Examples:
+//  HOMEPAGE           => ""
+//  SUBST_SED.anything => anything
 func (mkline *MkLineImpl) Varparam() string { return mkline.data.(mkLineAssign).varparam }
-func (mkline *MkLineImpl) Op() MkOperator   { return mkline.data.(mkLineAssign).op }
+
+// Op applies to variable assignments and returns the assignment operator.
+func (mkline *MkLineImpl) Op() MkOperator { return mkline.data.(mkLineAssign).op }
 
 // For a variable assignment, the text up to and including the assignment operator, e.g. VARNAME+=\t
-func (mkline *MkLineImpl) ValueAlign() string       { return mkline.data.(mkLineAssign).valueAlign }
-func (mkline *MkLineImpl) Value() string            { return mkline.data.(mkLineAssign).value }
+func (mkline *MkLineImpl) ValueAlign() string { return mkline.data.(mkLineAssign).valueAlign }
+func (mkline *MkLineImpl) Value() string      { return mkline.data.(mkLineAssign).value }
+
+// VarassignComment applies to variable assignments and returns the comment.
+// Example:
+//  VAR=value # comment
+// In the above line, the comment is "# comment".
+// The leading "#" is included so that pkglint can distinguish between no comment at all and an empty comment.
 func (mkline *MkLineImpl) VarassignComment() string { return mkline.data.(mkLineAssign).comment }
 func (mkline *MkLineImpl) Shellcmd() string         { return mkline.data.(mkLineShell).command }
 func (mkline *MkLineImpl) Indent() string {
@@ -412,18 +423,18 @@ func (mkline *MkLineImpl) VariableNeedsQuoting(varname string, vartype *Vartype,
 		return nqNo
 	}
 
-	// Determine whether the context expects a list of shell words or not.
-	wantList := vuc.vartype.IsConsideredList()
-	haveList := vartype.IsConsideredList()
-	if trace.Tracing {
-		trace.Stepf("wantList=%v, haveList=%v", wantList, haveList)
-	}
-
 	// A shell word may appear as part of a shell word, for example COMPILER_RPATH_FLAG.
 	if vuc.IsWordPart && vuc.quoting == vucQuotPlain {
 		if vartype.kindOfList == lkNone && vartype.basicType == BtShellWord {
 			return nqNo
 		}
+	}
+
+	// Determine whether the context expects a list of shell words or not.
+	wantList := vuc.vartype.IsConsideredList()
+	haveList := vartype.IsConsideredList()
+	if trace.Tracing {
+		trace.Stepf("wantList=%v, haveList=%v", wantList, haveList)
 	}
 
 	// Both of these can be correct, depending on the situation:
@@ -518,15 +529,15 @@ func (mkline *MkLineImpl) VariableType(varname string) *Vartype {
 				perms |= aclpUseLoadtime
 			}
 		}
-		return &Vartype{lkNone, BtShellCommand, []AclEntry{{"*", perms}}, false}
+		return &Vartype{lkNone, BtShellCommand, []ACLEntry{{"*", perms}}, false}
 	}
 
 	if m, toolvarname := match1(varname, `^TOOLS_(.*)`); m && G.globalData.Tools.byVarname[toolvarname] != nil {
-		return &Vartype{lkNone, BtPathname, []AclEntry{{"*", aclpUse}}, false}
+		return &Vartype{lkNone, BtPathname, []ACLEntry{{"*", aclpUse}}, false}
 	}
 
-	allowAll := []AclEntry{{"*", aclpAll}}
-	allowRuntime := []AclEntry{{"*", aclpAllRuntime}}
+	allowAll := []ACLEntry{{"*", aclpAll}}
+	allowRuntime := []ACLEntry{{"*", aclpAllRuntime}}
 
 	// Guess the datatype of the variable based on naming conventions.
 	varbase := varnameBase(varname)
@@ -635,7 +646,6 @@ func (mkline *MkLineImpl) DetermineUsedVariables() (varnames []string) {
 		varnames = append(varnames, varname)
 		rest = rest[:m[0]] + rest[m[1]:]
 	}
-	return
 }
 
 // VarUseContext defines the context in which a variable is defined

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2018/01/28 20:11:00 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2018/03/12 11:17:23 wiz Exp $
 
 DISTNAME=	samba-${VERSION}
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	http://download.samba.org/pub/samba/stable/
 
@@ -90,7 +90,7 @@ CONFIGURE_ARGS+=	--with-libiconv=${BUILDLINK_PREFIX.iconv}
 #CONFIGURE_ARGS+=	--bundled-libraries=com_err
 CONFIGURE_ARGS+=	--enable-gnutls
 CONFIGURE_ARGS+=	--abi-check-disable
-#CONFIGURE_ARGS+=	--bundled-libraries=!crypto,ldb,ntdb,talloc,tdb,tevent
+#CONFIGURE_ARGS+=	--bundled-libraries=!crypto,ldb,ntdb,!talloc,tdb,tevent
 .if defined(MAKE_JOBS) && !empty(MAKE_JOBS) && !(defined(MAKE_JOBS_SAFE) && !empty(MAKE_JOBS_SAFE:M[nN][oO]))
 CONFIGURE_ARGS+=	--jobs=${MAKE_JOBS}
 .else
@@ -200,4 +200,6 @@ PY_PATCHPLIST=	yes
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/gnutls/buildlink3.mk"
+BUILDLINK_API_DEPENDS.talloc+=	talloc>=2.1.9
+.include "../../devel/talloc/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.63 2018/01/28 20:10:44 wiz Exp $
+# $NetBSD: Makefile,v 1.65 2018/03/12 11:16:11 wiz Exp $
 
 DISTNAME=		spectrum-1.4.8
-PKGREVISION=		41
+PKGREVISION=		42
 CATEGORIES=		chat
 MASTER_SITES=		https://cloud.github.com/downloads/hanzz/libtransport/
 
 MAINTAINER=		schnoebe@NetBSD.org
-HOMEPAGE=		http://spectrum.im/
+HOMEPAGE=		https://spectrum.im/
 COMMENT=		XMPP transport/gateway based on libpurple
 LICENSE=		gnu-gpl-v3
 

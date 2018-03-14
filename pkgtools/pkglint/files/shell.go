@@ -24,7 +24,7 @@ func NewShellLine(mkline MkLine) *ShellLine {
 	return &ShellLine{mkline}
 }
 
-var shellcommandsContextType = &Vartype{lkNone, BtShellCommands, []AclEntry{{"*", aclpAllRuntime}}, false}
+var shellcommandsContextType = &Vartype{lkNone, BtShellCommands, []ACLEntry{{"*", aclpAllRuntime}}, false}
 var shellwordVuc = &VarUseContext{shellcommandsContextType, vucTimeUnknown, vucQuotPlain, false}
 
 func (shline *ShellLine) CheckWord(token string, checkQuoting bool) {
@@ -457,7 +457,7 @@ func (scc *SimpleCommandChecker) checkCommandStart() {
 	case scc.handleCommandVariable():
 	case matches(shellword, `^(?::|break|cd|continue|eval|exec|exit|export|read|set|shift|umask|unset)$`):
 	case hasPrefix(shellword, "./"): // All commands from the current directory are fine.
-	case hasPrefix(shellword, "${PKGSRCDIR"): // With or without the :Q modifier
+	case matches(shellword, `\$\{(PKGSRCDIR|PREFIX)(:Q)?\}`):
 	case scc.handleComment():
 	default:
 		if G.opts.WarnExtra && !(G.Mk != nil && G.Mk.indentation.DependsOn("OPSYS")) {
@@ -520,7 +520,9 @@ func (scc *SimpleCommandChecker) handleCommandVariable() bool {
 	}
 
 	shellword := scc.strcmd.Name
-	if m, varname := match1(shellword, `^\$\{([\w_]+)\}$`); m {
+	parser := NewMkParser(scc.shline.mkline.Line, shellword, false)
+	if varuse := parser.VarUse(); varuse != nil && parser.EOF() {
+		varname := varuse.varname
 
 		if tool := G.globalData.Tools.byVarname[varname]; tool != nil {
 			if !G.Mk.tools[tool.Name] {
@@ -537,7 +539,10 @@ func (scc *SimpleCommandChecker) handleCommandVariable() bool {
 
 		// When the package author has explicitly defined a command
 		// variable, assume it to be valid.
-		if G.Pkg != nil && G.Pkg.vardef[varname] != nil {
+		if G.Mk != nil && G.Mk.vars.DefinedSimilar(varname) {
+			return true
+		}
+		if G.Pkg != nil && G.Pkg.vars.DefinedSimilar(varname) {
 			return true
 		}
 	}
@@ -772,7 +777,7 @@ func (spc *ShellProgramChecker) checkWord(word *ShToken, checkQuoting bool) {
 	spc.shline.CheckWord(word.MkText, checkQuoting)
 }
 
-func (scc *ShellProgramChecker) checkPipeExitcode(line Line, pipeline *MkShPipeline) {
+func (spc *ShellProgramChecker) checkPipeExitcode(line Line, pipeline *MkShPipeline) {
 	if trace.Tracing {
 		defer trace.Call()()
 	}
@@ -827,7 +832,7 @@ func (scc *ShellProgramChecker) checkPipeExitcode(line Line, pipeline *MkShPipel
 	}
 }
 
-func (scc *ShellProgramChecker) checkSetE(list *MkShList, eflag *bool) {
+func (spc *ShellProgramChecker) checkSetE(list *MkShList, eflag *bool) {
 	if trace.Tracing {
 		defer trace.Call()()
 	}
@@ -835,7 +840,7 @@ func (scc *ShellProgramChecker) checkSetE(list *MkShList, eflag *bool) {
 	// Disabled until the shell parser can recognize "command || exit 1" reliably.
 	if false && G.opts.WarnExtra && !*eflag && "the current token" == ";" {
 		*eflag = true
-		scc.shline.mkline.Warnf("Please switch to \"set -e\" mode before using a semicolon (the one after %q) to separate commands.", "previous token")
+		spc.shline.mkline.Warnf("Please switch to \"set -e\" mode before using a semicolon (the one after %q) to separate commands.", "previous token")
 		Explain(
 			"Normally, when a shell command fails (returns non-zero), the",
 			"remaining commands are still executed.  For example, the following",

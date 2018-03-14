@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.15 2017/05/12 11:55:46 jperkin Exp $
+# $NetBSD: Makefile,v 1.18 2018/03/12 11:17:11 wiz Exp $
 
 DISTNAME=	ffmpeg2theora-0.30
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	multimedia
 MASTER_SITES=	http://v2v.cc/~j/ffmpeg2theora/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -35,7 +35,7 @@ do-install:
 
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
-.include "../../multimedia/ffmpeg2/buildlink3.mk"
+.include "../../multimedia/ffmpeg3/buildlink3.mk"
 .include "../../multimedia/libogg/buildlink3.mk"
 .include "../../multimedia/libtheora/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

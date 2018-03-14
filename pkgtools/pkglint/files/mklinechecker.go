@@ -166,7 +166,7 @@ func (ck MkLineChecker) checkCond(forVars map[string]bool, indentation *Indentat
 				}
 			}
 
-			forLoopType := &Vartype{lkSpace, BtUnknown, []AclEntry{{"*", aclpAllRead}}, guessed}
+			forLoopType := &Vartype{lkSpace, BtUnknown, []ACLEntry{{"*", aclpAllRead}}, guessed}
 			forLoopContext := &VarUseContext{forLoopType, vucTimeParse, vucQuotFor, false}
 			for _, forLoopVar := range mkline.ExtractUsedVariables(values) {
 				ck.CheckVaruse(&MkVarUse{forLoopVar, nil}, forLoopContext)
@@ -256,7 +256,7 @@ func (ck MkLineChecker) checkVarassignDefPermissions() {
 	}
 
 	perms := vartype.EffectivePermissions(mkline.Filename)
-	var needed AclPermissions
+	var needed ACLPermissions
 	switch op {
 	case opAssign, opAssignShell, opAssignEval:
 		needed = aclpSet
@@ -454,7 +454,7 @@ func (ck MkLineChecker) CheckVarusePermissions(varname string, vartype *Vartype,
 }
 
 func (ck MkLineChecker) WarnVaruseLocalbase() {
-	ck.MkLine.Warnf("The LOCALBASE variable should not be used by packages.")
+	ck.MkLine.Warnf("Please use PREFIX instead of LOCALBASE.")
 	Explain(
 		// from jlam via private mail.
 		"Currently, LOCALBASE is typically used in these cases:",
@@ -465,6 +465,7 @@ func (ck MkLineChecker) WarnVaruseLocalbase() {
 		"Example for (1):",
 		"",
 		"	STRLIST=        ${LOCALBASE}/bin/strlist",
+		"",
 		"	do-build:",
 		"		cd ${WRKSRC} && ${STRLIST} *.str",
 		"",
@@ -472,6 +473,7 @@ func (ck MkLineChecker) WarnVaruseLocalbase() {
 		"",
 		"	EVAL_PREFIX=    STRLIST_PREFIX=strlist",
 		"	STRLIST=        ${STRLIST_PREFIX}/bin/strlist",
+		"",
 		"	do-build:",
 		"		cd ${WRKSRC} && ${STRLIST} *.str",
 		"",
@@ -502,6 +504,8 @@ func (ck MkLineChecker) checkVaruseFor(varname string, vartype *Vartype, needsQu
 	}
 }
 
+// CheckVaruseShellword checks whether a variable use of the form ${VAR}
+// or ${VAR:Modifier} is allowed in a certain context.
 func (ck MkLineChecker) CheckVaruseShellword(varname string, vartype *Vartype, vuc *VarUseContext, mod string, needsQuoting NeedsQuoting) {
 	if trace.Tracing {
 		defer trace.Call(varname, vartype, vuc, mod, needsQuoting)()
@@ -513,7 +517,7 @@ func (ck MkLineChecker) CheckVaruseShellword(varname string, vartype *Vartype, v
 	//
 	// When doing checks outside a package, the :M* operator is needed for safety.
 	needMstar := matches(varname, `^(?:.*_)?(?:CFLAGS||CPPFLAGS|CXXFLAGS|FFLAGS|LDFLAGS|LIBS)$`) &&
-		(G.Pkg == nil || G.Pkg.vardef["GNU_CONFIGURE"] != nil)
+		(G.Pkg == nil || G.Pkg.vars.Defined("GNU_CONFIGURE"))
 
 	strippedMod := mod
 	if m, stripped := match1(mod, `(.*?)(?::M\*)?(?::Q)?$`); m {
@@ -527,24 +531,31 @@ func (ck MkLineChecker) CheckVaruseShellword(varname string, vartype *Vartype, v
 	} else if needsQuoting == nqYes {
 		correctMod := strippedMod + ifelseStr(needMstar, ":M*:Q", ":Q")
 		if correctMod == mod+":Q" && vuc.IsWordPart && !vartype.IsShell() {
-			mkline.Warnf("The list variable %s should not be embedded in a word.", varname)
-			Explain(
-				"When a list variable has multiple elements, this expression expands",
-				"to something unexpected:",
-				"",
-				"Example: ${MASTER_SITE_SOURCEFORGE}directory/ expands to",
-				"",
-				"\thttps://mirror1.sf.net/ https://mirror2.sf.net/directory/",
-				"",
-				"The first URL is missing the directory.  To fix this, write",
-				"\t${MASTER_SITE_SOURCEFORGE:=directory/}.",
-				"",
-				"Example: -l${LIBS} expands to",
-				"",
-				"\t-llib1 lib2",
-				"",
-				"The second library is missing the -l.  To fix this, write",
-				"${LIBS:@lib@-l${lib}@}.")
+			if vartype.IsConsideredList() {
+				mkline.Warnf("The list variable %s should not be embedded in a word.", varname)
+				Explain(
+					"When a list variable has multiple elements, this expression expands",
+					"to something unexpected:",
+					"",
+					"Example: ${MASTER_SITE_SOURCEFORGE}directory/ expands to",
+					"",
+					"\thttps://mirror1.sf.net/ https://mirror2.sf.net/directory/",
+					"",
+					"The first URL is missing the directory.  To fix this, write",
+					"\t${MASTER_SITE_SOURCEFORGE:=directory/}.",
+					"",
+					"Example: -l${LIBS} expands to",
+					"",
+					"\t-llib1 lib2",
+					"",
+					"The second library is missing the -l.  To fix this, write",
+					"${LIBS:@lib@-l${lib}@}.")
+			} else {
+				mkline.Warnf("The variable %s should be quoted as part of a shell word.", varname)
+				Explain(
+					"This variable can contain spaces or other special characters.",
+					"Therefore it should be quoted by replacing ${VAR} with ${VAR:Q}.")
+			}
 
 		} else if mod != correctMod {
 			if vuc.quoting == vucQuotPlain {
@@ -669,7 +680,7 @@ func (ck MkLineChecker) checkVarassign() {
 			// The variables mentioned in EVAL_PREFIX will later be
 			// defined by find-prefix.mk. Therefore, they are marked
 			// as known in the current file.
-			G.Mk.vardef[evalVarname] = mkline
+			G.Mk.vars.Define(evalVarname, mkline)
 		}
 	}
 
@@ -781,17 +792,6 @@ func (ck MkLineChecker) checkVarassignSpecific() {
 
 	if hasPrefix(varname, "_") && !G.Infrastructure {
 		mkline.Warnf("Variable names starting with an underscore (%s) are reserved for internal pkgsrc use.", varname)
-	}
-
-	if varname == "PERL5_PACKLIST" && G.Pkg != nil {
-		if m, p5pkgname := match1(G.Pkg.EffectivePkgbase, `^p5-(.*)`); m {
-			guess := "auto/" + strings.Replace(p5pkgname, "-", "/", -1) + "/.packlist"
-
-			ucvalue, ucguess := strings.ToUpper(value), strings.ToUpper(guess)
-			if ucvalue != ucguess && ucvalue != "${PERL5_SITEARCH}/"+ucguess {
-				mkline.Warnf("Unusual value for PERL5_PACKLIST -- %q expected.", guess)
-			}
-		}
 	}
 
 	if varname == "PYTHON_VERSIONS_ACCEPTED" {
