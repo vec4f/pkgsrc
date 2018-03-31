@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.373 2018/03/15 02:25:13 khorben Exp $
+# $NetBSD: Makefile,v 1.378 2018/03/23 16:43:43 minskim Exp $
 
 COMMENT=	Mathematics
 
@@ -18,6 +18,7 @@ SUBDIR+=	R-RColorBrewer
 SUBDIR+=	R-RPostgreSQL
 SUBDIR+=	R-RandomFields
 SUBDIR+=	R-Rcmdr
+SUBDIR+=	R-RcppArmadillo
 SUBDIR+=	R-RcppEigen
 SUBDIR+=	R-SparseM
 SUBDIR+=	R-VGAM
@@ -37,6 +38,7 @@ SUBDIR+=	R-combinat
 SUBDIR+=	R-date
 SUBDIR+=	R-e1071
 SUBDIR+=	R-emdbook
+SUBDIR+=	R-forecast
 SUBDIR+=	R-fracdiff
 SUBDIR+=	R-gdata
 SUBDIR+=	R-genetics
@@ -51,6 +53,7 @@ SUBDIR+=	R-hwde
 SUBDIR+=	R-intervals
 SUBDIR+=	R-lme4
 SUBDIR+=	R-lmm
+SUBDIR+=	R-lmtest
 SUBDIR+=	R-mapproj
 SUBDIR+=	R-maps
 SUBDIR+=	R-minqa
@@ -74,6 +77,7 @@ SUBDIR+=	R-spacetime
 SUBDIR+=	R-splancs
 SUBDIR+=	R-stabledist
 SUBDIR+=	R-statmod
+SUBDIR+=	R-tibble
 SUBDIR+=	R-wle
 SUBDIR+=	R-xts
 SUBDIR+=	R-zoo
@@ -299,6 +303,7 @@ SUBDIR+=	py-statsmodels
 SUBDIR+=	py-sympy
 SUBDIR+=	py-tensorflow-tensorboard
 SUBDIR+=	py-z3
+SUBDIR+=	py-z3solver
 SUBDIR+=	qalculate
 SUBDIR+=	qalculate-bases
 SUBDIR+=	qalculate-currency

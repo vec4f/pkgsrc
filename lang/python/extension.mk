@@ -1,4 +1,4 @@
-# $NetBSD: extension.mk,v 1.51 2017/07/03 18:14:40 joerg Exp $
+# $NetBSD: extension.mk,v 1.53 2018/03/29 17:58:26 adam Exp $
 
 .include "../../lang/python/pyversion.mk"
 
@@ -17,13 +17,18 @@
 PYSETUP?=		setup.py
 PYSETUPBUILDTARGET?=	build
 PYSETUPBUILDARGS?=	#empty
+# Python 3.5+ supports parallel building
+.if defined(MAKE_JOBS) && ${_PYTHON_VERSION} > 34
+.  if !defined(MAKE_JOBS_SAFE) || empty(MAKE_JOBS_SAFE:M[nN][oO])
+PYSETUPBUILDARGS+=	-j${MAKE_JOBS}
+.  endif
+.endif
 PYSETUPARGS?=		#empty
 PYSETUPINSTALLARGS?=	#empty
 PYSETUPOPTARGS?=	-c -O1
 _PYSETUPINSTALLARGS=	${PYSETUPINSTALLARGS} ${PYSETUPOPTARGS} ${_PYSETUPTOOLSINSTALLARGS}
 _PYSETUPINSTALLARGS+=	--root=${DESTDIR:Q}
 PY_PATCHPLIST?=		yes
-PYSETUPINSTALLARGS?=	#empty
 PYSETUPTESTTARGET?=	test
 PYSETUPTESTARGS?=	#empty
 PYSETUPSUBDIR?=		#empty

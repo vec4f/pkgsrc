@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1315 2018/03/13 17:11:20 taca Exp $
+# $NetBSD: Makefile,v 1.1320 2018/03/21 10:08:16 taca Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -771,9 +771,12 @@ SUBDIR+=	qDecoder
 SUBDIR+=	raggle
 SUBDIR+=	ramaze
 SUBDIR+=	rekonq
+SUBDIR+=	ruby-actioncable51
 SUBDIR+=	ruby-actionpack32
 SUBDIR+=	ruby-actionpack42
+SUBDIR+=	ruby-actionpack51
 SUBDIR+=	ruby-actionview42
+SUBDIR+=	ruby-actionview51
 SUBDIR+=	ruby-activeresource32
 SUBDIR+=	ruby-borges
 SUBDIR+=	ruby-capybara
@@ -824,7 +827,6 @@ SUBDIR+=	ruby-loofah
 SUBDIR+=	ruby-mechanize
 SUBDIR+=	ruby-multipart-post
 SUBDIR+=	ruby-mustermann
-SUBDIR+=	ruby-mustermann19
 SUBDIR+=	ruby-net-http-digest_auth
 SUBDIR+=	ruby-net-http-persistent
 SUBDIR+=	ruby-ntlm-http
@@ -854,6 +856,7 @@ SUBDIR+=	ruby-rails-deprecated_sanitizer
 SUBDIR+=	ruby-rails-html-sanitizer
 SUBDIR+=	ruby-rails32
 SUBDIR+=	ruby-rails42
+SUBDIR+=	ruby-rails51
 SUBDIR+=	ruby-raindrops
 SUBDIR+=	ruby-rest-client
 SUBDIR+=	ruby-rouge

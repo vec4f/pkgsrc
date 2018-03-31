@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.981 2018/03/13 16:20:42 taca Exp $
+# $NetBSD: Makefile,v 1.983 2018/03/21 23:40:30 bacon Exp $
 #
 
 COMMENT=	Text processing utilities (does not include desktop publishing)
@@ -18,6 +18,7 @@ SUBDIR+=	R-jsonlite
 SUBDIR+=	R-markdown
 SUBDIR+=	R-stringi
 SUBDIR+=	R-stringr
+SUBDIR+=	R-utf8
 SUBDIR+=	R-yaml
 SUBDIR+=	WordNet
 SUBDIR+=	aha
@@ -380,6 +381,7 @@ SUBDIR+=	lua-xapian
 SUBDIR+=	lucene++
 SUBDIR+=	makeindexk
 SUBDIR+=	makeztxt
+SUBDIR+=	man2html
 SUBDIR+=	mandoc
 SUBDIR+=	marisa
 SUBDIR+=	markdown-mode
