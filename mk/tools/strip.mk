@@ -46,7 +46,20 @@ TOOLS_CREATE+=		strip
 TOOLS_PATH.strip=	${TOOLS_PLATFORM.strip}
 .endif
 
-# Make ${STRIP} call "strip" through the PATH, which should find the one
+#
+# Create a special strip-dbg tool for stripping just debug information,
+# used by the install-strip-debug target.  Currently requires GNU strip.
+#
+.if !defined(TOOLS_PLATFORM.gstrip)
+TOOLS_NOOP+=		strip-dbg
+.else
+TOOLS_CREATE+=		strip-dbg
+TOOLS_PATH.strip-dbg=	${TOOLS_PLATFORM.gstrip}
+TOOLS_ARGS.strip-dbg=	-g
+.endif
+
+# Make ${STRIP} and ${STRIP_DBG} call through the PATH so they find the ones
 # under ${TOOLS_DIR}.
 #
 STRIP?=		strip
+STRIP_DBG?=	strip-dbg

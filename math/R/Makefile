@@ -153,6 +153,9 @@ BUILDLINK_API_DEPENDS.bzip2+=	bzip2>=1.0.5
 CONFIGURE_ARGS+=	--enable-mbcs=no
 .endif
 
+# failed to convert strong functions and variables: Invalid type identifier
+CTF_FILES_SKIP+=	lib/R/library/mgcv/libs/mgcv.so
+
 pre-configure:
 	${RUN} cd ${WRKSRC} && autoreconf -fvi
 

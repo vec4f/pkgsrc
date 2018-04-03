@@ -21,6 +21,7 @@ EMUL_PLATFORMS=		linux-i386 linux-x86_64 solaris-i386 solaris-x86_64
 # pre-built binaries without RELRO or SSP
 CHECK_RELRO_SUPPORTED=	no
 CHECK_SSP_SUPPORTED=	no
+CTF_SUPPORTED=		no
 
 USE_TOOLS+=	pax
 

@@ -22,6 +22,9 @@ USE_LANGUAGES=	c c++11
 #USE_LIBTOOL=	yes
 USE_TOOLS+=	automake bison gmake perl:build pkg-config msgfmt
 
+# Enabling -gdwarf-2 hits GNU ar limits on file size.
+CTF_SUPPORTED=	no
+
 # GCC >= 4.7 or Clang >= 3.3
 # XXX: Kludge, upstream needs GCC 4.9.0 for IndexedDB support.
 # XXX: patches/patch-Source_cmake_OptionsGTK.cmake and

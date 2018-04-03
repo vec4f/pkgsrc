@@ -85,6 +85,10 @@ SUBST_FILES.fix-pc+=	MagickCore/MagickCore-config.in
 SUBST_FILES.fix-pc+=	MagickWand/MagickWand-config.in
 SUBST_SED.fix-pc=	-e 's,@PKG_CONFIG@,pkg-config,g'
 
+# failed to convert strong functions and variables: Invalid type identifier
+CTF_FILES_SKIP+=	lib/libMagickCore-7.Q16HDRI.so.4.0.0
+CTF_FILES_SKIP+=	lib/libMagickWand-7.Q16HDRI.so.4.0.0
+
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../archivers/xz/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"

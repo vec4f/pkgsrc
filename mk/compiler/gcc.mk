@@ -389,6 +389,8 @@ _STACK_CHECK_CFLAGS=	-fstack-check
 _GCC_CFLAGS+=		${_STACK_CHECK_CFLAGS}
 .endif
 
+_CTF_CFLAGS=		-gdwarf-2
+
 # GCC has this annoying behaviour where it advocates in a multi-line
 # banner the use of "#include" over "#import" when including headers.
 # This generates a huge number of warnings when building practically all

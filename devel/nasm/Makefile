@@ -19,4 +19,6 @@ INSTALL_TARGET=		install_everything
 INSTALL_ENV+=	INSTALLROOT=${DESTDIR}
 MAKE_ENV+=	PERL5=${PERL5:Q}
 
+CTF_SUPPORTED=	no	# OS-6510
+
 .include "../../mk/bsd.pkg.mk"
