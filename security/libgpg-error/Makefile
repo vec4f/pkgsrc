@@ -42,6 +42,8 @@ USE_TOOLS+=		gawk
 LIBS+=	-lrt
 .endif
 
+LDFLAGS.SunOS+=		-lsocket
+
 # On Dragonfly i386, Pkgsrc libintl segfaults on bindtextdomain function
 # while locking a thread.  Until that's resolved, stop libgpg-error from
 # using NLS which invokes that function during initialization.
