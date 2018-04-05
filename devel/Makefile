@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2651 2018/03/24 06:50:49 adam Exp $
+# $NetBSD: Makefile,v 1.2653 2018/04/04 16:08:46 pho Exp $
 #
 
 COMMENT=	Development utilities
@@ -131,6 +131,7 @@ SUBDIR+=	cervisia
 SUBDIR+=	cfitsio
 SUBDIR+=	cflow
 SUBDIR+=	cflow-mode
+SUBDIR+=	cfr
 SUBDIR+=	cgdb
 SUBDIR+=	cgen
 SUBDIR+=	check
@@ -1868,6 +1869,7 @@ SUBDIR+=	py-attrs
 SUBDIR+=	py-automat
 SUBDIR+=	py-autopep8
 SUBDIR+=	py-babel
+SUBDIR+=	py-backcall
 SUBDIR+=	py-backports
 SUBDIR+=	py-backports.functools_lru_cache
 SUBDIR+=	py-backports.shutil_get_terminal_size
