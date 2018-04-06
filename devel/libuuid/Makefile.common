@@ -16,6 +16,7 @@ PATCHDIR=	${.CURDIR}/../../devel/libuuid/patches
 
 USE_GCC_RUNTIME=	yes
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config ksh
 # XXX PR pkg/52877 configure is broken on netbsd6
 CONFIG_SHELL=		ksh
