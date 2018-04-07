@@ -57,7 +57,7 @@ GENERATE_PLIST+= ${GREP} -q 'lib/' ${LIBRARY_FILES} || \
 ${LIBRARY_FILES}:
 	${PKG_INFO} -qL '${GCC_PKGNAME}-${GCC49_DIST_VERSION}*' |		\
 	${SED} -n -e's,^${LIBGCC_PREFIX}/,,' -e'/libexec\//d'		\
-		-e'/libgij/d;/libgcj/d;/libjvm/d'			\
+		-e'/libgij/d;/libgcj/d;/libjvm/d;/libgo\./d'		\
 		-e'/lib.*\.${SHLIB_EXT}/p' 		>${LIBRARY_FILES}
 
 ${OBJECT_FILES}:
