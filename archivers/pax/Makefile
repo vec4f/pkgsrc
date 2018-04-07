@@ -19,6 +19,8 @@ MAKE_ENV+=		MANINSTALL=${MANINSTALL:Q}
 
 USE_FEATURES=		nbcompat
 
+CPPFLAGS.SunOS+=	-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE=1
+
 .include "../../mk/bsd.prefs.mk"
 
 .if defined(NBPAX_PROGRAM_PREFIX) && ${NBPAX_PROGRAM_PREFIX} != ""
