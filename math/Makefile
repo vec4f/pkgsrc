@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.378 2018/03/23 16:43:43 minskim Exp $
+# $NetBSD: Makefile,v 1.384 2018/04/14 11:35:23 adam Exp $
 
 COMMENT=	Mathematics
 
@@ -65,6 +65,7 @@ SUBDIR+=	R-pbkrtest
 SUBDIR+=	R-pixmap
 SUBDIR+=	R-plyr
 SUBDIR+=	R-poweRlaw
+SUBDIR+=	R-prettyunits
 SUBDIR+=	R-prob
 SUBDIR+=	R-quadprog
 SUBDIR+=	R-quantreg
@@ -79,6 +80,7 @@ SUBDIR+=	R-stabledist
 SUBDIR+=	R-statmod
 SUBDIR+=	R-tibble
 SUBDIR+=	R-wle
+SUBDIR+=	R-xtable
 SUBDIR+=	R-xts
 SUBDIR+=	R-zoo
 SUBDIR+=	TinySVM
@@ -268,6 +270,7 @@ SUBDIR+=	py-Scientific
 SUBDIR+=	py-Scientific-doc
 SUBDIR+=	py-abcpmc
 SUBDIR+=	py-almost
+SUBDIR+=	py-asteval
 SUBDIR+=	py-autograd
 SUBDIR+=	py-bottleneck
 SUBDIR+=	py-cdecimal
@@ -278,6 +281,7 @@ SUBDIR+=	py-fpconst
 SUBDIR+=	py-gmpy
 SUBDIR+=	py-infinity
 SUBDIR+=	py-intervals
+SUBDIR+=	py-kiwisolver
 SUBDIR+=	py-lmfit
 SUBDIR+=	py-mpmath
 SUBDIR+=	py-munkres
@@ -301,7 +305,7 @@ SUBDIR+=	py-scipy
 SUBDIR+=	py-simpleeval
 SUBDIR+=	py-statsmodels
 SUBDIR+=	py-sympy
-SUBDIR+=	py-tensorflow-tensorboard
+SUBDIR+=	py-tensorboard
 SUBDIR+=	py-z3
 SUBDIR+=	py-z3solver
 SUBDIR+=	qalculate

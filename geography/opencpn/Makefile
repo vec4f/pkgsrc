@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.18 2018/03/12 11:16:37 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2018/04/16 14:34:32 wiz Exp $
 
-DISTNAME=	OpenCPN-4.8.0
-PKGNAME=	${DISTNAME:S/OpenCPN/opencpn/}
+DISTNAME=	OpenCPN-4.8.2
 PKGREVISION=	2
+PKGNAME=	${DISTNAME:S/OpenCPN/opencpn/}
 CATEGORIES=	geography
 MASTER_SITES=	${MASTER_SITE_GITHUB:=OpenCPN/}
 GITHUB_PROJECT=	OpenCPN
-GITHUB_TAG=	a13bc435462ae6c029660f1caa458dca79c927ec
+GITHUB_TAG=	v4.8.2
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	bouyer@NetBSD.org
@@ -45,6 +45,7 @@ LDFLAGS+=	${EXPORT_SYMBOLS_LDFLAGS}
 .include "../../x11/wxGTK30/buildlink3.mk"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
+.include "../../graphics/libexif/buildlink3.mk"
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../audio/portaudio-devel/buildlink3.mk"
 .include "../../textproc/tinyxml/buildlink3.mk"

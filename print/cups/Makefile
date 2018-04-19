@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.256 2018/03/12 11:17:25 wiz Exp $
+# $NetBSD: Makefile,v 1.259 2018/04/17 22:29:47 wiz Exp $
 
 PKGREVISION= 2
 .include "../../print/cups/Makefile.common"

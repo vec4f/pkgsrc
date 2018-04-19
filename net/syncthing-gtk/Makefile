@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2018/03/12 11:17:23 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2018/04/16 14:35:03 wiz Exp $
 
 DISTNAME=	syncthing-gtk-0.9.2.3
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=syncthing/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -14,6 +14,7 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=	syncthing>=0.13.0:../../net/syncthing
 DEPENDS+=	psmisc-[0-9]*:../../sysutils/psmisc # for killall
 DEPENDS+=	${PYPKGPREFIX}-dateutil-[0-9]*:../../time/py-dateutil
+DEPENDS+=	${PYPKGPREFIX}-gobject3-[0-9]*:../../devel/py-gobject3
 
 PYTHON_VERSIONS_ACCEPTED=	27
 EGG_NAME=	${DISTNAME:S/0/v0/:S/-/_/}
@@ -32,7 +33,6 @@ SUBST_SED.paths=	-e 's|/usr/share/syncthing-gtk|${PREFIX}/share/syncthing-gtk|'
 
 BUILDLINK_ABI_DEPENDS.libnotify+=	libnotify>=0.7.6nb4
 .include "../../sysutils/libnotify/buildlink3.mk"
-.include "../../devel/py-gobject3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.librsvg+=	librsvg>=2.40.9nb2	# for introspection
 .include "../../graphics/librsvg/buildlink3.mk"
 .include "../../lang/python/application.mk"

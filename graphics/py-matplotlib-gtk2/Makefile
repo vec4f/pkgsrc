@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.64 2018/03/12 11:16:49 wiz Exp $
+# $NetBSD: Makefile,v 1.66 2018/04/16 14:34:40 wiz Exp $
 
 PKGREVISION= 1
 .include "../../graphics/py-matplotlib/Makefile.common"

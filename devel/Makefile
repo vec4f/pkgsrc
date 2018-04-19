@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2653 2018/04/04 16:08:46 pho Exp $
+# $NetBSD: Makefile,v 1.2664 2018/04/18 15:37:59 minskim Exp $
 #
 
 COMMENT=	Development utilities
@@ -11,18 +11,26 @@ SUBDIR+=	Gorm
 SUBDIR+=	MoarVM
 SUBDIR+=	ObjectiveLib
 SUBDIR+=	ProjectCenter
+SUBDIR+=	R-BH
 SUBDIR+=	R-IRdisplay
 SUBDIR+=	R-IRkernel
 SUBDIR+=	R-R6
 SUBDIR+=	R-Rcpp
 SUBDIR+=	R-assertthat
+SUBDIR+=	R-bindr
 SUBDIR+=	R-bit
 SUBDIR+=	R-bit64
+SUBDIR+=	R-blob
 SUBDIR+=	R-cli
 SUBDIR+=	R-crayon
 SUBDIR+=	R-evaluate
+SUBDIR+=	R-inline
+SUBDIR+=	R-iterators
 SUBDIR+=	R-lazyeval
 SUBDIR+=	R-magrittr
+SUBDIR+=	R-memoise
+SUBDIR+=	R-pkgconfig
+SUBDIR+=	R-plogr
 SUBDIR+=	R-proto
 SUBDIR+=	R-repr
 SUBDIR+=	R-rlang
@@ -762,6 +770,8 @@ SUBDIR+=	ocaml-jbuilder
 SUBDIR+=	ocaml-js-build-tools
 SUBDIR+=	ocaml-lwt
 SUBDIR+=	ocaml-lwt_glib
+SUBDIR+=	ocaml-lwt_log
+SUBDIR+=	ocaml-lwt_ppx
 SUBDIR+=	ocaml-lwt_react
 SUBDIR+=	ocaml-lwt_ssl
 SUBDIR+=	ocaml-migrate-parsetree
@@ -1848,6 +1858,7 @@ SUBDIR+=	py-ZopeEvent
 SUBDIR+=	py-ZopeI18NMessageid
 SUBDIR+=	py-ZopeInterface
 SUBDIR+=	py-ZopeSchema
+SUBDIR+=	py-absl-py
 SUBDIR+=	py-aiofiles
 SUBDIR+=	py-angr
 SUBDIR+=	py-apipkg

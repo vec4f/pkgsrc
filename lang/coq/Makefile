@@ -1,15 +1,18 @@
-# $NetBSD: Makefile,v 1.106 2018/03/12 11:16:58 wiz Exp $
+# $NetBSD: Makefile,v 1.110 2018/04/17 22:29:40 wiz Exp $
 #
 
-DISTNAME=	coq-8.7.1
-PKGREVISION=	2
+DISTNAME=	coq-8.7.2
+PKGREVISION=	3
 CATEGORIES=	lang math
-MASTER_SITES=	http://coq.inria.fr/distrib/V${PKGVERSION_NOREV}/files/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=coq/}
+GITHUB_TAG=	V${PKGVERSION_NOREV}
 
 MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	http://coq.inria.fr/
 COMMENT=	Theorem prover which extracts programs from proofs
 LICENSE=	gnu-lgpl-v2.1
+
+WRKSRC=		${WRKDIR}/${DISTNAME}
 
 USE_TOOLS+=		gmake
 HAS_CONFIGURE=		yes

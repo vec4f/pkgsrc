@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2018/03/12 11:16:23 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2018/04/16 14:34:23 wiz Exp $
 
 DISTNAME=	gedit-3.22.1
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	editors gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gedit/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -11,10 +11,10 @@ HOMEPAGE=	https://wiki.gnome.org/Apps/Gedit
 COMMENT=	Lightweight GNOME UTF-8 text editor
 LICENSE=	gnu-gpl-v2
 
-GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_TOOLS+=		gmake intltool msgfmt perl pkg-config
 USE_PKGLOCALEDIR=	yes
+USE_TOOLS+=		gmake intltool msgfmt perl pkg-config
+GNU_CONFIGURE=		yes
 
 PKGCONFIG_OVERRIDE+=	data/gedit.pc.in
 PY_PATCHPLIST=		yes
@@ -28,14 +28,13 @@ CONFIGURE_ARGS+=	--disable-maintainer-mode
 
 .include "options.mk"
 
-BUILD_DEPENDS+=	itstool-[0-9]*:../../textproc/itstool
-
 DEPENDS+=	adwaita-icon-theme-[0-9]*:../../graphics/adwaita-icon-theme
+DEPENDS+=	${PYPKGPREFIX}-gobject3-[0-9]*:../../devel/py-gobject3
+BUILD_DEPENDS+=	itstool-[0-9]*:../../textproc/itstool
 
 .include "../../devel/gobject-introspection/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libpeas+=	libpeas>=1.14.1
 .include "../../devel/libpeas/buildlink3.mk"
-.include "../../devel/py-gobject3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.44.0
 .include "../../devel/glib2/schemas.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
@@ -51,5 +50,4 @@ BUILDLINK_API_DEPENDS.gtksourceview3+=	gtksourceview3>=3.21.2
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"
-
 .include "../../mk/bsd.pkg.mk"

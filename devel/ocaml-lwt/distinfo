@@ -1,9 +1,8 @@
-$NetBSD: distinfo,v 1.15 2018/02/01 09:40:13 jperkin Exp $
+$NetBSD: distinfo,v 1.18 2018/04/13 12:52:00 jaapb Exp $
 
-SHA1 (lwt-3.2.0.tar.gz) = fe821da0bf8e6f38d59d29932b1e5404a745304e
-RMD160 (lwt-3.2.0.tar.gz) = b079c2dbc26f05f02a06d73b877d6178289fff0d
-SHA512 (lwt-3.2.0.tar.gz) = 59e4dc53b81b9673c490b20cd3dd362ed8262d32b07e2656b5de801bd204df6050fec02a461c64533ea6c8863d160ddaf9d0050bccbebe82fa696c923486f0c8
-Size (lwt-3.2.0.tar.gz) = 310769 bytes
-SHA1 (patch-META.lwt) = ddfaf4ebd6c90a7022d0779a4e65ded8feb0864f
+SHA1 (lwt-4.0.1.tar.gz) = c334e473b5adc6e9c523b99efd79ff6d097151b8
+RMD160 (lwt-4.0.1.tar.gz) = 220787f2dea34019e08f1efc9aa3470136fadbf3
+SHA512 (lwt-4.0.1.tar.gz) = 4c1e63fb052ba001f18ce0ef289eee1548df3fe6381a718493e0adc4744ed40a1acb561fbf279f15c4684e19ed052edd2cab1c7e57da671d9e1e75f3bf1f8644
+Size (lwt-4.0.1.tar.gz) = 291046 bytes
 SHA1 (patch-src_unix_config_discover.ml) = ef8ea37d85f20d56654514617050ee46d6080ef1
-SHA1 (patch-src_unix_lwt__unix__unix.h) = 545eabb01a3f10d02a6fa38f8fe6a74cdba75434
+SHA1 (patch-src_unix_unix__c_unix__stat__job__utils.c) = 5ec0ae3afe3d65e673681fcf8faeebf811e64518

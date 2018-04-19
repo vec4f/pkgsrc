@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.85 2018/03/12 11:16:19 wiz Exp $
+# $NetBSD: Makefile,v 1.88 2018/04/17 22:29:37 wiz Exp $
 
 DISTNAME=	mono-tools-3.10
-PKGREVISION=	14
+PKGREVISION=	17
 CATEGORIES=	devel
 MASTER_SITES=	http://download.mono-project.com/sources/mono-tools/
 
