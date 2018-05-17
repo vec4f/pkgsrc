@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.34 2017/08/01 14:58:58 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2018/05/13 12:14:17 markd Exp $
 
-DISTNAME=	texlive-20170524-source
+DISTNAME=	texlive-20180414-source
 PKGNAME=	ttf2pk-2.0
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	fonts print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2017/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2018/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	bernhard@SDG.de
@@ -27,6 +27,8 @@ CONFIGURE_ARGS+=	--with-system-zlib \
 		--with-zlib-includes=${BUILDLINK_PREFIX.zlib}/include \
 		--with-zlib-libdir=${BUILDLINK_PREFIX.zlib}/lib
 CONFIGURE_ARGS+=	--with-system-freetype2
+CONFIGURE_ENV+=		FT2_CONFIG=pkg-config \
+			PKG_CONFIG=${TOOLS_CMD.pkg-config}
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.535 2018/04/06 21:04:22 rillig Exp $
+# $NetBSD: Makefile,v 1.538 2018/05/14 20:25:48 rillig Exp $
 
-PKGNAME=	pkglint-5.5.8
+PKGNAME=	pkglint-5.5.11
 DISTFILES=	# none
 CATEGORIES=	pkgtools
 
@@ -11,7 +11,6 @@ LICENSE=	2-clause-bsd
 CONFLICTS+=	pkglint4-[0-9]*
 
 NO_CHECKSUM=	yes
-USE_LANGUAGES=	c
 USE_TOOLS+=	pax
 AUTO_MKDIRS=	yes
 GO_SRCPATH=	netbsd.org/pkglint

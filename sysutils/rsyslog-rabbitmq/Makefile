@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2016/03/09 20:55:35 fhajny Exp $
+# $NetBSD: Makefile,v 1.6 2018/05/16 15:00:20 fhajny Exp $
 #
 
 RSYSLOG_MOD=	rabbitmq

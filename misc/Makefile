@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.495 2018/04/07 10:34:22 jaapb Exp $
+# $NetBSD: Makefile,v 1.497 2018/05/14 13:48:48 youri Exp $
 #
 
 COMMENT=	Miscellaneous utilities
@@ -176,6 +176,7 @@ SUBDIR+=	lv
 SUBDIR+=	m17n-db
 SUBDIR+=	m17n-docs
 SUBDIR+=	marble
+SUBDIR+=	mate-calc
 SUBDIR+=	mate-utils
 SUBDIR+=	mbuffer
 SUBDIR+=	mdp
@@ -230,6 +231,7 @@ SUBDIR+=	parley
 SUBDIR+=	pciids
 SUBDIR+=	pdmenu
 SUBDIR+=	php-orangehrm
+SUBDIR+=	pick
 SUBDIR+=	pinfo
 SUBDIR+=	ppower
 SUBDIR+=	pty-redir

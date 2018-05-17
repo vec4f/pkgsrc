@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2017/05/18 13:32:10 fhajny Exp $
+# $NetBSD: Makefile,v 1.3 2018/05/16 15:00:19 fhajny Exp $
 #
 
 RSYSLOG_MOD=	kafka

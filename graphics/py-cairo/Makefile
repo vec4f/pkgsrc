@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.55 2018/03/12 11:15:37 wiz Exp $
+# $NetBSD: Makefile,v 1.57 2018/04/30 06:11:55 wiz Exp $
 
-DISTNAME=		pycairo-1.16.3
+DISTNAME=		pycairo-1.17.0
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/py//}
-PKGREVISION=		1
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_GITHUB:=pygobject/}
 GITHUB_PROJECT=		pycairo
@@ -17,5 +16,5 @@ USE_TOOLS+=		pkg-config
 
 BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.13.1
 .include "../../graphics/cairo/buildlink3.mk"
-.include "../../lang/python/distutils.mk"
+.include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

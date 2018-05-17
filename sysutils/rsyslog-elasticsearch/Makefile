@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2018/01/15 11:01:16 fhajny Exp $
+# $NetBSD: Makefile,v 1.15 2018/05/16 15:00:19 fhajny Exp $
 #
 
 RSYSLOG_MOD=	elasticsearch

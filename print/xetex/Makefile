@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.73 2018/04/17 05:28:03 wiz Exp $
+# $NetBSD: Makefile,v 1.76 2018/05/13 13:06:29 markd Exp $
 
-DISTNAME=	texlive-20170524-source
-PKGNAME=	xetex-0.99997
-PKGREVISION=	10
+DISTNAME=	texlive-20180414-source
+PKGNAME=	xetex-0.99999
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2017/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2018/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -27,7 +26,7 @@ USE_TOOLS+=	gmake lex perl pkg-config yacc
 CONFIGURE_ARGS+=	--disable-aleph --disable-etex --disable-pdftex \
 			--disable-luatex --disable-mf --disable-mf-nowin \
 			--with-x=no \
-			--disable-luajittex \
+			--disable-luajittex --disable-luatex53 \
 			--disable-mflua --disable-mfluajit \
 			--disable-mp --disable-pmp --disable-upmp \
 			--disable-ptex --disable-eptex --disable-uptex --disable-euptex \
@@ -45,6 +44,8 @@ CONFIGURE_ARGS+=	--with-system-libpng
 CONFIGURE_ARGS+=	--with-system-freetype2
 CONFIGURE_ARGS+=	--with-system-teckit
 CONFIGURE_ARGS+=	--with-system-icu
+CONFIGURE_ENV+=		FT2_CONFIG=pkg-config \
+			PKG_CONFIG=${TOOLS_CMD.pkg-config}
 
 CONFIGURE_DIRS=		libs/graphite2
 CONFIGURE_DIRS+=	libs/harfbuzz

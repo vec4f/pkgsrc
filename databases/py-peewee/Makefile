@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.34 2018/04/19 08:20:10 fhajny Exp $
+# $NetBSD: Makefile,v 1.38 2018/05/14 10:54:19 fhajny Exp $
 
-DISTNAME=	peewee-3.2.4
+DISTNAME=	peewee-3.3.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-CATEGORIES=	databases
-MASTER_SITES=	${MASTER_SITE_GITHUB:=coleifer/}
+CATEGORIES=	databases python
+MASTER_SITES=	${MASTER_SITE_PYPI:=p/peewee/}
 
 MAINTAINER=	filip@joyent.com
 HOMEPAGE=	http://www.peewee-orm.com/
@@ -11,9 +11,6 @@ COMMENT=	Small, expressive ORM for PostgreSQL, MySQL and SQLite
 LICENSE=	mit
 
 GITHUB_PROJECT=	peewee
-
-USE_LANGUAGES=	c
-USE_TOOLS+=	bash
 
 BUILD_DEPENDS+=	${PYPKGPREFIX}-sphinx-[0-9]*:../../textproc/py-sphinx
 TEST_DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3

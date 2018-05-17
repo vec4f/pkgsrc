@@ -9,6 +9,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -45,6 +46,15 @@ func ifelseStr(cond bool, a, b string) string {
 		return a
 	}
 	return b
+}
+
+func keysJoined(m map[string]bool) string {
+	var keys []string
+	for key := range m {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	return strings.Join(keys, " ")
 }
 
 func imax(a, b int) int {
@@ -243,7 +253,7 @@ func varIsUsed(varname string) bool {
 }
 
 func splitOnSpace(s string) []string {
-	return regex.Compile(`\s+`).Split(s, -1)
+	return regex.Compile(`\S+`).FindAllString(s, -1)
 }
 
 func fileExists(fname string) bool {

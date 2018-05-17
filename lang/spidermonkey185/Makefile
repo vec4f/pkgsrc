@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2018/03/21 12:02:54 fhajny Exp $
+# $NetBSD: Makefile,v 1.5 2018/05/02 12:42:50 jperkin Exp $
 #
 
 DISTNAME=	js185-1.0.0
 PKGNAME=	spidermonkey185-1.8.5
+PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_MOZILLA:=js/}
 
@@ -10,10 +11,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://developer.mozilla.org/en/SpiderMonkey
 COMMENT=	Standalone JavaScript implementation in C
 LICENSE=	mpl-1.1
-
-# Spidermonkey 1.8.5 never worked here and unlikely will
-# https://bugzilla.mozilla.org/show_bug.cgi?id=577056
-BROKEN_ON_PLATFORM=	SunOS-*-x86_64
 
 WRKSRC=		${WRKDIR}/js-1.8.5/js/src
 

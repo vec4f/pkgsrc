@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2017/07/04 13:31:16 fhajny Exp $
+# $NetBSD: Makefile,v 1.12 2018/05/16 15:00:19 fhajny Exp $
 #
 
 BUILDLINK_DEPMETHOD.libestr=	full

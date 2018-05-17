@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.475 2018/02/03 20:28:28 kamil Exp $
+# $NetBSD: Makefile,v 1.481 2018/05/09 00:32:52 minskim Exp $
 #
 
 COMMENT=	Programming languages
@@ -6,6 +6,7 @@ COMMENT=	Programming languages
 SUBDIR+=	Cg-compiler
 SUBDIR+=	LuaJIT
 SUBDIR+=	LuaJIT2
+SUBDIR+=	R-sourcetools
 SUBDIR+=	STk
 SUBDIR+=	a60
 SUBDIR+=	abcl
@@ -76,6 +77,7 @@ SUBDIR+=	gcc6
 SUBDIR+=	gcc6-aux
 SUBDIR+=	gcc6-libs
 SUBDIR+=	gcc7
+SUBDIR+=	gcc8
 SUBDIR+=	gforth
 SUBDIR+=	ghc
 SUBDIR+=	ghc-bootstrap
@@ -143,9 +145,9 @@ SUBDIR+=	newsqueak
 SUBDIR+=	nhc98
 SUBDIR+=	nim
 SUBDIR+=	nodejs
-SUBDIR+=	nodejs4
 SUBDIR+=	nodejs6
 SUBDIR+=	nodejs8
+SUBDIR+=	npm
 SUBDIR+=	nqp
 SUBDIR+=	nuitka
 SUBDIR+=	objc
@@ -240,8 +242,8 @@ SUBDIR+=	smlnj
 SUBDIR+=	smlnj11072
 SUBDIR+=	snobol
 SUBDIR+=	spidermonkey
-SUBDIR+=	spidermonkey17
 SUBDIR+=	spidermonkey185
+SUBDIR+=	spidermonkey52
 SUBDIR+=	spl
 SUBDIR+=	squeak
 SUBDIR+=	squeak-vm

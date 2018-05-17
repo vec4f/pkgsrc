@@ -1,20 +1,21 @@
-# $NetBSD: Makefile,v 1.328 2018/04/16 14:35:18 wiz Exp $
+# $NetBSD: Makefile,v 1.331 2018/05/10 20:01:53 ryoon Exp $
 
-FIREFOX_HGREV=		239e434d6d2b8e1e2b697c3416d1e96d48fe98e5
-FIREFOX_VER=		59.0.2
+FIREFOX_VER=		${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
+MOZ_BRANCH=		60.0
+MOZ_BRANCH_MINOR=	
 
-DISTNAME=	firefox-${FIREFOX_VER}
-PKGREVISION=	3
+DISTNAME=	firefox-${FIREFOX_VER}.source
+PKGNAME=	${DISTNAME:S/.source//:S/b/beta/:S/esr//}
 CATEGORIES=	www
-MASTER_SITES+=	-https://hg.mozilla.org/releases/mozilla-release/archive/${FIREFOX_HGREV}${EXTRACT_SUFX}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES+=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	http://www.mozilla.com/en-US/firefox/
 COMMENT=	Web browser with support for extensions (version ${FIREFOX_VER:C/\..*//})
 LICENSE=	mpl-1.1
 
-WRKSRC=		${WRKDIR}/mozilla-release-${FIREFOX_HGREV}
+WRKSRC=		${WRKDIR}/firefox-${FIREFOX_VER}
 
 MOZILLA_DIR=	# empty
 

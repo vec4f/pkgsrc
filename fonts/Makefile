@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.315 2018/03/13 21:19:52 bsiegert Exp $
+# $NetBSD: Makefile,v 1.317 2018/05/13 13:23:33 markd Exp $
 #
 
 COMMENT=	Fonts
@@ -572,7 +572,6 @@ SUBDIR+=	tex-kixfont
 SUBDIR+=	tex-kixfont-doc
 SUBDIR+=	tex-knuth-lib
 SUBDIR+=	tex-knuth-local
-SUBDIR+=	tex-knuthotherfonts
 SUBDIR+=	tex-kpfonts
 SUBDIR+=	tex-kpfonts-doc
 SUBDIR+=	tex-kurier
@@ -828,6 +827,7 @@ SUBDIR+=	vera-ttf
 SUBDIR+=	vfontcap-kochi
 SUBDIR+=	vlgothic-ttf
 SUBDIR+=	watanabe_vfont
+SUBDIR+=	woff2
 SUBDIR+=	xmbdfed
 
 .include "../mk/misc/category.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.753 2018/04/14 13:57:29 adam Exp $
+# $NetBSD: Makefile,v 1.757 2018/05/08 07:47:44 maya Exp $
 #
 
 COMMENT=	System utilities
@@ -400,6 +400,7 @@ SUBDIR+=	p5-Config-Augeas
 SUBDIR+=	p5-Config-Simple
 SUBDIR+=	p5-Daemon-Generic
 SUBDIR+=	p5-File-Copy-Recursive
+SUBDIR+=	p5-File-Copy-Recursive-Reduced
 SUBDIR+=	p5-File-Inplace
 SUBDIR+=	p5-File-Remove
 SUBDIR+=	p5-File-chmod
@@ -524,6 +525,7 @@ SUBDIR+=	ruby-rb-inotify
 SUBDIR+=	ruby-serverspec
 SUBDIR+=	ruby-specinfra
 SUBDIR+=	ruby-syslog-logger
+SUBDIR+=	rw
 SUBDIR+=	safetynet
 SUBDIR+=	salt
 SUBDIR+=	salt-docs

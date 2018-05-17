@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1210 2018/04/14 13:54:46 adam Exp $
+# $NetBSD: Makefile,v 1.1216 2018/05/17 08:09:11 adam Exp $
 #
 
 COMMENT=	Networking tools
@@ -163,6 +163,7 @@ SUBDIR+=	freeradius2
 SUBDIR+=	freerdp
 SUBDIR+=	ftplibpp
 SUBDIR+=	ftpproxy
+SUBDIR+=	fwknop
 SUBDIR+=	gallery-dl
 SUBDIR+=	gated
 SUBDIR+=	gcloud-golang-metadata
@@ -652,6 +653,8 @@ SUBDIR+=	py-gevent
 SUBDIR+=	py-geventhttpclient
 SUBDIR+=	py-google
 SUBDIR+=	py-google-cloud-sdk
+SUBDIR+=	py-grpcio
+SUBDIR+=	py-grpcio-tools
 SUBDIR+=	py-gsutil
 SUBDIR+=	py-hatop
 SUBDIR+=	py-hpack
@@ -691,6 +694,7 @@ SUBDIR+=	py-socketpool
 SUBDIR+=	py-socksipy-branch
 SUBDIR+=	py-softlayer
 SUBDIR+=	py-softlayer_messaging
+SUBDIR+=	py-subunit
 SUBDIR+=	py-tldextract
 SUBDIR+=	py-tweepy
 SUBDIR+=	py-twisted
@@ -743,6 +747,7 @@ SUBDIR+=	ruby-net-ping
 SUBDIR+=	ruby-net-telnet
 SUBDIR+=	ruby-netaddr
 SUBDIR+=	ruby-netrc
+SUBDIR+=	ruby-network_interface
 SUBDIR+=	ruby-nio4r
 SUBDIR+=	ruby-pcaprub
 SUBDIR+=	ruby-pluggaloid
@@ -861,6 +866,7 @@ SUBDIR+=	unifi
 SUBDIR+=	unison
 SUBDIR+=	unison2.32
 SUBDIR+=	unison2.40
+SUBDIR+=	unison2.51
 SUBDIR+=	unworkable
 SUBDIR+=	upclient
 SUBDIR+=	upnpinspector

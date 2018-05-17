@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.94 2018/04/17 22:29:33 wiz Exp $
+# $NetBSD: Makefile,v 1.97 2018/05/16 22:29:54 jperkin Exp $
 
-DISTNAME=	cups-filters-1.20.1
-PKGREVISION=	4
+DISTNAME=	cups-filters-1.20.3
 CATEGORIES=	print
 MASTER_SITES=	http://openprinting.org/download/cups-filters/
 EXTRACT_SUFX=	.tar.xz
@@ -36,6 +35,8 @@ REPLACE_BASH+=	filter/braille/filters/texttobrf.in
 .if ${OPSYS} == "Darwin"
 CFLAGS+=	-framework IOKit
 .endif
+
+CPPFLAGS.SunOS+=	-D_POSIX_PTHREAD_SEMANTICS
 
 BUILD_DEFS+=		VARBASE
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}

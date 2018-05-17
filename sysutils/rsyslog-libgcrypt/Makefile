@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2015/08/27 19:07:13 joerg Exp $
+# $NetBSD: Makefile,v 1.4 2018/05/16 15:00:19 fhajny Exp $
 #
 
 RSYSLOG_MOD=	libgcrypt

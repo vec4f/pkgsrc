@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.710 2018/03/24 16:49:15 joerg Exp $
+# $NetBSD: Makefile,v 1.713 2018/05/13 13:14:59 markd Exp $
 #
 
 COMMENT=	Desktop publishing
@@ -295,6 +295,8 @@ SUBDIR+=	tex-biblatex
 SUBDIR+=	tex-biblatex-apa
 SUBDIR+=	tex-biblatex-apa-doc
 SUBDIR+=	tex-biblatex-doc
+SUBDIR+=	tex-biblatex-nature
+SUBDIR+=	tex-biblatex-nature-doc
 SUBDIR+=	tex-bibleref-german
 SUBDIR+=	tex-bibleref-german-doc
 SUBDIR+=	tex-bibtex
@@ -348,6 +350,8 @@ SUBDIR+=	tex-changebar
 SUBDIR+=	tex-changebar-doc
 SUBDIR+=	tex-changepage
 SUBDIR+=	tex-changepage-doc
+SUBDIR+=	tex-changes
+SUBDIR+=	tex-changes-doc
 SUBDIR+=	tex-chappg
 SUBDIR+=	tex-chappg-doc
 SUBDIR+=	tex-chbibref
@@ -538,6 +542,8 @@ SUBDIR+=	tex-environ
 SUBDIR+=	tex-environ-doc
 SUBDIR+=	tex-envlab
 SUBDIR+=	tex-envlab-doc
+SUBDIR+=	tex-epigraph
+SUBDIR+=	tex-epigraph-doc
 SUBDIR+=	tex-eplain
 SUBDIR+=	tex-eplain-doc
 SUBDIR+=	tex-epsf
@@ -1206,8 +1212,6 @@ SUBDIR+=	tex-tex4ebook-doc
 SUBDIR+=	tex-tex4ht
 SUBDIR+=	tex-tex4ht-doc
 SUBDIR+=	tex-texbytopic-doc
-SUBDIR+=	tex-texconfig
-SUBDIR+=	tex-texconfig-doc
 SUBDIR+=	tex-texdoc
 SUBDIR+=	tex-texdoc-doc
 SUBDIR+=	tex-texinfo
@@ -1270,6 +1274,8 @@ SUBDIR+=	tex-translation-enumitem-de-doc
 SUBDIR+=	tex-translation-europecv-de-doc
 SUBDIR+=	tex-translation-filecontents-de-doc
 SUBDIR+=	tex-translation-moreverb-de-doc
+SUBDIR+=	tex-translator
+SUBDIR+=	tex-translator-doc
 SUBDIR+=	tex-treetex
 SUBDIR+=	tex-treetex-doc
 SUBDIR+=	tex-trimspaces

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2014/09/05 07:15:41 fhajny Exp $
+# $NetBSD: Makefile,v 1.3 2018/05/16 15:00:19 fhajny Exp $
 #
 
 RSYSLOG_MOD=	mysql

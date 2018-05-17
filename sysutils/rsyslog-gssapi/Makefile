@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2015/10/06 13:03:20 fhajny Exp $
+# $NetBSD: Makefile,v 1.4 2018/05/16 15:00:19 fhajny Exp $
 #
 
 RSYSLOG_MOD=	gssapi

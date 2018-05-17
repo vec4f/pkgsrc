@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.30 2018/02/21 16:59:59 jperkin Exp $
+# $NetBSD: Makefile,v 1.32 2018/05/03 12:04:02 tsutsui Exp $
 #
 
 DISTNAME=		glib2-${VERSION}
