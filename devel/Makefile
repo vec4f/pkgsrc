@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2672 2018/05/17 08:04:47 adam Exp $
+# $NetBSD: Makefile,v 1.2675 2018/05/18 18:17:32 minskim Exp $
 #
 
 COMMENT=	Development utilities
@@ -24,6 +24,7 @@ SUBDIR+=	R-blob
 SUBDIR+=	R-cli
 SUBDIR+=	R-crayon
 SUBDIR+=	R-evaluate
+SUBDIR+=	R-glue
 SUBDIR+=	R-inline
 SUBDIR+=	R-iterators
 SUBDIR+=	R-lazyeval
@@ -1990,6 +1991,7 @@ SUBDIR+=	py-game
 SUBDIR+=	py-generate
 SUBDIR+=	py-gflags
 SUBDIR+=	py-gitinspector
+SUBDIR+=	py-gitinspector-devel
 SUBDIR+=	py-gobject
 SUBDIR+=	py-gobject-shared
 SUBDIR+=	py-gobject3
@@ -2039,6 +2041,7 @@ SUBDIR+=	py-libmc
 SUBDIR+=	py-limits
 SUBDIR+=	py-line_profiler
 SUBDIR+=	py-linecache2
+SUBDIR+=	py-llvmlite
 SUBDIR+=	py-lockfile
 SUBDIR+=	py-logan
 SUBDIR+=	py-logbook
