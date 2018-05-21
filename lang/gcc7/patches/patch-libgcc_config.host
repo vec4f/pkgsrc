@@ -1,11 +1,29 @@
 $NetBSD: patch-libgcc_config.host,v 1.2 2018/11/09 11:22:13 mrg Exp $
 
 netbsd/arm EABI support
+Enable the .eh_frame based unwinder.
 
 arm64 support
 
 --- libgcc/config.host.orig	2018-01-08 13:39:11.000000000 +0000
 +++ libgcc/config.host	2018-11-09 10:07:05.711530693 +0000
+@@ -270,7 +270,7 @@ case ${host} in
+ *-*-solaris2*)
+   # Unless linker support and dl_iterate_phdr are present,
+   # unwind-dw2-fde-dip.c automatically falls back to unwind-dw2-fde.c.
+-  tmake_file="$tmake_file sol2/t-sol2 t-eh-dw2-dip t-crtstuff-pic t-libgcc-pic t-slibgcc t-slibgcc-elf-ver"
++  tmake_file="$tmake_file sol2/t-sol2 t-eh-dw2-dip t-crtstuff-pic t-libgcc-pic t-slibgcc t-slibgcc-elf-ver t-crtstuff-pic"
+   if test $with_gnu_ld = yes; then
+     tmake_file="$tmake_file t-slibgcc-gld"
+   else
+@@ -290,6 +290,7 @@ case ${host} in
+       i?86-*-solaris2.1[0-9]* | x86_64-*-solaris2.1[0-9]*)
+         # Solaris 10+/x86 provides crt1.o, crti.o, crtn.o, and gcrt1.o as
+         # part of the base system.
++        extra_parts="$extra_parts crtbeginS.o crtendS.o"
+         ;;
+       sparc*-*-solaris2.1[0-9]*)
+         # Solaris 10+/SPARC lacks crt1.o and gcrt1.o.
 @@ -343,6 +343,12 @@
  	tmake_file="${tmake_file} ${cpu_type}/t-softfp t-softfp t-crtfm"
  	md_unwind_header=aarch64/freebsd-unwind.h
@@ -19,7 +37,7 @@ arm64 support
  aarch64*-*-linux*)
  	extra_parts="$extra_parts crtfastmath.o"
  	md_unwind_header=aarch64/linux-unwind.h
-@@ -396,7 +402,16 @@
+@@ -396,7 +396,16 @@ arm*-*-freebsd*)                # ARM Fr
  	tmake_file="${tmake_file} t-softfp-sfdf t-softfp-excl arm/t-softfp t-softfp"
  	;;
  arm*-*-netbsdelf*)
