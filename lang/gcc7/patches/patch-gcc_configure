@@ -1,8 +1,37 @@
 $NetBSD: patch-gcc_configure,v 1.1 2017/05/03 00:21:03 maya Exp $
 
---- gcc/configure.orig	2015-09-30 23:06:11.000000000 +0000
+Enable the .eh_frame based unwinder.
+Fix detection of native TLS on SunOS, joyent/pkgsrc#264
+
+--- gcc/configure.orig	2017-11-21 09:31:12.135035000 +0000
 +++ gcc/configure
-@@ -28321,7 +28321,7 @@ case "$target" in
+@@ -22787,6 +22787,7 @@ if test $in_tree_ld != yes ; then
+ 	    -e 's,^.*: 5\.[0-9][0-9]*-\([0-9]\.[0-9][0-9]*\).*$,\1,p'`
+ 	  ld_vers_major=`expr "$ld_vers" : '\([0-9]*\)'`
+ 	  ld_vers_minor=`expr "$ld_vers" : '[0-9]*\.\([0-9]*\)'`
++	  ld_vers_isillumos=`echo "$ld_ver" | grep '(illumos)'`
+ 	fi
+ 	;;
+     esac
+@@ -23957,7 +23958,7 @@ $as_echo "#define TLS_SECTION_ASM_FLAG '
+       tls_first_major=2
+       tls_first_minor=14
+       tls_section_flag=T
+-      tls_as_opt="--fatal-warnings"
++      tls_as_opt="-32 --fatal-warnings"
+     fi
+     case "$target" in
+       i[34567]86-*-*)
+@@ -28072,6 +28073,8 @@ elif test x$gcc_cv_ld != x; then
+         # Sun ld has various bugs in .eh_frame_hdr support before version 1.2251.
+         if test "$ld_vers_major" -gt 1 || test "$ld_vers_minor" -ge 2251; then
+           gcc_cv_ld_eh_frame_hdr=yes
++        elif test "$ld_vers_minor" -ge 1735 && test -n "$ld_vers_isillumos"; then
++          gcc_cv_ld_eh_frame_hdr=yes
+         fi
+         ;;
+     esac
+@@ -29111,7 +29114,7 @@ case "$target" in
        gcc_cv_target_dl_iterate_phdr=no
      fi
      ;;
