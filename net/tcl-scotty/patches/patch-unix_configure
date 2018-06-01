@@ -1,4 +1,4 @@
-$NetBSD: patch-unix_configure,v 1.2 2018/04/13 19:10:50 he Exp $
+$NetBSD: patch-unix_configure,v 1.5 2018/05/30 09:39:13 he Exp $
 
 Regen after unix/configure.in patching.
 
@@ -383,6 +383,15 @@ Regen after unix/configure.in patching.
      test -z "$ac_dir" && ac_dir=.
      if test -f $ac_dir/$ac_word; then
        ac_cv_path_tclsh="$ac_dir/$ac_word"
+@@ -1400,7 +1496,7 @@ SHLIB_SUFFIX=$TCL_SHLIB_SUFFIX
+ DL_LIBS=$TCL_DL_LIBS
+ LD_FLAGS=$TCL_LD_FLAGS
+ LD_SEARCH_FLAGS=$TCL_LD_SEARCH_FLAGS
+-TCL_INCLUDES=-I$TCL_PREFIX/include
++TCL_INCLUDES=${TCL_INCLUDE_SPEC:-"-I$TCL_PREFIX/include"}
+ 
+ if test -z "$SHLIB_LD" ; then
+     { echo "configure: error: no shared linker definition (TCL_SHLIB_LD) in tclConfig.sh" 1>&2; exit 1; }
 @@ -1431,9 +1527,13 @@ else
    /*)
    ac_cv_path_wish="$wish" # Let the user override the test with a path.
@@ -419,12 +428,31 @@ Regen after unix/configure.in patching.
  
  #----------------------------------------------------------------------------
  #	Check for the existence of various libraries.
-@@ -1922,7 +2022,95 @@ int main() {
- res_mkquery()
- ; return 0; }
- EOF
--if { (eval echo configure:1926: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
-+if { (eval echo configure:2026: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+@@ -1940,6 +2040,174 @@ if eval "test \"`echo '$ac_cv_lib_'$ac_l
+   LIBS="$LIBS -lresolv"
+ else
+   echo "$ac_t""no" 1>&6
++echo $ac_n "checking for __res_mkquery in -lresolv""... $ac_c" 1>&6
++echo "configure:2045: checking for __res_mkquery in -lresolv" >&5
++ac_lib_var=`echo resolv'_'__res_mkquery | sed 'y%./+-%__p_%'`
++if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
++  echo $ac_n "(cached) $ac_c" 1>&6
++else
++  ac_save_LIBS="$LIBS"
++LIBS="-lresolv  $LIBS"
++cat > conftest.$ac_ext <<EOF
++#line 2053 "configure"
++#include "confdefs.h"
++/* Override any gcc2 internal prototype to avoid an error.  */
++/* We use char because int might match the return type of a gcc2
++    builtin and then its argument prototype would still apply.  */
++char __res_mkquery();
++
++int main() {
++__res_mkquery()
++; return 0; }
++EOF
++if { (eval echo configure:2064: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
 +  rm -rf conftest*
 +  eval "ac_cv_lib_$ac_lib_var=yes"
 +else
@@ -446,54 +474,94 @@ Regen after unix/configure.in patching.
 +
 +fi
 +
-+echo $ac_n "checking for __dn_expand""... $ac_c" 1>&6
-+echo "configure:2049: checking for __dn_expand" >&5
-+if eval "test \"`echo '$''{'ac_cv_func___dn_expand'+set}'`\" = set"; then
++fi
++
++echo $ac_n "checking for dn_expand""... $ac_c" 1>&6
++echo "configure:2089: checking for dn_expand" >&5
++if eval "test \"`echo '$''{'ac_cv_func_dn_expand'+set}'`\" = set"; then
 +  echo $ac_n "(cached) $ac_c" 1>&6
 +else
 +  cat > conftest.$ac_ext <<EOF
-+#line 2054 "configure"
++#line 2094 "configure"
 +#include "confdefs.h"
 +/* System header to define __stub macros and hopefully few prototypes,
-+    which can conflict with char __dn_expand(); below.  */
++    which can conflict with char dn_expand(); below.  */
 +#include <assert.h>
 +/* Override any gcc2 internal prototype to avoid an error.  */
 +/* We use char because int might match the return type of a gcc2
 +    builtin and then its argument prototype would still apply.  */
-+char __dn_expand();
++char dn_expand();
 +
 +int main() {
 +
 +/* The GNU C library defines this for functions which it implements
 +    to always fail with ENOSYS.  Some functions are actually named
 +    something starting with __ and the normal name is an alias.  */
-+#if defined (__stub___dn_expand) || defined (__stub_____dn_expand)
++#if defined (__stub_dn_expand) || defined (__stub___dn_expand)
 +choke me
 +#else
-+__dn_expand();
++dn_expand();
 +#endif
 +
 +; return 0; }
 +EOF
-+if { (eval echo configure:2077: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2117: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
 +  rm -rf conftest*
-+  eval "ac_cv_func___dn_expand=yes"
++  eval "ac_cv_func_dn_expand=yes"
 +else
 +  echo "configure: failed program was:" >&5
 +  cat conftest.$ac_ext >&5
 +  rm -rf conftest*
-+  eval "ac_cv_func___dn_expand=no"
++  eval "ac_cv_func_dn_expand=no"
 +fi
 +rm -f conftest*
 +fi
 +
-+if eval "test \"`echo '$ac_cv_func_'__dn_expand`\" = yes"; then
++if eval "test \"`echo '$ac_cv_func_'dn_expand`\" = yes"; then
 +  echo "$ac_t""yes" 1>&6
 +  :
 +else
 +  echo "$ac_t""no" 1>&6
++echo $ac_n "checking for dn_expand in -lresolv""... $ac_c" 1>&6
++echo "configure:2135: checking for dn_expand in -lresolv" >&5
++ac_lib_var=`echo resolv'_'dn_expand | sed 'y%./+-%__p_%'`
++if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
++  echo $ac_n "(cached) $ac_c" 1>&6
++else
++  ac_save_LIBS="$LIBS"
++LIBS="-lresolv  $LIBS"
++cat > conftest.$ac_ext <<EOF
++#line 2143 "configure"
++#include "confdefs.h"
++/* Override any gcc2 internal prototype to avoid an error.  */
++/* We use char because int might match the return type of a gcc2
++    builtin and then its argument prototype would still apply.  */
++char dn_expand();
++
++int main() {
++dn_expand()
++; return 0; }
++EOF
++if { (eval echo configure:2154: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++  rm -rf conftest*
++  eval "ac_cv_lib_$ac_lib_var=yes"
++else
++  echo "configure: failed program was:" >&5
++  cat conftest.$ac_ext >&5
++  rm -rf conftest*
++  eval "ac_cv_lib_$ac_lib_var=no"
++fi
++rm -f conftest*
++LIBS="$ac_save_LIBS"
++
++fi
++if eval "test \"`echo '$ac_cv_lib_'$ac_lib_var`\" = yes"; then
++  echo "$ac_t""yes" 1>&6
++  LIBS="$LIBS -lresolv"
++else
++  echo "$ac_t""no" 1>&6
 +echo $ac_n "checking for __dn_expand in -lresolv""... $ac_c" 1>&6
-+echo "configure:2095: checking for __dn_expand in -lresolv" >&5
++echo "configure:2173: checking for __dn_expand in -lresolv" >&5
 +ac_lib_var=`echo resolv'_'__dn_expand | sed 'y%./+-%__p_%'`
 +if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
 +  echo $ac_n "(cached) $ac_c" 1>&6
@@ -501,7 +569,7 @@ Regen after unix/configure.in patching.
 +  ac_save_LIBS="$LIBS"
 +LIBS="-lresolv  $LIBS"
 +cat > conftest.$ac_ext <<EOF
-+#line 2103 "configure"
++#line 2181 "configure"
 +#include "confdefs.h"
 +/* Override any gcc2 internal prototype to avoid an error.  */
 +/* We use char because int might match the return type of a gcc2
@@ -512,22 +580,41 @@ Regen after unix/configure.in patching.
 +__dn_expand()
 +; return 0; }
 +EOF
-+if { (eval echo configure:2114: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
-   rm -rf conftest*
-   eval "ac_cv_lib_$ac_lib_var=yes"
- else
-@@ -1963,8 +2151,8 @@ else
++if { (eval echo configure:2192: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++  rm -rf conftest*
++  eval "ac_cv_lib_$ac_lib_var=yes"
++else
++  echo "configure: failed program was:" >&5
++  cat conftest.$ac_ext >&5
++  rm -rf conftest*
++  eval "ac_cv_lib_$ac_lib_var=no"
++fi
++rm -f conftest*
++LIBS="$ac_save_LIBS"
++
++fi
++if eval "test \"`echo '$ac_cv_lib_'$ac_lib_var`\" = yes"; then
++  echo "$ac_t""yes" 1>&6
++  LIBS="$LIBS -lresolv"
++else
++  echo "$ac_t""no" 1>&6
++fi
++
+ fi
+ 
+ fi
+@@ -1963,8 +2231,8 @@ else
  #include <$ac_hdr>
  EOF
  ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
 -{ (eval echo configure:1967: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 -ac_err=`grep -v '^ *+' conftest.out`
-+{ (eval echo configure:2155: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:2235: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 +ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
  if test -z "$ac_err"; then
    rm -rf conftest*
    eval "ac_cv_header_$ac_safe=yes"
-@@ -2318,6 +2506,8 @@ fi
+@@ -2318,6 +2586,8 @@ fi
  rm -f conftest*
  fi
  
@@ -536,7 +623,7 @@ Regen after unix/configure.in patching.
  #----------------------------------------------------------------------------
  #       Some more libraries for OSes that want your attention.
  #----------------------------------------------------------------------------
-@@ -2547,7 +2737,7 @@ EOF
+@@ -2547,7 +2817,7 @@ EOF
  # Ultrix sh set writes to stderr and can't be redirected directly,
  # and sets the high bit in the cache file unless we assign to the vars.
  (set) 2>&1 |
@@ -545,7 +632,7 @@ Regen after unix/configure.in patching.
    *ac_space=\ *)
      # `set' does not quote correctly, so add quotes (double-quote substitution
      # turns \\\\ into \\, and sed turns \\ into \).
-@@ -2614,7 +2804,7 @@ do
+@@ -2614,7 +2884,7 @@ do
      echo "running \${CONFIG_SHELL-/bin/sh} $0 $ac_configure_args --no-create --no-recursion"
      exec \${CONFIG_SHELL-/bin/sh} $0 $ac_configure_args --no-create --no-recursion ;;
    -version | --version | --versio | --versi | --vers | --ver | --ve | --v)
@@ -554,7 +641,7 @@ Regen after unix/configure.in patching.
      exit 0 ;;
    -help | --help | --hel | --he | --h)
      echo "\$ac_cs_usage"; exit 0 ;;
-@@ -2634,9 +2824,11 @@ sed 's/%@/@@/; s/@%/@@/; s/%g\$/@g/; /@g
+@@ -2634,9 +2904,11 @@ sed 's/%@/@@/; s/@%/@@/; s/%g\$/@g/; /@g
   s/@@/%@/; s/@@/@%/; s/@g\$/%g/' > conftest.subs <<\\CEOF
  $ac_vpsub
  $extrasub
@@ -566,7 +653,7 @@ Regen after unix/configure.in patching.
  s%@DEFS@%$DEFS%g
  s%@LDFLAGS@%$LDFLAGS%g
  s%@LIBS@%$LIBS%g
-@@ -2661,6 +2853,7 @@ s%@LEX@%$LEX%g
+@@ -2661,6 +2933,7 @@ s%@LEX@%$LEX%g
  s%@LEXLIB@%$LEXLIB%g
  s%@YACC@%$YACC%g
  s%@INSTALL_PROGRAM@%$INSTALL_PROGRAM%g
