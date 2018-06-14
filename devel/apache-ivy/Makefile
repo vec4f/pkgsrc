@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2012/10/31 11:16:34 asau Exp $
+# $NetBSD: Makefile,v 1.3 2018/06/14 11:32:37 fhajny Exp $
 #
 
 DISTNAME=	apache-ivy-2.4.0-bin
