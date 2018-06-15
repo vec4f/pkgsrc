@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.190.2.1 2018/01/24 19:43:13 bsiegert Exp $
+# $NetBSD: Makefile,v 1.196 2018/05/17 09:59:39 leot Exp $
 
-DISTNAME=	curl-7.58.0
+DISTNAME=	curl-7.60.0
 CATEGORIES=	www
 MASTER_SITES=	https://curl.haxx.se/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -27,10 +27,7 @@ INSTALLATION_DIRS=	share/doc/curl
 
 .include "../../mk/bsd.prefs.mk"
 
-.if !empty(PKGSRC_RUN_TEST:M[Yy][Ee][Ss])
 TEST_TARGET=		check
-USE_TOOLS+=		perl
-.endif
 
 .include "options.mk"
 

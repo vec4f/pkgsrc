@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.64 2017/10/23 21:12:44 adam Exp $
+# $NetBSD: Makefile,v 1.67 2018/03/26 09:30:23 adam Exp $
 #
 # When updating this package, make sure that no strings like
 # "PR 12345" are in the commit message. Upstream likes
 # to reference their own PRs this way, but this ends up
 # in NetBSD GNATS.
 
-DISTNAME=	httpd-2.4.29
+DISTNAME=	httpd-2.4.33
 PKGNAME=	${DISTNAME:S/httpd/apache/}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/}
@@ -36,7 +36,7 @@ CONFIGURE_ENV+=		ac_cv_path_RSYNC=/nonexistent
 .include "../../mk/compiler.mk"
 
 CFLAGS.SunOS+=	-D__EXTENSIONS__
-.if !empty(CC_VERSION:Mgcc-[6-9]*)
+.if !empty(CC_VERSION:Mgcc-[6-9]*) || !empty(PKGSRC_COMPILER:Mclang)
 CFLAGS.SunOS+=	-D_XOPEN_SOURCE=600
 .else
 CFLAGS.SunOS+=	-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED=1
