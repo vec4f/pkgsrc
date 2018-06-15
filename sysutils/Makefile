@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.761 2018/06/07 00:58:27 jmcneill Exp $
+# $NetBSD: Makefile,v 1.765 2018/06/14 00:25:21 markd Exp $
 #
 
 COMMENT=	System utilities
@@ -7,6 +7,7 @@ SUBDIR+=	855resolution
 SUBDIR+=	915resolution
 SUBDIR+=	9base
 SUBDIR+=	WCMCommander
+SUBDIR+=	accountsservice
 SUBDIR+=	acpica-utils
 SUBDIR+=	acpidump
 SUBDIR+=	adtool
@@ -44,6 +45,7 @@ SUBDIR+=	bcmfw
 SUBDIR+=	bcollect
 SUBDIR+=	beats
 SUBDIR+=	bfs
+SUBDIR+=	binwalk
 SUBDIR+=	bkpupsd
 SUBDIR+=	boxbackup-client
 SUBDIR+=	boxbackup-server
@@ -472,6 +474,7 @@ SUBDIR+=	py-pathtools
 SUBDIR+=	py-pefile
 SUBDIR+=	py-psutil
 SUBDIR+=	py-ptyprocess
+SUBDIR+=	py-pyinotify
 SUBDIR+=	py-setconf
 SUBDIR+=	py-setproctitle
 SUBDIR+=	py-structlog
@@ -479,6 +482,7 @@ SUBDIR+=	py-supervisor
 SUBDIR+=	py-syslog-ng
 SUBDIR+=	py-watchdog
 SUBDIR+=	py-xattr
+SUBDIR+=	qdirstat
 SUBDIR+=	qlogtools
 SUBDIR+=	radeontool
 SUBDIR+=	radmind
