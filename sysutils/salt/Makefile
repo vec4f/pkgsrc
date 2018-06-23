@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.60 2018/05/12 11:29:35 maya Exp $
+# $NetBSD: Makefile,v 1.64 2018/06/20 15:00:15 tpaul Exp $
 
-DISTNAME=	salt-2018.3.0
-PKGREVISION=	1
+DISTNAME=	salt-2018.3.1
+PKGREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/salt/}
 
@@ -16,6 +16,7 @@ DEPENDS+=	${PYPKGPREFIX}-msgpack-[0-9]*:../../devel/py-msgpack
 DEPENDS+=	${PYPKGPREFIX}-yaml-[0-9]*:../../textproc/py-yaml
 DEPENDS+=	${PYPKGPREFIX}-requests>=2.5.0:../../devel/py-requests
 DEPENDS+=	${PYPKGPREFIX}-tornado>=4.3:../../www/py-tornado
+DEPENDS+=	${PYPKGPREFIX}-psutil-[0-9]*:../../sysutils/py-psutil
 # zeromq transport requirements
 DEPENDS+=	${PYPKGPREFIX}-cryptodome-[0-9]*:../../security/py-cryptodome
 DEPENDS+=	${PYPKGPREFIX}-zmq>=2.2.0:../../net/py-zmq

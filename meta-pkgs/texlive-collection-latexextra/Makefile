@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.35 2018/05/13 11:56:22 markd Exp $
+# $NetBSD: Makefile,v 1.37 2018/06/17 17:13:40 minskim Exp $
 
 DISTNAME=	collection-latexextra
-PKGNAME=	texlive-${DISTNAME}-2018pre1
+PKGNAME=	texlive-${DISTNAME}-2018pre3
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 TEXLIVE_REV=	47224
@@ -468,7 +468,7 @@ DEPENDS+=	tex-ftcap-[0-9]*:../../print/tex-ftcap
 # depend fullblck
 # depend fullminipage
 # depend fullwidth
-# depend fundus-calligra
+DEPENDS+=	tex-fundus-calligra-[0-9]*:../../print/tex-fundus-calligra
 # depend fundus-cyr
 # depend fundus-sueterlin
 DEPENDS+=	tex-fvextra-[0-9]*:../../print/tex-fvextra
@@ -667,7 +667,7 @@ DEPENDS+=	tex-manfnt-[0-9]*:../../fonts/tex-manfnt
 # depend marginfix
 DEPENDS+=	tex-marginnote-[0-9]*:../../print/tex-marginnote
 # depend markdown
-# depend mathalfa
+DEPENDS+=	tex-mathalfa-[0-9]*:../../fonts/tex-mathalfa
 # depend mathastext
 # depend mathexam
 # depend mathfam256

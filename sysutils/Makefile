@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.765 2018/06/14 00:25:21 markd Exp $
+# $NetBSD: Makefile,v 1.767 2018/06/23 10:49:13 jmcneill Exp $
 #
 
 COMMENT=	System utilities
@@ -173,6 +173,7 @@ SUBDIR+=	findutils
 SUBDIR+=	fix4SA110rev2
 SUBDIR+=	fixelfprot
 SUBDIR+=	flashrom
+SUBDIR+=	fluent-bit
 SUBDIR+=	foremost
 SUBDIR+=	free
 SUBDIR+=	fs-kit
@@ -622,6 +623,7 @@ SUBDIR+=	u-boot-nanopi-neo2
 SUBDIR+=	u-boot-orangepi-2
 SUBDIR+=	u-boot-orangepi-one
 SUBDIR+=	u-boot-orangepi-plus2e
+SUBDIR+=	u-boot-orangepi-zero
 SUBDIR+=	u-boot-pine-h64
 SUBDIR+=	u-boot-pine64
 SUBDIR+=	u-boot-pinebook
