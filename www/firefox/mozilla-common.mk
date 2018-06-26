@@ -35,6 +35,7 @@ BUILD_DEPENDS+=		yasm>=1.1:../../devel/yasm
 CONFIGURE_ARGS+=	--target=${MACHINE_GNU_PLATFORM:Q}
 CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM:Q}
 
+CONFIGURE_ENV+=		LLVM_CONFIG=${LLVM_CONFIG_PATH}
 CONFIGURE_ENV+=		BINDGEN_CFLAGS="-isystem${PREFIX}/include/nspr \
 			-isystem${X11BASE}/include/pixman-1"
 
@@ -211,7 +212,7 @@ BUILDLINK_API_DEPENDS.nss+=	nss>=3.37.3
 #BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.10.2nb4
 #.include "../../graphics/cairo/buildlink3.mk"
 BUILDLINK_DEPMETHOD.clang=	build
-.include "../../lang/clang/buildlink3.mk"
+.include "../../joyent/clang6/buildlink3.mk"
 BUILDLINK_API_DEPENDS.rust+=	rust>=1.23.0
 BUILDLINK_DEPMETHOD.rust=	build
 .include "../../lang/rust/buildlink3.mk"
