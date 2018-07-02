@@ -28,6 +28,9 @@ SUBST_STAGE.gsm=	pre-configure
 
 .include "options.mk"
 
+# failed to convert strong functions and variables: Invalid type identifier
+CTF_FILES_SKIP+=	lib/libsox.so.3.0.0
+
 .include "../../audio/flac/buildlink3.mk"
 .include "../../audio/gsm/buildlink3.mk"
 .include "../../audio/libmad/buildlink3.mk"

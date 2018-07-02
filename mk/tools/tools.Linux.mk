@@ -130,6 +130,7 @@ TOOLS_PLATFORM.gsed?=		/usr/bin/sed
 .if exists(/usr/bin/soelim)
 TOOLS_PLATFORM.gsoelim?=	/usr/bin/soelim
 .endif
+TOOLS_PLATFORM.gstrip?=		/usr/bin/strip
 .if exists(/bin/tar)
 TOOLS_PLATFORM.gtar?=		/bin/tar
 .elif exists(/usr/bin/tar)
