@@ -173,7 +173,7 @@ post-extract:
 	fi
 # patch(1) in NetBSD does not handle .cargo-checksum.json like long width file.
 	cat ${WRKSRC}/src/vendor/libc/.cargo-checksum.json | \
-		${SED} -e 's/2613f2912a9e8f3485debba424437608433b4e1c8b9050176ef975efdf4a412e/f48ef2dac3c28161f30a797a2fbe7fbcb9161ea23390789fe52c497f229b6c5a/' > \
+		${SED} -e 's/2613f2912a9e8f3485debba424437608433b4e1c8b9050176ef975efdf4a412e/52431d3cc74033804febaa303d028811504c07e2b9b83ec7287d9ee159bf35fe/' > \
 		${WRKSRC}/src/vendor/libc/.cargo-checksum.json.patched
 	${CP} -f ${WRKSRC}/src/vendor/libc/.cargo-checksum.json.patched \
 		${WRKSRC}/src/vendor/libc/.cargo-checksum.json
