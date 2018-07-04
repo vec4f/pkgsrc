@@ -16,6 +16,8 @@ CONFIGURE_ARGS+=	--enable-xorg
 CONFIGURE_ARGS+=	--disable-xephyr
 CONFIGURE_ARGS+=	--disable-kdrive
 CONFIGURE_ARGS.SunOS+=	--disable-input-thread
+# 20141030 does not correctly define this in headers
+CONFIGURE_ENV.SunOS+=	ac_cv_func_mkostemp=no
 
 .include "options.mk"
 
