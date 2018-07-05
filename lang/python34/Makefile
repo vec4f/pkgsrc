@@ -209,7 +209,7 @@ post-install:
 	${INSTALL_DATA} ${FILESDIR}/pyconfig.h \
 		${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}
 	# XXX: figure out why this isn't removed in 64-bit case
-	${RM} -rf ${DESTDIR}/${PREFIX}/lib/python${PY_VER_SUFFIX}/config-${PY_VER_SUFFIX}${LIBARCHSUFFIX}/__pycache__
+	#${RM} -rf ${DESTDIR}/${PREFIX}/lib/python${PY_VER_SUFFIX}/config-${PY_VER_SUFFIX}${LIBARCHSUFFIX}/__pycache__
 .endif
 
 .if ${OPSYS} == "HPUX"
