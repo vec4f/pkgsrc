@@ -15,6 +15,8 @@ MARKED=		marked-0.3.19
 DISTFILES+=	${DISTNAME}${EXTRACT_SUFX} ${MARKED}.tar.gz
 SITES.${MARKED}.tar.gz=	-https://github.com/markedjs/marked/archive/v${MARKED:S/marked-//}.tar.gz
 
+DEPENDS+=	nodejs-[0-9]*:../../lang/nodejs
+
 USE_TOOLS+=	gmake perl
 
 PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # required by gyp scripts included
@@ -49,6 +51,5 @@ do-install:
 	${MV} ${DESTDIR}${PREFIX}/share/man ${DESTDIR}${PREFIX}/${PKGMANDIR}
 .endif
 
-.include "../../lang/nodejs/nodeversion.mk"
 .include "../../lang/python/pyversion.mk"
 .include "../../mk/bsd.pkg.mk"
