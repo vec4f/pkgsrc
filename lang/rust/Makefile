@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.39 2018/06/24 08:05:25 ryoon Exp $
+# $NetBSD: Makefile,v 1.41 2018/07/06 08:22:53 jperkin Exp $
 
 DISTNAME=	rustc-1.27.0-src
 PKGNAME=	${DISTNAME:S/rustc/rust/:S/-src//}
@@ -31,10 +31,14 @@ CONFIGURE_ARGS+=	--disable-codegen-tests
 CONFIGURE_ARGS+=	--disable-dist-src
 CONFIGURE_ARGS+=	--disable-llvm-static-stdcpp
 CONFIGURE_ARGS+=	--disable-ninja
+CONFIGURE_ARGS.SunOS+=	--disable-jemalloc
 
 # This should allow us to perform "offline" builds (so cargo doesn't fetch
 # dependencies during the build stage) but this isn't hooked up yet.
 CONFIGURE_ARGS+=	--enable-vendor
+
+# cargo defaults to using the number of available CPUs
+MAKE_ENV+=		CARGO_BUILD_JOBS=${MAKE_JOBS:U1}
 
 UNLIMIT_RESOURCES+=	cputime
 
@@ -55,17 +59,6 @@ GCC_REQD+=	4.8
 # Under NetBSD, do not use DT_RUNPATH
 #
 BUILDLINK_TRANSFORM.NetBSD+=	rm:-Wl,--enable-new-dtags
-
-#
-# Use bundled LLVM and libumem on SunOS.
-#
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ARGS+=	--disable-jemalloc
-.else
-#CONFIGURE_ARGS+=	--llvm-root=${BUILDLINK_PREFIX.llvm}
-#BUILDLINK_API_DEPENDS.llvm+=  llvm>=4.0.1nb1
-#.include "../../lang/llvm/buildlink3.mk"
-.endif
 
 #
 # Rust unfortunately requires itself to build.  On platforms which aren't
@@ -158,7 +151,7 @@ TOOLS_PATH.md5sum=	${PREFIX}/bin/gmd5sum
 .endif
 
 SUBST_CLASSES+=		rpath
-SUBST_STAGE.rpath=	post-patch
+SUBST_STAGE.rpath=	pre-configure
 SUBST_FILES.rpath=	src/bootstrap/bin/rustc.rs
 SUBST_VARS.rpath=	PREFIX
 

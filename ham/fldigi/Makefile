@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.102 2018/04/29 21:31:46 adam Exp $
+# $NetBSD: Makefile,v 1.104 2018/07/06 15:06:47 ryoon Exp $
 
 DISTNAME=	fldigi-4.0.16
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	ham
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fldigi/}
 
@@ -26,7 +26,7 @@ SUBST_MESSAGE.asciidoc=	Replacing asciidoc PATH
 SUBST_SED.asciidoc=	-e s\|/usr/share\|${PREFIX}/share\|g
 
 SUBST_CLASSES+=		brag-os
-SUBST_STAGE.brag-os=	post-patch
+SUBST_STAGE.brag-os=	pre-configure
 SUBST_FILES.brag-os=	src/misc/newinstall.cxx
 SUBST_MESSAGE.brag-os=	Show OS name correctly with Brag button
 SUBST_SED.brag-os=	-e s/@@OS@@/${OPSYS}/

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.167 2018/05/27 09:56:11 wiz Exp $
+# $NetBSD: Makefile,v 1.169 2018/07/06 15:06:44 ryoon Exp $
 
 DISTNAME=		mpd-0.20.20
 PKGNAME=		${DISTNAME:S/mpd/musicpd/}
+PKGREVISION=		1
 CATEGORIES=		audio
 MASTER_SITES=		http://www.musicpd.org/download/mpd/0.20/
 #MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=musicpd/}
@@ -36,7 +37,7 @@ RCD_SCRIPTS=		mpd
 FILES_SUBST+=		DEVOSSAUDIO=${DEVOSSAUDIO:Q}
 
 SUBST_CLASSES+=		paths
-SUBST_STAGE.paths=	post-patch
+SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	mpd.conf
 SUBST_SED.paths=	-e 's,@DEVOSSAUDIO@,${DEVOSSAUDIO},'
 

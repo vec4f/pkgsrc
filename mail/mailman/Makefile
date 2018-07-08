@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.80 2017/12/04 01:52:58 maya Exp $
+# $NetBSD: Makefile,v 1.82 2018/07/04 13:40:23 jperkin Exp $
 
 DISTNAME=	mailman-2.1.25
 PKGNAME=	mailman-2.1.25
@@ -68,7 +68,7 @@ RCD_SCRIPTS=		mailman
 INSTALL_TEMPLATES+=	${FILESDIR}/INSTALL
 DEINSTALL_TEMPLATES+=	${FILESDIR}/DEINSTALL
 
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 2.1.14.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 37 # not yet ported as of 2.1.14.1
 REPLACE_PYTHON+=	Mailman/Archiver/pipermail.py
 REPLACE_PYTHON+=	Mailman/Post.py
 REPLACE_PYTHON+=	bin/msgfmt.py
@@ -95,7 +95,7 @@ SUBST_CLASSES+=		paths
 SUBST_FILES.paths=	${WRKDIR}/mailman.conf.dist
 SUBST_SED.paths+=	-e 's,@EXECDIR@,${EXECDIR},g'
 SUBST_SED.paths+=	-e 's,@MAILMAN_DATADIR@,${MAILMAN_DATADIR},g'
-SUBST_STAGE.paths=	post-patch
+SUBST_STAGE.paths=	pre-configure
 
 DOCFILELIST=	ACKNOWLEDGMENTS BUGS FAQ INSTALL NEWS README \
 		README-I18N.en README.CONTRIB README.NETSCAPE \

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.162 2018/04/16 14:34:30 wiz Exp $
+# $NetBSD: Makefile,v 1.164 2018/07/04 13:40:19 jperkin Exp $
 
 DISTNAME=		gnome-games-2.32.1
 PKGREVISION=		37
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.gnome.org/
 COMMENT=		GNOME2 games collection
 #LICENSE=		gnu-gpl-v2 AND gnu-fdl-v1.1
 
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-ORBit via py-gnome2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 37 # py-ORBit via py-gnome2
 
 CONFLICTS=		xbill-[0-9]*
 SUPERSEDES=		glchess-[0-9]*
@@ -52,7 +52,7 @@ PY_PATCHPLIST=		yes
 
 #!/usr/bin/env sh is pretty dumb and REPLACE_SH doesn't support fixing it
 SUBST_CLASSES+=		swell
-SUBST_STAGE.swell=	post-patch
+SUBST_STAGE.swell=	pre-configure
 SUBST_FILES.swell=	swell-foop/swell-foop.in
 SUBST_SED.swell=	's:/usr/bin/env sh:${SH}:'
 

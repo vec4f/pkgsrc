@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.41 2018/04/17 04:25:32 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2018/07/04 13:40:43 jperkin Exp $
 
 DISTNAME=	avant-window-navigator-0.4.0
 PKGREVISION=	29
@@ -26,13 +26,13 @@ GCONF_SCHEMAS+=		avant-window-navigator.schemas
 GCONF_SCHEMAS+=		awn-applet-taskmanager.schemas
 
 SUBST_CLASSES+=		python
-SUBST_STAGE.python=	post-patch
+SUBST_STAGE.python=	pre-configure
 SUBST_MESSAGE.python=	Fixing python path
 SUBST_FILES.python=	applet-activation/main.c
 SUBST_SED.python=	-e "s,@PYTHONBIN@,${PYTHONBIN},"
 
 SUBST_CLASSES+=		pathfix
-SUBST_STAGE.pathfix=	post-patch
+SUBST_STAGE.pathfix=	pre-configure
 SUBST_MESSAGE.pathfix=	Fixing hardcoded paths
 SUBST_FILES.pathfix=	applets/taskmanager/awn-applet-taskmanager.schema-ini.in
 SUBST_FILES.pathfix+=	doc/reference/html/*.html
@@ -44,7 +44,7 @@ SUBST_SED.pathfix=	-e "s,/usr/share,${PREFIX}/share,"
 PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	awn-settings/awnSettings.py.in
 REPLACE_PYTHON+=	awn-settings/awnSettingsHelper.py
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 37 # py-gtk2
 
 .include "../../devel/GConf/schemas.mk"
 .include "../../lang/vala/buildlink3.mk"

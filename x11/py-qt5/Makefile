@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2018/06/23 11:23:46 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2018/07/06 15:06:52 ryoon Exp $
 
 DISTNAME=	PyQt5_gpl-5.10.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/PyQt5_gpl/qt5/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	x11 python
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pyqt/}
 
@@ -27,7 +27,7 @@ PLIST_VARS+=		webkit
 PY_PATCHPLIST=		yes
 
 SUBST_CLASSES+=		x11lib
-SUBST_STAGE.x11lib=	post-patch
+SUBST_STAGE.x11lib=	pre-configure
 SUBST_MESSAGE.x11lib=	Fixing rpath for X11 and pulseaudio libraries.
 SUBST_FILES.x11lib+=	configure.py
 SUBST_FILES.x11lib+=	designer/designer.pro-in

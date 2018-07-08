@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.52 2018/04/16 14:35:25 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2018/07/04 13:40:44 jperkin Exp $
 
 DISTNAME=	rox-session-0.28
 PKGREVISION=	33
@@ -18,19 +18,19 @@ DIST_SUBDIR=	rox
 NO_BUILD=	yes
 
 REPLACE_PYTHON=	AppRun tests/testutils.py
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 37 # py-gtk2
 
 INSTALLATION_DIRS=	share/rox/ROX-Session
 
 SUBST_CLASSES+=		path
 SUBST_MESSAGE.path=	Fixing hardcoded paths.
-SUBST_STAGE.path=	post-patch
+SUBST_STAGE.path=	pre-configure
 SUBST_FILES.path=	Login
 SUBST_SED.path=		-e 's,/usr/local,${PREFIX},g'
 
 SUBST_CLASSES+=		lib
 SUBST_MESSAGE.lib=	Fixing hardcoded paths for ROX-Lib.
-SUBST_STAGE.lib=	post-patch
+SUBST_STAGE.lib=	pre-configure
 SUBST_FILES.lib=	findrox.py
 SUBST_SED.lib=		-e 's,/usr/local/lib,${PREFIX}/share/rox,g'
 

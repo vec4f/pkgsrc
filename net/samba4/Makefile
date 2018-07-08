@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.43 2018/04/17 22:29:46 wiz Exp $
+# $NetBSD: Makefile,v 1.45 2018/07/04 13:40:30 jperkin Exp $
 
 DISTNAME=	samba-${VERSION}
 PKGREVISION=	7
@@ -149,7 +149,7 @@ SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing paths.
 SUBST_FILES.paths=	${WRKDIR}/adduser.sh ${WRKDIR}/deluser.sh
 SUBST_FILES.paths+=	source3/script/findsmb.in source4/heimdal_build/roken.h
-SUBST_STAGE.paths=	post-patch
+SUBST_STAGE.paths=	pre-configure
 SUBST_SED.paths+=	-e 's,@PERL@,${PERL5},g'
 SUBST_VARS.paths=	AWK CAT MKTEMP RM PWD_MKDB SH PERL PKG_SYSCONFBASE
 
@@ -185,7 +185,7 @@ REPLACE_PYTHON=	buildtools/bin/waf \
 		source4/scripting/bin/* \
 		lib/tevent/tevent.py
 
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # as of 4.3.2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 37 # as of 4.3.2
 
 .include "../../lang/python/application.mk"
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2017/01/01 14:43:49 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2018/07/04 13:40:26 jperkin Exp $
 
 DISTNAME=	sickbeard-507
 PKGREVISION=	3
@@ -29,7 +29,7 @@ AUTO_MKDIRS=	yes
 
 PY_PATCHPLIST=			yes
 REPLACE_PYTHON=			*.py */*.py */*/*.py
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-cheetah
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 37 # py-cheetah
 
 BUILD_DEFS+=		VARBASE
 OWN_DIRS_PERMS=		${VARBASE}/sickbeard /sickbeard sickbeard 750
@@ -43,7 +43,7 @@ SUBST_FILES.paths=	sickbeard.sh
 SUBST_SED.paths+=	-e 's,@PREFIX@,${PREFIX},g'
 SUBST_SED.paths+=	-e 's,@SH@,${SH},g'
 SUBST_SED.paths+=	-e 's,@VARBASE@,${VARBASE},g'
-SUBST_STAGE.paths=	post-patch
+SUBST_STAGE.paths=	pre-configure
 
 post-extract:
 	${CP} ${FILESDIR}/sickbeard.sh ${WRKSRC}/sickbeard.sh
