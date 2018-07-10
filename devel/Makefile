@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2696 2018/07/07 09:00:15 adam Exp $
+# $NetBSD: Makefile,v 1.2699 2018/07/10 01:18:58 minskim Exp $
 #
 
 COMMENT=	Development utilities
@@ -1984,6 +1984,7 @@ SUBDIR+=	py-filebytes
 SUBDIR+=	py-filechunkio
 SUBDIR+=	py-fixtures
 SUBDIR+=	py-flake8
+SUBDIR+=	py-flake8-docstrings
 SUBDIR+=	py-flake8-import-order
 SUBDIR+=	py-flake8-polyfill
 SUBDIR+=	py-flakes
@@ -2042,7 +2043,7 @@ SUBDIR+=	py-jersey
 SUBDIR+=	py-joblib
 SUBDIR+=	py-jupyter_client
 SUBDIR+=	py-jupyter_core
-SUBDIR+=	py-kafka
+SUBDIR+=	py-kafka-python
 SUBDIR+=	py-kaitaistruct
 SUBDIR+=	py-kjbuckets
 SUBDIR+=	py-kqueue
