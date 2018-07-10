@@ -60,6 +60,12 @@ do-install: ${LIBRARY_FILES}
 		${MKDIR} ${DESTDIR}${LIBGCC_PREFIX}/${GCC_TARGET_MACHINE}/lib
 	cd ${LIBGCC_PREFIX} && 						\
 	  ${PAX} -rw ${DESTDIR}${LIBGCC_PREFIX}/${GCC_TARGET_MACHINE} <${LIBRARY_FILES}
+.if ${OPSYS} == "Darwin"
+	while read lib; do \
+		install_name_tool -id ${LIBGCC_PREFIX}/${GCC_TARGET_MACHINE}/$${lib} \
+		${DESTDIR}${LIBGCC_PREFIX}/${GCC_TARGET_MACHINE}/$${lib}; \
+	done <${LIBRARY_FILES}
+.endif
 
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

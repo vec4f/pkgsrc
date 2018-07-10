@@ -632,7 +632,7 @@ _USE_GCC_SHLIB?=	yes
 # USE_GCC_RUNTIME for packages which create shared libraries but do not use
 # libtool to do so.
 #
-.if ${OPSYS} == "SunOS" && (defined(USE_LIBTOOL) || defined(USE_GCC_RUNTIME))
+.if (${OPSYS} == "SunOS" || ${OPSYS} == "Darwin") && (defined(USE_LIBTOOL) || defined(USE_GCC_RUNTIME))
 _USE_GCC_SHLIB= yes
 .endif
 

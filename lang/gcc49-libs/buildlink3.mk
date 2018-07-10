@@ -30,6 +30,9 @@ GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 ${SPECS_LIBGCC}:
 	@${ECHO} "*link_libgcc:" >${SPECS_LIBGCC}
 	@${ECHO} "%D ${LINKER_RPATH_FLAG}${LIBGCC_PREFIX}/${GCC_TARGET_MACHINE}/lib/%M" >>${SPECS_LIBGCC}
+	@${ECHO} "" >>${SPECS_LIBGCC}
+	@${ECHO} "*libgcc:" >>${SPECS_LIBGCC}
+	@${ECHO} "%{static-libgcc|static: -lgcc_eh -lgcc; shared-libgcc|fexceptions|fgnu-runtime: -lgcc; : -lgcc }" >>${SPECS_LIBGCC}
 
 _WRAP_EXTRA_ARGS.CC+=	-specs=${SPECS_LIBGCC}
 _WRAP_EXTRA_ARGS.CXX+=	-specs=${SPECS_LIBGCC}
