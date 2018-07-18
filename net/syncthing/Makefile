@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.70 2018/06/17 07:24:15 wiz Exp $
+# $NetBSD: Makefile,v 1.72 2018/07/17 19:20:42 bsiegert Exp $
 
 # Upstream regularly breaks protocol compatibility.  While users of
 # pkgsrc syncthing on multiple systems can update synchronously, an
@@ -29,7 +29,9 @@ EXTRACT_USING=		gtar
 
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
-BUILD_DEPENDS+=		go-[0-9]*:../../lang/go
+.include "../../lang/go/version.mk"
+
+BUILD_DEPENDS+=		go-${GO_VERSION}*:../../lang/go
 
 # The 'zillode' dependency calls the compiler on certain archs.
 USE_LANGUAGES=		c
@@ -57,13 +59,9 @@ GOPATH=			${WRKDIR}/gopath
 WRKPLACEP=		${GOPATH}/src/github.com/syncthing
 WRKPLACE=		${WRKPLACEP}/syncthing
 
-MAKE_ENV+=		GOPATH=${GOPATH}
+MAKE_ENV+=		GOPATH=${GOPATH} GOCACHE=${WRKDIR}/.cache
 
 CHECK_RELRO_SKIP+=	bin/syncthing
-
-# This used to be set; there seems to be no reason any longer.  To be
-# pruned on 2016-11-04.
-# INSTALL_UNSTRIPPED= yes
 
 SUBST_CLASSES+=		version
 SUBST_STAGE.version=	pre-build
@@ -71,6 +69,8 @@ SUBST_MESSAGE.version=	Fixing version string
 SUBST_FILES.version=	build.go
 SUBST_SED.version=	-e 's|runError("git", "describe", "--always", "--dirty")|runError("echo","v${PKGVERSION_NOREV}")|'
 SUBST_SED.version+=	-e 's|runError("git", "show", "-s", "--format=%ct")|runError("false")|'
+SUBST_SED.version+=	-e 's|"go"|"${GO}"|'
+
 
 # Create WRKPLACE's parent, but not WRKPLACE.  Move the contents of
 # the distribution tarball to the directory name desired by upstream's
@@ -83,7 +83,7 @@ post-extract:
 	${LN} -s ${WRKPLACE} ${WRKSRC}
 
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PREFIX}/bin/go run build.go build syncthing
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${GO} run build.go build syncthing
 
 # Binaries other than syncthing proper should perhaps be installed.
 do-install:
