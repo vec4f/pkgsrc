@@ -8,7 +8,6 @@ COMMENT=		Highly reliable distributed coordination server
 DISTFILES=			${DEFAULT_DISTFILES} ${DISTNAME}-deps.tar.gz
 SITES.${DISTNAME}-deps.tar.gz=	ftp://ftp.NetBSD.org/pub/NetBSD/misc/fhajny/
 
-BUILD_DEPENDS+=		apache-ant-[0-9]*:../../devel/apache-ant
 BUILD_DEPENDS+=		apache-ivy>=2.2.0:../../devel/apache-ivy
 
 USE_JAVA=		yes
