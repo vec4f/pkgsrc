@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2018/07/25 16:22:55 schmonz Exp $
+# $NetBSD: Makefile,v 1.3 2018/07/26 13:16:57 schmonz Exp $
 
 DISTNAME=		ucspi-tcp6-1.06
 CATEGORIES=		net
@@ -21,10 +21,10 @@ INSTALLATION_DIRS=	bin
 
 .include "../../mk/bsd.prefs.mk"
 
+.if !defined(MANZ)
 SUBST_CLASSES+=		manz
 SUBST_STAGE.manz=	do-configure
 SUBST_FILES.manz=	package/man
-.if !defined(MANZ)
 SUBST_SED.manz=		-e 's|safe gzip |safe true |g'
 SUBST_SED.manz+=	-e 's|\.gz||g'
 .endif
@@ -35,8 +35,12 @@ post-configure:
 
 do-install:
 	cd ${WRKSRC};							\
-	for i in command/*; do						\
-	  ${INSTALL_PROGRAM} $${i} ${DESTDIR}${PREFIX}/bin;		\
+	for i in addcr argv0 delcr fixcrio mconnect-io rblsmtpd		\
+		recordio tcpclient tcprules tcprulescheck tcpserver; do	\
+	  ${INSTALL_PROGRAM} command/$${i} ${DESTDIR}${PREFIX}/bin;	\
+	done;								\
+	for i in date@ finger@ http@ mconnect tcpcat who@; do		\
+	  ${INSTALL_SCRIPT} command/$${i} ${DESTDIR}${PREFIX}/bin;	\
 	done;								\
 	./package/man
 
