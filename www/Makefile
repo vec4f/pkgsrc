@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1334 2018/07/20 03:05:58 wen Exp $
+# $NetBSD: Makefile,v 1.1337 2018/07/31 16:44:21 nia Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -149,7 +149,6 @@ SUBDIR+=	ikiwiki
 SUBDIR+=	jalbum
 SUBDIR+=	jetty7
 SUBDIR+=	jetty9
-SUBDIR+=	joomla
 SUBDIR+=	kahua
 SUBDIR+=	kannel
 SUBDIR+=	kdewebdev4
@@ -165,6 +164,7 @@ SUBDIR+=	libmediawiki
 SUBDIR+=	libmicrohttpd
 SUBDIR+=	libmrss
 SUBDIR+=	libproxy
+SUBDIR+=	libpsl
 SUBDIR+=	librest
 SUBDIR+=	librest07
 SUBDIR+=	libsass
@@ -704,6 +704,7 @@ SUBDIR+=	py-grappelli_safe
 SUBDIR+=	py-gunicorn
 SUBDIR+=	py-h11
 SUBDIR+=	py-h2
+SUBDIR+=	py-http_ece
 SUBDIR+=	py-http-parser
 SUBDIR+=	py-httpbin
 SUBDIR+=	py-httpie
