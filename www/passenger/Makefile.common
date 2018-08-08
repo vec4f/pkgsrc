@@ -1,13 +1,13 @@
-# $NetBSD: Makefile.common,v 1.1 2018/01/30 12:06:48 fhajny Exp $
+# $NetBSD: Makefile.common,v 1.7 2018/06/13 12:57:47 fhajny Exp $
 # used by www/ap2-passenger/Makefile
 # used by www/passenger/Makefile
 
-DISTNAME=		passenger-5.2.0
+DISTNAME=		passenger-5.3.2
 CATEGORIES=		www
 
 MASTER_SITES=		http://s3.amazonaws.com/phusion-passenger/releases/
 MAINTAINER?=		filip@joyent.com
-HOMEPAGE=		http://www.phusionpassenger.com/
+HOMEPAGE=		https://www.phusionpassenger.com/
 LICENSE=		mit
 
 USE_LANGUAGES=		c c++
