@@ -40,9 +40,10 @@ DEPENDS+=	${PHP_PKG_PREFIX}-pcntl>=${PHP_VERSION}<${NEXT_VERS}:../../devel/php-p
 DEPENDS+=	${PHP_PKG_PREFIX}-pdo>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pdo
 DEPENDS+=	${PHP_PKG_PREFIX}-pdo_dblib>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pdo_dblib
 DEPENDS+=	${PHP_PKG_PREFIX}-pdo_mysql>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pdo_mysql
-DEPENDS+=	${PHP_PKG_PREFIX}-pdo_pgsql>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pdo_pgsql
+# Hardcoded to avoid pgsql.buildlink3.mk dependency
+DEPENDS+=	${PHP_PKG_PREFIX}-pdo_pgsql{10,96,95,94,93}>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pdo_pgsql
 DEPENDS+=	${PHP_PKG_PREFIX}-pdo_sqlite>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pdo_sqlite
-DEPENDS+=	${PHP_PKG_PREFIX}-pgsql>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pgsql
+DEPENDS+=	${PHP_PKG_PREFIX}-pgsql{10,96,95,94,93}>=${PHP_VERSION}<${NEXT_VERS}:../../databases/php-pgsql
 DEPENDS+=	${PHP_PKG_PREFIX}-posix>=${PHP_VERSION}<${NEXT_VERS}:../../devel/php-posix
 DEPENDS+=	${PHP_PKG_PREFIX}-pspell>=${PHP_VERSION}<${NEXT_VERS}:../../textproc/php-pspell
 DEPENDS+=	${PHP_PKG_PREFIX}-shmop>=${PHP_VERSION}<${NEXT_VERS}:../../devel/php-shmop
