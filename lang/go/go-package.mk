@@ -92,3 +92,8 @@ do-install:
 	${RUN} cd ${WRKDIR}; [ ! -d bin ] || ${PAX} -rw bin ${DESTDIR}${PREFIX}
 	${RUN} cd ${WRKDIR}; [ ! -d pkg ] || ${PAX} -rw src pkg ${DESTDIR}${PREFIX}/gopkg
 .endif
+
+# Include go-dep.mk last as it hooks into post-extract
+.if defined(GO_DEPS)
+.  include "../../lang/go/go-dep.mk"
+.endif
