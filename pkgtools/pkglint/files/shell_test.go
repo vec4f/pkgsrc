@@ -636,13 +636,13 @@ func (s *Suite) Test_ShellLine_CheckShellCommandLine__install_option_d(c *check.
 func (s *Suite) Test_ShellLine__shell_comment_with_line_continuation(c *check.C) {
 	t := s.Init(c)
 
-	lines := t.SetupFileLinesContinuation("Makefile",
+	mklines := t.SetupFileMkLines("Makefile",
 		MkRcsID,
 		"pre-install:",
 		"\t"+"# comment\\",
 		"\t"+"echo \"hello\"")
 
-	NewMkLines(lines).Check()
+	mklines.Check()
 
 	t.CheckOutputLines(
 		"WARN: ~/Makefile:3--4: A shell comment does not stop at the end of line.")
@@ -679,4 +679,34 @@ func (s *Suite) Test_ShellLine__variable_outside_quotes(c *check.C) {
 		"WARN: dummy.mk:2: The variable GZIP may not be set by any package.",
 		"WARN: dummy.mk:2: Unquoted shell variable \"comment\".",
 		"WARN: dummy.mk:2: ECHO should not be evaluated indirectly at load time.")
+}
+
+func (s *Suite) Test_ShellLine_CheckShellCommand__cd_inside_if(c *check.C) {
+	t := s.Init(c)
+
+	mklines := t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"\t${RUN} if cd /bin; then echo \"/bin exists.\"; fi")
+
+	mklines.Check()
+
+	t.CheckOutputLines(
+		"ERROR: Makefile:3: The Solaris /bin/sh cannot handle \"cd\" inside conditionals.",
+		"WARN: Makefile:3: Found absolute pathname: /bin")
+}
+
+func (s *Suite) Test_ShellLine_CheckShellCommand__negated_pipe(c *check.C) {
+	t := s.Init(c)
+
+	mklines := t.NewMkLines("Makefile",
+		MkRcsID,
+		"",
+		"\t${RUN} if ! test -f /etc/passwd; then echo \"passwd is missing.\"; fi")
+
+	mklines.Check()
+
+	t.CheckOutputLines(
+		"WARN: Makefile:3: The Solaris /bin/sh does not support negation of shell commands.",
+		"WARN: Makefile:3: Found absolute pathname: /etc/passwd")
 }

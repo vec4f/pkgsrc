@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.258 2018/08/07 20:23:44 nia Exp $
+# $NetBSD: Makefile,v 1.281 2018/08/15 15:32:11 nia Exp $
 #
 
 COMMENT=	Emulators for other operating systems
@@ -88,20 +88,42 @@ SUBDIR+=	kegs
 SUBDIR+=	keystone
 SUBDIR+=	klh10
 SUBDIR+=	libdsk
-SUBDIR+=	libretro-catsfc
+SUBDIR+=	libretro-beetle-ngp
+SUBDIR+=	libretro-beetle-pce-fast
+SUBDIR+=	libretro-beetle-psx
+SUBDIR+=	libretro-beetle-saturn
+SUBDIR+=	libretro-beetle-sgx
+SUBDIR+=	libretro-beetle-vb
+SUBDIR+=	libretro-beetle-wswan
+SUBDIR+=	libretro-bluemsx
+SUBDIR+=	libretro-bsnes-mercury
+SUBDIR+=	libretro-bsnes-mercury-accuracy
+SUBDIR+=	libretro-bsnes-mercury-performance
 SUBDIR+=	libretro-core-info
 SUBDIR+=	libretro-database
+SUBDIR+=	libretro-desmume
 SUBDIR+=	libretro-fceumm
+SUBDIR+=	libretro-freeintv
+SUBDIR+=	libretro-fuse
 SUBDIR+=	libretro-gambatte
+SUBDIR+=	libretro-genesis-plus-gx
 SUBDIR+=	libretro-glsl-shaders
-SUBDIR+=	libretro-mednafen-pce-fast
+SUBDIR+=	libretro-mgba
 SUBDIR+=	libretro-mupen64plus
 SUBDIR+=	libretro-nestopia
+SUBDIR+=	libretro-np2kai
+SUBDIR+=	libretro-o2em
 SUBDIR+=	libretro-pcsx-rearmed
 SUBDIR+=	libretro-picodrive
-SUBDIR+=	libretro-snes9x-next
+SUBDIR+=	libretro-ppsspp
+SUBDIR+=	libretro-prosystem
+SUBDIR+=	libretro-sameboy
+SUBDIR+=	libretro-snes9x
+SUBDIR+=	libretro-snes9x2005
+SUBDIR+=	libretro-snes9x2010
 SUBDIR+=	libretro-stella
 SUBDIR+=	libretro-vba-next
+SUBDIR+=	libretro-vecx
 SUBDIR+=	libspectrum
 SUBDIR+=	lrmi
 SUBDIR+=	m1

@@ -679,13 +679,12 @@ func (s *Suite) Test_MkLine_variableNeedsQuoting__only_remove_known(c *check.C) 
 	t.SetupCommandLine("-Wall", "--autofix")
 	t.SetupVartypes()
 
-	lines := t.SetupFileLinesContinuation("Makefile",
+	mklines := t.SetupFileMkLines("Makefile",
 		MkRcsID,
 		"",
 		"demo: .PHONY",
 		"\t${ECHO} ${WRKSRC:Q}",
 		"\t${ECHO} ${FOODIR:Q}")
-	mklines := NewMkLines(lines)
 
 	mklines.Check()
 
@@ -877,12 +876,16 @@ func (s *Suite) Test_MatchVarassign(c *check.C) {
 }
 
 func (s *Suite) Test_Indentation(c *check.C) {
+	t := s.Init(c)
+
 	ind := NewIndentation()
+
+	mkline := t.NewMkLine("dummy.mk", 5, ".if 0")
 
 	c.Check(ind.Depth("if"), equals, 0)
 	c.Check(ind.DependsOn("VARNAME"), equals, false)
 
-	ind.Push(2, "")
+	ind.Push(mkline, 2, "")
 
 	c.Check(ind.Depth("if"), equals, 0) // Because "if" is handled in MkLines.TrackBefore.
 	c.Check(ind.Depth("endfor"), equals, 0)
@@ -897,11 +900,12 @@ func (s *Suite) Test_Indentation(c *check.C) {
 	c.Check(ind.DependsOn("LEVEL1.VAR1"), equals, true)
 	c.Check(ind.DependsOn("OTHER_VAR"), equals, false)
 
-	ind.Push(2, "")
+	ind.Push(mkline, 2, "")
 
 	ind.AddVar("LEVEL2.VAR")
 
 	c.Check(ind.Varnames(), equals, "LEVEL1.VAR1, LEVEL1.VAR2, LEVEL2.VAR")
+	c.Check(ind.String(), equals, "[2 (LEVEL1.VAR1 LEVEL1.VAR2) 2 (LEVEL2.VAR)]")
 
 	ind.Pop()
 
@@ -912,4 +916,5 @@ func (s *Suite) Test_Indentation(c *check.C) {
 
 	c.Check(ind.Varnames(), equals, "")
 	c.Check(ind.IsConditional(), equals, false)
+	c.Check(ind.String(), equals, "[]")
 }

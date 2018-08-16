@@ -15,6 +15,18 @@ import (
 	"time"
 )
 
+type YesNoUnknown uint8
+
+const (
+	no YesNoUnknown = iota
+	yes
+	unknown
+)
+
+func (ynu YesNoUnknown) String() string {
+	return [...]string{"no", "yes", "unknown"}[ynu]
+}
+
 // Short names for commonly used functions.
 func contains(s, substr string) bool {
 	return strings.Contains(s, substr)
@@ -313,7 +325,6 @@ func mkopSubst(s string, left bool, from string, right bool, to string, flags st
 }
 
 // relpath returns the relative path from `from` to `to`.
-// If `to` is not within `from`, it panics.
 func relpath(from, to string) string {
 	absFrom, err1 := filepath.Abs(from)
 	absTo, err2 := filepath.Abs(to)
@@ -347,6 +358,9 @@ func cleanpath(fname string) string {
 	}
 	for contains(tmp, "/./") {
 		tmp = strings.Replace(tmp, "/./", "/", -1)
+	}
+	if len(tmp) > 2 && hasSuffix(tmp, "/.") {
+		tmp = tmp[:len(tmp)-2]
 	}
 	for contains(tmp, "//") {
 		tmp = strings.Replace(tmp, "//", "/", -1)
@@ -568,7 +582,7 @@ func naturalLess(str1, str2 string) bool {
 // like defining PKGNAME, then evaluating it using :=, then defining it again.
 // This pattern is so error-prone that it should not appear in pkgsrc at all,
 // thus pkglint doesn't even expect it. (Well, except for the PKGNAME case,
-// but that's deep in the infrastructure and only affects the "nb13" extension.
+// but that's deep in the infrastructure and only affects the "nb13" extension.)
 type RedundantScope struct {
 	vars        map[string]*redundantScopeVarinfo
 	condLevel   int
@@ -610,6 +624,9 @@ func (s *RedundantScope) Handle(mkline MkLine) {
 				s.vars[varname] = &redundantScopeVarinfo{mkline, value}
 			}
 		} else if existing != nil {
+			if op == opAssign && existing.value == value {
+				op = opAssignDefault
+			}
 			switch op {
 			case opAssign:
 				if s.OnOverwrite != nil {
