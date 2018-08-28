@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2717 2018/08/20 12:58:06 adam Exp $
+# $NetBSD: Makefile,v 1.2722 2018/08/28 09:58:54 adam Exp $
 #
 
 COMMENT=	Development utilities
@@ -308,6 +308,7 @@ SUBDIR+=	git-contrib
 SUBDIR+=	git-cvs
 SUBDIR+=	git-docs
 SUBDIR+=	git-gitk
+SUBDIR+=	git-lfs
 SUBDIR+=	git-remote-hg
 SUBDIR+=	git-svn
 SUBDIR+=	gitolite
@@ -420,6 +421,7 @@ SUBDIR+=	heirloom-getopt
 SUBDIR+=	heirloom-libcommon
 SUBDIR+=	heirloom-what
 SUBDIR+=	hoe
+SUBDIR+=	honggfuzz
 SUBDIR+=	hptools
 SUBDIR+=	hs-MonadRandom
 SUBDIR+=	hs-QuickCheck
@@ -849,7 +851,6 @@ SUBDIR+=	p5-Algorithm-Permute
 SUBDIR+=	p5-Alien-Base-ModuleBuild
 SUBDIR+=	p5-Alien-Build
 SUBDIR+=	p5-Alien-Packages
-SUBDIR+=	p5-Alien-Role-Alt
 SUBDIR+=	p5-Alien-SDL
 SUBDIR+=	p5-AnnoCPAN-Perldoc
 SUBDIR+=	p5-Any-Moose
@@ -1676,6 +1677,7 @@ SUBDIR+=	p5-Test-Inline
 SUBDIR+=	p5-Test-Inter
 SUBDIR+=	p5-Test-Kwalitee
 SUBDIR+=	p5-Test-LeakTrace
+SUBDIR+=	p5-Test-LectroTest
 SUBDIR+=	p5-Test-Log4perl
 SUBDIR+=	p5-Test-LongString
 SUBDIR+=	p5-Test-Manifest
@@ -1913,6 +1915,7 @@ SUBDIR+=	py-backports.functools_lru_cache
 SUBDIR+=	py-backports.shutil_get_terminal_size
 SUBDIR+=	py-backports_abc
 SUBDIR+=	py-bcolz
+SUBDIR+=	py-behave
 SUBDIR+=	py-binaryornot
 SUBDIR+=	py-blessings
 SUBDIR+=	py-blinker

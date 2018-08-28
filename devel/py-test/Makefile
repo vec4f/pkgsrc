@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.54 2018/08/19 08:12:20 adam Exp $
+# $NetBSD: Makefile,v 1.56 2018/08/28 09:52:53 adam Exp $
 
-DISTNAME=	pytest-3.7.2
+DISTNAME=	pytest-3.7.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pytest/}
@@ -22,8 +22,10 @@ TEST_DEPENDS+=	${PYPKGPREFIX}-hypothesis-[0-9]*:../../devel/py-hypothesis
 TEST_DEPENDS+=	${PYPKGPREFIX}-yaml-[0-9]*:../../textproc/py-yaml
 
 .include "../../lang/python/pyversion.mk"
-.if "${PYPKGPREFIX}" == "py27"
+.if ${_PYTHON_VERSION} == 27
 DEPENDS+=	${PYPKGPREFIX}-funcsigs-[0-9]*:../../devel/py-funcsigs
+.elif ${_PYTHON_VERSION} < 36
+DEPENDS+=	${PYPKGPREFIX}-pathlib2>=2.2.0:../../devel/py-pathlib2
 .endif
 
 USE_LANGUAGES=	# none
