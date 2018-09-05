@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.293 2018/08/28 13:51:08 ryoon Exp $
+# $NetBSD: Makefile,v 1.295 2018/09/04 08:26:18 wiz Exp $
 
 DISTNAME=	gimp-2.10.6
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.gimp.org/pub/gimp/v${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar.bz2
@@ -11,6 +12,7 @@ COMMENT=	The GNU image manipulation program
 LICENSE=	gnu-lgpl-v3 AND gnu-gpl-v3
 
 BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+BUILD_DEPENDS+=	gettext-tools>=0.19:../../devel/gettext-tools
 DEPENDS+=	glib-networking>=2.36.2:../../net/glib-networking
 CONFLICTS+=	gimp<=1.2.3
 
