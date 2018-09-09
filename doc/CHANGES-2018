@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2018,v 1.3963 2018/09/07 13:54:53 fhajny Exp $
+$NetBSD: CHANGES-2018,v 1.3983 2018/09/09 17:48:08 wiedi Exp $
 
 Changes to the packages collection and infrastructure in 2018:
 
@@ -5577,3 +5577,23 @@ Changes to the packages collection and infrastructure in 2018:
 	Updated lang/nodejs to 10.10.0 [fhajny 2018-09-07]
 	Updated lang/npm to 6.4.1 [fhajny 2018-09-07]
 	Updated security/hitch to 1.4.8 [fhajny 2018-09-07]
+	Updated databases/mysql57-client to 5.7.23nb2 [wiz 2018-09-07]
+	Updated devel/cmake to 3.12.2 [adam 2018-09-08]
+	Added news/sfeed version 0.9.6 [leot 2018-09-08]
+	Updated devel/radare2 to 2.4.0 [khorben 2018-09-08]
+	Updated net/mikutter to 3.8.0 [tsutsui 2018-09-08]
+	Updated graphics/ruby-cairo to 1.15.14 [tsutsui 2018-09-08]
+	Updated net/youtube-dl to 20180908 [leot 2018-09-08]
+	Updated misc/ruby-sprockets22 to 2.2.3nb3 [taca 2018-09-08]
+	Updated security/py-acme-tiny to 4.0.4 [schmonz 2018-09-08]
+	Updated devel/libidn2 to 2.0.5 [schmonz 2018-09-08]
+	Updated shells/zsh to 5.6 [wen 2018-09-09]
+	Updated x11/libdrm to 2.4.94nb1 [maya 2018-09-09]
+	Updated databases/p5-DBD-mysql to 4.047 [wiz 2018-09-09]
+	Updated devel/p5-Carp to 1.50 [wiz 2018-09-09]
+	Updated devel/p5-GitLab-API-v3 to 1.04 [wiz 2018-09-09]
+	Updated devel/p5-Proc-Pidfile to 1.07 [wiz 2018-09-09]
+	Updated misc/ruby-sprockets to 3.7.2 [taca 2018-09-09]
+	Added net/bind911 version 9.11.4pl1 [taca 2018-09-09]
+	Added net/bind912 version 9.12.2pl1 [taca 2018-09-09]
+	Updated editors/nano to 3.0 [wiedi 2018-09-09]
