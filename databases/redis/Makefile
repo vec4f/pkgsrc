@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.34 2017/12/09 16:42:50 fhajny Exp $
+# $NetBSD: Makefile,v 1.40 2018/08/19 08:39:36 adam Exp $
 
-DISTNAME=	redis-4.0.6
+DISTNAME=	redis-4.0.11
 CATEGORIES=	databases
 MASTER_SITES=	http://download.redis.io/releases/
 
@@ -37,7 +37,7 @@ OWN_DIRS_PERMS+=	${REDIS_LOGDIR} ${REDIS_USER} ${REDIS_GROUP} 0770
 
 PKG_GROUPS+=		${REDIS_GROUP}
 PKG_USERS+=		${REDIS_USER}:${REDIS_GROUP}
-PKG_GECOS.${REDIS_USER}= Redis daemon user
+PKG_GECOS.${REDIS_USER}=Redis daemon user
 PKG_HOME.${REDIS_USER}=	${REDIS_DBDIR}
 
 FILES_SUBST+=		REDIS_USER=${REDIS_USER}
@@ -46,7 +46,7 @@ FILES_SUBST+=		REDIS_DATADIR=${REDIS_DATADIR}
 
 SUBST_CLASSES+=		fix-paths
 SUBST_STAGE.fix-paths=	pre-configure
-SUBST_MESSAGE.fix-paths= Fixing paths.
+SUBST_MESSAGE.fix-paths=Fixing paths.
 SUBST_FILES.fix-paths=	redis.conf
 SUBST_VARS.fix-paths=	REDIS_DATADIR REDIS_LOGDIR REDIS_PIDDIR
 
@@ -54,6 +54,11 @@ CHECK_PORTABILITY_SKIP+=	deps/jemalloc/configure
 
 post-extract:
 	${CHMOD} -R g-w ${WRKSRC}
+
+.if ${MACHINE_ARCH} == "i386"
+# Need 8 byte atomics.
+CFLAGS+=		-march=i586
+.endif
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/redis.conf ${DESTDIR}${EGDIR}/redis.conf.example
