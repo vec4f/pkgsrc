@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2727 2018/09/04 12:44:58 wiz Exp $
+# $NetBSD: Makefile,v 1.2733 2018/09/11 17:45:10 minskim Exp $
 #
 
 COMMENT=	Development utilities
@@ -330,6 +330,7 @@ SUBDIR+=	gnustep-objc
 SUBDIR+=	gnustep-objc-lf2
 SUBDIR+=	go-afero
 SUBDIR+=	go-amber
+SUBDIR+=	go-appengine
 SUBDIR+=	go-blackfriday
 SUBDIR+=	go-buffruneio
 SUBDIR+=	go-cast
@@ -337,6 +338,7 @@ SUBDIR+=	go-check
 SUBDIR+=	go-cli
 SUBDIR+=	go-cobra
 SUBDIR+=	go-colorable
+SUBDIR+=	go-colortext
 SUBDIR+=	go-consul-api
 SUBDIR+=	go-debounce
 SUBDIR+=	go-ed25519
@@ -352,6 +354,8 @@ SUBDIR+=	go-glog
 SUBDIR+=	go-gls
 SUBDIR+=	go-gocode
 SUBDIR+=	go-godef
+SUBDIR+=	go-godirwalk
+SUBDIR+=	go-godotenv
 SUBDIR+=	go-golang-lru
 SUBDIR+=	go-goorgeous
 SUBDIR+=	go-gopkgs
@@ -363,6 +367,7 @@ SUBDIR+=	go-immutable-radix
 SUBDIR+=	go-ini
 SUBDIR+=	go-isatty
 SUBDIR+=	go-jwalterweatherman
+SUBDIR+=	go-logrus
 SUBDIR+=	go-mapstructure
 SUBDIR+=	go-mow-cli
 SUBDIR+=	go-nbreader
@@ -2683,6 +2688,7 @@ SUBDIR+=	xsd
 SUBDIR+=	xulrunner192
 SUBDIR+=	xulrunner45
 SUBDIR+=	xxgdb
+SUBDIR+=	xxhash
 SUBDIR+=	yajl
 SUBDIR+=	yarn
 SUBDIR+=	yasm
