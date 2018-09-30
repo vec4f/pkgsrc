@@ -211,6 +211,10 @@ post-install:
 	#${RM} -rf ${DESTDIR}/${PREFIX}/lib/python${PY_VER_SUFFIX}/config-${PY_VER_SUFFIX}${LIBARCHSUFFIX}/__pycache__
 .endif
 
+# Harmless PKG_CONFIG_LIBDIR references to BUILDLINK_DIR
+CHECK_WRKREF_SKIP+=	lib/python3.4/_sysconfigdata.py
+CHECK_WRKREF_SKIP+=	lib/python3.4/config-3.4/Makefile
+
 .if ${OPSYS} == "HPUX"
 post-install:
 	${LN} -fs ${DESTDIR}${PREFIX}/lib/libpython3.4.sl \

@@ -110,7 +110,6 @@ BUILDLINK_API_DEPENDS.libarchive+=	libarchive>=3.3.1
 .include "../../archivers/xz/builtin.mk"
 .include "../../archivers/libarchive/builtin.mk"
 .include "../../devel/zlib/builtin.mk"
-.include "../../security/openssl/builtin.mk"
 
 .include "options.mk"
 
@@ -202,6 +201,7 @@ pre-configure:
 		--disable-dependency-tracking --without-expat		\
 		--disable-maintainer-mode				\
 		--without-iconv --without-lzo2 --without-nettle		\
+		--without-lzmadec --without-lzma			\
 		--without-xml2 --without-lz4				\
 		${LIBARCHIVE_CONFIGURE_ARGS}
 	cd ${WRKDIR}/libarchive && ${BUILD_MAKE_CMD}
@@ -211,7 +211,7 @@ pre-configure:
 		${MAKE_PROGRAM} ${MAKE_FLAGS} ${BUILD_MAKE_FLAGS}	\
 			-f ${MAKE_FILE} depend all
 	cd ${WRKDIR}/netpgp &&					\
-	${SED} -e '/zlib/d' Makefile.lib.in >Makefile.in &&		\
+	${SED} -e '/zlib/d' -e 's/rsa\.o//' Makefile.lib.in >Makefile.in && \
 	${RM} -f bzlib.h zlib.h &&					\
 	${CONFIG_SHELL} ${CONFIG_SHELL_FLAGS} ./configure &&		\
 	${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV} ${MAKE_PROGRAM}		\
