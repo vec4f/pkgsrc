@@ -13,6 +13,9 @@ LICENSE=	${PERL5_LICENSE}
 
 MAKE_JOBS_SAFE=		no
 
+# All .so's "Invalid type identifier"
+CTF_SUPPORTED=		no
+
 BUILD_DEPENDS+=	p5-Alien-wxWidgets>=0.25:../../x11/p5-Alien-wxWidgets
 #BUILD_DEPENDS+=	{perl>=5.16.6,p5-ExtUtils-ParseXS>=3.15}:../../devel/p5-ExtUtils-ParseXS
 BUILD_DEPENDS+=	p5-ExtUtils-XSpp>=0.16.02:../../devel/p5-ExtUtils-XSpp

@@ -16,4 +16,6 @@ PKGCONFIG_OVERRIDE=	libsodium.pc.in
 
 TEST_TARGET=	check
 
+CTF_SUPPORTED=	no	# failed to get tag type: DW_DLE_DIE_NULL
+
 .include "../../mk/bsd.pkg.mk"

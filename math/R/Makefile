@@ -145,6 +145,9 @@ SUBST_SED.fixwrap=	-e "s,${WRAPPER_BINDIR}/libtool,${PKG_LIBTOOL},g"
 
 BUILDLINK_API_DEPENDS.bzip2+=	bzip2>=1.0.5
 
+# failed to convert strong functions and variables: Invalid type identifier
+CTF_FILES_SKIP+=	lib/R/library/mgcv/libs/mgcv.so
+
 pre-configure:
 	${RUN} cd ${WRKSRC} && autoreconf -fvi
 

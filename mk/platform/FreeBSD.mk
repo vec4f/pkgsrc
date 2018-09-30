@@ -77,6 +77,7 @@ PKG_HAVE_KQUEUE=	# defined
 _OPSYS_SUPPORTS_SSP=	yes
 .endif
 
+_OPSYS_SUPPORTS_CTF=		yes # Compact Type Format conversion.
 _OPSYS_SUPPORTS_CWRAPPERS=	yes
 _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk
 _OPSYS_CAN_CHECK_SSP=		no  # only supports libssp at this time

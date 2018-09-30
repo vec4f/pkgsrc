@@ -19,6 +19,9 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	automake bison gmake perl:build pkg-config msgfmt
 USE_TOOLS+=	msgmerge xgettext
 
+# Enabling -gdwarf-2 hits GNU ar limits on file size.
+CTF_SUPPORTED=	no
+
 # GCC >= 4.8 (for std::this_thread::yield() at least) or Clang >= 3.3
 GCC_REQD+=	4.8
 

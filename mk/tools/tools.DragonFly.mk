@@ -36,6 +36,7 @@ TOOLS_PLATFORM.flex?=		/usr/bin/flex
 TOOLS_PLATFORM.ftp?=		/usr/bin/ftp
 TOOLS_PLATFORM.grep?=		/usr/bin/grep
 TOOLS_PLATFORM.groff?=		/usr/bin/groff
+TOOLS_PLATFORM.gstrip?=		/usr/bin/strip
 .if exists(/usr/bin/gtar)
 TOOLS_PLATFORM.gtar?=		/usr/bin/gtar
 .endif
