@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2733 2018/09/11 17:45:10 minskim Exp $
+# $NetBSD: Makefile,v 1.2736 2018/09/23 18:17:04 taca Exp $
 #
 
 COMMENT=	Development utilities
@@ -2225,6 +2225,7 @@ SUBDIR+=	py-pysha3
 SUBDIR+=	py-pysvn
 SUBDIR+=	py-pytemplate
 SUBDIR+=	py-python-dotenv
+SUBDIR+=	py-python-slugify
 SUBDIR+=	py-pyutil
 SUBDIR+=	py-pyvex
 SUBDIR+=	py-queuelib
@@ -2330,6 +2331,7 @@ SUBDIR+=	py-whichcraft
 SUBDIR+=	py-windbg
 SUBDIR+=	py-wrapt
 SUBDIR+=	py-xdg
+SUBDIR+=	py-xdis
 SUBDIR+=	py-xopen
 SUBDIR+=	py-zanata-python-client
 SUBDIR+=	py-zc.lockfile
@@ -2357,6 +2359,7 @@ SUBDIR+=	re2
 SUBDIR+=	re2c
 SUBDIR+=	readline
 SUBDIR+=	rebar
+SUBDIR+=	rebar3
 SUBDIR+=	refinecvs
 SUBDIR+=	reposurgeon
 SUBDIR+=	rgbds

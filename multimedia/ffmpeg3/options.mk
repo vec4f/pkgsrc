@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.12 2018/04/30 09:00:45 adam Exp $
+# $NetBSD: options.mk,v 1.14 2018/09/29 14:28:24 tnn Exp $
 
 # Global and legacy options
 
@@ -29,7 +29,6 @@ PKG_SUGGESTED_OPTIONS+=	vaapi
 
 # Fontconfig
 .if !empty(PKG_OPTIONS:Mfontconfig)
-USE_TOOLS+=		pkg-config
 CONFIGURE_ARGS+=	--enable-fontconfig
 .include "../../fonts/fontconfig/buildlink3.mk"
 .else
@@ -38,7 +37,6 @@ CONFIGURE_ARGS+=	--disable-fontconfig
 
 # freetype option
 .if !empty(PKG_OPTIONS:Mfreetype)
-USE_TOOLS+=		pkg-config
 CONFIGURE_ARGS+=	--enable-libfreetype
 .include "../../graphics/freetype2/buildlink3.mk"
 .else
@@ -47,7 +45,6 @@ CONFIGURE_ARGS+=	--disable-libfreetype
 
 # ass option
 .if !empty(PKG_OPTIONS:Mass)
-USE_TOOLS+=		pkg-config
 CONFIGURE_ARGS+=	--enable-libass
 .include "../../multimedia/libass/buildlink3.mk"
 .else

@@ -1,13 +1,13 @@
-# $NetBSD: options.mk,v 1.2 2018/04/30 09:00:46 adam Exp $
+# $NetBSD: options.mk,v 1.5 2018/09/30 19:00:31 maya Exp $
 
 # Global and legacy options
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ffmpeg4
-PKG_SUPPORTED_OPTIONS=	ass bluray doc fdk-aac fontconfig freetype gnutls \
-			lame libvpx opencore-amr openssl opus rpi rtmp \
-			tesseract theora vorbis x11 x264 x265 xcb xvid
-PKG_SUGGESTED_OPTIONS=	lame ass bluray freetype fontconfig libvpx openssl \
-			theora vorbis x11 x264 xvid
+PKG_SUPPORTED_OPTIONS=	ass av1 bluray doc fdk-aac fontconfig freetype \
+			gnutls lame libvpx opencore-amr openssl opus rpi \
+			rtmp tesseract theora vorbis x11 x264 x265 xcb xvid
+PKG_SUGGESTED_OPTIONS=	lame ass av1 bluray freetype fontconfig libvpx \
+			openssl theora vorbis x11 x264 xvid
 
 PLIST_VARS+=		doc
 
@@ -29,7 +29,6 @@ PKG_SUGGESTED_OPTIONS+=	vaapi
 
 # Fontconfig
 .if !empty(PKG_OPTIONS:Mfontconfig)
-USE_TOOLS+=		pkg-config
 CONFIGURE_ARGS+=	--enable-fontconfig
 .include "../../fonts/fontconfig/buildlink3.mk"
 .else
@@ -38,7 +37,6 @@ CONFIGURE_ARGS+=	--disable-fontconfig
 
 # freetype option
 .if !empty(PKG_OPTIONS:Mfreetype)
-USE_TOOLS+=		pkg-config
 CONFIGURE_ARGS+=	--enable-libfreetype
 .include "../../graphics/freetype2/buildlink3.mk"
 .else
@@ -47,11 +45,18 @@ CONFIGURE_ARGS+=	--disable-libfreetype
 
 # ass option
 .if !empty(PKG_OPTIONS:Mass)
-USE_TOOLS+=		pkg-config
 CONFIGURE_ARGS+=	--enable-libass
 .include "../../multimedia/libass/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-libass
+.endif
+
+# ass option
+.if !empty(PKG_OPTIONS:Mav1)
+CONFIGURE_ARGS+=	--enable-libaom
+.include "../../multimedia/libaom/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-libaom
 .endif
 
 # doc option
@@ -91,7 +96,7 @@ CONFIGURE_ARGS+=	--enable-libopencore-amrwb
 # OpenCORE libraries with FFmpeg, the license version needs to be
 # upgraded by passing --enable-version3 to configure."
 CONFIGURE_ARGS+=	--enable-version3
-# TODO: LICENSE
+ADDITIONAL_LICENSE+=		AND gnu-lgpl-v3
 .include "../../audio/opencore-amr/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-libopencore-amrnb

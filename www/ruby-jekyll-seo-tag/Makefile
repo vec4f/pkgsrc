@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2018/03/13 17:10:48 taca Exp $
+# $NetBSD: Makefile,v 1.3 2018/09/28 16:00:39 tnn Exp $
 
-DISTNAME=	jekyll-seo-tag-2.4.0
+DISTNAME=	jekyll-seo-tag-2.5.0
 CATEGORIES=	www
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -8,9 +8,9 @@ HOMEPAGE=	https://github.com/benbalter/jekyll-seo-tag
 COMMENT=	Jekyll plugin to add metadata tags for SEO
 LICENSE=	mit
 
-#
-# gemspec says dependency, but this package is really part of jekyll.
 #DEPENDS+=	${RUBY_PKGPREFIX}-jekyll>=3.3<4:../../www/ruby-jekyll
+
+RUBY_VERSIONS_ACCEPTED=	23 24 25
 
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"
