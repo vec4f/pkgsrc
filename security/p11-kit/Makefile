@@ -18,6 +18,7 @@ CONFIGURE_ARGS+=	--with-trust-paths=${PREFIX}/share/mozilla-rootcerts/cacert.pem
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c99
 USE_LIBTOOL=	yes
+USE_MULTIARCH=	lib
 USE_TOOLS+=	pkg-config
 
 TEST_TARGET=	check
