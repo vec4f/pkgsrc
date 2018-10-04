@@ -57,7 +57,7 @@ CONFIGURE_ARGS+=	--with-system-sqlite
 SUBST_CLASSES+=		sqllink
 SUBST_STAGE.sqllink=	pre-configure
 SUBST_FILES.sqllink=	pkgs/sqlite${SQLITE3_VERSION}/configure
-SUBST_SED.sqllink=	-e "/LIBS=/s|-lsqlite3|-L${BUILDLINK_PREFIX.sqlite3}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.sqlite3}/lib -lsqlite3|g"
+SUBST_SED.sqllink=	-e "/LIBS=/s|-lsqlite3|-L${BUILDLINK_PREFIX.sqlite3}/lib${LIBARCHSUFFIX} ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.sqlite3}/lib${LIBARCHSUFFIX} -lsqlite3|g"
 
 # install-sh requires $SHELL is an extremely close match to /bin/sh
 MAKE_ENV+=		SHELL=${SH:Q}
