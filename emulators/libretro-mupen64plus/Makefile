@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2018/08/16 13:25:27 nia Exp $
+# $NetBSD: Makefile,v 1.14 2018/10/03 15:01:10 nia Exp $
 
 DISTNAME=	libretro-mupen64plus-20180628
+PKGREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_GITHUB:=libretro/}
 GITHUB_PROJECT=	mupen64plus-libretro
@@ -32,6 +33,9 @@ MAKE_FLAGS+=	WITH_DYNAREC=x86_64
 .else
 MAKE_FLAGS+=	WITH_DYNAREC=
 .endif
+
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,--version-script=./libretro/link.T
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,--no-undefined
 
 INSTALLATION_DIRS+=	${PREFIX}/lib/libretro
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.777 2018/09/30 22:33:37 schmonz Exp $
+# $NetBSD: Makefile,v 1.779 2018/10/09 15:20:34 abs Exp $
 #
 
 COMMENT=	System utilities
@@ -226,6 +226,7 @@ SUBDIR+=	gworkspace
 SUBDIR+=	hal
 SUBDIR+=	hal-info
 SUBDIR+=	hddtemp
+SUBDIR+=	hivex
 SUBDIR+=	heirloom-basename
 SUBDIR+=	heirloom-cat
 SUBDIR+=	heirloom-chmod
@@ -648,7 +649,6 @@ SUBDIR+=	user_interix
 SUBDIR+=	user_irix
 SUBDIR+=	vbetool
 SUBDIR+=	vcdimager
-SUBDIR+=	vcdimager-devel
 SUBDIR+=	vidc-tools
 SUBDIR+=	vifm
 SUBDIR+=	vip
