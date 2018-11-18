@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2746 2018/11/10 19:50:04 wiz Exp $
+# $NetBSD: Makefile,v 1.2755 2018/11/18 08:18:59 ryoon Exp $
 #
 
 COMMENT=	Development utilities
@@ -332,6 +332,7 @@ SUBDIR+=	gnustep-objc-lf2
 SUBDIR+=	go-afero
 SUBDIR+=	go-amber
 SUBDIR+=	go-appengine
+SUBDIR+=	go-assert
 SUBDIR+=	go-blackfriday
 SUBDIR+=	go-buffruneio
 SUBDIR+=	go-cast
@@ -340,6 +341,7 @@ SUBDIR+=	go-cli
 SUBDIR+=	go-cobra
 SUBDIR+=	go-colorable
 SUBDIR+=	go-colortext
+SUBDIR+=	go-colour
 SUBDIR+=	go-consul-api
 SUBDIR+=	go-debounce
 SUBDIR+=	go-ed25519
@@ -362,14 +364,19 @@ SUBDIR+=	go-goorgeous
 SUBDIR+=	go-gopkgs
 SUBDIR+=	go-goptlib
 SUBDIR+=	go-goreturns
+SUBDIR+=	go-hashstructure
 SUBDIR+=	go-homedir
+SUBDIR+=	go-humanize
 SUBDIR+=	go-i18n
 SUBDIR+=	go-immutable-radix
 SUBDIR+=	go-ini
 SUBDIR+=	go-isatty
 SUBDIR+=	go-jwalterweatherman
+SUBDIR+=	go-kingpin.v3-unstable
+SUBDIR+=	go-locker
 SUBDIR+=	go-logrus
 SUBDIR+=	go-mapstructure
+SUBDIR+=	go-mapstructure-bep
 SUBDIR+=	go-mow-cli
 SUBDIR+=	go-nbreader
 SUBDIR+=	go-nitro
@@ -379,6 +386,7 @@ SUBDIR+=	go-properties
 SUBDIR+=	go-protobuf
 SUBDIR+=	go-purell
 SUBDIR+=	go-ratelimit
+SUBDIR+=	go-repr
 SUBDIR+=	go-review
 SUBDIR+=	go-sanitized_anchor_name
 SUBDIR+=	go-shellwords
@@ -389,6 +397,7 @@ SUBDIR+=	go-sys
 SUBDIR+=	go-termbox
 SUBDIR+=	go-testify
 SUBDIR+=	go-tools
+SUBDIR+=	go-try
 SUBDIR+=	go-viper
 SUBDIR+=	go-yaml
 SUBDIR+=	gob2

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1342 2018/10/28 15:08:16 taca Exp $
+# $NetBSD: Makefile,v 1.1348 2018/11/18 08:49:17 ryoon Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -117,8 +117,14 @@ SUBDIR+=	go-ace
 SUBDIR+=	go-cssmin
 SUBDIR+=	go-gogs-client
 SUBDIR+=	go-gohtml
+SUBDIR+=	go-libsass
+SUBDIR+=	go-minify
+SUBDIR+=	go-parse
+SUBDIR+=	go-spritewell
+SUBDIR+=	go-tocss
 SUBDIR+=	go-toml-burntsushi
 SUBDIR+=	go-toml-pelletier
+SUBDIR+=	go-urlesc
 SUBDIR+=	go-webhooks
 SUBDIR+=	goaccess
 SUBDIR+=	grafana

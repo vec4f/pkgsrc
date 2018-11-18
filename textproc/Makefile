@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1009 2018/11/15 23:48:23 nia Exp $
+# $NetBSD: Makefile,v 1.1012 2018/11/18 08:28:37 ryoon Exp $
 #
 
 COMMENT=	Text processing utilities (does not include desktop publishing)
@@ -200,11 +200,14 @@ SUBDIR+=	glimpse
 SUBDIR+=	gnome-doc-utils
 SUBDIR+=	gnome-spell
 SUBDIR+=	gnome-subtitles
+SUBDIR+=	go-chroma
+SUBDIR+=	go-diff
 SUBDIR+=	go-glob
 SUBDIR+=	go-inflect
 SUBDIR+=	go-md2man
 SUBDIR+=	go-mmark
 SUBDIR+=	go-prose
+SUBDIR+=	go-regexp2
 SUBDIR+=	go-runewidth
 SUBDIR+=	go-sentences
 SUBDIR+=	go-tablewriter
