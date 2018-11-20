@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2755 2018/11/18 08:18:59 ryoon Exp $
+# $NetBSD: Makefile,v 1.2758 2018/11/20 17:29:24 maya Exp $
 #
 
 COMMENT=	Development utilities
@@ -714,6 +714,7 @@ SUBDIR+=	lokalize
 SUBDIR+=	ltsa
 SUBDIR+=	lua-BitOp
 SUBDIR+=	lua-alt-getopt
+SUBDIR+=	lua-bitlib
 SUBDIR+=	lua-coxpcall
 SUBDIR+=	lua-filesystem
 SUBDIR+=	lua-gi
@@ -727,6 +728,8 @@ SUBDIR+=	lua-mode
 SUBDIR+=	lua-penlight
 SUBDIR+=	lua-posix
 SUBDIR+=	lua-rocks
+SUBDIR+=	lua-std-_debug
+SUBDIR+=	lua-std-normalize
 SUBDIR+=	lua-stdlib
 SUBDIR+=	lutok
 SUBDIR+=	lwp
