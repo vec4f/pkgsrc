@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.35 2018/08/22 09:45:48 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2018/11/12 03:52:36 ryoon Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffmpeg3/}
 PKGREVISION=	1

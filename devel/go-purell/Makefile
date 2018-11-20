@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2018/06/12 17:50:23 bsiegert Exp $
+# $NetBSD: Makefile,v 1.8 2018/11/18 07:42:38 ryoon Exp $
 
-DISTNAME=	purell-0.1.0
+DISTNAME=	purell-1.1.0
 PKGNAME=	go-${DISTNAME}
-PKGREVISION=	3
 MASTER_SITES=	${MASTER_SITE_GITHUB:=PuerkitoBio/}
 CATEGORIES=	devel
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -16,5 +15,7 @@ LICENSE=	modified-bsd
 GO_DIST_BASE=	${DISTNAME}
 GO_SRCPATH=	github.com/PuerkitoBio/purell
 
+.include "../../net/go-net/buildlink3.mk"
+.include "../../www/go-urlesc/buildlink3.mk"
 .include "../../lang/go/go-package.mk"
 .include "../../mk/bsd.pkg.mk"

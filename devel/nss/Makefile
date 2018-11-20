@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.157 2018/09/05 15:19:03 ryoon Exp $
+# $NetBSD: Makefile,v 1.159 2018/11/12 14:40:21 jperkin Exp $
 
 DISTNAME=		nss-${NSS_RELEASE:S/.0$//}
-NSS_RELEASE=		3.39.0
+NSS_RELEASE=		3.40.0
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_DIST_DIR_VERSION:S/_0$//}_RTM/src/}
 
@@ -14,6 +14,8 @@ CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}nss/tests/libpkix/libpkix.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}nss/tests/multinit/multinit.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}js/src/configure
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}configure
+
+CTF_SUPPORTED=		no # https://smartos.org/bugview/OS-6510
 
 USE_GCC_RUNTIME=	yes
 USE_LANGUAGES=		c99

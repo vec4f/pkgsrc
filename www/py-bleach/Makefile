@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2018/10/02 09:02:09 adam Exp $
+# $NetBSD: Makefile,v 1.12 2018/10/30 09:48:29 hauke Exp $
 
-DISTNAME=	bleach-2.1.4
+DISTNAME=	bleach-3.0.2
+PKGREVISION=	1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
 MASTER_SITES=	${MASTER_SITE_PYPI:=b/bleach/}
@@ -10,12 +11,14 @@ HOMEPAGE=	https://github.com/mozilla/bleach
 COMMENT=	Easy whitelist-based HTML-sanitizing tool
 LICENSE=	apache-2.0
 
-DEPENDS+=	${PYPKGPREFIX}-html5lib>=0.99999999:../../textproc/py-html5lib
 DEPENDS+=	${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
+DEPENDS+=	${PYPKGPREFIX}-webencodings-[0-9]*:../../textproc/py-webencodings
 BUILD_DEPENDS+=	${PYPKGPREFIX}-test-runner>=2.0:../../devel/py-test-runner
 TEST_DEPENDS+=	${PYPKGPREFIX}-test>=3.0.0:../../devel/py-test
 
 USE_LANGUAGES=	# none
+
+REPLACE_SH+=	bleach/_vendor/pip_install_vendor.sh
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

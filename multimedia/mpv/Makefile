@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.73 2018/10/03 09:07:20 leot Exp $
+# $NetBSD: Makefile,v 1.75 2018/11/12 03:52:39 ryoon Exp $
 
 DISTNAME=	mpv-0.29.1
+PKGREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mpv-player/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -11,7 +12,7 @@ COMMENT=	Video player based on MPlayer and mplayer2
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1
 
 # needs sem_timedwait(3)
-NOT_FOR_PLATFORM=	NetBSD-[1-6]*-*
+NOT_FOR_PLATFORM=	NetBSD-[1-6].*-*
 
 NOT_PAX_MPROTECT_SAFE+=	bin/mpv
 

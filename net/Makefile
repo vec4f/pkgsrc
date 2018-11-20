@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1229 2018/10/08 14:48:46 adam Exp $
+# $NetBSD: Makefile,v 1.1233 2018/11/14 15:25:28 hauke Exp $
 #
 
 COMMENT=	Networking tools
@@ -431,6 +431,7 @@ SUBDIR+=	nstx
 SUBDIR+=	ntop
 SUBDIR+=	ntopng
 SUBDIR+=	ntp4
+SUBDIR+=	nyx
 SUBDIR+=	obfs4proxy
 SUBDIR+=	ocaml-ipaddr
 SUBDIR+=	ocamlnet
@@ -440,6 +441,7 @@ SUBDIR+=	oidentd
 SUBDIR+=	oinkmaster
 SUBDIR+=	omniNotify
 SUBDIR+=	omniORB
+SUBDIR+=	onionbalance
 SUBDIR+=	openag
 SUBDIR+=	openconnect
 SUBDIR+=	openh323
@@ -678,7 +680,9 @@ SUBDIR+=	py-ncclient
 SUBDIR+=	py-netaddr
 SUBDIR+=	py-netifaces
 SUBDIR+=	py-netsnmp
+SUBDIR+=	py-nyx
 SUBDIR+=	py-omniORBpy
+SUBDIR+=	py-onionbalance
 SUBDIR+=	py-pcap
 SUBDIR+=	py-portend
 SUBDIR+=	py-ptt
@@ -690,6 +694,7 @@ SUBDIR+=	py-responses
 SUBDIR+=	py-rt
 SUBDIR+=	py-s3cmd
 SUBDIR+=	py-s3transfer
+SUBDIR+=	py-sbws
 SUBDIR+=	py-scp
 SUBDIR+=	py-simplesoap
 SUBDIR+=	py-smb
@@ -706,6 +711,7 @@ SUBDIR+=	py-twisted
 SUBDIR+=	py-twisted-docs
 SUBDIR+=	py-twython
 SUBDIR+=	py-txamqp
+SUBDIR+=	py-txtorcon
 SUBDIR+=	py-xandikos
 SUBDIR+=	py-zeep
 SUBDIR+=	py-zmq
@@ -784,6 +790,7 @@ SUBDIR+=	sendfile
 SUBDIR+=	ser
 SUBDIR+=	sharity-light
 SUBDIR+=	sipcalc
+SUBDIR+=	siproxd
 SUBDIR+=	sipsak
 SUBDIR+=	sitescooper
 SUBDIR+=	slurm

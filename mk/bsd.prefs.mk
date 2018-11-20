@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.398 2018/07/16 19:53:53 maya Exp $
+# $NetBSD: bsd.prefs.mk,v 1.402 2018/11/12 14:22:58 jperkin Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -277,9 +277,8 @@ OS_VARIANT=		SCOOSR6
 .  endif
 
 .elif ${OPSYS} == "Minix"
-LOWER_VENDOR?=		pc
+LOWER_VENDOR?=		unknown
 LOWER_OPSYS:=		${OPSYS:tl}
-LDFLAGS+=		-lcompat_minix -lminlib
 
 .elif !defined(LOWER_OPSYS)
 LOWER_OPSYS:=		${OPSYS:tl}
@@ -329,6 +328,8 @@ OBJECT_FMT?=	a.out
 .elif ${OPSYS} == "FreeBSD"
 OBJECT_FMT?=	ELF
 .elif ${OPSYS} == "DragonFly"
+OBJECT_FMT=	ELF
+.elif ${OPSYS} == "Minix"
 OBJECT_FMT=	ELF
 .elif ${OPSYS} == "MirBSD"
 OBJECT_FMT=	ELF
@@ -763,6 +764,20 @@ _PKGSRC_USE_STACK_CHECK=no
     ${STACK_CHECK_SUPPORTED:Uyes:tl} == "yes" && \
     ${_OPSYS_SUPPORTS_STACK_CHECK:Uno} == "yes"
 _PKGSRC_USE_STACK_CHECK=yes
+.endif
+
+# Enable CTF conversion if the user requested it, the OPSYS supports it, there
+# is a tool for it, and the package supports it.  We also need to explicitly
+# turn on _INSTALL_UNSTRIPPED as conversion is impossible on stripped files.
+#
+.if ${PKGSRC_USE_CTF:Uno:tl} == "yes" && \
+    ${_OPSYS_SUPPORTS_CTF:Uno:tl} == "yes" && \
+    defined(TOOLS_PLATFORM.ctfconvert) && \
+    ${CTF_SUPPORTED:Uyes:tl} == "yes"
+_PKGSRC_USE_CTF=	yes
+_INSTALL_UNSTRIPPED=	# defined
+.else
+_PKGSRC_USE_CTF=	no
 .endif
 
 # Enable cwrappers if not building the wrappers themselves, and if the user has

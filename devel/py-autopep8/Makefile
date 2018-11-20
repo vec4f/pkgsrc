@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2018/09/21 10:46:58 adam Exp $
+# $NetBSD: Makefile,v 1.9 2018/11/13 11:35:28 adam Exp $
 
-DISTNAME=	autopep8-1.4
+DISTNAME=	autopep8-1.4.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=a/autopep8/}
@@ -15,7 +15,8 @@ DEPENDS+=	${PYPKGPREFIX}-codestyle>=2.3:../../devel/py-codestyle
 USE_LANGUAGES=	# none
 
 post-install:
-	cd ${DESTDIR}${PREFIX}/bin && ${MV} autopep8 autopep8-${PYVERSSUFFIX} || ${TRUE}
+	cd ${DESTDIR}${PREFIX}/bin && \
+		${MV} autopep8 autopep8-${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

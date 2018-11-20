@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.299 2018/08/22 09:48:01 wiz Exp $
+# $NetBSD: Makefile,v 1.302 2018/11/14 22:22:42 kleink Exp $
 
 DISTNAME=	gtk+-2.24.32
 PKGNAME=	${DISTNAME:S/gtk/gtk2/}
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtk+/2.24/}
 EXTRACT_SUFX=	.tar.xz
@@ -21,7 +21,7 @@ CONFLICTS+=		gail-[0-9]*
 SUPERSEDES=		gail-[0-9]*
 
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake msgfmt perl pkg-config
+USE_TOOLS+=		ggrep gmake msgfmt perl pkg-config
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 PTHREAD_AUTO_VARS=	yes
@@ -58,13 +58,6 @@ BUILD_DIRS=		. demos/gtk-demo
 CONFIGURE_ARGS.Darwin+=	--disable-visibility
 
 .include "../../mk/bsd.prefs.mk"
-
-# gtk/Makefile.am hardcodes 'grep -o' so require GNU grep on platforms
-# which do not have it.
-.if ${OPSYS} == "SunOS"
-BUILD_DEPENDS+=		grep-[0-9]*:../../textproc/grep
-TOOLS_PATH.grep=	${PREFIX}/bin/ggrep
-.endif
 
 CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""
 

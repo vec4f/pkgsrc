@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2018/10/05 13:30:41 nia Exp $
+# $NetBSD: Makefile,v 1.15 2018/11/12 03:52:01 ryoon Exp $
 
 PKGNAME=	retroarch-${RETROARCH_VERSION}
+PKGREVISION=	1
 DISTNAME=	RetroArch-${RETROARCH_VERSION}
-PKGREVISION=	3
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_GITHUB:=libretro/RetroArch/releases/download/v${RETROARCH_VERSION}/}
 EXTRACT_SUFX=	.tar.xz
@@ -17,6 +17,9 @@ USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config gmake
 
 HAS_CONFIGURE=	yes
+
+# Needed for certain cores, e.g. Dolphin, Reicast.
+NOT_PAX_MPROTECT_SAFE+=	bin/retroarch
 
 CONFIGURE_ARGS+=	--disable-builtinminiupnpc
 CONFIGURE_ARGS+=	--disable-builtinzlib

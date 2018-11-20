@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.55 2018/10/03 09:58:11 adam Exp $
+$NetBSD: distinfo,v 1.60 2018/11/11 21:56:21 adam Exp $
 
-SHA1 (pytest-3.8.2.tar.gz) = 6e28889174cfec8ca42bd470fe6168ca19aa58f9
-RMD160 (pytest-3.8.2.tar.gz) = 394d93f3186b92e10219ebd56a26c9420c4f0ff5
-SHA512 (pytest-3.8.2.tar.gz) = 5420de07ff741f64bcb7fce7bf3b5097cf63be2539c2e694c168bd824ba468ca87cb17be801b72b972ab417da98d1b5473f319afd642bf5c6c0270e3a697d016
-Size (pytest-3.8.2.tar.gz) = 869668 bytes
+SHA1 (pytest-3.10.1.tar.gz) = f5f26c444b347d1dca23f7bd6815f4c79baba1cb
+RMD160 (pytest-3.10.1.tar.gz) = 72615fa1809e8d78786af81487371bb6ec28b52b
+SHA512 (pytest-3.10.1.tar.gz) = 30ff79c0fdcbeef68e1191ff400a20428e391717f06957f554b694b94baaaa565dca01346fe989c3e443c4402f3b2bdbd5564f6303a4447f933fb54cba45628f
+Size (pytest-3.10.1.tar.gz) = 892420 bytes

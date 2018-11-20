@@ -1,4 +1,4 @@
-# $NetBSD: tools.FreeBSD.mk,v 1.44 2017/07/22 18:10:25 maya Exp $
+# $NetBSD: tools.FreeBSD.mk,v 1.47 2018/11/12 14:22:58 jperkin Exp $
 #
 # System-supplied tools for the FreeBSD operating system.
 
@@ -18,6 +18,7 @@ TOOLS_PLATFORM.chown?=		/usr/sbin/chown
 TOOLS_PLATFORM.cmp?=		/usr/bin/cmp
 TOOLS_PLATFORM.cp?=		/bin/cp
 TOOLS_PLATFORM.csh?=		/bin/csh
+TOOLS_PLATFORM.ctfconvert?=	/usr/bin/ctfconvert
 TOOLS_PLATFORM.cut?=		/usr/bin/cut
 TOOLS_PLATFORM.date?=		/bin/date
 TOOLS_PLATFORM.diff?=		/usr/bin/diff
@@ -33,8 +34,12 @@ TOOLS_PLATFORM.fgrep?=		/usr/bin/fgrep
 TOOLS_PLATFORM.file?=		/usr/bin/file
 TOOLS_PLATFORM.find?=		/usr/bin/find
 TOOLS_PLATFORM.flex?=		/usr/bin/lex
+TOOLS_PLATFORM.gegrep?=		/usr/bin/egrep
+TOOLS_PLATFORM.gfgrep?=		/usr/bin/fgrep
+TOOLS_PLATFORM.ggrep?=		/usr/bin/grep
 TOOLS_PLATFORM.grep?=		/usr/bin/grep
 TOOLS_PLATFORM.groff?=		/usr/bin/groff
+TOOLS_PLATFORM.gstrip?=		/usr/bin/strip
 TOOLS_PLATFORM.gunzip?=		/usr/bin/gunzip -f
 TOOLS_PLATFORM.gzcat?=		/usr/bin/gzcat
 TOOLS_PLATFORM.gzip?=		/usr/bin/gzip -nf ${GZIP}

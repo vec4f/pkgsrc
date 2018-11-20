@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.512 2018/09/06 05:52:28 jnemeth Exp $
+# $NetBSD: Makefile,v 1.514 2018/11/11 01:59:57 schmonz Exp $
 #
 
 COMMENT=	Electronic mail utilities
@@ -114,6 +114,7 @@ SUBDIR+=	gnarwl
 SUBDIR+=	gnus
 SUBDIR+=	greetdelay
 SUBDIR+=	grepmail
+SUBDIR+=	greylisting-spp
 SUBDIR+=	heirloom-mailx
 SUBDIR+=	hypermail
 SUBDIR+=	ifile
@@ -303,6 +304,7 @@ SUBDIR+=	qcheck
 SUBDIR+=	qgreylist
 SUBDIR+=	qmHandle
 SUBDIR+=	qmail
+SUBDIR+=	qmail-acceptutils
 SUBDIR+=	qmail-autoresponder
 SUBDIR+=	qmail-conf
 SUBDIR+=	qmail-lint

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2018/09/27 04:24:18 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2018/10/30 09:34:45 triaxx Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
@@ -7,7 +7,7 @@ MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.isc.org/software/bind/
-COMMENT=	Berkeley Internet Name Daemon implementation of DNS, version 9.11
+COMMENT=	Berkeley Internet Name Daemon implementation of DNS, version 9.12
 LICENSE=	mpl-2.0
 
 CONFLICTS+=	host-[0-9]*
@@ -15,7 +15,7 @@ CONFLICTS+=	host-[0-9]*
 MAKE_JOBS_SAFE=	no
 USE_CWRAPPERS=	no
 
-BIND_VERSION=	9.12.2-P2
+BIND_VERSION=	9.12.3
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -26,7 +26,6 @@ BUILD_DEFS+=	BIND_DIR VARBASE
 USE_TOOLS+=		pax perl pkg-config
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
-#CONFIG_SHELL=		sh -x
 
 CONFIGURE_ARGS+=	--with-libtool
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.191 2018/08/22 09:45:05 wiz Exp $
+# $NetBSD: Makefile,v 1.194 2018/11/14 22:21:26 kleink Exp $
 
 DISTNAME=	qemu-3.0.0
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	emulators
 MASTER_SITES=	https://download.qemu.org/
 EXTRACT_SUFX=	.tar.xz

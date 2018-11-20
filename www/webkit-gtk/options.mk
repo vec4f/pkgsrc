@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.12 2018/04/09 08:33:48 wiz Exp $
+# $NetBSD: options.mk,v 1.14 2018/11/05 16:50:48 bsiegert Exp $
 #
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.webkit-gtk
@@ -9,14 +9,19 @@ PLIST_VARS=	introspection
 
 .include "../../mk/bsd.prefs.mk"
 
-# XXX JIT produces invalid code
-# it's also entirely unsupported on powerpc and sparc
-.if empty(MACHINE_PLATFORM:MNetBSD-*-i386) \
- && empty(MACHINE_PLATFORM:MNetBSD-*-x86_64) \
- && empty(MACHINE_PLATFORM:MNetBSD-*-powerpc) \
- && empty(MACHINE_PLATFORM:MNetBSD-*-sparc64) \
- && empty(MACHINE_PLATFORM:MNetBSD-*-sparc) \
- && empty(MACHINE_PLATFORM:MSunOS-*)
+#
+# Platforms that support the webkit-jit option
+#
+WEBKIT_JIT_MACHINE_PLATFORMS+=	Darwin-*-*
+WEBKIT_JIT_MACHINE_PLATFORMS+=	DragonFly-*-*
+WEBKIT_JIT_MACHINE_PLATFORMS+=	FreeBSD-*-x86_64 FreeBSD-*-i386 FreeBSD-*-arm*
+WEBKIT_JIT_MACHINE_PLATFORMS+=	FreeBSD-*-aarch64 FreeBSD-*-mips*
+WEBKIT_JIT_MACHINE_PLATFORMS+=	Linux-*-x86_64 Linux-*-i386 Linux-*-arm*
+WEBKIT_JIT_MACHINE_PLATFORMS+=	Linux-*-aarch64 Linux-*-mips*
+WEBKIT_JIT_MACHINE_PLATFORMS+=	NetBSD-*-x86_64 NetBSD-*-i386 NetBSD-*-arm*
+WEBKIT_JIT_MACHINE_PLATFORMS+=	NetBSD-*-aarch64 NetBSD-*-mips*
+
+.if !empty(WEBKIT_JIT_MACHINE_PLATFORMS:@.PLAT.@${MACHINE_PLATFORM:M${.PLAT.}}@)
 PKG_SUGGESTED_OPTIONS+=	webkit-jit
 .endif
 
@@ -45,7 +50,7 @@ CMAKE_ARGS+=	-DENABLE_WEBGL=OFF
 #
 .if !empty(PKG_OPTIONS:Menchant)
 CMAKE_ARGS+=	-DENABLE_SPELLCHECK=ON
-.include "../../textproc/enchant/buildlink3.mk"
+.include "../../textproc/enchant2/buildlink3.mk"
 .else
 CMAKE_ARGS+=	-DENABLE_SPELLCHECK=OFF
 .endif

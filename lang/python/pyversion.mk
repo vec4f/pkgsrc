@@ -1,4 +1,4 @@
-# $NetBSD: pyversion.mk,v 1.125 2018/10/07 23:56:23 ryoon Exp $
+# $NetBSD: pyversion.mk,v 1.127 2018/11/13 11:57:26 markd Exp $
 
 # This file determines which Python version is used as a dependency for
 # a package.
@@ -176,7 +176,11 @@ BUILDLINK_DEPMETHOD.python?=	build
 .endif
 
 PYTHONBIN=	${LOCALBASE}/bin/python${PYVERSSUFFIX}
+.if exists(${PYTHONBIN}m)
+PYTHONCONFIG=	${LOCALBASE}/bin/python${PYVERSSUFFIX}m-config
+.else
 PYTHONCONFIG=	${LOCALBASE}/bin/python${PYVERSSUFFIX}-config
+.endif
 PY_COMPILE_ALL= \
 	${PYTHONBIN} ${PREFIX}/lib/python${PYVERSSUFFIX}/compileall.py -q
 PY_COMPILE_O_ALL= \
@@ -203,9 +207,10 @@ ALL_ENV+=		PYTHON=${PYTHONBIN}
 # used by FindPythonInterp.cmake and FindPythonLibs.cmake
 CMAKE_ARGS+=		-DPYVERSSUFFIX:STRING=${PYVERSSUFFIX}
 # set this explicitly, as by default it will prefer the built in framework
-CMAKE_ARGS.Darwin+=	-DPYTHON_INCLUDE_DIR:PATH=${BUILDLINK_DIR}/${PYINC}
-CMAKE_ARGS.Darwin+=	-DPYTHON_INCLUDE_PATH:PATH=${BUILDLINK_DIR}/${PYINC}
-CMAKE_ARGS.Darwin+=	-DPYTHON_EXECUTABLE:FILEPATH=${PYTHONBIN}
+# on Darwin
+CMAKE_ARGS+=		-DPYTHON_INCLUDE_DIR:PATH=${BUILDLINK_DIR}/${PYINC}
+CMAKE_ARGS+=		-DPYTHON_INCLUDE_PATH:PATH=${BUILDLINK_DIR}/${PYINC}
+CMAKE_ARGS+=		-DPYTHON_EXECUTABLE:FILEPATH=${PYTHONBIN}
 .endif
 
 .endif	# PYTHON_PYVERSION_MK

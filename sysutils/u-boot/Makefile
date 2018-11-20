@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2018/06/27 14:02:59 thorpej Exp $
+# $NetBSD: Makefile,v 1.8 2018/10/29 09:56:22 jmcneill Exp $
 #
 
 .include "../../sysutils/u-boot/u-boot-version.mk"
@@ -22,6 +22,7 @@ DEPENDS+=	u-boot-chip-[0-9]*:../../sysutils/u-boot-chip
 DEPENDS+=	u-boot-cubieboard2-[0-9]*:../../sysutils/u-boot-cubieboard2
 DEPENDS+=	u-boot-cubieboard4-[0-9]*:../../sysutils/u-boot-cubieboard4
 DEPENDS+=	u-boot-cubietruck-[0-9]*:../../sysutils/u-boot-cubietruck
+DEPENDS+=	u-boot-de0-nanosoc-[0-9]*:../../sysutils/u-boot-de0-nanosoc
 DEPENDS+=	u-boot-hummingbird-a31-[0-9]*:../../sysutils/u-boot-hummingbird-a31
 DEPENDS+=	u-boot-jetson-tk1-[0-9]*:../../sysutils/u-boot-jetson-tk1
 DEPENDS+=	u-boot-jetson-tx1-[0-9]*:../../sysutils/u-boot-jetson-tx1
@@ -30,6 +31,7 @@ DEPENDS+=	u-boot-nanopi-m1-[0-9]*:../../sysutils/u-boot-nanopi-m1
 DEPENDS+=	u-boot-nanopi-neo-plus2-[0-9]*:../../sysutils/u-boot-nanopi-neo-plus2
 DEPENDS+=	u-boot-nanopi-neo-[0-9]*:../../sysutils/u-boot-nanopi-neo
 DEPENDS+=	u-boot-nanopi-neo2-[0-9]*:../../sysutils/u-boot-nanopi-neo2
+DEPENDS+=	u-boot-odroid-xu3-[0-9]*:../../sysutils/u-boot-odroid-xu3
 DEPENDS+=	u-boot-orangepi-2-[0-9]*:../../sysutils/u-boot-orangepi-2
 DEPENDS+=	u-boot-orangepi-one-[0-9]*:../../sysutils/u-boot-orangepi-one
 DEPENDS+=	u-boot-orangepi-plus2e-[0-9]*:../../sysutils/u-boot-orangepi-plus2e

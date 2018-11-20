@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.33 2018/03/12 11:15:33 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2018/11/14 22:56:11 kleink Exp $
 
-PKGREVISION= 1
 .include "../../graphics/cairo/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-/-gobject-/}

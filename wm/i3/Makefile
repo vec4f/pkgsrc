@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2018/08/22 09:47:22 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.27 2018/11/14 22:22:33 kleink Exp $
 
-DISTNAME=	i3-4.13
-PKGREVISION=	3
+DISTNAME=	i3-4.15
+PKGREVISION=	2
 CATEGORIES=	wm
 MASTER_SITES=	https://i3wm.org/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -17,6 +16,8 @@ USE_TOOLS+=	gmake bison lex yacc pkg-config perl:run
 USE_LANGUAGES=	c99
 
 CONFIGURE_ARGS+=--disable-builddir
+
+LDFLAGS.SunOS+=	-lgen -liconv -lsocket
 
 PKG_SYSCONFSUBDIR=	i3
 

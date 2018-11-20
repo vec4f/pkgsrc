@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.46 2018/07/25 15:15:50 bacon Exp $
+# $NetBSD: Makefile,v 1.48 2018/11/15 09:21:24 adam Exp $
 #
 
 COMMENT=	Software for the biological sciences
 
 SUBDIR+=	arka
 SUBDIR+=	azara
+SUBDIR+=	bcftools
 SUBDIR+=	bioperl
 SUBDIR+=	bodr
 SUBDIR+=	bwa
@@ -39,6 +40,7 @@ SUBDIR+=	primer3
 SUBDIR+=	profit
 SUBDIR+=	puzzle
 SUBDIR+=	py-mol
+SUBDIR+=	py-pydicom
 SUBDIR+=	rasmol
 SUBDIR+=	samtools
 SUBDIR+=	sewer

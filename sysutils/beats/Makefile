@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2018/06/12 17:50:27 bsiegert Exp $
+# $NetBSD: Makefile,v 1.33 2018/11/04 18:38:06 bsiegert Exp $
 
 DISTNAME=		beats-6.2.4
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_GITHUB:=elastic/}
 GITHUB_PROJECT=		beats
@@ -17,6 +17,9 @@ USE_TOOLS+=		gmake
 
 GO_DIST_BASE=		${PKGBASE}-${GITHUB_TAG:S/v//}
 GO_SRCPATH=		github.com/elastic/beats
+
+TOOLS_CREATE+=		go
+TOOLS_PATH.go=		${GO}
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -51,6 +54,10 @@ OWN_DIRS+=		${BEATS_DIR} ${BEATS_LOGDIR}
 
 MAKE_ENV+=		GOPATH=${WRKDIR}:${PREFIX}/gopkg
 MAKE_ENV+=		CGO_LDFLAGS="-L${BUILDLINK_PREFIX.libpcap}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.libpcap}/lib"
+
+# The build system defaults to -i which modifies system files!
+MAKE_ENV+=		GOBUILD_FLAGS=
+
 BUILD_TARGET=		#
 
 INSTALLATION_DIRS+=	bin share/examples/beats

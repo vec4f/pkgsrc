@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.4 2018/09/15 03:06:15 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2018/11/07 04:32:32 maya Exp $
 
 GCC_PKGNAME=		gcc8
 .include		"version.mk"
 
 DISTNAME=	gcc-${GCC8_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-${GCC8_DIST_VERSION}
+PKGREVISION=	2
 ## When bumping the PKGREVISION of this package the PKGREVISION of
 ## lang/gcc8-libs needs to be bump to be at least 1 more than the
 ## PKGREVISION of this package!
@@ -122,6 +123,8 @@ MAKE_ENV+=		ac_cv_func_freelocale=no
 MAKE_ENV+=		ac_cv_func_newlocale=no
 MAKE_ENV+=		ac_cv_func_uselocale=no
 .endif
+
+MAKE_ENV.SunOS+=	ac_cv_func_mkostemp=no
 
 CONFIGURE_ARGS.DragonFly+=	--disable-bootstrap
 

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.1 2018/08/15 15:32:11 nia Exp $
+# $NetBSD: Makefile,v 1.3 2018/11/18 11:54:10 nia Exp $
 
-DISTNAME=	libretro-sameboy-0.11.1
+DISTNAME=	libretro-sameboy-0.11.2
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_GITHUB:=LIJI32/}
 GITHUB_PROJECT=	SameBoy
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	nia@NetBSD.org
 HOMEPAGE=	https://docs.libretro.com/library/sameboy/
 COMMENT=	Libretro core based on the SameBoy Game Boy/Game Boy Color emulator
 LICENSE=	mit
