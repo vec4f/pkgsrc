@@ -1,4 +1,4 @@
-# $NetBSD: hacks.mk,v 1.20 2018/11/20 09:07:06 maya Exp $
+# $NetBSD: hacks.mk,v 1.22 2018/11/21 09:37:57 maya Exp $
 
 .if !defined(PERL5_HACKS_MK)
 PERL5_HACKS_MK=	defined
@@ -20,6 +20,16 @@ PERL5_HACKS_MK=	defined
 .if ${OPSYS} == "NetBSD" && ${MACHINE_ARCH} == "m68k"
 PKG_HACKS+=		m68k-codegen
 BUILDLINK_TRANSFORM+=	opt:-O[0-9]*:-Os
+.endif
+
+### [ Wed Nov 21 11:35:48 IST 2018 : maya ]
+### Alignment fault on perl 5.28.0
+### Might be specific to GCC 4.9
+### https://rt.perl.org/Public/Bug/Display.html?id=133495
+### See PR pkg/53568
+.if ${OPSYS} == "SunOS" && !empty(MACHINE_ARCH:Msparc*)
+PKG_HACKS+=		sun-sparc-alignment-fault
+BUILDLINK_TRANSFORM+=	opt:-O3:-O2
 .endif
 
 ### [Fri Jan 31 11:09:04 CST 2014 : schnoebe]
