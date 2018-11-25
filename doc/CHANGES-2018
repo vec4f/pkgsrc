@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2018,v 1.4841 2018/11/24 19:14:56 nia Exp $
+$NetBSD: CHANGES-2018,v 1.4854 2018/11/25 17:03:42 gdt Exp $
 
 Changes to the packages collection and infrastructure in 2018:
 
@@ -6765,3 +6765,18 @@ Changes to the packages collection and infrastructure in 2018:
 	Updated mail/qmail-run to 20181124.1 [schmonz 2018-11-24]
 	Updated editors/abiword to 3.0.2 [nia 2018-11-24]
 	Updated editors/abiword-plugins to 3.0.2 [nia 2018-11-24]
+	Updated lang/oracle-jre8 to 8.0.191 [ryoon 2018-11-25]
+	Updated lang/oracle-jdk8 to 8.0.191 [ryoon 2018-11-25]
+	Updated devel/p5-Test-Trap to 0.3.4 [wen 2018-11-25]
+	Updated devel/p5-Test-Script to 1.25 [wen 2018-11-25]
+	Updated devel/p5-Test-POE-Client-TCP to 1.26 [wen 2018-11-25]
+	Updated devel/p5-Test-HTTP-LocalServer to 0.64 [wen 2018-11-25]
+	Updated devel/p5-Specio to 0.43 [wen 2018-11-25]
+	Updated devel/p5-Proc-Pidfile to 1.09 [wen 2018-11-25]
+	Updated devel/p5-prefork to 1.05 [wen 2018-11-25]
+	Updated devel/p5-PPIx-Regexp to 0.063 [wen 2018-11-25]
+	Updated devel/p5-PerlX-Maybe to 1.201 [wen 2018-11-25]
+	Updated devel/p5-Perl-Tidy to 20181120 [wen 2018-11-25]
+	Updated security/py-cryptodome to 3.7.1 [adam 2018-11-25]
+	Updated graphics/py-graphviz to 0.10.1 [adam 2018-11-25]
+	Updated devel/libusb1 to 1.0.22 [gdt 2018-11-25]
