@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.18624 2018/11/27 12:13:34 maya Exp $
+$NetBSD: TODO,v 1.18628 2018/11/29 13:20:38 taca Exp $
 
 Suggested new packages
 ======================
@@ -488,7 +488,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o cjk-lyx-1.4.4
 	o classpath-0.99
 	o classpath-gui-0.99
-	o claws-mail-3.17.0
+	o clamav-0.100.2
 	o clawsker-0.7.13
 	o clojure-1.8.0
 	o clusterssh-4.05
@@ -959,9 +959,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o libbpg-0.9.6
 	o libburn-1.4.0
 	o libcaca-0.99.19
-	o libcanberra-0.28 [drops support for GNOME2; don't update for now -- wiz]
 	o libcarddav-14.0.4
-	o libcares-1.15.0
 	o libconfuse-3.1
 	o libextractor-1.2 [requires shm_open()]
 	o libfilezilla-0.13.1
@@ -1478,7 +1476,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o virtuoso-7.2.0p1
 	o visual-regexp-3.1
 	o vlc-3.0.1
-	o vm-8.0.7.522 [pkg/37707]
 	o vnc-4.0 [http://www.realvnc.com/download.html|pkgsrc-wip]
 	o vnstat-1.15
 	o vtk-5.10.1
