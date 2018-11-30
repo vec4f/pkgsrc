@@ -204,7 +204,7 @@ BUILDLINK_DEPMETHOD.clang=	build
 .include "../../lang/clang/buildlink3.mk"
 BUILDLINK_API_DEPENDS.rust+=	rust>=1.23.0
 BUILDLINK_DEPMETHOD.rust=	build
-.include "../../joyent/rust129/buildlink3.mk"
+.include "../../lang/rust/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libvpx+=	libvpx>=1.3.0
 .include "../../multimedia/libvpx/buildlink3.mk"
 .include "../../net/libIDL/buildlink3.mk"
