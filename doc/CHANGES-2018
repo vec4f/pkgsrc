@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2018,v 1.5052 2018/12/04 17:02:09 schmonz Exp $
+$NetBSD: CHANGES-2018,v 1.5062 2018/12/06 00:08:07 schmonz Exp $
 
 Changes to the packages collection and infrastructure in 2018:
 
@@ -7028,3 +7028,17 @@ Changes to the packages collection and infrastructure in 2018:
 	Updated converters/py-confusable_homoglyphs to 3.2.0 [adam 2018-12-04]
 	Updated mail/qmail to 1.03nb42 [schmonz 2018-12-04]
 	Updated mail/qmail-run to 20181204 [schmonz 2018-12-04]
+	Updated security/libssh to 0.85nb1 [wiz 2018-12-05]
+	Updated biology/py-pydicom to 1.2.1 [bsiegert 2018-12-05]
+	Updated fonts/py-fonttools to 3.33.0 [adam 2018-12-05]
+	Updated www/py-django-admin-rangefilter to 0.3.10 [adam 2018-12-05]
+	Updated devel/py-docstyle to 3.0.0 [adam 2018-12-05]
+	Updated time/py-ligotimegps to 2.0.0 [adam 2018-12-05]
+	Updated devel/py-filelock to 3.0.10 [adam 2018-12-05]
+	Updated devel/py-libmc to 1.6.0 [adam 2018-12-05]
+	Updated chat/quirc to 0.9.84nb10 [scole 2018-12-05]
+	Updated print/cups-filters to 1.21.4 [leot 2018-12-05]
+	Added pkgtools/rc.d-boot version 20181205 [schmonz 2018-12-05]
+	Updated print/cups-filters to 1.21.5 [leot 2018-12-05]
+	Updated net/sslh to 1.20 [wiz 2018-12-05]
+	Added mail/qmail-spp-spf version 20091020 [schmonz 2018-12-06]
