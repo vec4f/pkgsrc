@@ -1,4 +1,4 @@
-# $NetBSD: license.mk,v 1.89 2018/11/30 18:38:19 rillig Exp $
+# $NetBSD: license.mk,v 1.91 2018/12/08 17:08:22 triaxx Exp $
 #
 # This file handles everything about the LICENSE variable. It is
 # included automatically by bsd.pkg.mk.
