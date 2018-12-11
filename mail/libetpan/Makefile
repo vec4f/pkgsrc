@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.51 2018/08/16 18:54:30 adam Exp $
+# $NetBSD: Makefile,v 1.53 2018/12/10 15:18:58 maya Exp $
 
-DISTNAME=	libetpan-1.8
-PKGREVISION=	4
+DISTNAME=	libetpan-1.9.1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_GITHUB:=dinhviethoa/}
 EXTRACT_USING=	bsdtar
@@ -17,6 +16,7 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 MAKE_JOBS_SAFE=		no
 USE_TOOLS+=		autoconf automake
+TEST_TARGET=		check
 
 pre-configure:
 	cd ${WRKSRC} && \

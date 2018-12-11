@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.18697 2018/12/10 12:56:38 wiz Exp $
+$NetBSD: TODO,v 1.18701 2018/12/10 23:04:22 wiz Exp $
 
 Suggested new packages
 ======================
@@ -469,6 +469,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o cal3d-0.11.0
 	o calc-2.11.10.1
 	o calcoo-2.1.0
+	o calibre-3.35.0
 	o calligra-3.0.1 [in wip; koffice successor]
 	o cardboard-schedule-1.14c [at http://www.bright-green.com/downloads/]
 	o catdoc-1.1
@@ -1155,7 +1156,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o php-tiki6-6.14
 	o php-tt-rss-1.15.3
 	o php-tt-rss-fever-plugin-1.4.7
-	o phpmyadmin-4.8
 	o phraseanet-3.8.6
 	o phraseanet-indexer-3.8.6
 	o picocom-3.0
@@ -1215,10 +1215,8 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o py-newt-0.52.20
 	o py-omniORBpy-3.7
 	o py-pendrell-0.3.7
-	o py-postgresql-5.0.6
 	o py-ptt-1.10.2
 	o py-pycountry-1.20
-	o py-simplejson-3.16.1
 	o py-simpletal-5.1
 	o py-spf-2.0.12t
 	o py-sybase-0.37
@@ -1296,6 +1294,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o sge-8.1.8
 	o sharity-3.7
 	o shc-3.8.9b
+	o shine-3.1.1
 	o shotwell-0.27.2
 	o showfont-1.0.4 [wip]
 	o siege-3.1.4
@@ -1348,10 +1347,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o swapd-1.0.5
 	o swath-0.5.2
 	o swfdec-gnome-2.30.1
-	o swi-prolog-7.3.14
-	o swi-prolog-jpl-7.1.37
-	o swi-prolog-lite-7.1.37
-	o swi-prolog-packages-7.1.37
 	o swt-4.5
 	o sympa-6.2.14
 	o sysinfo-4.2.2
