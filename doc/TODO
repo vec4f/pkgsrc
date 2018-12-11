@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.18701 2018/12/10 23:04:22 wiz Exp $
+$NetBSD: TODO,v 1.18704 2018/12/11 14:17:39 tm Exp $
 
 Suggested new packages
 ======================
@@ -377,7 +377,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o adms-2.3.5
 	o adocman-0.13
 	o adodb-5.20.7 [security]
-	o adplug-2.2.1
 	o aegis-4.25
 	o aewm++-1.1.5
 	o afbinit-1.0.1
@@ -1064,7 +1063,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o munin-node-1.4.6
 	o munin-server-1.4.6
 	o muse-0.9.2
-	o musicpd-0.21.3
 	o myodbc-5.3.4
 	o mysql-server-8.0.13
 	o mysql-workbench-6.3
@@ -1147,7 +1145,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
 	o php-memcache-3.0.8
 	o php-mrbs-1.5.0
 	o php-orangehrm-3.3.1
-	o php-pdflib-3.0.4 (require pdflib 7 or later)
 	o php-phrasea2-3.8.6 (php-phrasea-3.8.6?)
 	o php-pthread-3.1.6
 	o php-pthreads-3.1.6
