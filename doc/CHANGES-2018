@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2018,v 1.5143 2018/12/11 15:31:10 abs Exp $
+$NetBSD: CHANGES-2018,v 1.5161 2018/12/12 19:08:56 bsiegert Exp $
 
 Changes to the packages collection and infrastructure in 2018:
 
@@ -7162,3 +7162,24 @@ Changes to the packages collection and infrastructure in 2018:
 	Updated www/midori to 7.0 [bsiegert 2018-12-11]
 	Updated print/php-pdflib to 4.1.2 [tm 2018-12-11]
 	Updated databases/sql-workbench to 124 [abs 2018-12-11]
+	Updated net/unbound to 1.8.3 [he 2018-12-11]
+	Updated mail/qmail-run to 20181211 [schmonz 2018-12-11]
+	Updated mail/qmail-run to 20181211.1 [schmonz 2018-12-12]
+	Updated pkgtools/rc.d-boot to 20181211 [schmonz 2018-12-12]
+	Updated net/hub to 2.6.1 [leot 2018-12-12]
+	Updated www/curl to 7.63.0 [leot 2018-12-12]
+	Updated devel/creduce to 2.8.0nb2 [adam 2018-12-12]
+	Updated textproc/oniguruma to 6.9.1 [adam 2018-12-12]
+	Updated time/wmmoonclock to 1.29 [pho 2018-12-12]
+	Updated net/youtube-dl to 20181209 [leot 2018-12-12]
+	Updated devel/nss to 3.41 [ryoon 2018-12-12]
+	Updated www/firefox to 64.0 [ryoon 2018-12-12]
+	Updated www/firefox-l10n to 64.0 [ryoon 2018-12-12]
+	Updated lang/openjdk8 to 1.8.192 [ryoon 2018-12-12]
+	Updated www/hugo to 0.52 [ryoon 2018-12-12]
+	Updated graphics/ImageMagick to 7.0.8.16 [bsiegert 2018-12-12]
+	Updated emulators/qemu to 3.1.0 [adam 2018-12-12]
+	Updated lang/nodejs to 10.14.2 [adam 2018-12-12]
+	Updated emulators/fuse-emulator to 1.5.7 [adam 2018-12-12]
+	Updated security/gpgme to 1.12.0 [adam 2018-12-12]
+	Updated x11/fox to 1.6.57 [bsiegert 2018-12-12]
