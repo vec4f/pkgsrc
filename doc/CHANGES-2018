@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2018,v 1.5266 2018/12/17 19:46:16 jperkin Exp $
+$NetBSD: CHANGES-2018,v 1.5279 2018/12/18 17:08:39 nia Exp $
 
 Changes to the packages collection and infrastructure in 2018:
 
@@ -7365,3 +7365,19 @@ Changes to the packages collection and infrastructure in 2018:
 	Updated devel/py-python-slugify to 1.2.6 [taca 2018-12-17]
 	Updated devel/transifex-client to 0.13.5 [taca 2018-12-17]
 	Updated textproc/ruby-xpath to 3.2.0 [jperkin 2018-12-17]
+	Added sysutils/nnn version 2.1 [bsiegert 2018-12-17]
+	Updated emulators/libretro-snes9x to 1.58 [nia 2018-12-18]
+	Updated emulators/libretro-reicast to 20181213 [nia 2018-12-18]
+	Updated math/z3 to 4.8.3 [kamil 2018-12-18]
+	Updated math/py-z3 to 4.8.3 [kamil 2018-12-18]
+	Updated devel/nasm to 2.14 [adam 2018-12-18]
+	Updated x11/qt5 to 5.12.0 [adam 2018-12-18]
+	Updated net/py-responses to 0.10.5 [adam 2018-12-18]
+	Updated devel/py-typed-ast to 1.1.1 [adam 2018-12-18]
+	Updated devel/py-dogpile-cache to 0.7.1 [adam 2018-12-18]
+	Updated databases/py-peewee to 3.8.0 [adam 2018-12-18]
+	Updated www/py-pylint-django to 2.0.5 [adam 2018-12-18]
+	Updated archivers/py-lz4 to 2.1.5 [adam 2018-12-18]
+	Added emulators/libretro-beetle-psx-hw version 20180808 [nia 2018-12-18]
+	Updated x11/x11vnc to 0.9.15 [tnn 2018-12-18]
+	Updated emulators/mednafen to 1.21.3 [nia 2018-12-18]
