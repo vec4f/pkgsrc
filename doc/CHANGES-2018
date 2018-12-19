@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2018,v 1.5279 2018/12/18 17:08:39 nia Exp $
+$NetBSD: CHANGES-2018,v 1.5285 2018/12/19 17:12:53 bsiegert Exp $
 
 Changes to the packages collection and infrastructure in 2018:
 
@@ -7381,3 +7381,10 @@ Changes to the packages collection and infrastructure in 2018:
 	Added emulators/libretro-beetle-psx-hw version 20180808 [nia 2018-12-18]
 	Updated x11/x11vnc to 0.9.15 [tnn 2018-12-18]
 	Updated emulators/mednafen to 1.21.3 [nia 2018-12-18]
+	Updated net/youtube-dl to 20181217 [leot 2018-12-18]
+	Updated net/youtube-dl to 20181217 [leot 2018-12-18]
+	Updated misc/libreoffice to 6.1.4.2 [ryoon 2018-12-19]
+	Updated devel/fossil to 2.7 [bsiegert 2018-12-19]
+	Updated net/unifi to 5.9.29 [tnn 2018-12-19]
+	Removed lang/cbindgen successor devel/cbindgen [tnn 2018-12-19]
+	Updated lang/go111 to 1.11.4 [bsiegert 2018-12-19]
