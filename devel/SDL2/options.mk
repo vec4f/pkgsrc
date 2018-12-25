@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.8 2018/12/23 14:27:15 nia Exp $
+# $NetBSD: options.mk,v 1.10 2018/12/24 16:25:30 nia Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.SDL2
 PKG_OPTIONS_REQUIRED_GROUPS=	gl
@@ -35,6 +35,8 @@ CONFIGURE_ARGS+=	--disable-dbus
 
 .if !empty(PKG_OPTIONS:Mesound)
 .include "../../audio/esound/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-esd
 .endif
 
 .if !empty(PKG_OPTIONS:Mnas)
@@ -76,16 +78,10 @@ CONFIGURE_ARGS+=	--disable-x11-shared
 
 .if !empty(PKG_OPTIONS:Mrpi)
 LOWER_VENDOR=		raspberry
-# fails to produce shared libraries
-# try standard GLES instead
-CONFIGURE_ARGS+=	--disable-video-rpi
-CONFIGURE_ARGS+=	--enable-video-opengles
-CONFIGURE_ARGS+=	--enable-video-opengles1
-CONFIGURE_ARGS+=	--enable-video-opengles2
-SUBST_CLASSES+=		gles
-SUBST_STAGE.gles=	pre-configure
-SUBST_MESSAGE.gles=	Fixing name of GLES library.
-SUBST_FILES.gles=	src/video/SDL_egl.c
-SUBST_SED.gles+=	-e 's/libGLESv2.so.2/libGLESv2.so/g'
+SUBST_CLASSES+=		vc                                             
+SUBST_STAGE.vc=		pre-configure                                  
+SUBST_MESSAGE.vc=	Fixing path to VideoCore libraries.                    
+SUBST_FILES.vc=		configure                                      
+SUBST_SED.vc+=		-e "s;/opt/vc;${PREFIX};g"
 .include "../../misc/raspberrypi-userland/buildlink3.mk"
 .endif
