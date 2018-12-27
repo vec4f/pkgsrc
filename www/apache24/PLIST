@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.26 2018/09/24 07:37:47 adam Exp $
+@comment $NetBSD$
 bin/ab
 bin/apxs
 bin/dbmmanage
@@ -150,6 +150,7 @@ lib/httpd/mod_proxy_fcgi.so
 lib/httpd/mod_proxy_fdpass.so
 lib/httpd/mod_proxy_ftp.so
 lib/httpd/mod_proxy_hcheck.so
+lib/httpd/mod_proxy_html.so
 lib/httpd/mod_proxy_http.so
 lib/httpd/mod_proxy_scgi.so
 lib/httpd/mod_proxy_uwsgi.so
@@ -183,6 +184,7 @@ lib/httpd/mod_usertrack.so
 lib/httpd/mod_version.so
 lib/httpd/mod_vhost_alias.so
 lib/httpd/mod_watchdog.so
+lib/httpd/mod_xml2enc.so
 libexec/cgi-bin/printenv
 libexec/cgi-bin/printenv.vbs
 libexec/cgi-bin/printenv.wsf

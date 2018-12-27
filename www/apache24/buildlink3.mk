@@ -29,6 +29,7 @@ CONFIGURE_ARGS+=	--with-apxs2=${APXS:Q}
 
 .include "../../devel/apr/buildlink3.mk"
 .include "../../devel/apr-util/buildlink3.mk"
+.include "../../textproc/libxml2/buildlink3.mk"
 .endif # APACHE_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-apache
