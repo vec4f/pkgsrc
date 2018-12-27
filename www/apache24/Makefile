@@ -30,6 +30,7 @@ CONFIGURE_ARGS+=	--enable-mods-shared=all
 CONFIGURE_ARGS+=	--enable-so
 CONFIGURE_ARGS+=	--with-apr=${BUILDLINK_PREFIX.apr}
 CONFIGURE_ARGS+=	--with-apr-util=${BUILDLINK_PREFIX.apr-util}
+CONFIGURE_ARGS+=	--with-libxml2=${BUILDLINK_PREFIX.libxml2}
 CONFIGURE_ARGS+=	--with-port=80
 CONFIGURE_ENV+=		perlbin=${PERL5:Q}
 CONFIGURE_ENV+=		ac_cv_path_RSYNC=/nonexistent
@@ -50,11 +51,12 @@ BUILDLINK_API_DEPENDS.apr-util+=	apr-util>=1.5.3
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
+.include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 
-CONFIGURE_ARGS+=	--disable-xml2enc
-CONFIGURE_ARGS+=	--disable-proxy-html
+CONFIGURE_ARGS+=	--enable-xml2enc
+CONFIGURE_ARGS+=	--enable-proxy-html
 CONFIGURE_ARGS+=	--enable-proxy-fdpass
 
 DFLT_APACHE_MODULES+=	all
